@@ -1,0 +1,78 @@
+{
+  "scale": 1.11114,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    132,
+    92,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\electric\\master-baby.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        132,
+        84
+      ],
+      "output_size": [
+        147,
+        93
+      ],
+      "paste_position": [
+        22,
+        84
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        132,
+        98
+      ],
+      "output_size": [
+        147,
+        109
+      ],
+      "paste_position": [
+        22,
+        24
+      ],
+      "target_baseline_y": 132
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        102,
+        68
+      ],
+      "output_size": [
+        113,
+        76
+      ],
+      "paste_position": [
+        39,
+        17
+      ],
+      "target_baseline_y": 92
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        129,
+        86
+      ],
+      "output_size": [
+        143,
+        96
+      ],
+      "paste_position": [
+        24,
+        81
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

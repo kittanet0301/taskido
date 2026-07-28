@@ -6,8 +6,18 @@ import { dirname } from 'path'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 export const repoRoot = join(__dirname, '..')
 
-/** POC species using the creature sprite pipeline. */
-export const CREATURE_SPECIES = ['garden', 'blaze-crest', 'crag-shell', 'tide-fin', 'volt-wing']
+/** Production roster promoted from assets/creature-prototypes. */
+export const CREATURE_SPECIES = [
+  'neutral',
+  'fire',
+  'grass',
+  'ground',
+  'electric',
+  'water',
+  'ice',
+  'dragon',
+  'dark'
+]
 
 /** Clips per stage. Keys match folder names under assets/creatures/{species}/ */
 export const STAGE_CLIPS = {
@@ -79,22 +89,16 @@ export function cropSettingsForStage(stage) {
   return stage === 'adult' ? ADULT_CROP_SETTINGS : CROP_SETTINGS
 }
 
-/** Per-species chroma override (green creatures cannot use green key). */
-export const SPECIES_CHROMA_KEY = {
-  garden: 'magenta',
-  'blaze-crest': 'magenta',
-  'crag-shell': 'magenta',
-  'tide-fin': 'magenta',
-  'volt-wing': 'magenta'
-}
+/** Raw generation always uses the roster-wide #FF00FF contract. */
+export const SPECIES_CHROMA_KEY = Object.fromEntries(
+  CREATURE_SPECIES.map((species) => [species, 'magenta'])
+)
 
 export function chromaKeyForSpecies(species) {
   return SPECIES_CHROMA_KEY[species] ?? CROP_SETTINGS.chromaKey
 }
 
-const SPECIES_BOARD_FILES = {
-  garden: 'garden-species-board.png'
-}
+const SPECIES_BOARD_FILES = {}
 
 export function spriteOutputDir(species, stage, clip) {
   return join(repoRoot, 'sprite-output', species, stage, clip)
@@ -108,15 +112,15 @@ export function masterReferencePath(species, stage = 'baby') {
   return join(repoRoot, 'sprite-output', species, `master-${stage}.png`)
 }
 
-export function masterAdultRawPath(species = 'garden') {
+export function masterAdultRawPath(species = 'neutral') {
   return join(repoRoot, 'assets', 'raw-creatures', species, 'master-adult.png')
 }
 
-export function masterAdultPlanPath(species = 'garden') {
+export function masterAdultPlanPath(species = 'neutral') {
   return join(repoRoot, 'sprite-output', species, 'master-adult-plan.json')
 }
 
-export function speciesBoardPath(species = 'garden') {
+export function speciesBoardPath(species = 'neutral') {
   const file = SPECIES_BOARD_FILES[species] ?? `${species}-species-board.png`
   return join(repoRoot, 'assets', 'new', file)
 }

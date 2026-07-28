@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Ice Pachyrhinosaurus body-only hurt animation
+Create exactly four one-shot reaction frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing pale ice-blue baby Pachyrhinosaurus with huge glossy eye, solid rounded nose boss, attached translucent crystal frill spikes, snowflake markings, four short legs and short tail.
+Frames: neutral alert, flinch backward with eyes squeezed, low recoil while staying grounded, recovery near neutral. Motion is body acting only.
+Hard-edged polished 16-bit pixel art, limited ice-blue/white palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, impact star, snow, frost cloud, shards, sparkles, mist, particles, text, UI, watermark, guides, grid lines or separators. No wound, turn, crop, detached crystals, extra/missing limbs. Full nose, frill crystals, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

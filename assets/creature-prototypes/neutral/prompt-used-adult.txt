@@ -1,0 +1,9 @@
+Use case: stylized-concept
+Asset type: Taskino production creature evolution master, single adult sprite source
+Input images: Image 1 is the exact Baby Stegosaurus identity, palette, markings, face-family, pixel density, outline weight, lighting direction, and 16-bit pixel-art style reference.
+Primary request: Create the Adult evolution of this same neutral-element Stegosaurus. It must clearly be the same lineage, now mature and sturdier: longer body and tail, stronger legs, slightly larger classic back plates and tail spikes, confident but friendly expression. Preserve the natural olive-green and warm amber palette and mottled markings. No magic or elemental effects.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background, one uniform color only.
+Style/medium: authentic hand-pixeled 16-bit pixel art, limited palette, crisp hard pixel clusters, consistent dark outline, no antialiasing, no smooth vector curves, no painterly texture.
+Composition/framing: exactly one full-body character, strict side view facing left, neutral grounded standing pose. Centered in a square 1024x1024 canvas. The complete silhouette fills about 68-72% of the safe width/height as anatomy permits. Feet share one level baseline. Leave generous magenta margin on all four sides for horns, plates, tail and feet.
+Lighting/mood: same upper-left lighting direction as Image 1; cute readable game-creature design, mature rather than baby-proportioned.
+Constraints: use the image just shown as the visual reference; preserve lineage markers and sprite style while changing only age progression and mature proportions. Entire creature fully visible. One creature only. No frame, border, cell, text, label, UI, watermark, cast shadow, ground shadow, floor plane, reflection, scenery, egg, extra pose, or floating detached effect. No body part may touch or cross the canvas edge. Do not use #FF00FF anywhere inside the creature.

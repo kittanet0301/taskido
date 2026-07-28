@@ -32,7 +32,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 function parseArgs(argv) {
   const options = {
-    species: 'garden',
+    species: 'neutral',
     command: 'all',
     stages: '',
     reference: ''
@@ -622,7 +622,7 @@ function main() {
   npm run creature:batch -- all
 
 Options:
-  --species garden
+  --species neutral
   --stages egg,baby,adult`)
     process.exit(0)
   }

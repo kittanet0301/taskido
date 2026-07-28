@@ -1,0 +1,8 @@
+Use case: stylized-concept
+Asset type: Baby Grass Brachiosaurus body-only bite animation
+Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks scale, centered torso root, feet line and padding.
+Preserve strict left-facing baby Brachiosaurus, lime-green skin, cream long neck/belly, dark vine curls, attached leafy scales/head sprout, friendly eye, four legs, curled tail, outline and pixel style.
+Frames: 1 wind-up with upper neck curving back slightly, jaw closed; 2 modest open bite with only head and upper neck reaching left, small clean teeth, torso fixed; 3 snap with jaw closed and head dipping slightly; 4 recovery near neutral. Keep the long lower neck, torso, pelvis and all feet rooted; bite is compact neck/head motion, never a lunge.
+Polished hard-edged 16-bit pixel art on perfectly flat #FF00FF, no antialiasing, shadow, floor, gradient or texture.
+Same anatomy scale; no target, food, blood, saliva, detached leaves/vines/pollen, slash, impact, dust or particles. No whole-body translation, pounce, jump, turn, extra/missing legs. Full sprout, neck, jaw, tail, leaves and feet stay within the central 70% envelope. No text, UI, watermark, borders, guides, grid lines or separators.
+Create a clean production raw sprite animation sheet for Taskino.

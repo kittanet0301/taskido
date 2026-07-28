@@ -1,0 +1,78 @@
+{
+  "scale": 1.185187,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    140,
+    108,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\fire\\master-baby.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        119,
+        73
+      ],
+      "output_size": [
+        141,
+        87
+      ],
+      "paste_position": [
+        25,
+        90
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        119,
+        86
+      ],
+      "output_size": [
+        141,
+        102
+      ],
+      "paste_position": [
+        25,
+        39
+      ],
+      "target_baseline_y": 140
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        109,
+        84
+      ],
+      "output_size": [
+        129,
+        100
+      ],
+      "paste_position": [
+        31,
+        9
+      ],
+      "target_baseline_y": 108
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        118,
+        68
+      ],
+      "output_size": [
+        140,
+        81
+      ],
+      "paste_position": [
+        26,
+        96
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

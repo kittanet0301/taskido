@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Electric Parasaurolophus body-only jump animation
+Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks identity, yellow/cobalt palette, attached lightning crest and proportions. Preserve left-facing baby Parasaurolophus, blue back spikes, forearms, two hind legs and long tail.
+Frames: grounded anticipation crouch with crest angled safely; rising airborne with hind feet tucked; apex compact pose with crest and tail inside cell; grounded landing/recovery near neutral. Author pose only and center every subject at consistent torso scale; deterministic processing applies vertical trajectory.
+Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, grid/separators/guides, text, UI, watermark, sparks, bolts, glow, dust, wind streaks or particles. No turn, crop, detached crest, extra/missing limbs. Full crest, snout, tail, spikes and feet inside generous padding. Clean production raw animation sheet for Taskino.

@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Electric Parasaurolophus body-only bite animation
+Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing baby Parasaurolophus, yellow skin, cobalt lightning markings, attached lightning crest, blue back spikes, forearms, two hind legs and long tail.
+Frames: closed-jaw wind-up with head slightly back; modest open bite with small clean teeth and head reaching left; snap closed with head dip; recovery near neutral. Keep torso/pelvis and hind feet rooted; compact head/neck motion only, never a lunge.
+Hard-edged polished 16-bit pixel art, limited yellow/cobalt palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, target, food, blood, saliva, sparks, bolts, glow, slash, impact, dust, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached crest, extra/missing limbs. Full crest, jaw, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

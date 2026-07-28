@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\grass\\animations\\baby\\idle",
+  "prefix": "idle",
+  "playback": "loop",
+  "baseline_mode": "shared",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.009569,
+  "loop_first_last_identity_match": false,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.016304,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        34,
+        42,
+        157,
+        177
+      ],
+      "margins": {
+        "left": 34,
+        "top": 42,
+        "right": 35,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        34,
+        39,
+        158,
+        177
+      ],
+      "margins": {
+        "left": 34,
+        "top": 39,
+        "right": 34,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        33,
+        42,
+        159,
+        177
+      ],
+      "margins": {
+        "left": 33,
+        "top": 42,
+        "right": 33,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        35,
+        42,
+        156,
+        177
+      ],
+      "margins": {
+        "left": 35,
+        "top": 42,
+        "right": 36,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

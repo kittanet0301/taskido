@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\neutral\\animations\\egg\\move",
+  "prefix": "move",
+  "frame_count": 6,
+  "shared_baseline_y": 176,
+  "body_height_cv": 0.00846,
+  "loop_first_last_identity_match": false,
+  "final_identity_reference_match": null,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        39,
+        16,
+        152,
+        177
+      ],
+      "margins": {
+        "left": 39,
+        "top": 16,
+        "right": 40,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        40,
+        18,
+        152,
+        177
+      ],
+      "margins": {
+        "left": 40,
+        "top": 18,
+        "right": 40,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        39,
+        17,
+        152,
+        177
+      ],
+      "margins": {
+        "left": 39,
+        "top": 17,
+        "right": 40,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        41,
+        19,
+        150,
+        177
+      ],
+      "margins": {
+        "left": 41,
+        "top": 19,
+        "right": 42,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 5,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        41,
+        20,
+        150,
+        177
+      ],
+      "margins": {
+        "left": 41,
+        "top": 20,
+        "right": 42,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 6,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        41,
+        19,
+        150,
+        177
+      ],
+      "margins": {
+        "left": 41,
+        "top": 19,
+        "right": 42,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

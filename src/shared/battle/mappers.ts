@@ -6,7 +6,7 @@ import type {
   BattleTurn
 } from './types'
 import type { Gender, PetData, Stage } from '../types'
-import { normalizePetSpecies } from '../dinoCharacters'
+import { normalizePetSpecies } from '../creatureCharacters'
 import { normalizePetData } from '../petNormalize'
 
 function str(v: unknown): string {

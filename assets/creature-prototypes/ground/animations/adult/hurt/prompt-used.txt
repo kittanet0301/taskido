@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Ground Ankylosaurus body-only hurt animation
+Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks adult identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing broad Ankylosaurus, ochre skin, massive layered stone armor, side spikes, four sturdy legs and large rock club tail.
+Frames: neutral brace; compact flinch with head tucked and eyes squeezed; deepest armored crouch with knees bent and club pulled inward; recovery near neutral. Keep the heavy torso centered and at least two feet grounded on the same line. Hurt reads only through body pose.
+Hard-edged polished 16-bit pixel art, limited earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, cracks, falling rocks, blood, wounds, slash, hit flash, stars, dust, debris, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, armor mutation or extra/missing legs. Full snout, armor, spikes, club and feet inside generous padding. Clean production raw animation sheet for Taskino.

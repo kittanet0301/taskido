@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Dragon Tyrannosaurus body-only hurt animation
+Create exactly four one-shot reaction frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks adult scale, torso root, common feet line and padding. Preserve strict left-facing muscular red adult Tyrannosaurus anatomy, large toothed head, tiny two-finger arms, two powerful legs, long tail, attached golden brow horns, cheek scales and dorsal dragon ridges; no wings.
+Frames: neutral alert, flinch backward with eyes squeezed, low recoil while grounded, recovery near neutral. Motion is body acting only.
+Hard-edged polished 16-bit pixel art, limited red/crimson/gold palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, impact star, fire, smoke, embers, aura, sparks, particles, text, UI, watermark, guides, grid lines or separators. No wound, turn, crop, detached horns/ridges, wings, extra/missing limbs. Full snout, horns, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

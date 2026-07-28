@@ -1,0 +1,9 @@
+Use case: production-correction-v2
+Asset type: Baby Grass Brachiosaurus body-only bite animation
+Image 1 is the exact identity, anatomy, palette, face, outline, lighting, pixel density, and 16-bit pixel-art reference. Image 2 is the previous bite concept; preserve only its compact four phases while correcting the cell-overlap and cropped-head defect.
+
+Create exactly four frames in one square 2x2 grid, read left-to-right then top-to-bottom. Frames: 1 compact wind-up with jaw closed; 2 modest open bite with the complete head and upper neck extending only slightly; 3 snap with jaw closed and head dipping slightly; 4 recovery near neutral. Keep the lower neck, torso, pelvis, and all four feet rooted.
+
+The full head sprout, rear of skull, muzzle, jaw, neck, leafy scales, torso, all four feet, and tail tip must remain inside the central 68% safe envelope with thick magenta padding on every side. In frame 2 the muzzle tip stays at least 12% of the cell width away from the left boundary. Keep identical anatomy scale and camera distance.
+
+Perfectly flat #FF00FF background. No visible grid lines, separators, borders, frames, guides, text, UI, shadow, floor, food, target, blood, saliva, dust, particles, detached effects, antialiasing, anatomy mutation, missing limbs, or extra limbs.

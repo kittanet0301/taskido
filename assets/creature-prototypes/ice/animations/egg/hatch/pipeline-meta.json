@@ -1,0 +1,259 @@
+{
+  "target": "creature",
+  "input": "assets\\creature-prototypes\\ice\\animations\\egg\\hatch\\raw-sheet.png",
+  "rows": 3,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.03,
+  "cell_inset_min": 10,
+  "fit_scale": 0.85,
+  "trim_border": 6,
+  "edge_clean_depth": 2,
+  "align": "feet",
+  "baseline_y": 176,
+  "preserve_cell_position": false,
+  "shared_scale": true,
+  "component_mode": "all",
+  "component_padding": 2,
+  "min_component_area": 32,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "hatch-1",
+    "hatch-2",
+    "hatch-3",
+    "hatch-4",
+    "hatch-5",
+    "hatch-6"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        627,
+        418
+      ],
+      "inner_box": [
+        12,
+        12,
+        615,
+        406
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        216,
+        61,
+        408,
+        322
+      ],
+      "edge_touch": false,
+      "output_size": [
+        87,
+        119
+      ],
+      "paste_position": [
+        52,
+        58
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        627,
+        0,
+        1254,
+        418
+      ],
+      "inner_box": [
+        639,
+        12,
+        1242,
+        406
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        183,
+        61,
+        375,
+        322
+      ],
+      "edge_touch": false,
+      "output_size": [
+        87,
+        119
+      ],
+      "paste_position": [
+        52,
+        58
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        418,
+        627,
+        836
+      ],
+      "inner_box": [
+        12,
+        430,
+        615,
+        824
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        217,
+        18,
+        416,
+        334
+      ],
+      "edge_touch": false,
+      "output_size": [
+        90,
+        144
+      ],
+      "paste_position": [
+        51,
+        33
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        627,
+        418,
+        1254,
+        836
+      ],
+      "inner_box": [
+        639,
+        430,
+        1242,
+        824
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        118,
+        8,
+        373,
+        334
+      ],
+      "edge_touch": false,
+      "output_size": [
+        116,
+        148
+      ],
+      "paste_position": [
+        38,
+        29
+      ]
+    },
+    {
+      "grid": [
+        2,
+        0
+      ],
+      "outer_box": [
+        0,
+        836,
+        627,
+        1254
+      ],
+      "inner_box": [
+        12,
+        848,
+        615,
+        1242
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        151,
+        32,
+        459,
+        301
+      ],
+      "edge_touch": false,
+      "output_size": [
+        140,
+        122
+      ],
+      "paste_position": [
+        26,
+        55
+      ]
+    },
+    {
+      "grid": [
+        2,
+        1
+      ],
+      "outer_box": [
+        627,
+        836,
+        1254,
+        1254
+      ],
+      "inner_box": [
+        639,
+        848,
+        1242,
+        1242
+      ],
+      "cell_inset_px": 12,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        103,
+        35,
+        462,
+        295
+      ],
+      "edge_touch": false,
+      "output_size": [
+        163,
+        118
+      ],
+      "paste_position": [
+        14,
+        59
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

@@ -1,0 +1,78 @@
+{
+  "scale": 1.313433,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    152,
+    134,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\grass\\master-adult.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        119,
+        106
+      ],
+      "output_size": [
+        156,
+        139
+      ],
+      "paste_position": [
+        18,
+        38
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        122,
+        99
+      ],
+      "output_size": [
+        160,
+        130
+      ],
+      "paste_position": [
+        16,
+        23
+      ],
+      "target_baseline_y": 152
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        122,
+        101
+      ],
+      "output_size": [
+        160,
+        133
+      ],
+      "paste_position": [
+        16,
+        2
+      ],
+      "target_baseline_y": 134
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        134,
+        113
+      ],
+      "output_size": [
+        176,
+        148
+      ],
+      "paste_position": [
+        8,
+        29
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

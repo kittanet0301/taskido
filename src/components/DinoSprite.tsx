@@ -3,6 +3,7 @@ import type { AnimationState, PetData } from '../shared/types'
 import { petPreviewColor } from '../shared/constants'
 import { resolvePetClip } from '../shared/dinoAnim'
 import {
+  dinoAnimationTick,
   DINO_BOB_PERIOD,
   DINO_BOB_PERIOD_EGG
 } from '../shared/dinoTiming'
@@ -10,7 +11,6 @@ import {
   drawPetSpriteFrame,
   frameCountFromImage,
   frameSizeForPet,
-  isCreaturePet,
   isHatchAnimationComplete,
   loadPetSprite,
   petSpriteUrl,
@@ -58,7 +58,7 @@ export function DinoSprite({
   const onHatchCompleteRef = useRef(onHatchComplete)
   const { canvasSize, drawSize } = resolveSpriteRenderSize(pet, size)
   const hubMode = movementAnim === undefined
-  const feetAnchored = hubMode && isCreaturePet(pet)
+  const feetAnchored = hubMode
   const activeCareAnim =
     careAnim && pet.stage !== 'egg' && !hatching ? careAnim : null
 
@@ -90,76 +90,86 @@ export function DinoSprite({
     let currentImg: HTMLImageElement | null = null
     let currentUrl = ''
     let ticking = false
+    let cancelled = false
+    const startedAt = performance.now()
 
-    const tick = () => {
-      if (ticking) return
+    const tick = (now: number) => {
+      if (cancelled || ticking) return
       ticking = true
       void (async () => {
-        frameRef.current++
-        const frame = frameRef.current
-        const carePet = activeCareAnim
-          ? { ...pet, animationState: activeCareAnim }
-          : pet
-        const clip =
-          hatching || !hubMode
-            ? resolvePetClip(carePet, frame, movementAnim ?? 'idle', hatching)
-            : resolvePetClip(carePet, frame, 'idle', false)
+        try {
+          const frame = dinoAnimationTick(now - startedAt)
+          frameRef.current = frame
+          const carePet = activeCareAnim
+            ? { ...pet, animationState: activeCareAnim }
+            : pet
+          const clip =
+            hatching || !hubMode
+              ? resolvePetClip(carePet, frame, movementAnim ?? 'idle', hatching)
+              : resolvePetClip(carePet, frame, 'idle', false)
 
-        const url = petSpriteUrl(pet, clip.folder, clip.clip)
-        if (url !== currentUrl) {
-          currentUrl = url
-          try {
-            currentImg = await loadPetSprite(url)
-          } catch {
-            currentImg = null
-          }
-        }
-
-        ctx.clearRect(0, 0, canvasSize, canvasSize)
-        const bob = pet.stage === 'egg'
-          ? Math.round(Math.sin(frame / DINO_BOB_PERIOD_EGG) * 2)
-          : Math.round(Math.sin(frame / DINO_BOB_PERIOD) * 2)
-        const cx = Math.round(canvasSize / 2)
-        const cy = feetAnchored
-          ? Math.round(canvasSize - 4 - drawSize / 2 + bob)
-          : Math.round(canvasSize / 2 + bob)
-
-        if (currentImg) {
-          const spriteFrame = spriteFrameIndexForClip(clip.clip, frame, currentImg, pet.character)
-          drawPetSpriteFrame(ctx, currentImg, spriteFrame, pet.character, {
-            x: cx,
-            y: cy,
-            pixelScale: drawSize / frameSizeForPet(pet),
-            drawSize,
-            flipX: clip.flipX
-          })
-
-          if (
-            hatching &&
-            clip.clip === 'hatch' &&
-            !hatchCompleteFiredRef.current
-          ) {
-            const frameCount = frameCountFromImage(currentImg, pet.character)
-            if (isHatchAnimationComplete(frame, frameCount)) {
-              hatchCompleteFiredRef.current = true
-              onHatchCompleteRef.current?.()
+          const url = petSpriteUrl(pet, clip.folder, clip.clip)
+          if (url !== currentUrl) {
+            currentUrl = url
+            try {
+              const loaded = await loadPetSprite(url)
+              if (cancelled) return
+              currentImg = loaded
+            } catch {
+              if (cancelled) return
+              currentImg = null
             }
           }
-        } else {
-          const fallback = Math.max(12, frameSizeForPet(pet) / 4)
-          ctx.fillStyle = petPreviewColor(pet.character)
-          ctx.beginPath()
-          ctx.arc(cx, cy, fallback, 0, Math.PI * 2)
-          ctx.fill()
-        }
 
-        ticking = false
-        raf = requestAnimationFrame(tick)
+          ctx.clearRect(0, 0, canvasSize, canvasSize)
+          const bob = pet.stage === 'egg'
+            ? Math.round(Math.sin(frame / DINO_BOB_PERIOD_EGG) * 2)
+            : Math.round(Math.sin(frame / DINO_BOB_PERIOD) * 2)
+          const cx = Math.round(canvasSize / 2)
+          const cy = feetAnchored
+            ? Math.round(canvasSize - 4 - drawSize / 2 + bob)
+            : Math.round(canvasSize / 2 + bob)
+
+          if (currentImg) {
+            const spriteFrame = spriteFrameIndexForClip(clip.clip, frame, currentImg, pet.character)
+            drawPetSpriteFrame(ctx, currentImg, spriteFrame, pet.character, {
+              x: cx,
+              y: cy,
+              pixelScale: drawSize / frameSizeForPet(pet),
+              drawSize,
+              flipX: clip.flipX
+            })
+
+            if (
+              hatching &&
+              clip.clip === 'hatch' &&
+              !hatchCompleteFiredRef.current
+            ) {
+              const frameCount = frameCountFromImage(currentImg, pet.character)
+              if (isHatchAnimationComplete(frame, frameCount)) {
+                hatchCompleteFiredRef.current = true
+                onHatchCompleteRef.current?.()
+              }
+            }
+          } else {
+            const fallback = Math.max(12, frameSizeForPet(pet) / 4)
+            ctx.fillStyle = petPreviewColor(pet.character)
+            ctx.beginPath()
+            ctx.arc(cx, cy, fallback, 0, Math.PI * 2)
+            ctx.fill()
+          }
+        } finally {
+          ticking = false
+          if (!cancelled) raf = requestAnimationFrame(tick)
+        }
       })()
     }
 
-    tick()
-    return () => cancelAnimationFrame(raf)
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf)
+    }
   }, [pet, canvasSize, drawSize, feetAnchored, hatching, hubMode, movementAnim, activeCareAnim])
 
   return (

@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\ice\\animations\\baby\\jump",
+  "prefix": "jump",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 64,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.022361,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.019608,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        21,
+        80,
+        170,
+        177
+      ],
+      "margins": {
+        "left": 21,
+        "top": 80,
+        "right": 22,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        25,
+        40,
+        166,
+        143
+      ],
+      "margins": {
+        "left": 25,
+        "top": 40,
+        "right": 26,
+        "bottom": 49
+      },
+      "baseline_y": 142,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        32,
+        14,
+        160,
+        113
+      ],
+      "margins": {
+        "left": 32,
+        "top": 14,
+        "right": 32,
+        "bottom": 79
+      },
+      "baseline_y": 112,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        24,
+        76,
+        168,
+        177
+      ],
+      "margins": {
+        "left": 24,
+        "top": 76,
+        "right": 24,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

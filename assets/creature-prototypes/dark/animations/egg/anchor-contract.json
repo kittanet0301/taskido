@@ -1,0 +1,54 @@
+{
+  "element": "dark",
+  "stage": "egg",
+  "status": "accepted-complete-action-set",
+  "canvas": [
+    192,
+    192
+  ],
+  "raw_background": "#FF00FF",
+  "grounded_output_baseline_y": 176,
+  "master_reference": "../../master-egg.png",
+  "generation_anchor": "references/move-anchor-2x3.png",
+  "processing": {
+    "resize_filter": "nearest-neighbor",
+    "fit_scale": 0.85,
+    "align": "feet",
+    "baseline_y_argument": 176,
+    "component_mode": "all",
+    "shared_scale": true
+  },
+  "actions": {
+    "move": {
+      "path": "move",
+      "frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "playback": "loop",
+      "qc": "move/qc.json",
+      "passed": true,
+      "body_height_cv": 0.076159,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 176
+    },
+    "hatch": {
+      "path": "hatch",
+      "frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "playback": "one-shot",
+      "qc": "hatch/qc.json",
+      "passed": true,
+      "body_height_cv": 0.183082,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 176,
+      "final_identity_reference_match": true
+    }
+  },
+  "stage_action_set_complete": true,
+  "runtime_registered": true
+}

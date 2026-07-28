@@ -1,0 +1,8 @@
+Use case: stylized-concept
+Asset type: Baby Grass Brachiosaurus grounded move animation
+Create exactly four sequential walk-in-place frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks camera scale, torso root, feet line, cell positions and padding.
+Preserve strict left-facing side view, baby long-neck Brachiosaurus anatomy, lime-green skin, cream neck/belly, dark vine curls, attached leafy dorsal scales and head sprout, friendly eye, four legs, curled tail, outline, palette, pixel density and lighting.
+Frames: 1 left-front/right-hind contact; 2 compact passing pose; 3 opposite diagonal contact; 4 opposite passing pose returning toward frame 1. Alternate all four legs clearly. Torso stays centered, at least one foot shares baseline, long neck stays nearly vertical with only tiny counter-bob, tail curls inward.
+Polished hard-edged 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, shadow, floor, gradient, texture or transparency.
+Same anatomy scale; no horizontal travel, running, jump, turn, bite, injury, extra/missing legs, detached leaves/vines/pollen, dust, particles or effects. Full sprout, head, neck, tail, leaves, feet stay within the central 68% envelope. No text, UI, watermark, borders, boxes, guides, grid lines or separators.
+Create a clean production raw sprite animation sheet for Taskino.

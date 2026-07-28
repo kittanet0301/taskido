@@ -1,0 +1,115 @@
+{
+  "element": "neutral",
+  "stage": "baby",
+  "status": "accepted-idle-animation-anchor",
+  "canvas": [
+    192,
+    192
+  ],
+  "raw_background": "#FF00FF",
+  "grounded_output_baseline_y": 176,
+  "master_reference": "../../master-baby.png",
+  "generation_anchor": "references/idle-anchor-2x2.png",
+  "processing": {
+    "resize_filter": "nearest-neighbor",
+    "fit_scale": 0.72,
+    "align": "feet",
+    "baseline_y_argument": 177,
+    "component_mode": "largest",
+    "shared_scale": true
+  },
+  "actions": {
+    "idle": {
+      "path": "idle",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "qc": "idle/qc.json",
+      "passed": true,
+      "body_height_cv": 0.013249,
+      "reference_scale_drift": 0.018116,
+      "magenta_fringe_pixels": 0
+    },
+    "move": {
+      "path": "move",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "qc": "move/qc.json",
+      "passed": true,
+      "body_height_cv": 0.016392,
+      "reference_scale_drift": 0.033537,
+      "magenta_fringe_pixels": 0
+    },
+    "hurt": {
+      "path": "hurt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "qc": "hurt/qc.json",
+      "passed": true,
+      "body_height_cv": 0.032272,
+      "reference_scale_drift": 0.050725,
+      "reference_scale_limit": 0.08,
+      "magenta_fringe_pixels": 0
+    },
+    "bite": {
+      "path": "bite",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "effect_policy": "body-only",
+      "qc": "bite/qc.json",
+      "passed": true,
+      "fit_scale": 0.78,
+      "body_height_cv": 0,
+      "reference_scale_drift": 0.016304,
+      "reference_scale_limit": 0.05,
+      "magenta_fringe_pixels": 0
+    },
+    "jump": {
+      "path": "jump",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "position_policy": "preserve-cell-position-then-normalize-explicit-trajectory",
+      "target_baselines_y": [
+        176,
+        132,
+        92,
+        176
+      ],
+      "qc": "jump/qc.json",
+      "passed": true,
+      "baseline_span": 84,
+      "ground_return_delta": 0,
+      "body_height_cv": 0.022387,
+      "reference_scale_drift": 0.027439,
+      "reference_scale_limit": 0.08,
+      "magenta_fringe_pixels": 0
+    }
+  },
+  "reuse_for_grounded_actions": [
+    "move",
+    "hurt",
+    "bite"
+  ],
+  "excluded_from_grounded_anchor": [
+    "jump"
+  ],
+  "stage_action_set_complete": true,
+  "runtime_registered": true
+}

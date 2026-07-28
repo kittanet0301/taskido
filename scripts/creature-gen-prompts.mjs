@@ -13,88 +13,84 @@ const ACTION_PROMPTS = {
   hurt: 'Four hurt reaction frames: flinch, eyes squeezed, body recoils but stays facing left.',
   bite: 'Four attack/bite frames: lean forward, mouth opens wider each beat, short lunge without crossing cell edges.',
   jump: 'Four jump frames: crouch, takeoff, apex, land. Feet return to same baseline on last frame.',
-  move_egg: 'Four egg idle/wobble frames: intact egg in nest, subtle rocking only.',
+  move_egg: 'Six egg idle/wobble frames: intact egg, subtle rocking only, same identity in all cells.',
   move_egg_6:
     'Six egg idle/wobble frames: intact egg in nest, subtle rocking and nest detail variations. Same egg identity throughout all six cells.',
   hatch:
     'Six hatch frames left to right top row then bottom: (1) whole egg, (2) eye peeks, (3) head and claw out, (4) sitting in broken shell, (5) stepping out, (6) baby stands beside shell remains. Frame 6 baby MUST match baby master reference exactly.'
 }
 
-/** Per-species stage identity rules. Keys match CREATURE_SPECIES. */
-export const SPECIES_STAGE_RULES = {
-  'ember-sail': {
-    displayName: 'Ember Sail',
+function rosterRules(displayName, family, identity) {
+  return {
+    displayName,
     egg: [
-      'Volcanic egg or hatching sequence for Ember Sail species.',
-      'Dark charcoal rocky shell with orange lava vein cracks.',
-      'Egg sits in jagged dark rock nest with faint orange glow at base.',
-      'Subject must occupy ~75–85% of each cell height, centered on nest baseline.'
+      `${displayName} egg using the same limited palette and attached body details as the creature.`,
+      `Shell markings clearly foreshadow ${identity}.`,
+      'No detached sparks, smoke, particles, floating leaves, or separate elemental effects.',
+      'Subject must occupy ~70–72% of each cell envelope, centered on the shared baseline.'
     ],
     baby: [
-      'Baby Ember Sail — chibi proportions, large head, short limbs.',
-      'Small glowing orange dorsal plates/spikes along the back (compact, not huge).',
-      'Dark charcoal rocky skin with orange lava cracks, big orange eyes.',
-      'Match the BABY design from the species board reference.',
-      'Subject must occupy ~50–55% of each cell height; feet on shared ground line.'
+      `Baby ${family} silhouette — large head, short limbs, cute compact proportions.`,
+      identity,
+      'Match the BABY master reference exactly for palette, outline weight, pixel density, and lighting.',
+      'Subject must stay inside the central ~70–72% safe envelope; feet on the shared ground line.'
     ],
     adult: [
-      'Adult Ember Sail — evolved form clearly larger and longer than baby (~35-45% taller silhouette).',
-      'Massive jagged glowing dorsal SAIL on the back (volcanic glass / molten ridges).',
-      'Longer snout with visible teeth, heavier limbs, same lava-rock palette.',
-      'Match the ADULT design from the species board reference.',
-      'CRITICAL: entire body, tail tip, and dorsal sail must fit FULLY inside each cell with generous green margin on all sides — never touch or cross cell edges.',
-      'Subject occupies ~50–60% of cell width and ~55–65% of cell height only; feet on shared ground line.'
-    ]
-  },
-  garden: {
-    displayName: 'Garden',
-    egg: [
-      'Leafy garden egg for Garden species.',
-      'Cream/off-white shell with green vine and leaf patterns growing on the surface.',
-      'Egg sits in a nest of thick green leaves with small white flowers (yellow centers).',
-      'Subject must occupy ~75–85% of each cell height, centered on nest baseline.'
-    ],
-    baby: [
-      'Baby Garden — chibi sauropod proportions, large head, long neck, short limbs.',
-      'Green body with darker leaf-shaped markings, cream underbelly and neck front.',
-      'Small green leaf plates along the back with tiny white flowers; leaf/flower cluster on head.',
-      'Match the BABY design from the species board reference.',
-      'Subject must occupy ~50–55% of each cell height; feet on shared ground line.'
-    ],
-    adult: [
-      'Adult Garden — evolved form clearly larger and longer than baby (~35-45% taller silhouette).',
-      'Longer neck and tail, larger leaf plates along the back (stegosaurus-like leaf plates), more white flowers.',
-      'Same green/cream leaf palette as baby; heavier limbs.',
-      'Match the ADULT design from the species board reference.',
-      'CRITICAL BACKGROUND: solid flat chroma-key magenta #FF00FF only — never cream, beige, white paper, card, frame, or nested square behind the subject.',
-      'CRITICAL TAIL FIT: draw a COMPACT curled/tucked tail that ends in a pointed tip fully inside the cell — never stretch the tail to the right edge, never truncate or flat-cut the tip.',
-      'CRITICAL: entire body, long neck, pointed tail tip, and leaf plates must fit FULLY inside each cell with thick magenta margin on ALL sides (especially RIGHT and TOP) — never touch or cross cell edges.',
-      'Subject occupies only ~40–48% of cell width and ~45–55% of cell height; leave ≥12% magenta padding on the right for the tail tip; feet on shared ground line.'
-    ]
-  }  ,
-  'blaze-crest': {
-    displayName: 'Blaze Crest',
-    egg: [
-      'Volcanic fire egg for Blaze Crest species.',
-      'Warm grey-brown rocky shell with bright orange-yellow magma cracks.',
-      'Egg sits in dark ash-stone nest with ember glow.',
-      'Subject must occupy ~75–85% of each cell height, centered on nest baseline.'
-    ],
-    baby: [
-      'Baby Blaze Crest — chibi quadruped, large head, short limbs.',
-      'Warm terracotta-red rocky body, cream-orange glowing underbelly.',
-      'Translucent orange-yellow flame-shaped crest plates along the back; small flame tuft on head.',
-      'Match the BABY design from the species board reference.',
-      'Subject must occupy ~50–55% of each cell height; feet on shared ground line.'
-    ],
-    adult: [
-      'Adult Blaze Crest — evolved form clearly larger than baby (~35-45% taller silhouette).',
-      'Taller flame crest plates, more magma veins, heavier limbs, same terracotta/flame palette.',
-      'Match the ADULT design from the species board reference.',
-      'CRITICAL: entire body and flame crest must fit FULLY inside each cell with generous magenta margin — never touch or cross cell edges.',
-      'Subject occupies ~50–60% of cell width and ~55–65% of cell height only; feet on shared ground line.'
+      `Adult ${family} silhouette — clearly mature while preserving the same species anatomy.`,
+      identity,
+      'Match the ADULT master reference exactly for palette, outline weight, pixel density, and lighting.',
+      'Entire body, tail, horns, plates, fins, and crest must fit with transparent margin on every side.'
     ]
   }
+}
+
+/** Per-species identity rules for the accepted nine-element roster. */
+export const SPECIES_STAGE_RULES = {
+  neutral: rosterRules(
+    'Neutral Stegosaurus',
+    'Stegosaurus',
+    'Classic natural-color back plates with no supernatural glow or detached effects.'
+  ),
+  fire: rosterRules(
+    'Fire Carnotaurus',
+    'Carnotaurus',
+    'Carnotaurus brow horns and attached ember-red flame-like ridges integrated into the body.'
+  ),
+  grass: rosterRules(
+    'Grass Brachiosaurus',
+    'Brachiosaurus',
+    'Long neck with leaf and sprout shapes integrated into scales; no floating foliage.'
+  ),
+  ground: rosterRules(
+    'Ground Ankylosaurus',
+    'Ankylosaurus',
+    'Low armored body, rock-like plates, and a heavy club tail.'
+  ),
+  electric: rosterRules(
+    'Electric Parasaurolophus',
+    'Parasaurolophus',
+    'Lightning-bolt head crest and charge markings painted into the skin; no floating bolts.'
+  ),
+  water: rosterRules(
+    'Water Spinosaurus',
+    'Spinosaurus',
+    'Aquatic sail, webbed fins, and semi-aquatic anatomy integrated into the silhouette.'
+  ),
+  ice: rosterRules(
+    'Ice Pachyrhinosaurus',
+    'Pachyrhinosaurus',
+    'Ice-like frill and nasal armor attached to the head, with no detached crystals.'
+  ),
+  dragon: rosterRules(
+    'Dragon Tyrannosaurus',
+    'Tyrannosaurus rex',
+    'Recognizable T. rex anatomy with attached dragon scales, horns, and dorsal ridges.'
+  ),
+  dark: rosterRules(
+    'Dark Velociraptor',
+    'Velociraptor',
+    'Lean feathered raptor silhouette with dark plumage and moon-shaped body markings.'
+  )
 }
 
 const GRID_LAYOUT_RULES = {
@@ -108,20 +104,9 @@ const GRID_LAYOUT_RULES = {
     'Visual grid: [1][2][3] on top row, [4][5][6] on bottom row.'
 }
 
-const BASE_RULES_GREEN = [
-  'Solid flat chroma-key green #00FF00 background only in gaps between cells.',
-  'Clean crisp pixel-art game creature sprite, 128px cell output target.',
-  'Hard pixel edges only — no motion blur, no soft anti-aliasing, no depth-of-field, no painterly softness.',
-  'Identical rendering sharpness, pixel density, and edge crispness in every cell of this sheet.',
-  'Side view facing LEFT in every cell unless noted.',
-  'Full subject centered in each cell; nothing crosses cell edges.',
-  'Consistent character scale and feet baseline across all cells in this sheet.',
-  'No text, labels, grid lines, borders, numbers, digits, frame indices, or watermarks of any kind.'
-]
-
 const BASE_RULES_MAGENTA = [
   'Solid flat chroma-key magenta #FF00FF background only in gaps between cells.',
-  'Clean crisp pixel-art game creature sprite, 128px cell output target.',
+  'Clean crisp 16-bit pixel-art game creature sprite, 192px cell output target.',
   'Hard pixel edges only — no motion blur, no soft anti-aliasing, no depth-of-field, no painterly softness.',
   'Identical rendering sharpness, pixel density, and edge crispness in every cell of this sheet.',
   'Side view facing LEFT in every cell unless noted.',
@@ -130,14 +115,12 @@ const BASE_RULES_MAGENTA = [
   'No text, labels, grid lines, borders, numbers, digits, frame indices, or watermarks of any kind.'
 ]
 
-function baseRulesFor(species) {
-  return species === 'garden' ? BASE_RULES_MAGENTA : BASE_RULES_GREEN
+function baseRulesFor(_species) {
+  return BASE_RULES_MAGENTA
 }
 
-function chromaBgPhrase(species) {
-  return species === 'garden'
-    ? 'Solid flat chroma-key magenta #FF00FF background ONLY (full square background).'
-    : 'Solid flat chroma-key green #00FF00 background ONLY (full square background).'
+function chromaBgPhrase(_species) {
+  return 'Solid flat chroma-key magenta #FF00FF background ONLY (full square background).'
 }
 
 function gridPixels(rows, cols) {
@@ -161,7 +144,7 @@ function stageRulesFor(species, stage) {
 }
 
 /** Single master-adult portrait evolved from master-baby (not a sprite sheet). */
-export function buildMasterAdultPrompt(species = 'ember-sail') {
+export function buildMasterAdultPrompt(species = 'neutral') {
   const name = displayName(species)
   const stageRules = stageRulesFor(species, 'adult').join(' ')
   return [
@@ -177,7 +160,7 @@ export function buildMasterAdultPrompt(species = 'ember-sail') {
   ].join(' ')
 }
 
-export function buildGenPrompt(stage, clip, species = 'ember-sail') {
+export function buildGenPrompt(stage, clip, species = 'neutral') {
   const grid = clipGrid(stage, clip)
   if (!grid) throw new Error(`Unknown clip: ${stage}/${clip}`)
 
@@ -257,7 +240,7 @@ function describeClipBlock(entry, species) {
   ].join(' ')
 }
 
-export function buildMegaSheetPrompt(species = 'ember-sail') {
+export function buildMegaSheetPrompt(species = 'neutral') {
   const { width, height } = megaSheetCanvasSize()
   const blockDescriptions = MEGA_SHEET_LAYOUT.map((entry) => describeClipBlock(entry, species))
 
@@ -265,9 +248,7 @@ export function buildMegaSheetPrompt(species = 'ember-sail') {
     `${species} creature MEGA animation atlas — single combined sprite sheet.`,
     `Total canvas ${width}x${height}px.`,
     `Every animation cell is ${MEGA_SHEET_CELL}x${MEGA_SHEET_CELL}px.`,
-    species === 'garden'
-      ? 'Solid flat chroma-key magenta #FF00FF background in all gaps between cells and blocks.'
-      : 'Solid flat chroma-key green #00FF00 background in all gaps between cells and blocks.',
+    'Solid flat chroma-key magenta #FF00FF background in all gaps between cells and blocks.',
     'Clean crisp pixel-art game creature sprites — hard edges, no blur, identical sharpness in every cell.',
     'Side view facing LEFT in every cell.',
     'Full subject centered in each cell; nothing crosses cell edges.',

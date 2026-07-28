@@ -1,0 +1,33 @@
+{
+  "element": "neutral",
+  "stage": "egg",
+  "status": "accepted-animation-anchor",
+  "canvas": [
+    192,
+    192
+  ],
+  "raw_background": "#FF00FF",
+  "raw_grid": [
+    2,
+    3
+  ],
+  "output_baseline_y": 176,
+  "resize_filter": "nearest-neighbor",
+  "actions": {
+    "move": {
+      "frames": 6,
+      "qc": "move/qc.json",
+      "passed": true,
+      "body_height_cv": 0.00846,
+      "magenta_fringe_pixels": 0
+    },
+    "hatch": {
+      "frames": 6,
+      "qc": "hatch/qc.json",
+      "passed": true,
+      "magenta_fringe_pixels": 0,
+      "final_frame_identity": "master-baby.png exact pixels, translated to animation baseline"
+    }
+  },
+  "runtime_registered": true
+}

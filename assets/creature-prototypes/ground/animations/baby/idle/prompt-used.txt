@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Ground Ankylosaurus body-only idle animation
+Create exactly four seamless loop frames in an exact 2x2 grid. Image 1 locks strict identity and Image 2 locks scale, centered torso root, common feet line and padding. Preserve the left-facing low baby Ankylosaurus, ochre skin, layered tan stone armor plates, small side spikes, four short legs and round rock club tail.
+Frames: neutral, tiny chest inhale with head lift, subtle tail-club sway, exact return to neutral. Keep all feet planted, belly/torso centered and armor silhouette stable.
+Hard-edged polished 16-bit pixel art, limited earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, texture background, shadow/floor, cracks, falling stones, dust, debris, particles, text, UI, watermark, borders, guides, grid lines or separators. No turn, crop, armor mutation, extra/missing legs. Full snout, armor, spikes, club and feet inside generous padding. Clean production raw animation sheet for Taskino.

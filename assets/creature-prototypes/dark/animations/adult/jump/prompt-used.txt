@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Dark Velociraptor body-only jump animation
+Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks tall slender navy-black adult feathered Velociraptor identity, silver muzzle/neck, crescent markings, long feathered forearms/tail, two legs and sickle claws.
+Frames: grounded anticipation crouch; rising airborne with both feet tucked; apex compact pose with long feather tail readable; grounded landing/recovery near neutral. Author pose only, center each subject at consistent torso scale; deterministic processing applies vertical trajectory. Every visible pixel belongs to dinosaur.
+Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No motion lines, detached strokes, smoke, shadow aura, mist, moon glow, sparkles, particles, grid/separators/guides, text, UI or watermark. No antialiasing, gradient, background texture, floor/shadow, turn, crop, detached feathers, extra/missing limbs. Full snout, forearms, long tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

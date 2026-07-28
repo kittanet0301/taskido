@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\dark\\animations\\baby\\jump",
+  "prefix": "jump",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 84,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.134883,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.052536,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        16,
+        105,
+        176,
+        177
+      ],
+      "margins": {
+        "left": 16,
+        "top": 105,
+        "right": 16,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        29,
+        165,
+        133
+      ],
+      "margins": {
+        "left": 27,
+        "top": 29,
+        "right": 27,
+        "bottom": 59
+      },
+      "baseline_y": 132,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        6,
+        165,
+        93
+      ],
+      "margins": {
+        "left": 26,
+        "top": 6,
+        "right": 27,
+        "bottom": 99
+      },
+      "baseline_y": 92,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        24,
+        79,
+        168,
+        177
+      ],
+      "margins": {
+        "left": 24,
+        "top": 79,
+        "right": 24,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Electric Parasaurolophus body-only idle animation
+Create exactly four seamless loop frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing baby Parasaurolophus, bright yellow skin, cobalt lightning markings, long attached lightning-shaped head crest, blue back spikes, small forearms, two hind legs and long tail.
+Frames: neutral, tiny inhale/head crest lift, subtle tail-tip counter-sway, exact return to neutral. Keep hind feet planted and torso centered.
+Hard-edged polished 16-bit pixel art, limited yellow/cobalt palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, floating sparks, bolts, glow, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached crest, extra/missing limbs or anatomy mutation. Full crest, snout, tail, spikes and feet inside generous padding. Clean production raw animation sheet for Taskino.

@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\fire\\animations\\baby\\hurt",
+  "prefix": "hurt",
+  "playback": "one-shot",
+  "baseline_mode": "shared",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.080511,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.067029,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        30,
+        73,
+        162,
+        177
+      ],
+      "margins": {
+        "left": 30,
+        "top": 73,
+        "right": 30,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        35,
+        94,
+        156,
+        177
+      ],
+      "margins": {
+        "left": 35,
+        "top": 94,
+        "right": 36,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        33,
+        82,
+        159,
+        177
+      ],
+      "margins": {
+        "left": 33,
+        "top": 82,
+        "right": 33,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        28,
+        79,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 28,
+        "top": 79,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

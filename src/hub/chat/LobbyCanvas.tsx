@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { Gender, Stage } from '../../shared/types'
 import { petPreviewColor } from '../../shared/constants'
-import { normalizePetSpecies } from '../../shared/dinoCharacters'
+import { normalizePetSpecies } from '../../shared/creatureCharacters'
 import {
   DINO_BOB_PERIOD,
   DINO_FRAMES_PER_SPRITE_FRAME

@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\water\\animations\\baby\\idle",
+  "prefix": "idle",
+  "playback": "loop",
+  "baseline_mode": "shared",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.031778,
+  "loop_first_last_identity_match": false,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.014535,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        91,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 27,
+        "top": 91,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        91,
+        165,
+        177
+      ],
+      "margins": {
+        "left": 27,
+        "top": 91,
+        "right": 27,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        85,
+        165,
+        177
+      ],
+      "margins": {
+        "left": 27,
+        "top": 85,
+        "right": 27,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        92,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 27,
+        "top": 92,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

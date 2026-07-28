@@ -1,0 +1,8 @@
+Use case: stylized-concept
+Asset type: Taskino game creature master sprite, single static baby creature prototype
+Primary request: Create exactly ONE baby Stegosaurus representing the neutral/normal element. This is the visual style anchor for a nine-creature roster.
+Scene/backdrop: perfectly flat solid chroma-key magenta #FF00FF filling the entire square canvas; absolutely no gradient, texture, floor, shadow, reflection, border, inset panel, or scenery.
+Subject: cute baby Stegosaurus in strict full-body side view facing LEFT, canonical neutral standing idle pose, all four feet grounded on one horizontal baseline, compact tucked tail with a complete pointed tip, classic alternating back plates and small tail spikes, warm natural olive-green, tan, ochre, and cream colors. No elemental magic. One creature only.
+Style/medium: authentic polished 16-bit pixel art game sprite, chunky intentional pixel clusters, crisp dark outline, limited palette, hard pixel edges, readable at small size, no painterly rendering, no smooth vector look, no anti-aliased softness.
+Composition/framing: square 1024x1024 source image; subject centered and contained inside the central 70% to 72% safe envelope; generous solid magenta padding on all four sides; feet near a consistent lower baseline; same upper-left lighting direction intended for a roster.
+Constraints: entire snout, plates, feet, belly, and tail tip fully visible; no detached particles or effects; no cast/contact shadow; no ground line; no text, labels, UI, grid, watermark, extra creature, egg, plants, or props; do not use #FF00FF anywhere in the subject; nothing may touch or cross the canvas edge.

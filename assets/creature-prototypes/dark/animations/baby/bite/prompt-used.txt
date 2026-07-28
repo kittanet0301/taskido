@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Dark Velociraptor body-only bite animation
+Create exactly four one-shot attack frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing slender navy-black baby feathered Velociraptor, large glossy eye, narrow silver muzzle/neck, feathered forearms and tail, two legs with sickle claws, attached crescent markings.
+Frames: ready stance, head wind-up with jaws opening, short forward bite with jaws closing, grounded recovery near neutral. Every visible pixel belongs to the dinosaur; attack readable without effects.
+Hard-edged polished 16-bit pixel art, limited navy/black/silver palette, upper-left lighting, perfectly flat #FF00FF. No slash arc, motion lines, detached strokes, smoke, shadow aura, mist, moon glow, sparkles, particles, text, UI, watermark, guides, grid lines or separators. No antialiasing, gradient, background texture, floor/shadow, turn, crop, detached feathers, extra/missing limbs. Full snout, forearm feathers, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

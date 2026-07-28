@@ -1,11 +1,18 @@
 import { useEffect, useRef } from 'react'
-import { CREATURE_PREVIEW_COLORS, DEFAULT_CREATURE_SPECIES } from '../shared/creatureCharacters'
-import { DINO_BOB_PERIOD_EGG, DINO_FRAMES_PER_SPRITE_FRAME } from '../shared/dinoTiming'
+import {
+  CREATURE_PIXEL_SCALE,
+  CREATURE_PREVIEW_COLORS,
+  DEFAULT_CREATURE_SPECIES
+} from '../shared/creatureCharacters'
+import {
+  dinoAnimationTick,
+  DINO_BOB_PERIOD_EGG,
+  DINO_FRAMES_PER_SPRITE_FRAME
+} from '../shared/dinoTiming'
 import {
   drawPetSpriteFrame,
   loadPetSprite,
   petSpriteUrl,
-  pixelScaleForStage,
   preloadPetSprites,
   setupCrispCanvas
 } from '../shared/petSprites'
@@ -39,14 +46,15 @@ export function AuthEggSprite({ size = 72, className }: Props) {
     let raf = 0
     let img: HTMLImageElement | null = null
     let cancelled = false
+    const startedAt = performance.now()
 
     void loadPetSprite(EGG_URL).then((loaded) => {
       if (!cancelled) img = loaded
     })
 
-    const tick = () => {
-      frameRef.current++
-      const frame = frameRef.current
+    const tick = (now: number) => {
+      const frame = dinoAnimationTick(now - startedAt)
+      frameRef.current = frame
 
       ctx.clearRect(0, 0, size, size)
       const bob = Math.round(Math.sin(frame / DINO_BOB_PERIOD_EGG) * 2)
@@ -57,7 +65,7 @@ export function AuthEggSprite({ size = 72, className }: Props) {
         drawPetSpriteFrame(ctx, img, Math.floor(frame / DINO_FRAMES_PER_SPRITE_FRAME), AUTH_EGG_PET.character, {
           x: cx,
           y: cy,
-          pixelScale: pixelScaleForStage(AUTH_EGG_PET.stage, AUTH_EGG_PET.character),
+          pixelScale: CREATURE_PIXEL_SCALE,
           flipX: false
         })
       } else {
@@ -71,7 +79,7 @@ export function AuthEggSprite({ size = 72, className }: Props) {
       raf = requestAnimationFrame(tick)
     }
 
-    tick()
+    raf = requestAnimationFrame(tick)
     return () => {
       cancelled = true
       cancelAnimationFrame(raf)

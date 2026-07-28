@@ -2,8 +2,12 @@ import type { PetData, PetStats } from './types'
 import { normalizeElementId } from './elements'
 import { primariesForElements, GROWTH_CARDS, type PrimaryStats, type GrowthCardId } from './combatStats'
 import { rollSkillLoadout, type SkillLoadout } from './battle/skillTrees'
-import { DEFAULT_CREATURE_SPECIES, elementForCreatureSpecies } from './creatureCharacters'
-import { defaultPetName, normalizePetSpecies } from './dinoCharacters'
+import {
+  DEFAULT_CREATURE_SPECIES,
+  defaultPetName,
+  elementForCreatureSpecies,
+  normalizePetSpecies
+} from './creatureCharacters'
 
 export function normalizeCareStats(raw: Partial<PetStats> & Record<string, unknown>): PetStats {
   const health = num(raw.health ?? raw.hp, 100)

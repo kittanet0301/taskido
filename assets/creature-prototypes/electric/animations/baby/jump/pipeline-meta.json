@@ -1,0 +1,185 @@
+{
+  "target": "creature",
+  "input": "assets\\creature-prototypes\\electric\\animations\\baby\\jump\\raw-sheet.png",
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.03,
+  "cell_inset_min": 10,
+  "fit_scale": 0.85,
+  "trim_border": 12,
+  "edge_clean_depth": 3,
+  "align": "feet",
+  "baseline_y": null,
+  "preserve_cell_position": true,
+  "shared_scale": true,
+  "component_mode": "all",
+  "component_padding": 2,
+  "min_component_area": 32,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "jump-1",
+    "jump-2",
+    "jump-3",
+    "jump-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "inner_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        97,
+        262,
+        528,
+        535
+      ],
+      "edge_touch": false,
+      "output_size": [
+        132,
+        84
+      ],
+      "paste_position": [
+        30,
+        80
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "inner_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        96,
+        125,
+        527,
+        443
+      ],
+      "edge_touch": false,
+      "output_size": [
+        132,
+        98
+      ],
+      "paste_position": [
+        29,
+        38
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "inner_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        133,
+        109,
+        468,
+        329
+      ],
+      "edge_touch": false,
+      "output_size": [
+        102,
+        68
+      ],
+      "paste_position": [
+        41,
+        33
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "inner_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        96,
+        238,
+        516,
+        520
+      ],
+      "edge_touch": false,
+      "output_size": [
+        129,
+        86
+      ],
+      "paste_position": [
+        29,
+        73
+      ],
+      "position_preserved": true
+    }
+  ],
+  "edge_touch_frames": []
+}

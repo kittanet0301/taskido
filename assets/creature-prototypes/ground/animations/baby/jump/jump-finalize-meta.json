@@ -1,0 +1,78 @@
+{
+  "scale": 1.076025,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    132,
+    92,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\ground\\master-baby.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        136,
+        58
+      ],
+      "output_size": [
+        146,
+        62
+      ],
+      "paste_position": [
+        23,
+        115
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        124,
+        63
+      ],
+      "output_size": [
+        133,
+        68
+      ],
+      "paste_position": [
+        29,
+        65
+      ],
+      "target_baseline_y": 132
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        79,
+        72
+      ],
+      "output_size": [
+        85,
+        77
+      ],
+      "paste_position": [
+        53,
+        16
+      ],
+      "target_baseline_y": 92
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        134,
+        61
+      ],
+      "output_size": [
+        144,
+        66
+      ],
+      "paste_position": [
+        24,
+        111
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

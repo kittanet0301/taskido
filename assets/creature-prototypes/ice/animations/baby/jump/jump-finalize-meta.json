@@ -1,0 +1,78 @@
+{
+  "scale": 1.18865,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    142,
+    112,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\ice\\master-baby.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        125,
+        82
+      ],
+      "output_size": [
+        149,
+        97
+      ],
+      "paste_position": [
+        21,
+        80
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        119,
+        87
+      ],
+      "output_size": [
+        141,
+        103
+      ],
+      "paste_position": [
+        25,
+        40
+      ],
+      "target_baseline_y": 142
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        108,
+        83
+      ],
+      "output_size": [
+        128,
+        99
+      ],
+      "paste_position": [
+        32,
+        14
+      ],
+      "target_baseline_y": 112
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        121,
+        85
+      ],
+      "output_size": [
+        144,
+        101
+      ],
+      "paste_position": [
+        24,
+        76
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "element": "fire",
+  "stage": "egg",
+  "status": "accepted-complete-action-set",
+  "canvas": [
+    192,
+    192
+  ],
+  "raw_background": "#FF00FF",
+  "raw_grid": [
+    2,
+    3
+  ],
+  "output_baseline_y": 176,
+  "master_reference": "../../master-egg.png",
+  "generation_anchor": "references/move-anchor-2x3.png",
+  "processing": {
+    "resize_filter": "nearest-neighbor",
+    "fit_scale": 0.85,
+    "align": "feet",
+    "component_mode": "largest",
+    "shared_scale": true
+  },
+  "actions": {
+    "move": {
+      "path": "move",
+      "frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "playback": "loop",
+      "qc": "move/qc.json",
+      "passed": true,
+      "output_baseline_y": 176,
+      "body_height_cv": 0.039251,
+      "magenta_fringe_pixels": 0
+    },
+    "hatch": {
+      "path": "hatch",
+      "frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "playback": "one-shot",
+      "qc": "hatch/qc.json",
+      "passed": true,
+      "output_baseline_y": 176,
+      "body_height_cv": 0.185843,
+      "final_frame_identity": "master-baby.png exact pixels, translated to animation baseline",
+      "magenta_fringe_pixels": 0
+    }
+  },
+  "stage_action_set_complete": true,
+  "runtime_registered": true
+}

@@ -435,7 +435,7 @@ export function HomeDashboard({
                       onClick={() => runDebug('debugSetSpecies', [species])}
                       title={tCharacter(species)}
                     >
-                      {species === 'blaze-crest' ? 'blaze' : species === 'crag-shell' ? 'crag' : species === 'tide-fin' ? 'tide' : species === 'volt-wing' ? 'volt' : species}
+                      {species}
                     </button>
                   ))}
                 </div>
@@ -494,41 +494,16 @@ export function HomeDashboard({
                   >
                     +50 Evo
                   </button>
-                  <button
-                    type="button"
-                    className="dash-hud-debug-btn"
-                    onClick={() => runDebug('newEgg', ['garden'])}
-                  >
-                    +garden egg
-                  </button>
-                  <button
-                    type="button"
-                    className="dash-hud-debug-btn"
-                    onClick={() => runDebug('newEgg', ['blaze-crest'])}
-                  >
-                    +blaze egg
-                  </button>
-                  <button
-                    type="button"
-                    className="dash-hud-debug-btn"
-                    onClick={() => runDebug('newEgg', ['crag-shell'])}
-                  >
-                    +crag egg
-                  </button>
-                  <button
-                    type="button"
-                    className="dash-hud-debug-btn"
-                    onClick={() => runDebug('newEgg', ['tide-fin'])}
-                  >
-                    +tide egg
-                  </button>
-                  <button
-                    type="button"
-                    className="dash-hud-debug-btn"
-                    onClick={() => runDebug('newEgg', ['volt-wing'])}
-                  >
-                    +volt egg
-                  </button>
+                  {CREATURE_SPECIES.map((species) => (
+                    <button
+                      key={`egg-${species}`}
+                      type="button"
+                      className="dash-hud-debug-btn"
+                      onClick={() => runDebug('newEgg', [species])}
+                    >
+                      +{species} egg
+                    </button>
+                  ))}
                   <button
                     type="button"
                     className="dash-hud-debug-btn"

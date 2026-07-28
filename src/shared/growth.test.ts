@@ -15,11 +15,41 @@ describe('growth helpers', () => {
 
     expect(save.version).toBe(SAVE_VERSION)
     expect(save.pet?.stage).toBe('egg')
-    expect(['garden', 'blaze-crest', 'crag-shell', 'tide-fin', 'volt-wing']).toContain(save.pet?.character)
+    expect(['neutral', 'fire', 'grass', 'ground', 'electric', 'water', 'ice', 'dragon', 'dark']).toContain(
+      save.pet?.character
+    )
     expect(save.collection).toEqual([])
     expect(save.petSlotLimit).toBe(PET_SLOT_BASE)
     expect(save.inventory.length).toBeGreaterThan(0)
     expect(save.missions.length).toBeGreaterThan(0)
+  })
+
+  it.each([
+    ['neutral', 'neutral'],
+    ['fire', 'fire'],
+    ['grass', 'grass'],
+    ['ground', 'ground'],
+    ['electric', 'electric'],
+    ['water', 'water'],
+    ['ice', 'ice'],
+    ['dragon', 'dragon'],
+    ['dark', 'dark']
+  ] as const)('assigns %s the fixed %s element', (species, element) => {
+    const egg = createEggPet(species)
+
+    expect(egg.elementPrimary).toBe(element)
+    expect(egg.elementSecondary).toBeNull()
+  })
+
+  it('migrates removed or unknown species to neutral', () => {
+    const save = createDefaultSave()
+    if (!save.pet) throw new Error('expected pet')
+    save.pet.character = 'removed-species'
+
+    const migrated = migrateSave(save)
+
+    expect(migrated.pet?.character).toBe('neutral')
+    expect(migrated.pet?.elementPrimary).toBe('neutral')
   })
 
   it.each([
@@ -28,22 +58,15 @@ describe('growth helpers', () => {
     ['crag-shell', 'ground'],
     ['tide-fin', 'water'],
     ['volt-wing', 'electric']
-  ] as const)('assigns %s the fixed %s element', (species, element) => {
-    const egg = createEggPet(species)
-
-    expect(egg.elementPrimary).toBe(element)
-    expect(egg.elementSecondary).toBeNull()
-  })
-
-  it('migrates legacy dino species to garden', () => {
+  ] as const)('migrates legacy POC species %s to %s', (legacy, current) => {
     const save = createDefaultSave()
     if (!save.pet) throw new Error('expected pet')
-    save.pet.character = 'cole'
+    save.pet.character = legacy
 
     const migrated = migrateSave(save)
 
-    expect(migrated.pet?.character).toBe('garden')
-    expect(migrated.pet?.elementPrimary).toBe('grass')
+    expect(migrated.pet?.character).toBe(current)
+    expect(migrated.pet?.elementPrimary).toBe(current)
   })
 
   it('moves pets through hatch, reset, and evolve stages', () => {

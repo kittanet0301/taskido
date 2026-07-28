@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Electric Parasaurolophus body-only hurt animation
+Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks adult identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing slender Parasaurolophus, yellow skin, cobalt lightning markings, long attached lightning crest, blue back spikes, forelimbs, two long hind legs and tail.
+Frames: neutral brace; flinch with crest lowered and eyes squeezed; deepest crouch with knees bent, neck tucked and tail pulled inward; recovery near neutral. Keep torso centered and at least one hind foot on the same line. Hurt reads only through pose.
+Hard-edged polished 16-bit pixel art, limited yellow/cobalt palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, sparks, bolts, glow, blood, wounds, slash, hit flash, stars, dust, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached crest, extra/missing limbs. Full crest, snout, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

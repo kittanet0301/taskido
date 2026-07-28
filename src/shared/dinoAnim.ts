@@ -1,6 +1,5 @@
 import type { AnimationState, PetData } from './types'
 import { getMoodLabel, shouldBeSick } from './stats'
-import { isCreatureSpecies } from './creatureCharacters'
 import type { PetSpriteFolder } from './petSprites'
 import {
   DINO_HAPPY_BURST,
@@ -28,10 +27,7 @@ const IDLE_FLIP_X = flipXForFacing('right')
 
 function bodyFolder(pet: PetData): PetSpriteFolder {
   if (pet.stage === 'egg') return 'egg'
-  if (isCreatureSpecies(pet.character)) {
-    return pet.stage === 'baby' ? 'baby' : 'adult'
-  }
-  return 'base'
+  return pet.stage === 'baby' ? 'baby' : 'adult'
 }
 
 export function resolvePetClip(

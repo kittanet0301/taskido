@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Ground Ankylosaurus egg wobble animation
+Create exactly six seamless loop frames in an exact 2 columns x 3 rows grid. Image 1 locks the ochre stone-armored egg identity; Image 2 locks scale, centered root, common bottom line and padding. Preserve the same oval egg, layered tan rock plates, darker cracks and spiral fossil marking.
+Frames in reading order: neutral, tilt left, neutral, tilt right, tiny squash, return exactly to neutral. Movement is only a subtle wobble in place; keep the egg centered with its bottom on one shared line.
+Hard-edged polished 16-bit pixel art, limited earth palette, consistent upper-left lighting, perfectly flat #FF00FF background. No antialiasing, gradients, texture background, floor, shadow, debris, dust, floating rocks, cracks spreading outside shell, particles, text, UI, watermark, borders, guides, grid lines or separators. No crop or scale change. Clean production raw sprite sheet for Taskino.

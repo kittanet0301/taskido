@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Baby Dragon Tyrannosaurus body-only bite animation
+Create exactly four one-shot attack frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing red-orange baby Tyrannosaurus anatomy, large toothed head, tiny two-finger arms, two strong legs, long tail, attached golden horns, cheek scales and dorsal dragon ridges; no wings.
+Frames: ready stance, head wind-up with jaws opening, short forward chomp with jaws closing, grounded recovery near neutral. Attack readable without effects.
+Hard-edged polished 16-bit pixel art, limited red/orange/gold palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, fire, smoke, embers, aura, sparks, slash arc, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached horns/ridges, wings, extra/missing limbs. Full snout, horns, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

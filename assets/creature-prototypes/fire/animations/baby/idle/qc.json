@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\fire\\animations\\baby\\idle",
+  "prefix": "idle",
+  "playback": "loop",
+  "baseline_mode": "shared",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.018368,
+  "loop_first_last_identity_match": false,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.039855,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        30,
+        89,
+        161,
+        177
+      ],
+      "margins": {
+        "left": 30,
+        "top": 89,
+        "right": 31,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        28,
+        85,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 28,
+        "top": 85,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        30,
+        88,
+        161,
+        177
+      ],
+      "margins": {
+        "left": 30,
+        "top": 88,
+        "right": 31,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        30,
+        89,
+        162,
+        177
+      ],
+      "margins": {
+        "left": 30,
+        "top": 89,
+        "right": 30,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

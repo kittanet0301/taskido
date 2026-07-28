@@ -1,0 +1,181 @@
+{
+  "target": "creature",
+  "input": "assets\\creature-prototypes\\water\\animations\\baby\\bite\\raw-sheet.png",
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.03,
+  "cell_inset_min": 10,
+  "fit_scale": 0.78,
+  "trim_border": 6,
+  "edge_clean_depth": 2,
+  "align": "feet",
+  "baseline_y": 176,
+  "preserve_cell_position": false,
+  "shared_scale": true,
+  "component_mode": "all",
+  "component_padding": 2,
+  "min_component_area": 32,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "bite-1",
+    "bite-2",
+    "bite-3",
+    "bite-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "inner_box": [
+        18,
+        18,
+        609,
+        609
+      ],
+      "cell_inset_px": 18,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        106,
+        218,
+        566,
+        498
+      ],
+      "edge_touch": false,
+      "output_size": [
+        135,
+        82
+      ],
+      "paste_position": [
+        28,
+        95
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "inner_box": [
+        645,
+        18,
+        1236,
+        609
+      ],
+      "cell_inset_px": 18,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        28,
+        218,
+        539,
+        498
+      ],
+      "edge_touch": false,
+      "output_size": [
+        150,
+        82
+      ],
+      "paste_position": [
+        21,
+        95
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "inner_box": [
+        18,
+        645,
+        609,
+        1236
+      ],
+      "cell_inset_px": 18,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        103,
+        123,
+        566,
+        404
+      ],
+      "edge_touch": false,
+      "output_size": [
+        136,
+        82
+      ],
+      "paste_position": [
+        28,
+        95
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "inner_box": [
+        645,
+        645,
+        1236,
+        1236
+      ],
+      "cell_inset_px": 18,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        76,
+        123,
+        539,
+        404
+      ],
+      "edge_touch": false,
+      "output_size": [
+        136,
+        82
+      ],
+      "paste_position": [
+        28,
+        95
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

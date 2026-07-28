@@ -1,0 +1,45 @@
+{
+  "element": "ground",
+  "source_path": "assets\\creature-prototypes\\ground\\source-original-egg.png",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "raw_path": "assets\\creature-prototypes\\ground\\raw-egg.png",
+  "output_path": "assets\\creature-prototypes\\ground\\master-egg.png",
+  "raw_size": [
+    1024,
+    1024
+  ],
+  "canvas_size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "resize_filter": "nearest",
+  "alignment": "feet",
+  "envelope_ratio": 0.64,
+  "feet_baseline_y": 173,
+  "subject_bbox": [
+    49,
+    51,
+    143,
+    174
+  ],
+  "subject_size": [
+    94,
+    123
+  ],
+  "margins": {
+    "left": 49,
+    "top": 51,
+    "right": 49,
+    "bottom": 18
+  },
+  "subject_alpha_pixels_before_scale": 218041,
+  "removed_detached_components": 0,
+  "magenta_fringe_pixels": 0,
+  "transparent_corners": true,
+  "edge_touch": false,
+  "passed": true
+}

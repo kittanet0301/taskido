@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\neutral\\animations\\baby\\idle",
+  "prefix": "idle",
+  "playback": "loop",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "body_height_cv": 0.013249,
+  "loop_first_last_identity_match": false,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.018116,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        28,
+        96,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 28,
+        "top": 96,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        29,
+        93,
+        163,
+        177
+      ],
+      "margins": {
+        "left": 29,
+        "top": 93,
+        "right": 29,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        28,
+        95,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 28,
+        "top": 95,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        28,
+        95,
+        164,
+        177
+      ],
+      "margins": {
+        "left": 28,
+        "top": 95,
+        "right": 28,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

@@ -18,29 +18,29 @@ describe('TEST debug buttons', () => {
   it('debugSetSpecies switches species and assigns its fixed element', () => {
     const save = createDefaultSave()
     const before = save.pet!
-    const next = applyGamePatch(save, 'debugSetSpecies', ['garden'])
-    expect(next.pet?.character).toBe('garden')
-    expect(next.pet?.name.toLowerCase()).toContain('garden')
-    expect(next.pet?.elementPrimary).toBe('grass')
+    const next = applyGamePatch(save, 'debugSetSpecies', ['neutral'])
+    expect(next.pet?.character).toBe('neutral')
+    expect(next.pet?.name.toLowerCase()).toContain('stego')
+    expect(next.pet?.elementPrimary).toBe('neutral')
     expect(next.pet?.elementSecondary).toBeNull()
     expect(next.pet?.primaries.str).toBeGreaterThan(0)
     expect(next.pet).not.toBe(before)
   })
 
   it('debugSetSpecies on hatched pet also re-rolls skill loadout', () => {
-    let save = { ...createDefaultSave(), pet: createEggPet('garden') }
+    let save = { ...createDefaultSave(), pet: createEggPet('neutral') }
     save = applyGamePatch(save, 'debugSetStage', ['baby'])
     const loadoutBefore = save.pet!.skillLoadout
     expect(loadoutBefore?.slots.length).toBe(4)
 
-    save = applyGamePatch(save, 'debugSetSpecies', ['garden'])
-    expect(save.pet?.character).toBe('garden')
+    save = applyGamePatch(save, 'debugSetSpecies', ['neutral'])
+    expect(save.pet?.character).toBe('neutral')
     expect(save.pet?.skillLoadout?.slots.length).toBe(4)
     expect(save.pet?.skillLoadout?.slots.every((s) => s.rank === 1)).toBe(true)
   })
 
   it('debugSetStage egg→baby rolls a skill loadout', () => {
-    const save = { ...createDefaultSave(), pet: createEggPet('garden') }
+    const save = { ...createDefaultSave(), pet: createEggPet('neutral') }
     expect(save.pet?.stage).toBe('egg')
     expect(save.pet?.skillLoadout).toBeNull()
 
@@ -54,7 +54,7 @@ describe('TEST debug buttons', () => {
   })
 
   it('debugSetStage adult→egg clears skills', () => {
-    let save = { ...createDefaultSave(), pet: createEggPet('garden') }
+    let save = { ...createDefaultSave(), pet: createEggPet('neutral') }
     save = applyGamePatch(save, 'debugSetStage', ['adult'])
     save = applyGamePatch(save, 'debugSetStage', ['egg'])
     expect(save.pet?.stage).toBe('egg')
@@ -62,7 +62,7 @@ describe('TEST debug buttons', () => {
   })
 
   it('debugBoostDev grants skill points / growth offers on level-up', () => {
-    let save = { ...createDefaultSave(), pet: createEggPet('garden') }
+    let save = { ...createDefaultSave(), pet: createEggPet('neutral') }
     save = applyGamePatch(save, 'debugSetStage', ['baby'])
     const before = save.pet!
     expect(before.skillUpgradePoints).toBe(0)
@@ -77,12 +77,12 @@ describe('TEST debug buttons', () => {
   it('newEgg adds a species-specific egg into collection', () => {
     const save = createDefaultSave()
     const used = 1 + save.collection.length
-    const next = applyGamePatch(save, 'newEgg', ['garden'])
+    const next = applyGamePatch(save, 'newEgg', ['neutral'])
     expect(next.collection.length).toBe(save.collection.length + 1)
     const egg = next.collection[next.collection.length - 1]!
     expect(egg.stage).toBe('egg')
-    expect(egg.character).toBe('garden')
-    expect(egg.elementPrimary).toBe('grass')
+    expect(egg.character).toBe('neutral')
+    expect(egg.elementPrimary).toBe('neutral')
     expect(used + 1).toBe(1 + next.collection.length)
   })
 

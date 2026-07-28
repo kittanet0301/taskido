@@ -1,0 +1,34 @@
+{
+  "element": "electric",
+  "stage": "adult",
+  "source_path": "assets\\creature-prototypes\\electric\\source-original-adult.png",
+  "output_path": "assets\\creature-prototypes\\electric\\master-adult.png",
+  "canvas_size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "resize_filter": "nearest",
+  "alignment": "feet",
+  "feet_baseline_y": 173,
+  "subject_bbox": [
+    7,
+    44,
+    185,
+    174
+  ],
+  "subject_size": [
+    178,
+    130
+  ],
+  "margins": {
+    "left": 7,
+    "top": 44,
+    "right": 7,
+    "bottom": 18
+  },
+  "magenta_fringe_pixels": 0,
+  "transparent_corners": true,
+  "edge_touch": false,
+  "passed": true
+}

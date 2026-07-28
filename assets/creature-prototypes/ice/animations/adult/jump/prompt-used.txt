@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Ice Pachyrhinosaurus body-only jump animation
+Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks adult identity, ice-blue/white palette, crystal frill, nose boss and sturdy proportions. Preserve left-facing adult Pachyrhinosaurus with snowflake markings, four legs and short tail.
+Frames: grounded anticipation crouch; rising airborne with all feet tucked; apex compact pose with crystal frill readable; grounded landing/recovery near neutral. Author pose only, center each subject at consistent torso scale; deterministic processing applies vertical trajectory.
+Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, grid/separators/guides, text, UI, watermark, snow, frost cloud, shards, sparkles, mist or particles. No turn, charge, crop, detached crystals, extra/missing limbs. Full nose, frill crystals, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

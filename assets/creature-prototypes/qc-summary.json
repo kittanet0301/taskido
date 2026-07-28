@@ -1,0 +1,99 @@
+{
+  "stage": "baby",
+  "passed": true,
+  "expected_elements": [
+    "neutral",
+    "fire",
+    "grass",
+    "ground",
+    "electric",
+    "water",
+    "ice",
+    "dragon",
+    "dark"
+  ],
+  "shared_feet_baseline": 173,
+  "entries": {
+    "neutral": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "fire": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "grass": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "ground": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "electric": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "water": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "ice": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "dragon": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    },
+    "dark": {
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "feet_baseline_y": 173
+    }
+  }
+}

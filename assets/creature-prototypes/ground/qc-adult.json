@@ -1,0 +1,34 @@
+{
+  "element": "ground",
+  "stage": "adult",
+  "source_path": "assets\\creature-prototypes\\ground\\source-original-adult.png",
+  "output_path": "assets\\creature-prototypes\\ground\\master-adult.png",
+  "canvas_size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "resize_filter": "nearest",
+  "alignment": "feet",
+  "feet_baseline_y": 173,
+  "subject_bbox": [
+    6,
+    91,
+    186,
+    174
+  ],
+  "subject_size": [
+    180,
+    83
+  ],
+  "margins": {
+    "left": 6,
+    "top": 91,
+    "right": 6,
+    "bottom": 18
+  },
+  "magenta_fringe_pixels": 0,
+  "transparent_corners": true,
+  "edge_touch": false,
+  "passed": true
+}

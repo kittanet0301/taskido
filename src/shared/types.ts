@@ -1,18 +1,15 @@
-import type { DinoCharacter } from './dinoCharacters'
 import type { CreatureSpecies } from './creatureCharacters'
 import type { ElementId } from './elements'
 import type { PrimaryStats, GrowthCardId } from './combatStats'
 import type { SkillLoadout } from './battle/skillTrees'
 
-export type { DinoCharacter } from './dinoCharacters'
 export type { CreatureSpecies } from './creatureCharacters'
-export { DINO_CHARACTERS } from './dinoCharacters'
 export { CREATURE_SPECIES } from './creatureCharacters'
 export type { ElementId } from './elements'
 export type { PrimaryStats, GrowthCardId, GrowthCard } from './combatStats'
 export type { SkillLoadout, SkillSlot } from './battle/skillTrees'
 
-export type PetSpecies = DinoCharacter | CreatureSpecies
+export type PetSpecies = CreatureSpecies
 
 export type Gender = 'male' | 'female'
 export type Stage = 'egg' | 'baby' | 'adult'

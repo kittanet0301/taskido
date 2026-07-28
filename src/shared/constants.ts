@@ -1,7 +1,5 @@
 import type { PetSpecies } from './types'
 import { CREATURE_PREVIEW_COLORS } from './creatureCharacters'
-import { DINO_PREVIEW_COLORS } from './dinoCharacters'
-import { isCreatureSpecies } from './creatureCharacters'
 import { getSessionIsAdmin } from './sessionFlags'
 
 export const SAVE_VERSION = 7
@@ -60,9 +58,8 @@ export const BREED_COOLDOWN_MS = 6 * 60 * 60 * 1000
 /** Extra pure-element chance bonus when both parents are pure of the same element. */
 export const BREED_PURE_BONUS = 0.05
 
-export { DINO_PREVIEW_COLORS, CREATURE_PREVIEW_COLORS }
+export { CREATURE_PREVIEW_COLORS }
 
 export function petPreviewColor(species: PetSpecies): string {
-  if (isCreatureSpecies(species)) return CREATURE_PREVIEW_COLORS[species]
-  return DINO_PREVIEW_COLORS[species]
+  return CREATURE_PREVIEW_COLORS[species]
 }

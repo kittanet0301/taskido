@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\grass\\animations\\adult\\jump",
+  "prefix": "jump",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 42,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.049992,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.181548,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        18,
+        38,
+        174,
+        177
+      ],
+      "margins": {
+        "left": 18,
+        "top": 38,
+        "right": 18,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        16,
+        23,
+        176,
+        153
+      ],
+      "margins": {
+        "left": 16,
+        "top": 23,
+        "right": 16,
+        "bottom": 39
+      },
+      "baseline_y": 152,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        16,
+        2,
+        176,
+        135
+      ],
+      "margins": {
+        "left": 16,
+        "top": 2,
+        "right": 16,
+        "bottom": 57
+      },
+      "baseline_y": 134,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        8,
+        29,
+        184,
+        177
+      ],
+      "margins": {
+        "left": 8,
+        "top": 29,
+        "right": 8,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

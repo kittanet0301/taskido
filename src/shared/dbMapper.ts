@@ -16,7 +16,7 @@ import type {
 import { SAVE_VERSION, PET_SLOT_BASE } from './constants'
 import { createDefaultSave } from './growth'
 import { createDefaultMinigameState } from './minigame'
-import { normalizePetSpecies } from './dinoCharacters'
+import { normalizePetSpecies } from './creatureCharacters'
 import { clampSlotLimit } from './petCollection'
 import { normalizePetData } from './petNormalize'
 

@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Ground Ankylosaurus body-only jump animation
+Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks adult identity, palette, armor and proportions. Preserve left-facing broad Ankylosaurus, ochre skin, massive layered tan stone plates, side spikes, four sturdy legs and large faceted rock club tail.
+Frames: 1 grounded anticipation crouch; 2 rising airborne with all four feet tucked and club close; 3 apex compact armored pose while face and plates remain readable; 4 grounded landing/recovery near neutral. Author pose only, center every subject at consistent torso scale; deterministic processing applies vertical baselines.
+Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, grid/separators/guides, text, UI, watermark, falling rocks, cracks, dust, debris, wind streaks or particles. No turn, crop, armor mutation or extra/missing legs. Full snout, armor, spikes, tail club and feet inside generous padding. Clean production raw animation sheet for Taskino.

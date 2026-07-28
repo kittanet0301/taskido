@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Electric Parasaurolophus egg wobble animation
+Create exactly six seamless loop frames in an exact 2 columns x 3 rows grid. Image 1 locks the yellow egg identity with cobalt lightning markings and attached lightning-shaped shell crest; Image 2 locks scale, centered root, bottom line and padding.
+Frames: neutral, tilt left, neutral, tilt right, tiny squash, exact return to neutral. Subtle wobble only; keep the egg centered and crest attached, with bottom on one common line.
+Hard-edged polished 16-bit pixel art, limited yellow/blue palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, background texture, floor/shadow, floating sparks, lightning bolts, glow, particles, text, UI, watermark, borders, guides, grid lines or separators. No crop, scale change or detached crest. Clean production raw sprite sheet for Taskino.

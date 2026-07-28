@@ -1,0 +1,22 @@
+Create a production raw sprite animation sheet for Taskino.
+
+Use case: stylized-concept
+Asset type: 16-bit pixel-art creature hurt animation sheet
+Input images: Image 1 is the exact Adult Neutral Stegosaurus identity and art reference. Image 2 is the accepted Adult scale-and-root template. Preserve Image 2's exact invisible cell locations, fixed camera distance, standing-equivalent anatomical scale, body-root position, grounded foot-contact line, and padding. Change only the hurt poses.
+
+Canvas and layout: exactly 1024x1024, exactly four equal invisible cells in a 2x2 grid, read top-left, top-right, bottom-left, bottom-right. No visible boxes, borders, separators, labels, guides, or center marks.
+Background: perfectly flat uniform solid #FF00FF everywhere outside the dinosaur. No gradient, texture, floor, shadow, reflection, or lighting variation.
+
+Subject: the same single Adult Neutral Stegosaurus in every cell, strict left-facing side profile, full body visible. Preserve Image 1's mature elongated low Stegosaurus anatomy, olive-green skin, darker olive diamond/leaf-like markings, cream muzzle and underside, orange-gold dorsal plates with dark outlines, pale tail spikes, friendly eye design, limited palette, crisp hard 16-bit pixel clusters, consistent dark outline, and upper-left lighting.
+
+Four-frame one-shot hurt sequence:
+1 top-left — impact: sudden compact flinch at the torso, head pulls slightly back, eye squeezed shut, front legs brace; no visible impact effect.
+2 top-right — recoil: body compresses downward and slightly backward around the same rooted pelvis, neck tucks, tail tip lifts a little as attached counter-motion.
+3 bottom-left — stagger: lowest controlled crouch, head lowered, eyes narrowed or closed, legs bent under the body, plates tilt only with the compressed torso.
+4 bottom-right — recovery: returns close to the accepted neutral standing pose, eyes open, ready to transition into idle.
+
+Motion contract: one-shot body-only hurt reaction. Keep torso center and pelvis near the same x-position; no whole-body travel or knockback across the cell. Feet remain grounded on one shared horizontal contact line, with bracing and bending expressed in place. Natural pose bboxes may shorten during recoil/stagger, but do not zoom or resize any pose to fill its cell. Keep limb thickness, head size, plate size, and anatomical scale identical across all frames. All plates and tail spikes stay attached.
+
+Scale and containment: use one shared central 70% to 72% silhouette envelope. Tuck the elongated tail inward during recoil. Leave generous #FF00FF margin on all four sides. No snout, plate, foot, tail, or spike may touch or cross a cell edge. Nothing may be cropped.
+
+Avoid: detached hit stars, slash arcs, sparks, dust, shockwaves, blood, wounds, motion streaks, target or attacker, baby proportions, redesign, added/missing plates or legs, falling over, airborne knockback, whole-body lateral translation, text, watermark, ground shadow, scenery, visible grid lines, gradients, smoothing, semi-realistic painting.

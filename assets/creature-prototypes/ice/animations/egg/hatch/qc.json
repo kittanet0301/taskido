@@ -1,0 +1,150 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\ice\\animations\\egg\\hatch",
+  "prefix": "hatch",
+  "playback": "one-shot",
+  "baseline_mode": "shared",
+  "frame_count": 6,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.15595,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        37,
+        16,
+        155,
+        177
+      ],
+      "margins": {
+        "left": 37,
+        "top": 16,
+        "right": 37,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        37,
+        16,
+        155,
+        177
+      ],
+      "margins": {
+        "left": 37,
+        "top": 16,
+        "right": 37,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        45,
+        16,
+        146,
+        177
+      ],
+      "margins": {
+        "left": 45,
+        "top": 16,
+        "right": 46,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        36,
+        25,
+        155,
+        177
+      ],
+      "margins": {
+        "left": 36,
+        "top": 25,
+        "right": 37,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 5,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        24,
+        51,
+        168,
+        177
+      ],
+      "margins": {
+        "left": 24,
+        "top": 51,
+        "right": 24,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 6,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        27,
+        75,
+        165,
+        177
+      ],
+      "margins": {
+        "left": 27,
+        "top": 75,
+        "right": 27,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

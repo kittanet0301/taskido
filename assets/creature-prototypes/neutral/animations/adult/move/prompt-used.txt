@@ -1,0 +1,22 @@
+Create a production raw sprite animation sheet for Taskino.
+
+Use case: stylized-concept
+Asset type: 16-bit pixel-art creature walking animation sheet
+Input images: Image 1 is the exact Adult Neutral Stegosaurus identity and art reference. Image 2 is the accepted Adult scale-and-root template. Preserve Image 2's exact invisible cell locations, fixed camera distance, standing-equivalent anatomical scale, torso-root position, grounded foot-contact line, and padding. Change only the walking poses.
+
+Canvas and layout: exactly 1024x1024, exactly four equal invisible cells in a 2x2 grid, read top-left, top-right, bottom-left, bottom-right. No visible boxes, borders, separators, labels, guides, or center marks.
+Background: perfectly flat uniform solid #FF00FF everywhere outside the dinosaur. No gradient, texture, floor, shadow, reflection, or lighting variation.
+
+Subject: the same single Adult Neutral Stegosaurus in every cell, strict left-facing side profile, full body visible. Preserve Image 1's mature elongated low Stegosaurus anatomy, friendly face and eye, olive-green skin, darker olive diamond/leaf-like markings, cream muzzle and underside, orange-gold dorsal plates with dark outlines, and pale tail spikes. Preserve exact 16-bit pixel-art language: limited palette, crisp hard pixel clusters, consistent dark outline weight, no painterly blur or antialiased softness. Consistent upper-left lighting.
+
+Four-frame in-place grounded walk loop:
+1 top-left — contact A: left/front visible leg reaches slightly forward while the opposite rear leg pushes back; the other pair supports the body.
+2 top-right — passing A: legs pass beneath the torso, body rises only a few pixels, head and tail counterbalance subtly.
+3 bottom-left — contact B: reverse the leg pairing from frame 1, with the opposite front and rear legs taking the stride.
+4 bottom-right — passing B: reversed passing pose that flows smoothly back into frame 1.
+
+Locomotion contract: this is a deliberate heavy quadruped walk, readable at sprite size, not a run and not sliding. Runtime translation moves the actor; do not move the whole dinosaur across a cell. Keep torso center fixed in every frame. Keep pelvis and body root over the same x-position. Feet touch one shared horizontal ground line. Use clear alternating leg silhouettes without adding or losing legs. Allow only a tiny vertical body bob. Dorsal plates remain attached and stable; head and tail make small natural counter-motions.
+
+Scale and containment: same identity, camera distance, limb thickness, plate sizes, and standing-equivalent anatomical scale in all four cells. Keep every pose inside one shared central 70% to 72% silhouette envelope. Tuck the elongated tail inward. Leave generous #FF00FF margin on all four sides. No snout, foot, plate, tail, or spike may touch or cross a cell edge. Nothing may be cropped.
+
+Avoid: baby proportions, redesign, extra horns or plates, duplicated/missing legs, galloping, jumping, whole-body lateral travel, detached effects, dust, motion streaks, aura, text, watermark, ground shadow, scenery, visible grid lines, gradients, smoothing, semi-realistic painting.

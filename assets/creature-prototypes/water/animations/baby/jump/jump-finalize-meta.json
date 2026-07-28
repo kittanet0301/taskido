@@ -1,0 +1,78 @@
+{
+  "scale": 1.148595,
+  "resize_filter": "nearest-neighbor",
+  "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+  "target_baselines_y": [
+    176,
+    132,
+    92,
+    176
+  ],
+  "reference": "assets\\creature-prototypes\\water\\master-baby.png",
+  "frames": [
+    {
+      "frame": 1,
+      "source_size": [
+        131,
+        76
+      ],
+      "output_size": [
+        150,
+        87
+      ],
+      "paste_position": [
+        21,
+        90
+      ],
+      "target_baseline_y": 176
+    },
+    {
+      "frame": 2,
+      "source_size": [
+        127,
+        76
+      ],
+      "output_size": [
+        146,
+        87
+      ],
+      "paste_position": [
+        23,
+        46
+      ],
+      "target_baseline_y": 132
+    },
+    {
+      "frame": 3,
+      "source_size": [
+        103,
+        71
+      ],
+      "output_size": [
+        118,
+        82
+      ],
+      "paste_position": [
+        37,
+        11
+      ],
+      "target_baseline_y": 92
+    },
+    {
+      "frame": 4,
+      "source_size": [
+        122,
+        75
+      ],
+      "output_size": [
+        140,
+        86
+      ],
+      "paste_position": [
+        26,
+        91
+      ],
+      "target_baseline_y": 176
+    }
+  ]
+}

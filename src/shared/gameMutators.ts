@@ -16,7 +16,7 @@ function debugMutatorsEnabled(): boolean {
   return getSessionIsAdmin()
 }
 import { CREATURE_SPECIES, elementForCreatureSpecies, isCreatureSpecies } from './creatureCharacters'
-import { defaultPetName } from './dinoCharacters'
+import { defaultPetName } from './creatureCharacters'
 import { getPetLevel } from './activityScore'
 import {
   GROWTH_CARDS,

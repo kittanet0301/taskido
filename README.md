@@ -8,7 +8,7 @@ Tamagotchi-style desktop pet game with dino characters — desktop (Electron) + 
 
 - Transparent always-on-top pet window on desktop
 - **ก่อน login:** สัตว์แสดงเป็นไข่, tray ไม่โชว์สถิติ — **หลัง login** โหลดสัตว์จริงจาก cloud
-- Random egg hatch → dino character (garden / crag-shell / tide-fin / volt-wing), male/female
+- Random egg hatch → one of 9 elemental dinosaur species, male/female
 - Growth: Egg → Baby → Adult
 - **Care stats:** Health, Emotion, Evolution (เดิม HP / mood / development)
 - **RPG combat stats:** STR / DEX / INT / CON + ธาตุ (pure / dual) → Battle HP / MP / EVA
@@ -32,7 +32,7 @@ Tamagotchi-style desktop pet game with dino characters — desktop (Electron) + 
 
 **Auth (ก่อนเข้า Hub)** — `.pixel-cover` บน Login / Sign up / Forgot password / Get Started:
 - พื้นหลังท้องฟ้า + หญ้า + เมฆ pixel
-- โลโก้ **animated egg sprite** (`male/doux/egg`) จาก `assets/dino/`
+- โลโก้ **animated egg sprite** จาก creature pipeline ใน `assets/creatures/`
 - ปุ่ม blocky 3D, input มุมคม, สลับภาษา EN/TH มุมขวาบนการ์ด
 
 **Hub (หลัง login)** — `.pixel-hub` + home scene HUD:
@@ -59,18 +59,9 @@ npm run dev
 
 ## Asset Setup
 
-Repo นี้ไม่ได้รวม sprite assets ขนาดใหญ่ไว้ใน git ดังนั้น clone ใหม่ต้องเพิ่มไฟล์เองก่อนจึงจะเห็น pet sprite และโลโก้ครบ
-
-1. ดาวน์โหลดแพ็ก [Dino Family](https://demching.itch.io/dino-family)
-2. คัดลอก sprites ไปไว้ตามโครงสร้างนี้:
-
-```text
-assets/dino/{male|female}/{character}/{base|egg|ghost}/{animation}.png
-```
-
-3. ตรวจรายการตัวละครและ animation ที่ต้องมีใน [assets/CREDITS.md](assets/CREDITS.md)
-4. เพิ่มไฟล์ UI ภายใต้ `assets/ui/` เช่น `taskino-logo.png`, HUD icons
-5. ตรวจความครบด้วย `npm run check:assets`
+Creature sprites อยู่ใน `assets/creatures/{species}/{egg|baby|adult}/` และสร้างผ่าน
+project-local creature pipeline เท่านั้น เพิ่มไฟล์ UI ภายใต้ `assets/ui/` แล้วตรวจด้วย
+`npm run check:assets` และ `npm run check:creatures`
 
 ถ้าไฟล์บางส่วนหาย เกมจะ fallback เป็นวงกลมสีแทน sprite บางตัว
 
@@ -172,11 +163,11 @@ Global input tracking requires **Accessibility** permission in System Settings.
 - `src/shared/battle/` — Battle engine, skill trees, damage, rewards, mappers
 - `src/styles.css` — Global styles + `.pixel-cover` / `.pixel-hub` / home HUD
 - `web/` — Vite config สำหรับเวอร์ชันเบราว์เซอร์
-- `assets/dino/` — Dino Family pixel sprites (see [assets/CREDITS.md](assets/CREDITS.md))
+- `assets/creatures/` — Runtime creature animation strips
+- `assets/creature-prototypes/` — Static generation masters and QC artifacts
 - `assets/ui/` — Logo, HUD icons, item icons
 - `supabase/migrations/` — SQL schema + RLS + battle / breed RPCs (ถึง `045`)
 
 ## Credits
 
-- **Pet sprites:** [Dino Family](https://demching.itch.io/dino-family) by DemChing — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Based on [Dino Characters](https://arks.itch.io/dino-characters) by ScissorMarks.
 - **Fonts:** [Mali](https://fonts.google.com/specimen/Mali), [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) (Google Fonts)

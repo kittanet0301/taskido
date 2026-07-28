@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, statSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { spawnSync } from 'child_process'
 import { CREATURE_SPECIES, STAGE_CLIPS, clipGrid } from './creature-manifest.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -27,18 +26,16 @@ function checkExists(relativePath) {
 }
 
 function probeImageSize(filePath) {
-  const result = spawnSync(
-    'python',
-    [
-      '-c',
-      'from PIL import Image; import sys; im=Image.open(sys.argv[1]); print(im.width, im.height)',
-      filePath
-    ],
-    { encoding: 'utf8' }
-  )
-  if (result.status !== 0) return null
-  const [width, height] = result.stdout.trim().split(/\s+/).map(Number)
-  if (!width || !height) return null
+  const header = readFileSync(filePath)
+  if (
+    header.length < 24 ||
+    header.toString('hex', 0, 8) !== '89504e470d0a1a0a' ||
+    header.toString('ascii', 12, 16) !== 'IHDR'
+  ) {
+    return null
+  }
+  const width = header.readUInt32BE(16)
+  const height = header.readUInt32BE(20)
   return { width, height }
 }
 

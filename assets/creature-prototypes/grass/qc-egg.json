@@ -1,0 +1,45 @@
+{
+  "element": "grass",
+  "source_path": "assets\\creature-prototypes\\grass\\source-original-egg.png",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "raw_path": "assets\\creature-prototypes\\grass\\raw-egg.png",
+  "output_path": "assets\\creature-prototypes\\grass\\master-egg.png",
+  "raw_size": [
+    1024,
+    1024
+  ],
+  "canvas_size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "resize_filter": "nearest",
+  "alignment": "feet",
+  "envelope_ratio": 0.64,
+  "feet_baseline_y": 173,
+  "subject_bbox": [
+    51,
+    51,
+    140,
+    174
+  ],
+  "subject_size": [
+    89,
+    123
+  ],
+  "margins": {
+    "left": 51,
+    "top": 51,
+    "right": 52,
+    "bottom": 18
+  },
+  "subject_alpha_pixels_before_scale": 197939,
+  "removed_detached_components": 0,
+  "magenta_fringe_pixels": 0,
+  "transparent_corners": true,
+  "edge_touch": false,
+  "passed": true
+}

@@ -1,0 +1,106 @@
+{
+  "passed": false,
+  "input_dir": "assets\\creature-prototypes\\neutral\\animations\\adult\\bite",
+  "prefix": "bite",
+  "playback": "one-shot",
+  "baseline_mode": "shared",
+  "frame_count": 4,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.013699,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.215054,
+  "reference_scale_passed": false,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        22,
+        103,
+        169,
+        177
+      ],
+      "margins": {
+        "left": 22,
+        "top": 103,
+        "right": 23,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        12,
+        103,
+        179,
+        177
+      ],
+      "margins": {
+        "left": 12,
+        "top": 103,
+        "right": 13,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        20,
+        105,
+        172,
+        177
+      ],
+      "margins": {
+        "left": 20,
+        "top": 105,
+        "right": 20,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        105,
+        165,
+        177
+      ],
+      "margins": {
+        "left": 26,
+        "top": 105,
+        "right": 27,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

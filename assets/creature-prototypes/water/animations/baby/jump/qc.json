@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\water\\animations\\baby\\jump",
+  "prefix": "jump",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 84,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.024112,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.005814,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        21,
+        90,
+        171,
+        177
+      ],
+      "margins": {
+        "left": 21,
+        "top": 90,
+        "right": 21,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        23,
+        46,
+        169,
+        133
+      ],
+      "margins": {
+        "left": 23,
+        "top": 46,
+        "right": 23,
+        "bottom": 59
+      },
+      "baseline_y": 132,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        37,
+        11,
+        155,
+        93
+      ],
+      "margins": {
+        "left": 37,
+        "top": 11,
+        "right": 37,
+        "bottom": 99
+      },
+      "baseline_y": 92,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        91,
+        166,
+        177
+      ],
+      "margins": {
+        "left": 26,
+        "top": 91,
+        "right": 26,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

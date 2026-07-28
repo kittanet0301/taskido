@@ -1,16 +1,10 @@
-import type { PetData } from './types'
-import type { DinoCharacter } from './dinoCharacters'
-import { dinoAssetBase } from './dinoCharacters'
-import type { Stage } from './types'
+import type { PetData, Stage } from './types'
 import {
   CREATURE_FRAME_SIZE,
   CREATURE_PIXEL_SCALE,
   creatureDisplaySize,
-  DEFAULT_CREATURE_SPECIES,
   creatureAssetBase,
-  creatureRenderStage,
-  isCreatureSpecies,
-  type CreatureSpecies
+  creatureRenderStage
 } from './creatureCharacters'
 import { creatureMaxFrameSize } from './creatureFrameManifest'
 import {
@@ -20,43 +14,33 @@ import {
   hatchWaitMsForFrameCount
 } from './dinoTiming'
 
-export const DINO_FRAME_SIZE = 24
-
-export type DinoSpriteFolder = 'base' | 'egg' | 'ghost'
-export type PetSpriteFolder = DinoSpriteFolder | 'baby' | 'adult'
+/**
+ * `base` remains a renderer-level alias for the pet's current body stage.
+ * It no longer maps to a separate third-party asset folder.
+ */
+export type PetSpriteFolder = 'base' | 'egg' | 'baby' | 'adult'
 
 const imageCache = new Map<string, HTMLImageElement | Promise<HTMLImageElement>>()
 
-export function frameSizeForSpecies(species: string): number {
-  return isCreatureSpecies(species) ? CREATURE_FRAME_SIZE : DINO_FRAME_SIZE
-}
-
-export function frameSizeFromStrip(img: HTMLImageElement, species: string): number {
-  if (isCreatureSpecies(species) && img.height > 0) {
-    return img.height
-  }
-  return frameSizeForSpecies(species)
+export function frameSizeFromStrip(img: HTMLImageElement, _species?: string): number {
+  return img.height > 0 ? img.height : CREATURE_FRAME_SIZE
 }
 
 export function frameSizeForPet(pet: Pick<PetData, 'character' | 'stage'>): number {
-  if (isCreatureSpecies(pet.character)) {
-    return creatureMaxFrameSize(pet.character, creatureRenderStage(pet.stage))
-  }
-  return DINO_FRAME_SIZE
+  return creatureMaxFrameSize(pet.character, creatureRenderStage(pet.stage))
 }
 
-export function frameCountFromImage(img: HTMLImageElement, species: string): number {
+export function frameCountFromImage(img: HTMLImageElement, species?: string): number {
   const frameSize = frameSizeFromStrip(img, species)
   return Math.max(1, Math.floor(img.width / frameSize))
 }
 
-/** Dino Family egg hatch strips are 4 frames; creature strips are up to 6. */
-export function expectedHatchFrameCount(species: string): number {
-  return isCreatureSpecies(species) ? 6 : 4
+export function expectedHatchFrameCount(_species?: string): number {
+  return 6
 }
 
-/** UI wait: hatch animation + post-hatch hold on final frame. */
-export function hatchAnimMsForSpecies(species: string): number {
+/** UI wait: hatch animation + post-hatch hold on the final frame. */
+export function hatchAnimMsForSpecies(species?: string): number {
   return hatchWaitMsForFrameCount(expectedHatchFrameCount(species))
 }
 
@@ -82,7 +66,7 @@ export function spriteFrameIndexForClip(
   clip: string,
   tick: number,
   img: HTMLImageElement,
-  species: string
+  species?: string
 ): number {
   const frameCount = frameCountFromImage(img, species)
   if (clip === 'hatch') {
@@ -103,59 +87,37 @@ export function isHatchAnimationComplete(
   return tick >= frameCount * ticksPerFrame + postDelayTicks
 }
 
-/** Integer scale only — pixel art must land on whole pixels. */
-export function pixelScaleForPet(pet: Pick<PetData, 'character' | 'stage'>): number {
-  if (isCreatureSpecies(pet.character)) return CREATURE_PIXEL_SCALE
-  return pet.stage === 'baby' ? 3 : 4
+/** Shared pixel-art scale; every live pet now uses the creature pipeline. */
+export function pixelScaleForPet(_pet: Pick<PetData, 'character' | 'stage'>): number {
+  return CREATURE_PIXEL_SCALE
 }
 
-export function pixelScaleForStage(stage: Stage, species?: string): number {
-  if (species && isCreatureSpecies(species)) return CREATURE_PIXEL_SCALE
-  return stage === 'baby' ? 3 : 4
-}
-
-/** Scale to fit a custom canvas without clipping (dashboard). */
+/** Scale to fit a custom canvas without clipping. */
 export function pixelScaleForCanvas(
   pet: Pick<PetData, 'character' | 'stage'>,
-  canvasSize: number
+  _canvasSize: number
 ): number {
-  const frameSize = frameSizeForPet(pet)
-  if (isCreatureSpecies(pet.character)) {
-    return creatureDisplaySize(pet.stage) / frameSize
-  }
-  return Math.max(1, Math.min(Math.floor(canvasSize / frameSize), pixelScaleForPet(pet)))
+  return creatureDisplaySize(pet.stage) / frameSizeForPet(pet)
 }
 
 const CREATURE_BOB_PADDING = 8
 
-/** Canvas must equal draw size (+ bob room) so scaled sprites are not clipped. */
+/** Canvas includes bob room so the scaled creature is not clipped. */
 export function resolveSpriteRenderSize(
   pet: Pick<PetData, 'character' | 'stage'>,
   requestedSize?: number
 ): { canvasSize: number; pixelScale: number; drawSize: number } {
   const frameSize = frameSizeForPet(pet)
-  if (isCreatureSpecies(pet.character)) {
-    const drawSize = requestedSize ?? creatureDisplaySize(pet.stage)
-    const bobPad = CREATURE_BOB_PADDING
-    return {
-      canvasSize: drawSize + bobPad,
-      pixelScale: drawSize / frameSize,
-      drawSize
-    }
+  const drawSize = requestedSize ?? creatureDisplaySize(pet.stage)
+  return {
+    canvasSize: drawSize + CREATURE_BOB_PADDING,
+    pixelScale: drawSize / frameSize,
+    drawSize
   }
-  if (requestedSize == null) {
-    const pixelScale = pixelScaleForPet(pet)
-    const drawSize = pixelScale * frameSize
-    return { canvasSize: drawSize, pixelScale, drawSize }
-  }
-  const pixelScale = pixelScaleForCanvas(pet, requestedSize)
-  const drawSize = pixelScale * frameSize
-  return { canvasSize: drawSize, pixelScale, drawSize }
 }
 
 export function displaySizeForPet(pet: Pick<PetData, 'character' | 'stage'>): number {
-  if (isCreatureSpecies(pet.character)) return creatureDisplaySize(pet.stage)
-  return pixelScaleForPet(pet) * frameSizeForPet(pet)
+  return creatureDisplaySize(pet.stage)
 }
 
 /** On-screen sprite size in the chat lobby — adult is 2× baby/egg. */
@@ -172,38 +134,31 @@ export const MINIGAME_JUMP_SPRITE_ADULT = MINIGAME_JUMP_SPRITE_BABY * 2
 /** Transparent padding below the creature's feet inside each square sprite frame. */
 export const MINIGAME_SPRITE_GROUND_OFFSET_RATIO = 1 / 8
 
-export function minigameJumpDisplaySizeForPet(pet: Pick<PetData, 'character' | 'stage'>): number {
+export function minigameJumpDisplaySizeForPet(
+  pet: Pick<PetData, 'character' | 'stage'>
+): number {
   return pet.stage === 'adult' ? MINIGAME_JUMP_SPRITE_ADULT : MINIGAME_JUMP_SPRITE_BABY
 }
 
-export function displaySizeFromPixelScale(pixelScale: number, species?: string, stage?: Stage): number {
-  if (species && isCreatureSpecies(species)) {
-    if (stage) return creatureDisplaySize(stage)
-    return pixelScale * creatureMaxFrameSize(species, 'baby')
-  }
-  return pixelScale * DINO_FRAME_SIZE
+function stageFolderForRequest(
+  stage: Stage,
+  folder: PetSpriteFolder
+): 'egg' | 'baby' | 'adult' {
+  if (folder === 'egg') return 'egg'
+  if (folder === 'baby' || folder === 'adult') return folder
+  return creatureRenderStage(stage)
 }
 
 export function petSpriteUrl(
-  pet: Pick<PetData, 'character' | 'gender' | 'stage'>,
+  pet: Pick<PetData, 'character' | 'stage'>,
   folder: PetSpriteFolder,
   clip: string
 ): string {
-  if (isCreatureSpecies(pet.character)) {
-    const stageFolder = folder === 'egg' ? 'egg' : creatureRenderStage(pet.stage)
-    return creatureAssetBase(pet.character, stageFolder, clip)
-  }
-  const dinoFolder = folder === 'baby' || folder === 'adult' ? 'base' : folder
-  return dinoAssetBase(pet.gender, pet.character as DinoCharacter, dinoFolder as DinoSpriteFolder, clip)
-}
-
-export function dinoSpriteUrl(
-  gender: PetData['gender'],
-  character: DinoCharacter,
-  folder: DinoSpriteFolder,
-  clip: string
-): string {
-  return dinoAssetBase(gender, character, folder, clip)
+  return creatureAssetBase(
+    pet.character,
+    stageFolderForRequest(pet.stage, folder),
+    clip
+  )
 }
 
 export function setupCrispCanvas(
@@ -250,13 +205,9 @@ export function loadPetSprite(url: string): Promise<HTMLImageElement> {
   return loading
 }
 
-export const loadDinoSprite = loadPetSprite
-
 export function preloadPetSprites(urls: string[]): Promise<void> {
   return Promise.all(urls.map(loadPetSprite)).then(() => undefined)
 }
-
-export const preloadDinoSprites = preloadPetSprites
 
 export function drawPetSpriteFrame(
   ctx: CanvasRenderingContext2D,
@@ -291,25 +242,6 @@ export function drawPetSpriteFrame(
   } else {
     ctx.drawImage(img, sx, 0, frameSize, frameSize, dx, dy, size, size)
   }
-}
-
-export function drawDinoSpriteFrame(
-  ctx: CanvasRenderingContext2D,
-  img: HTMLImageElement,
-  frameIndex: number,
-  options: {
-    x: number
-    y: number
-    pixelScale: number
-    flipX?: boolean
-    species?: string
-  }
-): void {
-  drawPetSpriteFrame(ctx, img, frameIndex, options.species ?? DEFAULT_CREATURE_SPECIES, options)
-}
-
-export function isCreaturePet(pet: Pick<PetData, 'character'>): pet is PetData & { character: CreatureSpecies } {
-  return isCreatureSpecies(pet.character)
 }
 
 export { creatureDisplaySize, CREATURE_DISPLAY_SIZE } from './creatureCharacters'

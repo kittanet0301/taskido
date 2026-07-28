@@ -5,7 +5,7 @@ import { buildGenPrompt } from './creature-gen-prompts.mjs'
 import { clipGrid, repoRoot, speciesBoardPath, spriteOutputDir } from './creature-manifest.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const species = process.argv[2] ?? 'garden'
+const species = process.argv[2] ?? 'neutral'
 const rawDir = join(repoRoot, 'assets', 'raw-creatures', species)
 const outDir = join(repoRoot, 'sprite-output', species)
 

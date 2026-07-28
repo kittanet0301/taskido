@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\dragon\\animations\\baby\\jump",
+  "prefix": "jump",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 64,
+  "ground_return_delta": 0,
+  "body_height_cv": 0.091424,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": 0.005051,
+  "reference_scale_passed": true,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        23,
+        93,
+        169,
+        177
+      ],
+      "margins": {
+        "left": 23,
+        "top": 93,
+        "right": 23,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        37,
+        166,
+        143
+      ],
+      "margins": {
+        "left": 26,
+        "top": 37,
+        "right": 26,
+        "bottom": 49
+      },
+      "baseline_y": 142,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        34,
+        11,
+        158,
+        113
+      ],
+      "margins": {
+        "left": 34,
+        "top": 11,
+        "right": 34,
+        "bottom": 79
+      },
+      "baseline_y": 112,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        71,
+        166,
+        177
+      ],
+      "margins": {
+        "left": 26,
+        "top": 71,
+        "right": 26,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}

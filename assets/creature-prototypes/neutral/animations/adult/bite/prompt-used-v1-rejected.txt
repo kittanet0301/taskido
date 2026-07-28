@@ -1,0 +1,22 @@
+Create a production raw sprite animation sheet for Taskino.
+
+Use case: stylized-concept
+Asset type: 16-bit pixel-art creature bite body animation sheet
+Input images: Image 1 is the exact Adult Neutral Stegosaurus identity and art reference. Image 2 is the accepted Adult scale-and-root template. Preserve Image 2's exact invisible cell locations, fixed camera distance, standing-equivalent anatomical scale, body-root position, grounded foot-contact line, and padding. Change only the bite poses.
+
+Canvas and layout: exactly 1024x1024, exactly four equal invisible cells in a 2x2 grid, read top-left, top-right, bottom-left, bottom-right. No visible boxes, borders, separators, labels, guides, or center marks.
+Background: perfectly flat uniform solid #FF00FF everywhere outside the dinosaur. No gradient, texture, floor, shadow, reflection, or lighting variation.
+
+Subject: the same single Adult Neutral Stegosaurus in every cell, strict left-facing side profile, full body visible. Preserve Image 1's mature elongated low Stegosaurus anatomy, friendly eye design, olive-green skin, darker olive diamond/leaf-like markings, cream muzzle and underside, orange-gold dorsal plates with dark outlines, pale tail spikes, limited palette, crisp hard 16-bit pixel clusters, consistent dark outline, and upper-left lighting. Keep a biologically modest Stegosaurus beak/mouth; do not add oversized predator teeth.
+
+Four-frame one-shot body-only bite:
+1 top-left — wind-up: head and short neck draw slightly back and down, jaw closed, front legs brace, torso and pelvis stay rooted.
+2 top-right — open bite: neck extends forward-left in place and the mouth opens clearly but modestly; eye focused; body does not travel.
+3 bottom-left — snap: jaw closes firmly at the furthest safe head extension, with a small head dip and attached tail counterbalance; no target or impact effect.
+4 bottom-right — recovery: head and neck return close to the accepted neutral standing pose, jaw closed, ready to transition to idle.
+
+Attack contract: body-only animation. No target, projectile, slash arc, impact burst, hit spark, dust, motion streak, or detached FX. Keep all four feet on one shared horizontal baseline. Lock pelvis and torso center against lateral translation. Express the bite through in-place neck compression/extension and jaw motion, not a whole-body lunge. Natural pose bboxes may change, but never zoom or resize a pose. Keep head size, limb thickness, plate size, tail thickness, and standing-equivalent anatomy scale identical in every frame.
+
+Shared silhouette envelope: keep every complete pose inside the same central 70% to 72% width/height area. Because this is an elongated quadruped, tuck the tail inward as the head extends so the total silhouette never widens beyond the anchor. Leave generous #FF00FF margin on all four sides. No snout, jaw, foot, plate, tail, or spike may touch or cross a cell edge. Nothing may be cropped.
+
+Avoid: carnivore redesign, giant fangs, exaggerated snake neck, baby proportions, extra/missing plates or legs, full-body pounce, whole-body lateral travel, detached effects, target creature, blood, wounds, text, watermark, ground shadow, scenery, visible grid lines, gradients, smoothing, semi-realistic painting.

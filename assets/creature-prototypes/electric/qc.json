@@ -1,0 +1,45 @@
+{
+  "element": "electric",
+  "source_path": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\electric\\source-original.png",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "raw_path": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\electric\\raw.png",
+  "output_path": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\electric\\master-baby.png",
+  "raw_size": [
+    1024,
+    1024
+  ],
+  "canvas_size": [
+    192,
+    192
+  ],
+  "mode": "RGBA",
+  "resize_filter": "nearest",
+  "alignment": "feet",
+  "envelope_ratio": 0.72,
+  "feet_baseline_y": 173,
+  "subject_bbox": [
+    27,
+    81,
+    165,
+    174
+  ],
+  "subject_size": [
+    138,
+    93
+  ],
+  "margins": {
+    "left": 27,
+    "top": 81,
+    "right": 27,
+    "bottom": 18
+  },
+  "subject_alpha_pixels_before_scale": 155847,
+  "removed_detached_components": 0,
+  "magenta_fringe_pixels": 0,
+  "transparent_corners": true,
+  "edge_touch": false,
+  "passed": true
+}

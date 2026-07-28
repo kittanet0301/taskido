@@ -1,0 +1,185 @@
+{
+  "target": "creature",
+  "input": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\neutral\\animations\\baby\\jump\\raw-sheet.png",
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.03,
+  "cell_inset_min": 10,
+  "fit_scale": 0.85,
+  "trim_border": 6,
+  "edge_clean_depth": 2,
+  "align": "feet",
+  "baseline_y": null,
+  "preserve_cell_position": true,
+  "shared_scale": true,
+  "component_mode": "largest",
+  "component_padding": 2,
+  "min_component_area": 96,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "jump-1",
+    "jump-2",
+    "jump-3",
+    "jump-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "inner_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        139,
+        310,
+        523,
+        518
+      ],
+      "edge_touch": false,
+      "output_size": [
+        117,
+        64
+      ],
+      "paste_position": [
+        43,
+        95
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "inner_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        84,
+        197,
+        485,
+        417
+      ],
+      "edge_touch": false,
+      "output_size": [
+        123,
+        67
+      ],
+      "paste_position": [
+        26,
+        60
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "inner_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        159,
+        83,
+        524,
+        292
+      ],
+      "edge_touch": false,
+      "output_size": [
+        111,
+        64
+      ],
+      "paste_position": [
+        49,
+        25
+      ],
+      "position_preserved": true
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "inner_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        112,
+        232,
+        479,
+        448
+      ],
+      "edge_touch": false,
+      "output_size": [
+        113,
+        66
+      ],
+      "paste_position": [
+        34,
+        71
+      ],
+      "position_preserved": true
+    }
+  ],
+  "edge_touch_frames": []
+}

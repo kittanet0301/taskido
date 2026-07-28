@@ -21,7 +21,12 @@ for skill_dir in SKILL_DIRS:
         break
 
 from creature_pixel import scale_content
-from creature_sheet_crop import DEFAULTS, extract_cell_frame  # noqa: E402
+from creature_sheet_crop import (  # noqa: E402
+    DEFAULTS,
+    compose_sheet,
+    extract_cell_frame,
+    save_transparent_gif,
+)
 
 # Match scripts/creature-manifest.mjs PROCESS_CELL_SIZE + CROP_SETTINGS.
 PROCESS_CELL_SIZE = 192
@@ -111,6 +116,7 @@ def process_raw_cell(
     cols: int,
     *,
     component_mode: str = "largest",
+    chroma_key: str = "green",
 ) -> Image.Image:
     return extract_cell_frame(
         raw_sheet,
@@ -130,7 +136,7 @@ def process_raw_cell(
         min_component_area=DEFAULTS["min_component_area"],
         threshold=DEFAULTS["threshold"],
         edge_threshold=DEFAULTS["edge_threshold"],
-        chroma_key=DEFAULTS["chroma_key"],
+        chroma_key=chroma_key,
         shared_scale=True,
     )
 
@@ -146,12 +152,16 @@ def finalize_hatch(
     egg_frames: int = 3,
     egg_pad: int = 4,
     dino_pad: int = 12,
+    chroma_key: str = "green",
+    baby_reference: Path | None = None,
 ) -> list[Image.Image]:
     ref_im = Image.open(move_reference).convert("RGBA")
     raw_sheet = Image.open(raw_sheet_path).convert("RGBA")
 
     # Scale dino frames from raw egg cell — avoids bleed from processed split_grid frames.
-    first_egg_cell = process_raw_cell(raw_sheet, 0, 0, rows, cols, component_mode="largest")
+    first_egg_cell = process_raw_cell(
+        raw_sheet, 0, 0, rows, cols, component_mode="largest", chroma_key=chroma_key
+    )
     _, first_egg_bbox = extract_content(first_egg_cell)
     _, ref_bbox = extract_content(ref_im)
     egg_h = max(1, first_egg_bbox[3] - first_egg_bbox[1])
@@ -161,7 +171,9 @@ def finalize_hatch(
     dino_contents: list[Image.Image] = []
     for index in range(egg_frames + 1, rows * cols + 1):
         row, col = divmod(index - 1, cols)
-        dino_cell = process_raw_cell(raw_sheet, row, col, rows, cols, component_mode="largest")
+        dino_cell = process_raw_cell(
+            raw_sheet, row, col, rows, cols, component_mode="largest", chroma_key=chroma_key
+        )
         content, _ = extract_content(dino_cell)
         dino_contents.append(content)
     dino_scale = clamp_scale_to_canvas(dino_contents, dino_uniform_scale, ref_im.size, pad=dino_pad)
@@ -169,13 +181,20 @@ def finalize_hatch(
     out: list[Image.Image] = []
     for index in range(1, egg_frames + 1):
         row, col = divmod(index - 1, cols)
-        egg_frame = process_raw_cell(raw_sheet, row, col, rows, cols, component_mode="largest")
+        egg_frame = process_raw_cell(
+            raw_sheet, row, col, rows, cols, component_mode="largest", chroma_key=chroma_key
+        )
         egg_content, _ = extract_content(egg_frame)
         out.append(fit_content_to_reference(egg_content, ref_im, pad=egg_pad))
 
     for content in dino_contents:
         scaled = scale_content(content, dino_scale)
         out.append(compose_feet_frame(scaled, ref_im, pad=dino_pad))
+
+    if baby_reference is not None:
+        baby = Image.open(baby_reference).convert("RGBA")
+        baby_content, _ = extract_content(baby)
+        out[-1] = compose_feet_frame(baby_content, ref_im, pad=dino_pad)
 
     return out
 
@@ -186,8 +205,14 @@ def main() -> None:
     parser.add_argument("--processed-dir", required=True, type=Path)
     parser.add_argument("--move-reference", required=True, type=Path)
     parser.add_argument("--prefix", default="hatch")
+    parser.add_argument("--rows", type=int, default=2)
+    parser.add_argument("--cols", type=int, default=3)
+    parser.add_argument("--egg-frames", type=int, default=3)
     parser.add_argument("--in-place", action="store_true")
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--chroma-key", choices=["green", "magenta"], default="green")
+    parser.add_argument("--baby-reference", type=Path)
+    parser.add_argument("--duration", type=int, default=120)
     args = parser.parse_args()
 
     frames = finalize_hatch(
@@ -195,6 +220,11 @@ def main() -> None:
         args.processed_dir,
         args.move_reference,
         args.prefix,
+        rows=args.rows,
+        cols=args.cols,
+        egg_frames=args.egg_frames,
+        chroma_key=args.chroma_key,
+        baby_reference=args.baby_reference,
     )
 
     if args.in_place and args.output_dir is not None:
@@ -211,6 +241,8 @@ def main() -> None:
         target = output_dir / f"{args.prefix}-{index}.png"
         frame.save(target)
         print(f"Wrote {target}")
+    compose_sheet(frames, 2, 3, PROCESS_CELL_SIZE).save(output_dir / "sheet-transparent.png")
+    save_transparent_gif(frames, output_dir / "animation.gif", args.duration)
 
 
 if __name__ == "__main__":

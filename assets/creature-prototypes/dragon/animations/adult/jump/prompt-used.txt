@@ -1,0 +1,5 @@
+Use case: stylized-concept
+Asset type: Adult Dragon Tyrannosaurus body-only jump animation
+Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks muscular red adult Tyrannosaurus identity, attached golden horns/ridges, tiny arms, two powerful legs and long tail; no wings.
+Frames: grounded anticipation crouch; rising airborne with both feet tucked; apex compact pose with horns and tail readable; grounded landing/recovery near neutral. Author pose only, center each subject at consistent torso scale; deterministic processing applies vertical trajectory.
+Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, grid/separators/guides, text, UI, watermark, fire, smoke, embers, aura, sparks or particles. No turn, flying, crop, detached horns/ridges, wings, extra/missing limbs. Full snout, horns, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

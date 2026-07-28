@@ -3,6 +3,16 @@ export const DINO_ANIM_FPS = 60
 /** Duration each sprite strip frame stays on screen. */
 export const DINO_SPRITE_FRAME_MS = 2000
 
+/**
+ * Convert real elapsed time to the legacy 60 Hz animation clock.
+ * Sprite playback must not use requestAnimationFrame call counts because the
+ * callback rate varies by display, throttling state, and concurrent RAF loops.
+ */
+export function dinoAnimationTick(elapsedMs: number): number {
+  if (!Number.isFinite(elapsedMs) || elapsedMs <= 0) return 0
+  return Math.floor((elapsedMs / 1000) * DINO_ANIM_FPS)
+}
+
 export const DINO_FRAMES_PER_SPRITE_FRAME = Math.max(
   1,
   Math.round((DINO_SPRITE_FRAME_MS / 1000) * DINO_ANIM_FPS)

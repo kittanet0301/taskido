@@ -125,6 +125,8 @@ def split_creature_grid(
     trim_border_px: int = DEFAULTS["trim_border"],
     edge_clean_depth: int = DEFAULTS["edge_clean_depth"],
     align: str = "center",
+    baseline_y: int | None = None,
+    preserve_cell_position: bool = False,
     shared_scale: bool = False,
     component_mode: str = DEFAULTS["component_mode"],
     component_padding: int = DEFAULTS["component_padding"],
@@ -143,6 +145,46 @@ def split_creature_grid(
     for row in range(rows):
         for col in range(cols):
             outer = (col * cell_w, row * cell_h, (col + 1) * cell_w, (row + 1) * cell_h)
+            if preserve_cell_position:
+                cell = cleaned.crop(outer)
+                # Generation references can cause thin grid/separator strokes at
+                # cell boundaries. Preserve the authored in-cell trajectory, but
+                # clear only the requested outer border band before resizing so
+                # those guide pixels cannot become part of the alpha subject.
+                border = min(trim_border_px, cell.width // 2, cell.height // 2)
+                if border > 0:
+                    alpha = cell.getchannel("A")
+                    alpha.paste(0, (0, 0, cell.width, border))
+                    alpha.paste(0, (0, cell.height - border, cell.width, cell.height))
+                    alpha.paste(0, (0, 0, border, cell.height))
+                    alpha.paste(0, (cell.width - border, 0, cell.width, cell.height))
+                    cell.putalpha(alpha)
+                source_bbox = cell.getbbox()
+                frame = cell.resize((cell_size, cell_size), Image.Resampling.NEAREST)
+                output_bbox = frame.getbbox()
+                cropped_frames.append(frame)
+                frame_info.append(
+                    {
+                        "grid": [row, col],
+                        "outer_box": list(outer),
+                        "inner_box": list(outer),
+                        "cell_inset_px": 0,
+                        "component_mode": "all",
+                        "component_count": None,
+                        "selected_component_area": None,
+                        "selected_component_bbox": None,
+                        "crop_bbox": list(source_bbox) if source_bbox else None,
+                        "edge_touch": bbox_touches_edge(source_bbox, cell.width, cell.height, 2),
+                        "output_size": (
+                            [output_bbox[2] - output_bbox[0], output_bbox[3] - output_bbox[1]]
+                            if output_bbox
+                            else [0, 0]
+                        ),
+                        "paste_position": list(output_bbox[:2]) if output_bbox else [0, 0],
+                        "position_preserved": True,
+                    }
+                )
+                continue
             inner = inset_box(outer, inset)
             cell = cleaned.crop(inner)
             subject, info = extract_subject(
@@ -164,6 +206,9 @@ def split_creature_grid(
                 }
             )
 
+    if preserve_cell_position:
+        return cropped_frames, frame_info
+
     common_scale = None
     if shared_scale:
         max_w = max((f.size[0] for f in cropped_frames), default=0)
@@ -181,8 +226,11 @@ def split_creature_grid(
             nw, nh = subject.size
             paste_x = (cell_size - nw) // 2
             if align in {"bottom", "feet"}:
-                pad = max(0, int(cell_size * (1 - fit_scale) * 0.5))
-                paste_y = cell_size - nh - pad
+                if baseline_y is not None:
+                    paste_y = baseline_y - nh + 1
+                else:
+                    pad = max(0, int(cell_size * (1 - fit_scale) * 0.5))
+                    paste_y = cell_size - nh - pad
             else:
                 paste_y = (cell_size - nh) // 2
             canvas.paste(subject, (paste_x, paste_y))
@@ -244,6 +292,8 @@ def process_sheet(args: argparse.Namespace) -> None:
         trim_border_px=args.trim_border,
         edge_clean_depth=args.edge_clean_depth,
         align=args.align,
+        baseline_y=args.baseline_y,
+        preserve_cell_position=args.preserve_cell_position,
         shared_scale=args.shared_scale,
         component_mode=args.component_mode,
         component_padding=args.component_padding,
@@ -271,6 +321,8 @@ def process_sheet(args: argparse.Namespace) -> None:
         "trim_border": args.trim_border,
         "edge_clean_depth": args.edge_clean_depth,
         "align": args.align,
+        "baseline_y": args.baseline_y,
+        "preserve_cell_position": args.preserve_cell_position,
         "shared_scale": args.shared_scale,
         "component_mode": args.component_mode,
         "component_padding": args.component_padding,
@@ -305,6 +357,16 @@ def main() -> None:
     parser.add_argument("--trim-border", type=int, default=DEFAULTS["trim_border"])
     parser.add_argument("--edge-clean-depth", type=int, default=DEFAULTS["edge_clean_depth"])
     parser.add_argument("--align", choices=["center", "bottom", "feet"], default="feet")
+    parser.add_argument(
+        "--baseline-y",
+        type=int,
+        help="Optional zero-based output row for grounded feet/bottom alignment.",
+    )
+    parser.add_argument(
+        "--preserve-cell-position",
+        action="store_true",
+        help="Resize each complete source cell without recentering its subject.",
+    )
     parser.add_argument("--shared-scale", action="store_true")
     parser.add_argument("--component-mode", choices=["all", "largest"], default=DEFAULTS["component_mode"])
     parser.add_argument("--component-padding", type=int, default=DEFAULTS["component_padding"])

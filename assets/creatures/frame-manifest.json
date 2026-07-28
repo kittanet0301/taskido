@@ -1,280 +1,504 @@
 {
-  "garden": {
+  "neutral": {
     "egg": {
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       },
       "hatch": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       }
     },
     "baby": {
       "idle": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       }
     },
     "adult": {
       "idle": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       }
     }
   },
-  "blaze-crest": {
+  "fire": {
     "egg": {
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       },
       "hatch": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       }
     },
     "baby": {
       "idle": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       }
     },
     "adult": {
       "idle": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       }
     }
   },
-  "crag-shell": {
+  "grass": {
     "egg": {
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       },
       "hatch": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       }
     },
     "baby": {
       "idle": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       }
     },
     "adult": {
       "idle": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       }
     }
   },
-  "tide-fin": {
+  "ground": {
     "egg": {
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       },
       "hatch": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       }
     },
     "baby": {
       "idle": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       }
     },
     "adult": {
       "idle": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       }
     }
   },
-  "volt-wing": {
+  "electric": {
     "egg": {
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       },
       "hatch": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 6
       }
     },
     "baby": {
       "idle": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 184,
+        "frameSize": 192,
         "frames": 4
       }
     },
     "adult": {
       "idle": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "move": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "hurt": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "bite": {
-        "frameSize": 200,
+        "frameSize": 192,
         "frames": 4
       },
       "jump": {
-        "frameSize": 200,
+        "frameSize": 192,
+        "frames": 4
+      }
+    }
+  },
+  "water": {
+    "egg": {
+      "move": {
+        "frameSize": 192,
+        "frames": 6
+      },
+      "hatch": {
+        "frameSize": 192,
+        "frames": 6
+      }
+    },
+    "baby": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    },
+    "adult": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    }
+  },
+  "ice": {
+    "egg": {
+      "move": {
+        "frameSize": 192,
+        "frames": 6
+      },
+      "hatch": {
+        "frameSize": 192,
+        "frames": 6
+      }
+    },
+    "baby": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    },
+    "adult": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    }
+  },
+  "dragon": {
+    "egg": {
+      "move": {
+        "frameSize": 192,
+        "frames": 6
+      },
+      "hatch": {
+        "frameSize": 192,
+        "frames": 6
+      }
+    },
+    "baby": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    },
+    "adult": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    }
+  },
+  "dark": {
+    "egg": {
+      "move": {
+        "frameSize": 192,
+        "frames": 6
+      },
+      "hatch": {
+        "frameSize": 192,
+        "frames": 6
+      }
+    },
+    "baby": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    },
+    "adult": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
         "frames": 4
       }
     }

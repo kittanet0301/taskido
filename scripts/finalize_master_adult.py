@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Finalize a generated master-adult portrait from a green-screen raw gen + master-baby scale."""
+"""Finalize a generated master-adult portrait from a magenta raw gen + master-baby scale."""
 
 from __future__ import annotations
 
@@ -25,14 +25,21 @@ def finalize_master_adult(
     baby_reference: Path,
     output_path: Path,
     *,
+    normalized_raw_path: Path | None = None,
     canvas: int = 192,
     pad: int = 6,
+    bottom_padding: int = 18,
     height_multiplier: float = 1.4,
     chroma_key: str = "green",
     threshold: int = 100,
     edge_threshold: int = 150,
 ) -> None:
-    raw = Image.open(raw_path).convert("RGBA")
+    source = Image.open(raw_path).convert("RGBA")
+    raw = source
+    if normalized_raw_path is not None:
+        raw = source.resize((1024, 1024), Image.Resampling.NEAREST)
+        normalized_raw_path.parent.mkdir(parents=True, exist_ok=True)
+        raw.save(normalized_raw_path)
     key = resolve_chroma_key(chroma_key)
     cleaned = remove_bg_chroma(raw, key, threshold, edge_threshold)
 
@@ -54,7 +61,7 @@ def finalize_master_adult(
     scaled = crop.resize((target_w, target_h), Image.NEAREST)
 
     max_w = canvas - pad * 2
-    max_h = canvas - pad * 2
+    max_h = canvas - bottom_padding - pad
     if scaled.width > max_w or scaled.height > max_h:
         fit = min(max_w / scaled.width, max_h / scaled.height)
         scaled = scaled.resize(
@@ -64,7 +71,7 @@ def finalize_master_adult(
 
     out = Image.new("RGBA", (canvas, canvas), (0, 0, 0, 0))
     x = (canvas - scaled.width) // 2
-    y = canvas - pad - scaled.height
+    y = canvas - bottom_padding - scaled.height
     out.paste(scaled, (x, y), scaled)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -74,11 +81,13 @@ def finalize_master_adult(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Finalize master-adult from raw gen + master-baby scale.")
-    parser.add_argument("--raw", type=Path, required=True, help="Raw generated image (green screen)")
+    parser.add_argument("--raw", type=Path, required=True, help="Raw generated chroma-key image")
+    parser.add_argument("--normalized-raw", type=Path, help="Optional retained 1024x1024 raw copy")
     parser.add_argument("--baby-reference", type=Path, required=True, help="master-baby.png for scale")
     parser.add_argument("--output", type=Path, required=True, help="Output master-adult.png path")
     parser.add_argument("--canvas", type=int, default=192)
-    parser.add_argument("--pad", type=int, default=6)
+    parser.add_argument("--pad", type=int, default=6, help="Minimum top/side safety padding")
+    parser.add_argument("--bottom-padding", type=int, default=18, help="Shared feet baseline padding")
     parser.add_argument("--height-multiplier", type=float, default=1.4)
     parser.add_argument("--chroma-key", default="green", choices=["green", "magenta"])
     parser.add_argument("--threshold", type=int, default=100)
@@ -89,8 +98,10 @@ def main() -> None:
         args.raw,
         args.baby_reference,
         args.output,
+        normalized_raw_path=args.normalized_raw,
         canvas=args.canvas,
         pad=args.pad,
+        bottom_padding=args.bottom_padding,
         height_multiplier=args.height_multiplier,
         chroma_key=args.chroma_key,
         threshold=args.threshold,
