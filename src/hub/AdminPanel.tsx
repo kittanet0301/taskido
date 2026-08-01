@@ -28,7 +28,7 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
   const [gemAmount, setGemAmount] = useState(10)
   const [itemType, setItemType] = useState<ItemType>('food_basic')
   const [itemQty, setItemQty] = useState(1)
-  const [pendingClear, setPendingClear] = useState<AdminPlayer | null>(null)
+  const [pendingDelete, setPendingDelete] = useState<AdminPlayer | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -101,14 +101,14 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
     }
   }
 
-  const confirmClear = async () => {
-    if (!pendingClear) return
-    setBusyId(pendingClear.id)
+  const confirmDelete = async () => {
+    if (!pendingDelete) return
+    setBusyId(pendingDelete.id)
     setMessage('')
     try {
-      await window.electronAPI.adminClearUserData(pendingClear.id)
-      setMessage(t('admin.clearDone', { name: pendingClear.username }))
-      setPendingClear(null)
+      await window.electronAPI.adminDeleteUser(pendingDelete.id)
+      setMessage(t('admin.deleteDone', { name: pendingDelete.username }))
+      setPendingDelete(null)
       await load()
     } catch (e) {
       setMessage(formatApiError(e))
@@ -179,20 +179,25 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
 
           {message && <p className="admin-message">{message}</p>}
 
-          {pendingClear && (
+          {pendingDelete && (
             <div className="admin-confirm">
-              <p>{t('admin.clearConfirm', { name: pendingClear.username })}</p>
+              <p>{t('admin.deleteConfirm', { name: pendingDelete.username })}</p>
               <div className="admin-confirm-actions">
                 <button
                   type="button"
                   className="secondary"
-                  onClick={() => setPendingClear(null)}
+                  onClick={() => setPendingDelete(null)}
                   disabled={busyId !== null}
                 >
                   {t('common.cancel')}
                 </button>
-                <button type="button" onClick={() => void confirmClear()} disabled={busyId !== null}>
-                  {busyId ? t('common.loading') : t('common.confirm')}
+                <button
+                  type="button"
+                  className="danger-btn"
+                  onClick={() => void confirmDelete()}
+                  disabled={busyId !== null}
+                >
+                  {busyId ? t('common.loading') : t('admin.deleteAccount')}
                 </button>
               </div>
             </div>
@@ -232,12 +237,12 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
                     </button>
                     <button
                       type="button"
-                      className="secondary"
+                      className="danger-btn"
                       disabled={busy || isSelf}
-                      title={isSelf ? t('admin.clearSelfBlocked') : t('admin.clearData')}
-                      onClick={() => setPendingClear(player)}
+                      title={isSelf ? t('admin.deleteSelfBlocked') : t('admin.deleteAccount')}
+                      onClick={() => setPendingDelete(player)}
                     >
-                      {t('admin.clearData')}
+                      {t('admin.deleteAccount')}
                     </button>
                   </div>
                 </li>

@@ -116,7 +116,7 @@ export function RoomLobby() {
                 <strong>{room.name}</strong>
                 <span className="tag">{room.roomCode}</span>
               </div>
-              <div style={{ fontSize: '0.85rem', color: '#6b7280' }}>
+              <div className="battle-room-meta">
                 {t('battle.roomOwner')}: {room.hostUsername} · {t('battle.waitingCount', { count: room.waitingCount })}
               </div>
               <button

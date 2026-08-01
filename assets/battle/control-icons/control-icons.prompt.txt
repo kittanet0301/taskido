@@ -1,0 +1,28 @@
+Taskino battle control icons — generated separately with built-in image generation.
+
+SPEED
+Use case: stylized-concept
+Asset type: tiny battle HUD control icon for Taskino
+Primary request: create one fast-forward speed icon made of exactly two right-pointing triangular arrowheads.
+Style/medium: crisp retro pixel-art fantasy RPG UI icon, readable when reduced to 20x20 pixels, warm ivory and golden amber highlights with a dark brown one-pixel-like outline.
+Composition/framing: centered single symbol, square canvas, generous even padding, no surrounding button and no frame.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background.
+Constraints: exactly two right-pointing triangles; strong simple silhouette; no letters, no numbers, no text, no border frame, no button background, no shadow outside the symbol, no watermark; do not use #FF00FF in the symbol.
+
+PAUSE
+Use case: stylized-concept
+Asset type: tiny battle HUD control icon for Taskino
+Primary request: create one pause icon made of exactly two plain parallel vertical bars, visually equivalent to | |.
+Style/medium: crisp retro pixel-art fantasy RPG UI icon, readable when reduced to 20x20 pixels, warm ivory and golden amber highlights with a dark brown one-pixel-like outline.
+Composition/framing: centered two equal-height vertical bars with a clear narrow gap, square canvas, generous even padding, no surrounding button and no frame.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background.
+Constraints: only two vertical bars; no decorative objects; no letters, no words, no triangles, no scroll, no border frame, no button background, no shadow outside the bars, no watermark; do not use #FF00FF in the bars.
+
+BATTLE LOG
+Use case: stylized-concept
+Asset type: tiny battle HUD control icon for Taskino
+Primary request: create one battle-log icon as a compact parchment scroll with three short dark horizontal record lines.
+Style/medium: crisp retro pixel-art fantasy RPG UI icon, readable when reduced to 20x20 pixels, warm ivory parchment, golden amber rolled edges, dark brown one-pixel-like outline.
+Composition/framing: centered single compact scroll silhouette, square canvas, generous even padding, no surrounding button and no frame.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background.
+Constraints: no readable letters or words, no numbers, no extra objects, no border frame, no button background, no cast shadow, no watermark; do not use #FF00FF in the symbol.

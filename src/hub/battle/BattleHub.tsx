@@ -4,17 +4,17 @@ import type { GameSave, PetData } from '../../shared/types'
 import type { BattleCommand, BattleSession } from '../../shared/battle/types'
 import { canEnterBattle } from '../../shared/elements'
 import { mapBattleSession, mapBattleTurn, mapPetRowToPetData } from '../../shared/battle/mappers'
-import { tCharacter } from '../../i18n/labels'
 import { BattleContext } from './BattleContext'
 import { RoomLobby } from './RoomLobby'
 import { BattleRoom } from './BattleRoom'
 import { BattleArena } from './BattleArena'
 import { BattleHistory } from './BattleHistory'
 import { BattleEndModal } from './BattleEndModal'
+import { BotBattle } from './BotBattle'
 import { useBattleSession } from './useBattleSession'
 import { useBattleGuard } from './useBattleGuard'
 
-type HubTab = 'room' | 'active' | 'history'
+type HubTab = 'bot' | 'room' | 'active' | 'history'
 
 interface EndedBattle {
   session: BattleSession
@@ -25,13 +25,16 @@ interface Props {
   save: GameSave
   variant?: 'desktop' | 'web'
   onUpdated?: () => void | Promise<void>
+  onBack?: () => void
+  backDisabled?: boolean
 }
 
-export function BattleHub({ save, variant = 'desktop', onUpdated }: Props) {
+export function BattleHub({ save, variant = 'desktop', onUpdated, onBack, backDisabled = false }: Props) {
   const { t } = useTranslation()
   const ctx = useContext(BattleContext)
   const { isInRoom } = useBattleGuard()
-  const [hubTab, setHubTab] = useState<HubTab>('room')
+  const [hubTab, setHubTab] = useState<HubTab>('bot')
+  const [botBattleStarted, setBotBattleStarted] = useState(false)
   const [endedBattle, setEndedBattle] = useState<EndedBattle | null>(null)
   const handledEndRef = useRef<string | null>(null)
   const dismissedEndRef = useRef<Set<string>>(new Set())
@@ -243,40 +246,58 @@ export function BattleHub({ save, variant = 'desktop', onUpdated }: Props) {
     canEnterBattle(save.pet.stats.health, save.pet.stats.emotion)
 
   const hubTabs: { id: HubTab; label: string }[] = [
+    { id: 'bot', label: t('battle.tabs.bot') },
     { id: 'room', label: t('battle.tabs.room') },
-    { id: 'active', label: t('battle.tabs.active') },
     { id: 'history', label: t('battle.tabs.history') }
   ]
 
-  return (
-    <div>
-      <div className="card" style={{ marginBottom: 12 }}>
-        <h2>{t('battle.title')}</h2>
-        {!canBattle ? (
-          <p>{t('pet.needRaiseBeforeBattleCare')}</p>
-        ) : (
-          <p>
-            {t('pet.yourPet')}: {save.pet!.name} ({tCharacter(save.pet!.character)}) ·{' '}
-            {t('home.health')} {save.pet!.stats.health} · {t('home.emotion')} {save.pet!.stats.emotion}
-          </p>
-        )}
-      </div>
+  const handleBotBattleStartedChange = useCallback((started: boolean) => {
+    setBotBattleStarted(started)
+  }, [])
 
-      <div className="card battle-hub-panel">
+  const activeBattleStarted =
+    hubTab === 'active' && session?.status === 'active' && Boolean(userId)
+  const immersiveBattle = botBattleStarted || activeBattleStarted
+
+  return (
+    <div className={`battle-page${immersiveBattle ? ' battle-page--immersive' : ''}`}>
+      {!immersiveBattle && <div className="battle-page-nav">
+        {onBack && (
+          <button
+            type="button"
+            className="hub-back-btn battle-page-back"
+            onClick={onBack}
+            disabled={backDisabled}
+          >
+            ‹ {t('tabs.home')}
+          </button>
+        )}
         <nav className="battle-hub-tabs" aria-label={t('battle.title')}>
           {hubTabs.map((t) => (
             <button
               key={t.id}
               type="button"
-              className={`tab ${hubTab === t.id ? 'active' : ''}`}
+              className={`battle-mode-tab ${hubTab === t.id ? 'active' : ''}`}
               onClick={() => setHubTab(t.id)}
             >
               {t.label}
             </button>
           ))}
         </nav>
+      </div>}
 
-        <div className="battle-hub-body">
+      <div className="battle-hub-panel">
+        <div className={`battle-hub-body battle-hub-body--${hubTab}`}>
+          {hubTab === 'bot' && canBattle && save.pet && (
+            <BotBattle
+              pet={save.pet}
+              onStartedChange={handleBotBattleStartedChange}
+              onComplete={async (difficulty, dropRoll) => {
+                await window.electronAPI.patchGame('completeBotBattle', [difficulty, dropRoll])
+                await onUpdated?.()
+              }}
+            />
+          )}
           {hubTab === 'room' && (
             <>
               {ctx?.roomId ? (

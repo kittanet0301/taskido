@@ -7,6 +7,10 @@ export const DEFEND_REDUCTION = 0.5
 /** battle_shield item extra reduction when used via Item menu */
 export const SHIELD_ITEM_REDUCTION = 0.5
 
+/** Session-only consumables used by bot battles (never persisted to inventory). */
+export const BATTLE_HEALTH_POTION_HEAL = 90
+export const BATTLE_MANA_POTION_RESTORE = 60
+
 export const TP_MAX = 100
 export const TP_GAIN_ATTACK_MIN = 15
 export const TP_GAIN_ATTACK_MAX = 30

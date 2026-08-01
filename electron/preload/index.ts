@@ -43,7 +43,10 @@ const api: GameAPI = {
   leaveBattleRoom: (roomId) => ipcRenderer.invoke('room:leave', roomId),
   forfeitBattleRoom: (roomId) => ipcRenderer.invoke('room:forfeit', roomId),
   listPublicRooms: () => ipcRenderer.invoke('room:listPublic'),
+  getBattleRoom: (roomId) => ipcRenderer.invoke('room:get', roomId),
   getRoomMembers: (roomId) => ipcRenderer.invoke('room:getMembers', roomId),
+  selectRoomOpponent: (roomId, opponentUserId) =>
+    ipcRenderer.invoke('room:selectOpponent', roomId, opponentUserId),
   startRoomDuel: (roomId, opponentUserId) =>
     ipcRenderer.invoke('room:startDuel', roomId, opponentUserId),
   submitBattleAction: (sessionId, action) =>
@@ -95,7 +98,7 @@ const api: GameAPI = {
   adminGrantGems: (targetId, amount) => ipcRenderer.invoke('admin:grantGems', targetId, amount),
   adminGrantItem: (targetId, itemType, qty) =>
     ipcRenderer.invoke('admin:grantItem', targetId, itemType, qty),
-  adminClearUserData: (targetId) => ipcRenderer.invoke('admin:clearUserData', targetId)
+  adminDeleteUser: (targetId) => ipcRenderer.invoke('admin:deleteUser', targetId)
 }
 
 contextBridge.exposeInMainWorld('electronAPI', api)

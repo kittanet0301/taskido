@@ -462,12 +462,10 @@ function AppContent({ variant = 'desktop' }: Props) {
 
   return (
     <div
-      className={`app pixel-hub hub-shell${mainView === 'home' ? ' hub-shell--home' : ''}${
+      className={`app pixel-hub hub-shell${mainView === 'home' ? ' hub-shell--home' : ''}${mainView === 'battle' ? ' hub-shell--battle' : ''}${
         mainView === 'home' && homeFocus ? ' hub-shell--focus' : ''
       }`}
     >
-      {mainView !== 'home' && sidebar}
-
       <div className="hub-main">
         <HubTopBar
           displayName={displayName}
@@ -495,21 +493,20 @@ function AppContent({ variant = 'desktop' }: Props) {
             </main>
           </div>
         ) : (
-          <main className="hub-content hub-content--panel">
-            {mainView === 'battle' && (
-              <>
-                <button
-                  type="button"
-                  className="hub-back-btn"
-                  onClick={() => void handleMainViewChange('home')}
-                  disabled={tabSyncing}
-                >
-                  ‹ {t('tabs.home')}
-                </button>
-                <BattleHub save={save} variant={variant} onUpdated={refresh} />
-              </>
-            )}
-          </main>
+          <div className="hub-battle-body">
+            {sidebar}
+            <main className="hub-content hub-content--battle">
+              {mainView === 'battle' && (
+                <BattleHub
+                  save={save}
+                  variant={variant}
+                  onUpdated={refresh}
+                  onBack={() => void handleMainViewChange('home')}
+                  backDisabled={tabSyncing}
+                />
+              )}
+            </main>
+          </div>
         )}
       </div>
 

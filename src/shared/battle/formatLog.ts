@@ -54,6 +54,18 @@ export function formatItemShieldMessage(actorName: string): string {
   return `${actorName} → ${label}`
 }
 
+export function formatBattleConsumableMessage(
+  actorName: string,
+  itemType: 'health_potion' | 'mana_potion',
+  amount: number
+): string {
+  const label = i18n.t(`battle.bot.items.${itemType}.label`, {
+    defaultValue: itemType === 'health_potion' ? 'Health Potion' : 'Mana Potion'
+  })
+  const resource = itemType === 'health_potion' ? 'HP' : 'MP'
+  return `${actorName} → ${label} +${amount} ${resource}`
+}
+
 export function formatUltimateMessage(
   actorName: string,
   targetName: string,

@@ -1,7 +1,9 @@
 /** Assumed requestAnimationFrame rate for sprite timing math. */
 export const DINO_ANIM_FPS = 60
+/** Creature strip playback rate. Six authored frames per second keeps pixel motion readable and smooth. */
+export const DINO_SPRITE_FPS = 6
 /** Duration each sprite strip frame stays on screen. */
-export const DINO_SPRITE_FRAME_MS = 2000
+export const DINO_SPRITE_FRAME_MS = 1000 / DINO_SPRITE_FPS
 
 /**
  * Convert real elapsed time to the legacy 60 Hz animation clock.

@@ -76,8 +76,8 @@ export function RockDodgeGame({ save, onUpdated, onBack }: Props) {
         </button>
         <div className="minigame-play-meta">
           <span>{t('minigame.itemsLeft', { left: itemsLeft, total: MINIGAME_DAILY_ITEM_LIMIT })}</span>
-          <span>{t('minigame.scoreThreshold1000', { score: threshold })}</span>
-          <span>{t('minigame.yourBest', { score: bestScore })}</span>
+          <span>{t('minigame.rockDodge.goal', { count: threshold })}</span>
+          <span>{t('minigame.rockDodge.bestEggs', { count: bestScore })}</span>
         </div>
       </div>
 
@@ -131,12 +131,16 @@ export function RockDodgeGame({ save, onUpdated, onBack }: Props) {
         {phase === 'gameover' && finishResult && (
           <div className="minigame-overlay">
             <div className="minigame-overlay-panel">
-              <h3>{t('minigame.gameOver')}</h3>
+              <h3>
+                {finishResult.score >= threshold
+                  ? t('minigame.rockDodge.passed')
+                  : t('minigame.gameOver')}
+              </h3>
               <p className="minigame-score-line">
-                {t('minigame.score', { score: finishResult.score })}
+                {t('minigame.rockDodge.eggsCollected', { count: finishResult.score })}
               </p>
               <p className="minigame-overlay-text">
-                {t('minigame.yourBest', { score: finishResult.bestScore })}
+                {t('minigame.rockDodge.bestEggs', { count: finishResult.bestScore })}
               </p>
 
               {finishResult.rewarded && finishResult.reward ? (
@@ -156,7 +160,7 @@ export function RockDodgeGame({ save, onUpdated, onBack }: Props) {
                 </div>
               ) : finishResult.reason === 'below_threshold' ? (
                 <p className="minigame-overlay-text">
-                  {t('minigame.belowThresholdScore', { score: threshold })}
+                  {t('minigame.rockDodge.belowGoal', { count: threshold })}
                 </p>
               ) : (
                 <p className="minigame-overlay-text">{t('minigame.noRewardsLeft')}</p>

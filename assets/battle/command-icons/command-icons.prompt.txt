@@ -1,0 +1,7 @@
+Use case: stylized-concept
+Asset type: production UI icon pack for the Taskino monster-battle command dock
+Primary request: create exactly four distinct battle command icons arranged in a precise 2x2 sheet.
+Layout: equal square cells with generous internal padding. Top-left: two crossed silver swords for Attack. Top-right: a sturdy silver-and-gold shield for Defend. Bottom-left: a small golden potion bottle with warm amber liquid for Item. Bottom-right: a light-colored running boot with a short motion streak pointing right for Flee.
+Style/medium: crisp modern pixel-art-inspired 2D RPG game icons, clean readable silhouettes, subtle warm gold rim lighting, dark brown internal outlines, matching one coherent icon family, designed to remain readable at 20x20 CSS pixels.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background across the entire sheet.
+Constraints: four icons only; one icon centered in each cell; no text, no letters, no numbers, no labels, no UI buttons, no panel frames, no dividers, no cast shadows, no contact shadows, no reflections, no watermark. Keep every icon fully inside its cell and separated from all edges. Do not use #FF00FF or near-magenta within any icon. Uniform scale, line weight, lighting, and visual density across all four icons.

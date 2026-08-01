@@ -18,8 +18,8 @@ import {
   CANVAS_H,
   CANVAS_W,
   createDodgeState,
+  EGG_GOAL,
   EMPTY_DODGE_INPUT,
-  getScore,
   GROUND_Y,
   PLAYER_H,
   PLAYER_W,
@@ -27,6 +27,7 @@ import {
   tickDodgeState,
   type DodgeInput,
   type DodgeState,
+  type FallingEgg,
   type Rock
 } from './rockDodgePhysics'
 
@@ -77,6 +78,22 @@ function drawRock(ctx: CanvasRenderingContext2D, rock: Rock) {
   ctx.fill()
   ctx.fillStyle = '#8a8a8a'
   ctx.fillRect(rock.x + rock.w * 0.3, rock.y + rock.h * 0.25, rock.w * 0.28, rock.h * 0.22)
+}
+
+function drawEgg(ctx: CanvasRenderingContext2D, egg: FallingEgg) {
+  const centerX = egg.x + egg.w / 2
+  const centerY = egg.y + egg.h / 2
+  ctx.fillStyle = '#fff5cf'
+  ctx.strokeStyle = '#d89b45'
+  ctx.lineWidth = 3
+  ctx.beginPath()
+  ctx.ellipse(centerX, centerY + 2, egg.w * 0.42, egg.h * 0.46, 0, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.stroke()
+  ctx.fillStyle = '#ffffff'
+  ctx.beginPath()
+  ctx.ellipse(centerX - 5, centerY - 6, 4, 7, -0.35, 0, Math.PI * 2)
+  ctx.fill()
 }
 
 export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Props) {
@@ -186,7 +203,7 @@ export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Pr
       if (input.move === -1) facingRef.current = 'left'
       else if (input.move === 1) facingRef.current = 'right'
 
-      const score = getScore(state.survival)
+      const score = state.eggsCollected
       onScoreChangeRef.current(state.survival, score)
 
       ctx.clearRect(0, 0, CANVAS_W, CANVAS_H)
@@ -204,6 +221,9 @@ export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Pr
         ctx.fillRect(x, GROUND_Y + 18, 24, 6)
       }
 
+      for (const egg of state.eggs) {
+        drawEgg(ctx, egg)
+      }
       for (const rock of state.rocks) {
         drawRock(ctx, rock)
       }
@@ -247,12 +267,19 @@ export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Pr
         ctx.fillRect(state.playerX, PLAYER_Y, PLAYER_W, PLAYER_H)
       }
 
+      ctx.fillStyle = '#fff5cf'
+      ctx.strokeStyle = '#d89b45'
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.ellipse(CANVAS_W - 116, 22, 8, 11, 0, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.stroke()
       ctx.fillStyle = '#535353'
       ctx.font = 'bold 14px "Press Start 2P", "Mali", monospace'
       ctx.textAlign = 'right'
-      ctx.fillText(String(score).padStart(5, '0'), CANVAS_W - 16, 28)
+      ctx.fillText(`${String(score).padStart(3, '0')} / ${EGG_GOAL}`, CANVAS_W - 16, 28)
 
-      if (state.dead && !reportedOverRef.current) {
+      if ((state.dead || state.won) && !reportedOverRef.current) {
         reportedOverRef.current = true
         onGameOverRef.current(score)
       }

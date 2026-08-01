@@ -1,10 +1,6 @@
-/**
- * Rock Dodge pacing:
- * - survival accumulates by currentFallSpeed each frame
- * - score = floor(survival * 0.025)  → ~1000 ≈ 40k survival units
- * - fall speed starts at 3, +1 every 100 score, max 9
- * - player moves left/right along the ground
- */
+/** Rock Dodge: catch 100 eggs while avoiding falling hazards. */
+
+import { ROCK_DODGE_EGG_GOAL } from '../../../shared/minigame'
 
 export const CANVAS_W = 720
 export const CANVAS_H = 360
@@ -16,8 +12,7 @@ export const PLAYER_SPEED = 6
 
 export const START_FALL_SPEED = 3
 export const MAX_FALL_SPEED = 9
-export const SPEED_STEP_SCORE = 100
-export const SCORE_RATE = 0.025
+export const EGG_GOAL = ROCK_DODGE_EGG_GOAL
 
 export const ROCK_MIN_W = 28
 export const ROCK_MAX_W = 48
@@ -26,6 +21,9 @@ export const ROCK_MAX_H = 42
 
 export const PLAYER_HITBOX_PAD = 4
 export const ROCK_HITBOX_PAD = 4
+export const EGG_W = 26
+export const EGG_H = 34
+export const EGG_HITBOX_PAD = 2
 
 export type Rng = () => number
 
@@ -41,14 +39,28 @@ export interface Rock {
   kind: RockKind
 }
 
+export interface FallingEgg {
+  id: number
+  x: number
+  y: number
+  w: number
+  h: number
+  vy: number
+}
+
 export interface DodgeState {
   /** Survival accumulator (same scale idea as Dino Jump distanceRan) */
   survival: number
   playerX: number
   rocks: Rock[]
+  eggs: FallingEgg[]
+  eggsCollected: number
   spawnCooldown: number
+  eggSpawnCooldown: number
   nextRockId: number
+  nextEggId: number
   dead: boolean
+  won: boolean
 }
 
 export interface DodgeInput {
@@ -63,30 +75,30 @@ export function createDodgeState(): DodgeState {
     survival: 0,
     playerX: Math.round((CANVAS_W - PLAYER_W) / 2),
     rocks: [],
+    eggs: [],
+    eggsCollected: 0,
     spawnCooldown: 50,
+    eggSpawnCooldown: 24,
     nextRockId: 1,
-    dead: false
+    nextEggId: 1,
+    dead: false,
+    won: false
   }
 }
 
-export function getScore(survival: number): number {
-  return Math.floor(survival * SCORE_RATE)
-}
-
-export function getFallSpeed(survival: number): number {
-  const score = getScore(survival)
-  const tier = Math.floor(score / SPEED_STEP_SCORE)
+export function getFallSpeedForEggs(eggsCollected: number): number {
+  const tier = Math.floor(eggsCollected / 10)
   return Math.min(MAX_FALL_SPEED, START_FALL_SPEED + tier)
-}
-
-export function survivalForScore(score: number): number {
-  return score / SCORE_RATE
 }
 
 export function getSpawnInterval(fallSpeed: number, rng: Rng = Math.random): number {
   const base = Math.max(18, 70 - fallSpeed * 5)
   const jitter = Math.round(rng() * 22)
   return base + jitter
+}
+
+export function getEggSpawnInterval(rng: Rng = Math.random): number {
+  return 28 + Math.round(rng() * 24)
 }
 
 function rollRockKind(rng: Rng): RockKind {
@@ -118,6 +130,17 @@ export function spawnRock(
   }
 }
 
+export function spawnEgg(fallSpeed: number, nextId: number, rng: Rng = Math.random): FallingEgg {
+  return {
+    id: nextId,
+    x: Math.round(rng() * (CANVAS_W - EGG_W)),
+    y: -EGG_H - 4,
+    w: EGG_W,
+    h: EGG_H,
+    vy: Math.max(2.8, fallSpeed * 0.72) + rng() * 0.5
+  }
+}
+
 function rectsOverlap(
   ax: number,
   ay: number,
@@ -136,13 +159,14 @@ export function tickDodgeState(
   input: DodgeInput = EMPTY_DODGE_INPUT,
   rng: Rng = Math.random
 ): DodgeState {
-  if (state.dead) return state
+  if (state.dead || state.won) return state
 
   const next: DodgeState = {
     ...state,
-    rocks: state.rocks.map((r) => ({ ...r }))
+    rocks: state.rocks.map((r) => ({ ...r })),
+    eggs: state.eggs.map((egg) => ({ ...egg }))
   }
-  const fallSpeed = getFallSpeed(next.survival)
+  const fallSpeed = getFallSpeedForEggs(next.eggsCollected)
 
   if (input.move !== 0) {
     next.playerX += input.move * PLAYER_SPEED
@@ -154,11 +178,20 @@ export function tickDodgeState(
   next.rocks = next.rocks
     .map((r) => ({ ...r, y: r.y + r.vy }))
     .filter((r) => r.y < CANVAS_H + 40)
+  next.eggs = next.eggs
+    .map((egg) => ({ ...egg, y: egg.y + egg.vy }))
+    .filter((egg) => egg.y < CANVAS_H + 40)
 
   next.spawnCooldown -= 1
   if (next.spawnCooldown <= 0) {
     next.rocks.push(spawnRock(fallSpeed, next.nextRockId++, rng))
     next.spawnCooldown = getSpawnInterval(fallSpeed, rng)
+  }
+
+  next.eggSpawnCooldown -= 1
+  if (next.eggSpawnCooldown <= 0) {
+    next.eggs.push(spawnEgg(fallSpeed, next.nextEggId++, rng))
+    next.eggSpawnCooldown = getEggSpawnInterval(rng)
   }
 
   for (const rock of next.rocks) {
@@ -177,6 +210,26 @@ export function tickDodgeState(
       next.dead = true
       break
     }
+  }
+
+  if (!next.dead) {
+    const uncollectedEggs: FallingEgg[] = []
+    for (const egg of next.eggs) {
+      const collected = rectsOverlap(
+        next.playerX + PLAYER_HITBOX_PAD,
+        PLAYER_Y + PLAYER_HITBOX_PAD,
+        PLAYER_W - PLAYER_HITBOX_PAD * 2,
+        PLAYER_H - PLAYER_HITBOX_PAD * 2,
+        egg.x + EGG_HITBOX_PAD,
+        egg.y + EGG_HITBOX_PAD,
+        egg.w - EGG_HITBOX_PAD * 2,
+        egg.h - EGG_HITBOX_PAD * 2
+      )
+      if (collected) next.eggsCollected = Math.min(EGG_GOAL, next.eggsCollected + 1)
+      else uncollectedEggs.push(egg)
+    }
+    next.eggs = uncollectedEggs
+    next.won = next.eggsCollected >= EGG_GOAL
   }
 
   return next

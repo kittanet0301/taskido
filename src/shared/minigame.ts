@@ -2,6 +2,7 @@ import type { GameSave, InventoryItem, ItemType, MinigameId, MinigameSaveState }
 import { localDayKey } from './missions'
 
 export const MINIGAME_DAILY_ITEM_LIMIT = 3
+export const ROCK_DODGE_EGG_GOAL = 100
 
 export const MINIGAME_REWARD_POOL: ItemType[] = ['food_basic', 'water', 'medicine', 'toy']
 
@@ -25,7 +26,7 @@ export const MINIGAME_REGISTRY: MinigameDefinition[] = [
     id: 'rock_dodge',
     titleKey: 'minigame.rockDodge.title',
     descriptionKey: 'minigame.rockDodge.description',
-    scoreThreshold: 1000,
+    scoreThreshold: ROCK_DODGE_EGG_GOAL,
     rewardPool: MINIGAME_REWARD_POOL
   }
 ]

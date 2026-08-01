@@ -158,9 +158,9 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     return data as number
   }
 
-  async function adminClearUserData(targetId: string) {
+  async function adminDeleteUser(targetId: string) {
     const supabase = requireSupabase()
-    const { error } = await supabase.rpc('admin_clear_user_data', { target_id: targetId })
+    const { error } = await supabase.rpc('admin_delete_user', { p_target_id: targetId })
     if (error) rpcError(error)
   }
 
@@ -390,11 +390,32 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     return data ?? []
   }
 
+  async function getBattleRoom(roomId: string) {
+    const supabase = requireSupabase()
+    const { data, error } = await supabase
+      .from('battle_rooms')
+      .select('*')
+      .eq('id', roomId)
+      .maybeSingle()
+    if (error) rpcError(error)
+    return data
+  }
+
   async function getRoomMembers(roomId: string) {
     const supabase = requireSupabase()
     const { data, error } = await supabase.rpc('room_get_members', { p_room_id: roomId })
     if (error) rpcError(error)
     return data ?? []
+  }
+
+  async function selectRoomOpponent(roomId: string, opponentUserId: string | null) {
+    const supabase = requireSupabase()
+    const { data, error } = await supabase.rpc('room_select_opponent', {
+      p_room_id: roomId,
+      p_opponent_user_id: opponentUserId
+    })
+    if (error) rpcError(error)
+    return data
   }
 
   async function startRoomDuel(roomId: string, opponentUserId: string) {
@@ -690,7 +711,7 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     adminListPlayers,
     adminGrantGems,
     adminGrantItem,
-    adminClearUserData,
+    adminDeleteUser,
     syncPetToCloud,
     getActivePet,
     searchProfileByFriendCode,
@@ -705,7 +726,9 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     leaveBattleRoom,
     forfeitBattleRoom,
     listPublicRooms,
+    getBattleRoom,
     getRoomMembers,
+    selectRoomOpponent,
     startRoomDuel,
     submitBattleAction,
     listBattles,

@@ -52,7 +52,7 @@ import {
   adminListPlayers,
   adminGrantGems,
   adminGrantItem,
-  adminClearUserData,
+  adminDeleteUser,
   syncPetToCloud,
   getActivePet,
   isSupabaseConfigured,
@@ -68,7 +68,9 @@ import {
   leaveBattleRoom,
   forfeitBattleRoom,
   listPublicRooms,
+  getBattleRoom,
   getRoomMembers,
+  selectRoomOpponent,
   startRoomDuel,
   submitBattleAction,
   listBattles,
@@ -218,7 +220,7 @@ function setupIpc(): void {
   ipcMain.handle('admin:grantItem', async (_e, targetId: string, itemType: string, qty: number) =>
     adminGrantItem(targetId, itemType, qty)
   )
-  ipcMain.handle('admin:clearUserData', async (_e, targetId: string) => adminClearUserData(targetId))
+  ipcMain.handle('admin:deleteUser', async (_e, targetId: string) => adminDeleteUser(targetId))
   ipcMain.handle('locale:set', (_e, locale: 'en' | 'th') => {
     setMainLocale(locale)
     refreshTray(getGameSave)
@@ -276,7 +278,13 @@ function setupIpc(): void {
     if (activeBattleRoomId === roomId) activeBattleRoomId = null
   })
   ipcMain.handle('room:listPublic', async () => listPublicRooms())
+  ipcMain.handle('room:get', async (_e, roomId: string) => getBattleRoom(roomId))
   ipcMain.handle('room:getMembers', async (_e, roomId: string) => getRoomMembers(roomId))
+  ipcMain.handle(
+    'room:selectOpponent',
+    async (_e, roomId: string, opponentUserId: string | null) =>
+      selectRoomOpponent(roomId, opponentUserId)
+  )
   ipcMain.handle('room:startDuel', async (_e, roomId: string, opponentUserId: string) =>
     startRoomDuel(roomId, opponentUserId)
   )

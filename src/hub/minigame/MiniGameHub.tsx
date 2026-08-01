@@ -87,8 +87,16 @@ export function MiniGameHub({ save, onUpdated, onClose }: Props) {
                     </div>
                     <ul className="minigame-card-stats">
                       <li>{t('minigame.itemsLeft', { left: itemsLeft, total: MINIGAME_DAILY_ITEM_LIMIT })}</li>
-                      <li>{t('minigame.scoreThreshold1000', { score: def?.scoreThreshold ?? 1000 })}</li>
-                      <li>{t('minigame.yourBest', { score: best })}</li>
+                      <li>
+                        {game.id === 'rock_dodge'
+                          ? t('minigame.rockDodge.goal', { count: def?.scoreThreshold ?? 100 })
+                          : t('minigame.scoreThreshold1000', { score: def?.scoreThreshold ?? 1000 })}
+                      </li>
+                      <li>
+                        {game.id === 'rock_dodge'
+                          ? t('minigame.rockDodge.bestEggs', { count: best })
+                          : t('minigame.yourBest', { score: best })}
+                      </li>
                     </ul>
                     <button type="button" className="primary" onClick={() => setActiveGame(game.id)}>
                       {t('minigame.start')}

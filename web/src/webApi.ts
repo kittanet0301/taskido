@@ -22,7 +22,7 @@ import {
   adminListPlayers,
   adminGrantGems,
   adminGrantItem,
-  adminClearUserData,
+  adminDeleteUser,
   syncPetToCloud,
   getActivePet,
   isSupabaseConfigured,
@@ -37,7 +37,9 @@ import {
   leaveBattleRoom,
   forfeitBattleRoom,
   listPublicRooms,
+  getBattleRoom,
   getRoomMembers,
+  selectRoomOpponent,
   startRoomDuel,
   submitBattleAction,
   listBattles,
@@ -137,7 +139,10 @@ export function createWebApi(): GameAPI {
     leaveBattleRoom: async (roomId) => leaveBattleRoom(roomId),
     forfeitBattleRoom: async (roomId) => forfeitBattleRoom(roomId),
     listPublicRooms: async () => listPublicRooms(),
+    getBattleRoom: async (roomId) => getBattleRoom(roomId),
     getRoomMembers: async (roomId) => getRoomMembers(roomId),
+    selectRoomOpponent: async (roomId, opponentUserId) =>
+      selectRoomOpponent(roomId, opponentUserId),
     startRoomDuel: async (roomId, opponentUserId) => startRoomDuel(roomId, opponentUserId),
     submitBattleAction: async (sessionId, action) => submitBattleAction(sessionId, action),
     listBattles: async () => listBattles(),
@@ -234,6 +239,6 @@ export function createWebApi(): GameAPI {
     adminListPlayers: async () => adminListPlayers(),
     adminGrantGems: async (targetId, amount) => adminGrantGems(targetId, amount),
     adminGrantItem: async (targetId, itemType, qty) => adminGrantItem(targetId, itemType, qty),
-    adminClearUserData: async (targetId) => adminClearUserData(targetId)
+    adminDeleteUser: async (targetId) => adminDeleteUser(targetId)
   }
 }

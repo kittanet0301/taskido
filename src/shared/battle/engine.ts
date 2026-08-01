@@ -7,7 +7,9 @@ import {
   TP_GAIN_DEFEND_MIN,
   TP_GAIN_SKILL_MAX,
   TP_GAIN_SKILL_MIN,
-  TP_MAX
+  TP_MAX,
+  BATTLE_HEALTH_POTION_HEAL,
+  BATTLE_MANA_POTION_RESTORE
 } from './constants'
 import { calcDamage } from './damage'
 import {
@@ -16,6 +18,7 @@ import {
   formatDodgeMessage,
   formatFleeMessage,
   formatItemShieldMessage,
+  formatBattleConsumableMessage,
   formatSkillMessage,
   formatWinnerMessage
 } from './formatLog'
@@ -235,10 +238,30 @@ export function applyAction(
   }
 
   if (base === 'item') {
-    // Phase 0/5 only ships battle_shield — mirror defend semantics so the
-    // engine preview can render a guarded stance. Inventory decrement happens
-    // in the RPC/DB layer.
-    void itemType
+    if (itemType === 'health_potion') {
+      const restored = Math.min(BATTLE_HEALTH_POTION_HEAL, actorRef.hpStart - actorRef.hp)
+      actorRef.hp += restored
+      next.turnUserId = nextTurnUserId(next)
+      return {
+        state: next,
+        damage: 0,
+        logMessage: formatBattleConsumableMessage(actor.name, itemType, restored),
+        finished: false
+      }
+    }
+    if (itemType === 'mana_potion') {
+      const restored = Math.min(BATTLE_MANA_POTION_RESTORE, actorRef.mpStart - actorRef.mp)
+      actorRef.mp += restored
+      next.turnUserId = nextTurnUserId(next)
+      return {
+        state: next,
+        damage: 0,
+        logMessage: formatBattleConsumableMessage(actor.name, itemType, restored),
+        finished: false
+      }
+    }
+
+    // Persistent PvP battle shield keeps its existing guarded-stance behavior.
     actorRef.defending = true
     actorRef.avoiding = false
     next.turnUserId = nextTurnUserId(next)

@@ -79,6 +79,7 @@ export function mapBattleRoom(row: Record<string, unknown>): BattleRoom {
     status: row.status as BattleRoom['status'],
     maxMembers: num(row.max_members),
     activeSessionId: row.active_session_id ? str(row.active_session_id) : null,
+    selectedOpponentUserId: row.selected_opponent_user_id ? str(row.selected_opponent_user_id) : null,
     createdAt: str(row.created_at),
     expiresAt: row.expires_at ? str(row.expires_at) : null
   }

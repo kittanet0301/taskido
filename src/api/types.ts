@@ -35,7 +35,9 @@ export interface GameAPI {
   leaveBattleRoom: (roomId: string) => Promise<void>
   forfeitBattleRoom: (roomId: string) => Promise<void>
   listPublicRooms: () => Promise<unknown>
+  getBattleRoom: (roomId: string) => Promise<unknown>
   getRoomMembers: (roomId: string) => Promise<unknown>
+  selectRoomOpponent: (roomId: string, opponentUserId: string | null) => Promise<unknown>
   startRoomDuel: (roomId: string, opponentUserId: string) => Promise<unknown>
   submitBattleAction: (sessionId: string, action: string) => Promise<unknown>
   listBattles: () => Promise<unknown>
@@ -100,7 +102,7 @@ export interface GameAPI {
   >
   adminGrantGems: (targetId: string, amount: number) => Promise<number>
   adminGrantItem: (targetId: string, itemType: string, qty: number) => Promise<number>
-  adminClearUserData: (targetId: string) => Promise<void>
+  adminDeleteUser: (targetId: string) => Promise<void>
 }
 
 /** @deprecated use GameAPI — kept for Electron preload compatibility */

@@ -1,9 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { createDefaultSave } from './growth'
-import { applyFinishMinigame, applyMinigameDailyReset, minigameItemsLeft } from './minigame'
+import {
+  applyFinishMinigame,
+  applyMinigameDailyReset,
+  getMinigameDefinition,
+  minigameItemsLeft,
+  ROCK_DODGE_EGG_GOAL
+} from './minigame'
 import { localDayKey } from './missions'
 
 describe('minigame rewards', () => {
+  it('uses 100 collected eggs as the Rock Dodge pass threshold', () => {
+    expect(getMinigameDefinition('rock_dodge')?.scoreThreshold).toBe(ROCK_DODGE_EGG_GOAL)
+    expect(applyFinishMinigame(createDefaultSave(), 'rock_dodge', 99).result.rewarded).toBe(false)
+    expect(applyFinishMinigame(createDefaultSave(), 'rock_dodge', 100).result.rewarded).toBe(true)
+  })
+
   it('grants random item when score meets threshold', () => {
     const save = createDefaultSave()
     const totalBefore = save.inventory.reduce((sum, item) => sum + item.quantity, 0)

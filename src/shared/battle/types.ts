@@ -103,6 +103,7 @@ export interface BattleRoom {
   status: BattleRoomStatus
   maxMembers: number
   activeSessionId: string | null
+  selectedOpponentUserId: string | null
   createdAt: string
   expiresAt: string | null
 }

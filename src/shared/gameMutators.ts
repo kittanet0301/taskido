@@ -9,6 +9,7 @@ import { applyFinishMinigame } from './minigame'
 import { PET_SLOT_MAX } from './constants'
 import { getMarketOffer } from './market'
 import { getSessionIsAdmin, setSessionIsAdmin } from './sessionFlags'
+import { calculateBotBattleReward, type BotDifficulty } from './battle/bot'
 
 export { setSessionIsAdmin, getSessionIsAdmin } from './sessionFlags'
 
@@ -421,6 +422,33 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
     const next = applyDailyResets(save)
     return {
       ...next,
+      missions: updateMissionProgress(next.missions, 'weekly_battle_win_3', 1)
+    }
+  }
+  if (
+    mutatorName === 'completeBotBattle' &&
+    (args[0] === 'easy' || args[0] === 'normal' || args[0] === 'hard') &&
+    typeof args[1] === 'number'
+  ) {
+    const difficulty = args[0] as BotDifficulty
+    const reward = calculateBotBattleReward(difficulty, args[1])
+    let next = applyDailyResets(save)
+    let pet = next.pet
+    if (pet) {
+      const previous = pet
+      pet = {
+        ...pet,
+        stats: { ...pet.stats, evolution: Math.min(999, pet.stats.evolution + reward.evolution) }
+      }
+      pet = applyLevelGainRewards(previous, pet)
+    }
+    return {
+      ...next,
+      pet,
+      gems: (next.gems ?? 0) + reward.gems,
+      inventory: reward.drop
+        ? addInventoryItems(next.inventory, [{ type: reward.drop, quantity: 1 }])
+        : next.inventory,
       missions: updateMissionProgress(next.missions, 'weekly_battle_win_3', 1)
     }
   }
