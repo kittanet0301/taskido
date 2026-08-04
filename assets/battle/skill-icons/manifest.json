@@ -197,8 +197,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "grass_leaf_slash.png",
-      "sourceSheet": "raw/grass-sheet.png",
-      "prompt": "prompts/grass.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/grass_overgrowth.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -386,8 +386,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "ground_pebble_shot.png",
-      "sourceSheet": "raw/ground-sheet.png",
-      "prompt": "prompts/ground.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/ground_terra_break.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -764,8 +764,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "water_bubble_jab.png",
-      "sourceSheet": "raw/water-sheet.png",
-      "prompt": "prompts/water.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/water_abyss_roar.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -953,8 +953,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "ice_frost_nip.png",
-      "sourceSheet": "raw/ice-sheet.png",
-      "prompt": "prompts/ice.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/ice_absolute_zero.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -1142,8 +1142,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "dragon_scale_bite.png",
-      "sourceSheet": "raw/dragon-sheet.png",
-      "prompt": "prompts/dragon.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/dragon_elder_wrath.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -1331,8 +1331,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "dark_shadow_bite.png",
-      "sourceSheet": "raw/dark-sheet.png",
-      "prompt": "prompts/dark.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/dark_eclipse_fang.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
@@ -1520,8 +1520,8 @@
       "role": "basic",
       "kind": "skill",
       "file": "neutral_plain_strike.png",
-      "sourceSheet": "raw/neutral-sheet.png",
-      "prompt": "prompts/neutral.prompt.txt",
+      "sourceSheet": "raw/ultimate-one-by-one/neutral_finishing_blow.png",
+      "prompt": "prompts/ultimate-one-by-one/prompts.json",
       "cell": {
         "row": 0,
         "column": 0
