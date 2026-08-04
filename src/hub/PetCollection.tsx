@@ -27,12 +27,14 @@ function statPercent(value: number, max: number): string {
 
 interface Props {
   save: GameSave
+  newEggIds?: string[]
+  onEggViewed?: (petId: string) => void
   onUpdated: () => void
   onSelect: () => void
   onClose: () => void
 }
 
-export function PetCollection({ save, onUpdated, onSelect, onClose }: Props) {
+export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, onSelect, onClose }: Props) {
   const { t } = useTranslation()
   const [filter, setFilter] = useState<StageFilter>('all')
   const [page, setPage] = useState(0)
@@ -362,12 +364,16 @@ export function PetCollection({ save, onUpdated, onSelect, onClose }: Props) {
               </div>
             )
           }
+          const isNewEgg = newEggIds.includes(pet.id)
           return (
-            <div key={pet.id} className="collection-slot">
+            <div key={pet.id} className={`collection-slot${isNewEgg ? ' collection-slot--new' : ''}`}>
               <button
                 type="button"
                 className="collection-slot-btn"
-                onClick={() => setDetailPet(pet)}
+                onClick={() => {
+                  setDetailPet(pet)
+                  if (isNewEgg) onEggViewed?.(pet.id)
+                }}
                 title={t('collection.select')}
               >
                 <div
@@ -383,6 +389,7 @@ export function PetCollection({ save, onUpdated, onSelect, onClose }: Props) {
                   </span>
                 </div>
               </button>
+              {isNewEgg && <span className="collection-slot-new-badge">{t('collection.newEgg')}</span>}
               <button
                 type="button"
                 className="collection-delete-btn"

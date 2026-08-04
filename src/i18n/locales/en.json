@@ -133,7 +133,9 @@
     "evolveAdult": "Evolve -> Adult",
     "evolveLocked": "Evolve (requires {{points}}+ evolution)",
     "hideMenus": "Hide menus — show pet only",
-    "showMenus": "Show menus"
+    "showMenus": "Show menus",
+    "newEggTitle": "A new egg arrived!",
+    "newEggNotification": "{{count}} new egg in your collection — click to view"
   },
   "inventory": {
     "title": "Item Bag",
@@ -262,7 +264,9 @@
     "active": "Playing",
     "viewDetails": "View pet details",
     "filterAll": "All",
-    "sidebarHatchable": "Collection — eggs left to hatch"
+    "sidebarHatchable": "Collection — eggs left to hatch",
+    "sidebarNewEggs": "Collection — {{count}} new egg",
+    "newEgg": "NEW"
   },
   "friends": {
     "title": "Friends",

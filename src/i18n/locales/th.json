@@ -133,7 +133,9 @@
     "evolveAdult": "วิวัฒนาการ -> Adult",
     "evolveLocked": "วิวัฒนาการ (ต้องการพัฒนาร่าง {{points}}+)",
     "hideMenus": "ซ่อนเมนู — โชว์แค่ตัวละคร",
-    "showMenus": "แสดงเมนู"
+    "showMenus": "แสดงเมนู",
+    "newEggTitle": "มีไข่ใหม่เข้ามา!",
+    "newEggNotification": "มีไข่ใหม่ {{count}} ใบในคลัง — คลิกเพื่อดู"
   },
   "inventory": {
     "title": "กระเป๋าไอเทม",
@@ -261,7 +263,9 @@
     "active": "กำลังเล่น",
     "viewDetails": "ดูรายละเอียดสัตว์",
     "filterAll": "ทั้งหมด",
-    "sidebarHatchable": "คลังไข่ — ยังมีไข่ให้ฟัก"
+    "sidebarHatchable": "คลังไข่ — ยังมีไข่ให้ฟัก",
+    "sidebarNewEggs": "คลังไข่ — ไข่ใหม่ {{count}} ใบ",
+    "newEgg": "ใหม่"
   },
   "friends": {
     "title": "เพื่อน",

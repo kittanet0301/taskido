@@ -37,6 +37,10 @@ interface Props {
   carePulse?: { type: ItemType; key: number } | null
   /** Open skill-forget picker (Skill forget scroll). */
   onSkillForget?: () => void
+  /** Eggs added since the player last viewed them. */
+  newEggCount?: number
+  /** Open the collection from the home notification. */
+  onOpenCollection?: () => void
 }
 
 interface CareFxState {
@@ -66,7 +70,9 @@ export function HomeDashboard({
   isAdmin = false,
   onUpdated,
   carePulse = null,
-  onSkillForget
+  onSkillForget,
+  newEggCount = 0,
+  onOpenCollection
 }: Props) {
   const { t } = useTranslation()
   const sceneRef = useRef<HTMLDivElement>(null)
@@ -361,6 +367,21 @@ export function HomeDashboard({
           height={DASH_BG_HEIGHT}
           draggable={false}
         />
+
+        {newEggCount > 0 && (
+          <button
+            type="button"
+            className="dash-home-egg-notification"
+            onClick={onOpenCollection}
+            aria-label={t('home.newEggNotification', { count: newEggCount })}
+          >
+            <img src="/ui/hud-icon-collection.png" alt="" draggable={false} />
+            <span>
+              <strong>{t('home.newEggTitle')}</strong>
+              <small>{t('home.newEggNotification', { count: newEggCount })}</small>
+            </span>
+          </button>
+        )}
 
         <section className="dash-hud-status" aria-label="Pet status">
           <div className="dash-hud-nameplate">

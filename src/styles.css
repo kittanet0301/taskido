@@ -1722,6 +1722,7 @@ button.dash-hud-avatar--btn:disabled {
 .dash-hud--focus .dash-hud-picker,
 .dash-hud--focus .dash-hud-debug,
 .dash-hud--focus .dash-hud-cta,
+.dash-hud--focus .dash-home-egg-notification,
 .dash-hud--focus .growth-levelup-overlay {
   display: none !important;
 }
@@ -3223,6 +3224,60 @@ button.dash-hud-avatar--btn:disabled {
   background: transparent;
   border: 0;
   box-shadow: none;
+}
+
+.dash-home-egg-notification {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  left: 50%;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: min(330px, calc(100% - 32px));
+  padding: 9px 14px;
+  border: 3px solid #7c2d12;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff1c7, #fb923c);
+  color: #431407;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(67, 20, 7, 0.82), 0 0 18px rgba(251, 146, 60, 0.5);
+  transform: translateX(-50%);
+  animation: dash-home-egg-notification-in 260ms ease-out;
+}
+
+.dash-home-egg-notification:hover {
+  filter: brightness(1.06);
+  transform: translate(-50%, -1px);
+}
+
+.dash-home-egg-notification img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.dash-home-egg-notification span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.dash-home-egg-notification strong {
+  font-size: 0.92rem;
+}
+
+.dash-home-egg-notification small {
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+@keyframes dash-home-egg-notification-in {
+  from { opacity: 0; transform: translate(-50%, -12px) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
 
 .community-tabs-card .battle-hub-tabs {
@@ -5763,6 +5818,25 @@ button.dash-hud-avatar--btn:disabled {
   flex-direction: column;
   gap: 2px;
   min-width: 0;
+}
+
+.collection-slot--new {
+  border-color: #f97316;
+  box-shadow: 3px 3px 0 #9a3412, 0 0 0 3px rgba(251, 146, 60, 0.28);
+}
+
+.collection-slot-new-badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 2;
+  padding: 2px 7px;
+  border: 2px solid #7c2d12;
+  background: #fb923c;
+  color: #431407;
+  font-size: 0.68rem;
+  font-weight: 800;
+  pointer-events: none;
 }
 
 .pet-profile-skill-summary {

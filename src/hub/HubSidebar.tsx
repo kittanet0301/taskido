@@ -81,7 +81,7 @@ export function HubSidebar({
           item.id === 'inventory' && badgeCount > 0
             ? t('gift.sidebarPending', { count: badgeCount })
             : item.id === 'collection' && badgeCount > 0
-              ? t('collection.sidebarHatchable')
+              ? t('collection.sidebarNewEggs', { count: badgeCount })
               : item.id === 'community' && badgeCount > 0
                 ? t('friends.sidebarPending')
                 : item.label

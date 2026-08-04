@@ -110,8 +110,8 @@ export function createCloudStorageService({
       }
     }
 
-    for (const mission of payload.missions) {
-      const { error } = await supabase.from('mission_progress').upsert(mission, {
+    if (payload.missions.length > 0) {
+      const { error } = await supabase.from('mission_progress').upsert(payload.missions, {
         onConflict: 'user_id,mission_id'
       })
       if (error) throw error

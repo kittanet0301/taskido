@@ -594,15 +594,15 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     missions: { mission_id: string; progress: number; completed: boolean; reset_at: string }[]
   ) {
     const supabase = requireSupabase()
-    for (const mission of missions) {
+    if (missions.length > 0) {
       const { error } = await supabase.from('mission_progress').upsert(
-        {
+        missions.map((mission) => ({
           user_id: userId,
           mission_id: mission.mission_id,
           progress: mission.progress,
           completed: mission.completed,
           reset_at: mission.reset_at
-        },
+        })),
         { onConflict: 'user_id,mission_id' }
       )
       if (error) rpcError(error)

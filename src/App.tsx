@@ -2,7 +2,11 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { GameSave, ItemType } from './shared/types'
 import { getActivityScore, isOnboardingComplete, ONBOARDING_KEY } from './shared/activityScore'
-import { countHatchableEggs } from './shared/petCollection'
+import {
+  markEggNotificationRead,
+  reconcileEggNotifications,
+  type EggNotificationState
+} from './shared/eggNotifications'
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
 import './i18n'
@@ -38,6 +42,7 @@ interface Props {
 }
 
 const PASSWORD_RECOVERY_FLAG = 'taskino-password-recovery'
+const EGG_NOTIFICATIONS_KEY = 'taskino-egg-notifications'
 
 function isPasswordRecoveryPending(): boolean {
   if (typeof window === 'undefined' || !window.sessionStorage) return false
@@ -72,6 +77,11 @@ function AppContent({ variant = 'desktop' }: Props) {
   const [showSettings, setShowSettings] = useState(false)
   const [pendingGiftCount, setPendingGiftCount] = useState(0)
   const [pendingFriendCount, setPendingFriendCount] = useState(0)
+  const [eggNotifications, setEggNotifications] = useState<EggNotificationState>({
+    knownIds: [],
+    unreadIds: []
+  })
+  const eggNotificationUserRef = useRef<string | null>(null)
   const [showCover, setShowCover] = useState(() => !isOnboardingComplete())
   const [session, setSession] = useState<Session>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
@@ -109,21 +119,6 @@ function AppContent({ variant = 'desktop' }: Props) {
       // keep last known count
     }
   }, [session?.user?.id])
-
-  const syncOnTabChange = useCallback(async () => {
-    if (!window.electronAPI) return
-    // Push local changes (e.g. used items / TEST species) before pull.
-    // If push fails, skip pull so a stale cloud pet cannot wipe local state.
-    try {
-      await window.electronAPI.forceCloudSave()
-    } catch (e) {
-      console.warn('[sync] force save failed; keeping local state:', e)
-      await refresh()
-      return
-    }
-    await window.electronAPI.reloadFromCloud()
-    await refresh()
-  }, [refresh])
 
   const pushThenPull = useCallback(async () => {
     if (!window.electronAPI) return
@@ -173,23 +168,14 @@ function AppContent({ variant = 'desktop' }: Props) {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [homeFocus])
 
-  const openPopup = useCallback(
-    async (setter: (visible: boolean) => void) => {
-      if (tabSyncing) return
-      setTabSyncing(true)
-      try {
-        await syncOnTabChange()
-        await refreshPendingGifts()
-        await refreshPendingFriends()
-      } catch (e) {
-        console.error('[popup] sync failed:', e)
-      } finally {
-        setTabSyncing(false)
-      }
-      setter(true)
-    },
-    [tabSyncing, syncOnTabChange, refreshPendingGifts, refreshPendingFriends]
-  )
+  const openPopup = useCallback((setter: (visible: boolean) => void) => {
+    if (tabSyncing) return
+    // Popup screens consume the live local game state. Mutations are already
+    // debounced to cloud storage, while data owned by a popup (gifts/friends)
+    // is refreshed by that popup itself. A full push + pull here caused every
+    // sidebar click to rewrite the whole save and immediately read it back.
+    setter(true)
+  }, [tabSyncing])
 
   const goToProfile = useCallback(
     async (userId: string) => {
@@ -197,7 +183,7 @@ function AppContent({ variant = 'desktop' }: Props) {
       setShowCommunity(false)
       setTabSyncing(true)
       try {
-        await syncOnTabChange()
+        await pushThenPull()
       } catch (e) {
         console.error('[profile] sync failed:', e)
       } finally {
@@ -205,7 +191,7 @@ function AppContent({ variant = 'desktop' }: Props) {
       }
       setViewUserId(userId)
     },
-    [tabSyncing, syncOnTabChange]
+    [tabSyncing, pushThenPull]
   )
 
   const handleViewProfile = useCallback((userId: string) => goToProfile(userId), [goToProfile])
@@ -262,6 +248,37 @@ function AppContent({ variant = 'desktop' }: Props) {
   useEffect(() => {
     battleCtx?.syncUserId(session?.user?.id ?? null)
   }, [session?.user?.id, battleCtx])
+
+  useEffect(() => {
+    const userId = session?.user?.id
+    if (!userId || !save) return
+
+    const storageKey = `${EGG_NOTIFICATIONS_KEY}:${userId}`
+    let previous: EggNotificationState | null = eggNotifications
+    if (eggNotificationUserRef.current !== userId) {
+      eggNotificationUserRef.current = userId
+      try {
+        const stored = localStorage.getItem(storageKey)
+        previous = stored ? (JSON.parse(stored) as EggNotificationState) : null
+      } catch {
+        previous = null
+      }
+    }
+
+    const next = reconcileEggNotifications(save.collection, previous)
+    setEggNotifications(next)
+    localStorage.setItem(storageKey, JSON.stringify(next))
+  }, [session?.user?.id, save?.collection])
+
+  const markEggViewed = useCallback((petId: string) => {
+    const userId = session?.user?.id
+    if (!userId) return
+    setEggNotifications((current) => {
+      const next = markEggNotificationRead(current, petId)
+      localStorage.setItem(`${EGG_NOTIFICATIONS_KEY}:${userId}`, JSON.stringify(next))
+      return next
+    })
+  }, [session?.user?.id])
 
   useEffect(() => {
     if (!session?.user?.id || showCover || !window.electronAPI) return
@@ -445,7 +462,7 @@ function AppContent({ variant = 'desktop' }: Props) {
       showAdmin={isAdmin}
       badges={{
         inventory: pendingGiftCount,
-        collection: save ? countHatchableEggs(save) : 0,
+        collection: eggNotifications.unreadIds.length,
         community: pendingFriendCount
       }}
       onNavigate={handleSidebarNavigate}
@@ -489,6 +506,8 @@ function AppContent({ variant = 'desktop' }: Props) {
                 onUpdated={refresh}
                 carePulse={carePulse}
                 onSkillForget={() => setShowSkillForget(true)}
+                newEggCount={eggNotifications.unreadIds.length}
+                onOpenCollection={() => void openPopup(setShowCollection)}
               />
             </main>
           </div>
@@ -547,6 +566,8 @@ function AppContent({ variant = 'desktop' }: Props) {
       {showCollection && (
         <PetCollection
           save={save}
+          newEggIds={eggNotifications.unreadIds}
+          onEggViewed={markEggViewed}
           onUpdated={refresh}
           onSelect={() => setShowCollection(false)}
           onClose={() => setShowCollection(false)}
