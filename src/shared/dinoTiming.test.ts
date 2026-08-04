@@ -21,13 +21,13 @@ describe('dinoAnimationTick', () => {
     expect(dinoAnimationTick(Number.POSITIVE_INFINITY)).toBe(0)
   })
 
-  it('plays authored creature frames at six frames per second', () => {
-    expect(DINO_SPRITE_FPS).toBe(6)
-    expect(DINO_SPRITE_FRAME_MS).toBeCloseTo(1000 / 6)
-    expect(DINO_FRAMES_PER_SPRITE_FRAME).toBe(10)
+  it('plays authored creature frames at three frames per second', () => {
+    expect(DINO_SPRITE_FPS).toBe(3)
+    expect(DINO_SPRITE_FRAME_MS).toBeCloseTo(1000 / 3)
+    expect(DINO_FRAMES_PER_SPRITE_FRAME).toBe(20)
   })
 
   it('derives hatch duration from the same smooth frame rate', () => {
-    expect(hatchAnimMsForFrameCount(6)).toBeCloseTo(1000)
+    expect(hatchAnimMsForFrameCount(6)).toBeCloseTo(2000)
   })
 })
