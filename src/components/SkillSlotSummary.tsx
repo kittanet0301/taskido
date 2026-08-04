@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { SkillSlot } from '../shared/battle/skillTrees'
 import { getSkillDef, skillPower, SKILL_RANK_MAX } from '../shared/battle/skillTrees'
+import { SkillIcon } from './SkillIcon'
 
 interface Props {
   slot: SkillSlot
@@ -29,14 +30,17 @@ export function SkillSlotSummary({ slot }: Props) {
   })()
 
   return (
-    <div className="pet-profile-skill-info">
-      <strong>{t(`skills.${slot.pathId}`, { defaultValue: def?.pathId ?? slot.pathId })}</strong>
-      <span>
-        {slot.kind === 'ultimate' ? t('battle.ultimate') : t('battle.skillMenu')} ·{' '}
-        {t(`elements.${slot.element}`)} ·{' '}
-        {t('skills.rankLabel', { rank: slot.rank, max: SKILL_RANK_MAX })}
-      </span>
-      {effectLine && <span className="pet-profile-skill-stats">{effectLine}</span>}
+    <div className="pet-profile-skill-summary">
+      <SkillIcon pathId={slot.pathId} className="pet-profile-skill-icon" />
+      <div className="pet-profile-skill-info">
+        <strong>{t(`skills.${slot.pathId}`, { defaultValue: def?.pathId ?? slot.pathId })}</strong>
+        <span>
+          {slot.kind === 'ultimate' ? t('battle.ultimate') : t('battle.skillMenu')} ·{' '}
+          {t(`elements.${slot.element}`)} ·{' '}
+          {t('skills.rankLabel', { rank: slot.rank, max: SKILL_RANK_MAX })}
+        </span>
+        {effectLine && <span className="pet-profile-skill-stats">{effectLine}</span>}
+      </div>
     </div>
   )
 }

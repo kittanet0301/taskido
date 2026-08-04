@@ -1,0 +1,1707 @@
+{
+  "schema": "taskino.skill-icons.v1",
+  "count": 81,
+  "icons": [
+    {
+      "pathId": "fire_spark_bite",
+      "element": "fire",
+      "role": "basic",
+      "kind": "skill",
+      "file": "fire_spark_bite.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        106,
+        117,
+        362,
+        388
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_flame_rush",
+      "element": "fire",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "fire_flame_rush.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        48,
+        130,
+        356,
+        372
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_magma_pierce",
+      "element": "fire",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "fire_magma_pierce.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        21,
+        112,
+        326,
+        394
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_inferno_burst",
+      "element": "fire",
+      "role": "burst",
+      "kind": "skill",
+      "file": "fire_inferno_burst.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        99,
+        48,
+        377,
+        416
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_heat_guard",
+      "element": "fire",
+      "role": "guard",
+      "kind": "skill",
+      "file": "fire_heat_guard.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        66,
+        62,
+        341,
+        333
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_smoke_step",
+      "element": "fire",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "fire_smoke_step.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        21,
+        70,
+        286,
+        416
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_kindling",
+      "element": "fire",
+      "role": "support",
+      "kind": "skill",
+      "file": "fire_kindling.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        120,
+        0,
+        357,
+        293
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_cinder_mark",
+      "element": "fire",
+      "role": "mark",
+      "kind": "skill",
+      "file": "fire_cinder_mark.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        50,
+        4,
+        353,
+        301
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "fire_solar_eruption",
+      "element": "fire",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "fire_solar_eruption.png",
+      "sourceSheet": "raw/fire-sheet.png",
+      "prompt": "prompts/fire.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_leaf_slash",
+      "element": "grass",
+      "role": "basic",
+      "kind": "skill",
+      "file": "grass_leaf_slash.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        126,
+        108,
+        386,
+        395
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_vine_lash",
+      "element": "grass",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "grass_vine_lash.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        51,
+        109,
+        349,
+        398
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_thorn_pierce",
+      "element": "grass",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "grass_thorn_pierce.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        20,
+        105,
+        300,
+        398
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_bloom_burst",
+      "element": "grass",
+      "role": "burst",
+      "kind": "skill",
+      "file": "grass_bloom_burst.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        97,
+        47,
+        386,
+        355
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_bark_shield",
+      "element": "grass",
+      "role": "guard",
+      "kind": "skill",
+      "file": "grass_bark_shield.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        59,
+        62,
+        332,
+        341
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_pollen_dodge",
+      "element": "grass",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "grass_pollen_dodge.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        10,
+        75,
+        307,
+        415
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_photosynth",
+      "element": "grass",
+      "role": "support",
+      "kind": "skill",
+      "file": "grass_photosynth.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        121,
+        1,
+        385,
+        298
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_seed_mark",
+      "element": "grass",
+      "role": "mark",
+      "kind": "skill",
+      "file": "grass_seed_mark.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        44,
+        12,
+        418,
+        304
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "grass_overgrowth",
+      "element": "grass",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "grass_overgrowth.png",
+      "sourceSheet": "raw/grass-sheet.png",
+      "prompt": "prompts/grass.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_pebble_shot",
+      "element": "ground",
+      "role": "basic",
+      "kind": "skill",
+      "file": "ground_pebble_shot.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        122,
+        107,
+        380,
+        364
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_quake_stomp",
+      "element": "ground",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "ground_quake_stomp.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        53,
+        89,
+        352,
+        391
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_drill_fang",
+      "element": "ground",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "ground_drill_fang.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        32,
+        109,
+        299,
+        376
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_boulder_crash",
+      "element": "ground",
+      "role": "burst",
+      "kind": "skill",
+      "file": "ground_boulder_crash.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        88,
+        52,
+        402,
+        343
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_stone_wall",
+      "element": "ground",
+      "role": "guard",
+      "kind": "skill",
+      "file": "ground_stone_wall.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        60,
+        67,
+        335,
+        327
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_sand_veil",
+      "element": "ground",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "ground_sand_veil.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        55,
+        315,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_tectonic_pulse",
+      "element": "ground",
+      "role": "support",
+      "kind": "skill",
+      "file": "ground_tectonic_pulse.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        89,
+        10,
+        392,
+        283
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_fault_line",
+      "element": "ground",
+      "role": "mark",
+      "kind": "skill",
+      "file": "ground_fault_line.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        65,
+        33,
+        418,
+        288
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ground_terra_break",
+      "element": "ground",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "ground_terra_break.png",
+      "sourceSheet": "raw/ground-sheet.png",
+      "prompt": "prompts/ground.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_static_nibble",
+      "element": "electric",
+      "role": "basic",
+      "kind": "skill",
+      "file": "electric_static_nibble.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        119,
+        104,
+        367,
+        365
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_volt_dash",
+      "element": "electric",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "electric_volt_dash.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        34,
+        123,
+        366,
+        364
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_needle_bolt",
+      "element": "electric",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "electric_needle_bolt.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        24,
+        0,
+        418,
+        362
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_thunder_clap",
+      "element": "electric",
+      "role": "burst",
+      "kind": "skill",
+      "file": "electric_thunder_clap.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        87,
+        36,
+        415,
+        417
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_shock_armor",
+      "element": "electric",
+      "role": "guard",
+      "kind": "skill",
+      "file": "electric_shock_armor.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        60,
+        46,
+        418,
+        337
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_afterimage",
+      "element": "electric",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "electric_afterimage.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        76,
+        323,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_charge_up",
+      "element": "electric",
+      "role": "support",
+      "kind": "skill",
+      "file": "electric_charge_up.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        141,
+        0,
+        360,
+        287
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_spark_field",
+      "element": "electric",
+      "role": "mark",
+      "kind": "skill",
+      "file": "electric_spark_field.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        41,
+        13,
+        418,
+        301
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "electric_storm_crown",
+      "element": "electric",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "electric_storm_crown.png",
+      "sourceSheet": "raw/electric-sheet.png",
+      "prompt": "prompts/electric.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_bubble_jab",
+      "element": "water",
+      "role": "basic",
+      "kind": "skill",
+      "file": "water_bubble_jab.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        123,
+        138,
+        392,
+        372
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_surge_rush",
+      "element": "water",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "water_surge_rush.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        44,
+        134,
+        378,
+        371
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_jet_pierce",
+      "element": "water",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "water_jet_pierce.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        19,
+        109,
+        303,
+        381
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_tidal_burst",
+      "element": "water",
+      "role": "burst",
+      "kind": "skill",
+      "file": "water_tidal_burst.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        86,
+        56,
+        403,
+        321
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_foam_guard",
+      "element": "water",
+      "role": "guard",
+      "kind": "skill",
+      "file": "water_foam_guard.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        66,
+        54,
+        418,
+        333
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_mist_step",
+      "element": "water",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "water_mist_step.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        72,
+        306,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_undertow",
+      "element": "water",
+      "role": "support",
+      "kind": "skill",
+      "file": "water_undertow.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        103,
+        19,
+        367,
+        301
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_ripple_mark",
+      "element": "water",
+      "role": "mark",
+      "kind": "skill",
+      "file": "water_ripple_mark.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        33,
+        30,
+        418,
+        293
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "water_abyss_roar",
+      "element": "water",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "water_abyss_roar.png",
+      "sourceSheet": "raw/water-sheet.png",
+      "prompt": "prompts/water.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_frost_nip",
+      "element": "ice",
+      "role": "basic",
+      "kind": "skill",
+      "file": "ice_frost_nip.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        123,
+        116,
+        379,
+        368
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_glacier_rush",
+      "element": "ice",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "ice_glacier_rush.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        38,
+        127,
+        355,
+        381
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_icicle_pierce",
+      "element": "ice",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "ice_icicle_pierce.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        25,
+        104,
+        289,
+        387
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_blizzard_burst",
+      "element": "ice",
+      "role": "burst",
+      "kind": "skill",
+      "file": "ice_blizzard_burst.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        88,
+        50,
+        383,
+        341
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_crystal_guard",
+      "element": "ice",
+      "role": "guard",
+      "kind": "skill",
+      "file": "ice_crystal_guard.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        56,
+        49,
+        418,
+        345
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_snow_fade",
+      "element": "ice",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "ice_snow_fade.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        71,
+        306,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_deep_freeze",
+      "element": "ice",
+      "role": "support",
+      "kind": "skill",
+      "file": "ice_deep_freeze.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        112,
+        20,
+        365,
+        298
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_rime_mark",
+      "element": "ice",
+      "role": "mark",
+      "kind": "skill",
+      "file": "ice_rime_mark.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        35,
+        32,
+        418,
+        307
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "ice_absolute_zero",
+      "element": "ice",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "ice_absolute_zero.png",
+      "sourceSheet": "raw/ice-sheet.png",
+      "prompt": "prompts/ice.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        321,
+        331
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_scale_bite",
+      "element": "dragon",
+      "role": "basic",
+      "kind": "skill",
+      "file": "dragon_scale_bite.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        116,
+        87,
+        395,
+        385
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_wyrm_rush",
+      "element": "dragon",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "dragon_wyrm_rush.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        33,
+        89,
+        363,
+        391
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_horn_pierce",
+      "element": "dragon",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "dragon_horn_pierce.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        8,
+        72,
+        312,
+        400
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_roar_burst",
+      "element": "dragon",
+      "role": "burst",
+      "kind": "skill",
+      "file": "dragon_roar_burst.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        75,
+        29,
+        408,
+        365
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_scale_mail",
+      "element": "dragon",
+      "role": "guard",
+      "kind": "skill",
+      "file": "dragon_scale_mail.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        55,
+        33,
+        418,
+        356
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_wing_slip",
+      "element": "dragon",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "dragon_wing_slip.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        72,
+        323,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_blood_surge",
+      "element": "dragon",
+      "role": "support",
+      "kind": "skill",
+      "file": "dragon_blood_surge.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        90,
+        4,
+        390,
+        331
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_omen_mark",
+      "element": "dragon",
+      "role": "mark",
+      "kind": "skill",
+      "file": "dragon_omen_mark.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        28,
+        3,
+        418,
+        342
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dragon_elder_wrath",
+      "element": "dragon",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "dragon_elder_wrath.png",
+      "sourceSheet": "raw/dragon-sheet.png",
+      "prompt": "prompts/dragon.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_shadow_bite",
+      "element": "dark",
+      "role": "basic",
+      "kind": "skill",
+      "file": "dark_shadow_bite.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        104,
+        83,
+        403,
+        397
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_night_rush",
+      "element": "dark",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "dark_night_rush.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        47,
+        82,
+        398,
+        399
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_umbra_pierce",
+      "element": "dark",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "dark_umbra_pierce.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        17,
+        70,
+        319,
+        416
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_void_burst",
+      "element": "dark",
+      "role": "burst",
+      "kind": "skill",
+      "file": "dark_void_burst.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        73,
+        32,
+        404,
+        413
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_cloak_guard",
+      "element": "dark",
+      "role": "guard",
+      "kind": "skill",
+      "file": "dark_cloak_guard.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        53,
+        30,
+        371,
+        373
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_fade_step",
+      "element": "dark",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "dark_fade_step.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        22,
+        49,
+        325,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_hex_chant",
+      "element": "dark",
+      "role": "support",
+      "kind": "skill",
+      "file": "dark_hex_chant.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        92,
+        0,
+        400,
+        317
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_curse_mark",
+      "element": "dark",
+      "role": "mark",
+      "kind": "skill",
+      "file": "dark_curse_mark.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        42,
+        7,
+        418,
+        310
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "dark_eclipse_fang",
+      "element": "dark",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "dark_eclipse_fang.png",
+      "sourceSheet": "raw/dark-sheet.png",
+      "prompt": "prompts/dark.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_plain_strike",
+      "element": "neutral",
+      "role": "basic",
+      "kind": "skill",
+      "file": "neutral_plain_strike.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 0
+      },
+      "sourceBounds": [
+        82,
+        86,
+        402,
+        396
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_power_rush",
+      "element": "neutral",
+      "role": "heavy",
+      "kind": "skill",
+      "file": "neutral_power_rush.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 1
+      },
+      "sourceBounds": [
+        37,
+        98,
+        382,
+        391
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_focus_pierce",
+      "element": "neutral",
+      "role": "pierce",
+      "kind": "skill",
+      "file": "neutral_focus_pierce.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 0,
+        "column": 2
+      },
+      "sourceBounds": [
+        12,
+        84,
+        323,
+        398
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_impact_burst",
+      "element": "neutral",
+      "role": "burst",
+      "kind": "skill",
+      "file": "neutral_impact_burst.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 0
+      },
+      "sourceBounds": [
+        77,
+        21,
+        395,
+        412
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_guard_stance",
+      "element": "neutral",
+      "role": "guard",
+      "kind": "skill",
+      "file": "neutral_guard_stance.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 1
+      },
+      "sourceBounds": [
+        72,
+        24,
+        346,
+        358
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_sidestep",
+      "element": "neutral",
+      "role": "dodge",
+      "kind": "skill",
+      "file": "neutral_sidestep.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 1,
+        "column": 2
+      },
+      "sourceBounds": [
+        23,
+        32,
+        339,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_rally",
+      "element": "neutral",
+      "role": "support",
+      "kind": "skill",
+      "file": "neutral_rally.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 0
+      },
+      "sourceBounds": [
+        81,
+        0,
+        387,
+        328
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_brand_mark",
+      "element": "neutral",
+      "role": "mark",
+      "kind": "skill",
+      "file": "neutral_brand_mark.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 1
+      },
+      "sourceBounds": [
+        51,
+        9,
+        418,
+        313
+      ],
+      "width": 128,
+      "height": 128
+    },
+    {
+      "pathId": "neutral_finishing_blow",
+      "element": "neutral",
+      "role": "ultimate",
+      "kind": "ultimate",
+      "file": "neutral_finishing_blow.png",
+      "sourceSheet": "raw/neutral-sheet.png",
+      "prompt": "prompts/neutral.prompt.txt",
+      "cell": {
+        "row": 2,
+        "column": 2
+      },
+      "sourceBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "width": 128,
+      "height": 128
+    }
+  ]
+}

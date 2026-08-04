@@ -5765,6 +5765,21 @@ button.dash-hud-avatar--btn:disabled {
   min-width: 0;
 }
 
+.pet-profile-skill-summary {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pet-profile-skill-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 2px rgba(24, 10, 3, .55));
+}
+
 .pet-profile-skill-info strong {
   font-size: 0.98rem;
   font-weight: 700;
@@ -6973,13 +6988,13 @@ button.dash-hud-avatar--btn:disabled {
 
 .battle-page .rpg-quick-skill {
   min-width: 0;
-  min-height: 58px;
+  min-height: 118px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  gap: 6px;
-  padding: 7px 8px;
+  gap: 3px;
+  padding: 3px 8px;
   color: #fff0ce;
   background: linear-gradient(180deg, #4b2a16, #2b160b);
   border: 3px solid #a96625;
@@ -7015,6 +7030,22 @@ button.dash-hud-avatar--btn:disabled {
   min-width: 0;
   font-weight: 900;
   line-height: 1.2;
+}
+
+.battle-page .rpg-quick-skill__icon {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 1px 1px rgba(10, 4, 1, .75));
+}
+
+.battle-page .rpg-quick-skill__art {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .battle-page .rpg-quick-skill__name > span { color: #ffd367; }
@@ -7096,6 +7127,8 @@ button.dash-hud-avatar--btn:disabled {
   .battle-page .rpg-play-controls { grid-column: 1 / -1; }
   .battle-page .rpg-scene-main--with-info { grid-template-columns: minmax(0, 1fr); }
   .battle-page .rpg-battle-info { margin: 0 8px 8px; }
+  .battle-page .rpg-command-layout { grid-template-columns: minmax(0, 1fr); }
+  .battle-page .rpg-quick-skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* PvP room staging screen. */

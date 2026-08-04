@@ -6,6 +6,7 @@ import { TP_MAX } from '../../shared/battle/constants'
 import type { PetData } from '../../shared/types'
 import { DinoSprite } from '../../components/DinoSprite'
 import { getSkillDef, skillPower } from '../../shared/battle/skillTrees'
+import { SkillIcon } from '../../components/SkillIcon'
 import { deriveCombatStats } from '../../shared/combatStats'
 
 type MenuView = 'commands' | 'items'
@@ -262,7 +263,8 @@ export function BattleArena({
                             : 'BUFF'
                       return (
                         <button key={`${slot.pathId}-${slot.kind}`} type="button" className={`rpg-quick-skill rpg-quick-skill--${slot.element}${isUlt ? ' rpg-quick-skill--ultimate' : ''}`} disabled={!myTurn || submitting || needTp || needMp} title={isUlt ? t('battle.ultimateNeedEnergy', { required: TP_MAX, current: myTp }) : def ? `MP ${def.mpCost} · Lv${slot.rank}` : undefined} onClick={() => void act('skill', { skillId: slot.pathId })}>
-                          <span className="rpg-quick-skill__name"><span aria-hidden>{isUlt ? '★' : '✦'}</span>{label}</span>
+                          <span className="rpg-quick-skill__name"><span>{label}</span></span>
+                          <span className="rpg-quick-skill__art" aria-hidden="true"><SkillIcon pathId={slot.pathId} className="rpg-quick-skill__icon" /></span>
                           <span className="rpg-quick-skill__stats">
                             <small className="rpg-quick-skill__effect">{effectLabel}</small>
                             <small>{isUlt ? `TP ${TP_MAX}` : def ? `MP ${def.mpCost}` : `Lv ${slot.rank}`}</small>
