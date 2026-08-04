@@ -25,7 +25,7 @@ export function Community({ onViewProfile, onClose, onPendingChange }: Props) {
           </button>
         </div>
         <div className="community-view">
-          <div className="card community-tabs-card">
+          <div className="community-tabs-card">
             <div className="battle-hub-tabs">
               <button
                 type="button"

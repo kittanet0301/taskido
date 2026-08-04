@@ -164,7 +164,7 @@ export function AuthPanel({
           <p>{t('auth.loggedInAs', { email: session.user.email })}</p>
           {profile && (
             <p>
-              {t('auth.profileSummary', { username: profile.username, friendCode: profile.friend_code })}
+              {t('auth.profileSummary', { username: profile.username })}
               {(isAdmin || profile.role === 'admin') && (
                 <span className="admin-badge" style={{ marginLeft: 8 }}>
                   {t('admin.badge')}

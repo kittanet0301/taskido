@@ -26,11 +26,16 @@ export function Friends({ onViewProfile, onPendingChange }: Props) {
   const [pending, setPending] = useState<PendingRow[]>([])
   const [message, setMessage] = useState('')
   const [userId, setUserId] = useState<string | null>(null)
+  const [myFriendCode, setMyFriendCode] = useState('')
 
   const load = async () => {
     const session = (await window.electronAPI.getSession()) as { user: { id: string } } | null
     if (!session?.user?.id) return
     setUserId(session.user.id)
+    const profile = (await window.electronAPI.getProfile(session.user.id)) as {
+      friend_code?: string
+    } | null
+    setMyFriendCode(profile?.friend_code ?? '')
     setFriends((await window.electronAPI.listFriends(session.user.id)) as FriendRow[])
     setPending((await window.electronAPI.listPending(session.user.id)) as PendingRow[])
     onPendingChange?.()
@@ -88,6 +93,15 @@ export function Friends({ onViewProfile, onPendingChange }: Props) {
   return (
     <div className="card">
       <h2>{t('friends.title')}</h2>
+      {myFriendCode && (
+        <div className="community-friend-code">
+          <div>
+            <span>{t('friends.yourFriendCode')}</span>
+            <strong>{myFriendCode}</strong>
+          </div>
+          <p>{t('friends.yourFriendCodeHint')}</p>
+        </div>
+      )}
       <p style={{ fontSize: '0.85rem', color: '#6b7280', marginTop: 0 }}>
         {t('friends.hint')}
       </p>

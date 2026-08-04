@@ -67,7 +67,7 @@
     "dbConnecting": "กำลังเชื่อมต่อ...",
     "supabaseNotConfigured": "ยังไม่ได้ตั้งค่า Supabase สร้างไฟล์ .env จาก .env.example แล้วรัน SQL migrations ใน supabase/migrations/",
     "loggedInAs": "เข้าสู่ระบบเป็น {{email}}",
-    "profileSummary": "ชื่อ: {{username}} · รหัสเพื่อน: {{friendCode}}",
+    "profileSummary": "ชื่อ: {{username}}",
     "petSummary": "สัตว์เลี้ยง: {{petName}} · ไอเทม {{itemCount}} ชนิด · ภารกิจ {{missionCount}} รายการ",
     "emailLabel": "อีเมล",
     "passwordLabel": "รหัสผ่าน",
@@ -265,6 +265,8 @@
   },
   "friends": {
     "title": "เพื่อน",
+    "yourFriendCode": "รหัสเพื่อนของคุณ",
+    "yourFriendCodeHint": "แชร์รหัสนี้ให้ผู้เล่นอื่นเพื่อเพิ่มคุณเป็นเพื่อน",
     "hint": "ใส่รหัสเพื่อนแล้วส่งคำขอ ถ้าอีกฝ่ายเคยส่งคำขอมาก่อน ระบบจะยอมรับอัตโนมัติ",
     "addByCode": "เพิ่มเพื่อนด้วยรหัส",
     "sendRequest": "ส่งคำขอ",

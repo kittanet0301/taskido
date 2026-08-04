@@ -3218,13 +3218,55 @@ button.dash-hud-avatar--btn:disabled {
 }
 
 .community-tabs-card {
-  padding-bottom: 8px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .community-tabs-card .battle-hub-tabs {
   margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
+  padding: 8px;
+  border: 3px solid var(--pixel-border);
+  box-shadow: 3px 3px 0 var(--pixel-shadow);
+}
+
+.community-friend-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  color: var(--pixel-text);
+  background: var(--pixel-accent);
+  border: 3px solid var(--pixel-border);
+  box-shadow: 3px 3px 0 var(--pixel-shadow);
+}
+
+.community-friend-code > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.community-friend-code span {
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.community-friend-code strong {
+  font-size: 1.2rem;
+  letter-spacing: .14em;
+}
+
+.community-friend-code p {
+  max-width: 330px;
+  margin: 0;
+  color: #5b3522;
+  font-size: .78rem;
+  text-align: right;
 }
 
 @media (max-width: 920px) {

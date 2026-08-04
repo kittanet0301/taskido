@@ -67,7 +67,7 @@
     "dbConnecting": "Connecting...",
     "supabaseNotConfigured": "Supabase is not configured yet. Create .env from .env.example and run SQL migrations in supabase/migrations/",
     "loggedInAs": "Logged in as {{email}}",
-    "profileSummary": "Name: {{username}} · Friend code: {{friendCode}}",
+    "profileSummary": "Name: {{username}}",
     "petSummary": "Pet: {{petName}} · {{itemCount}} item types · {{missionCount}} missions",
     "emailLabel": "Email",
     "passwordLabel": "Password",
@@ -266,6 +266,8 @@
   },
   "friends": {
     "title": "Friends",
+    "yourFriendCode": "Your friend code",
+    "yourFriendCodeHint": "Share this code so other players can add you.",
     "hint": "Enter a friend code and send a request. If they already requested you, it will auto-accept.",
     "addByCode": "Add friend with code",
     "sendRequest": "Send request",
