@@ -62,7 +62,7 @@ export const CREATURE_PREVIEW_COLORS: Record<CreatureSpecies, string> = {
   electric: '#f2cf42',
   water: '#3d8ed0',
   ice: '#82d6e8',
-  dragon: '#8c65c5',
+  dragon: '#f0940f',
   dark: '#4b405f'
 }
 

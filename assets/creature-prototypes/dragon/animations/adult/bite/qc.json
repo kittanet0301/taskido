@@ -8,11 +8,11 @@
   "shared_baseline_y": 176,
   "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.094271,
+  "body_height_cv": 0.095031,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
-  "reference_scale_drift": 0.19375,
-  "reference_scale_passed": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
   "frames": [
     {
       "frame": 1,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        22,
-        78,
-        170,
+        26,
+        29,
+        166,
         177
       ],
       "margins": {
-        "left": 22,
-        "top": 78,
-        "right": 22,
+        "left": 26,
+        "top": 29,
+        "right": 26,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -44,15 +44,15 @@
         192
       ],
       "bbox": [
-        18,
-        70,
-        173,
+        20,
+        37,
+        171,
         177
       ],
       "margins": {
-        "left": 18,
-        "top": 70,
-        "right": 19,
+        "left": 20,
+        "top": 37,
+        "right": 21,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -66,15 +66,15 @@
         192
       ],
       "bbox": [
-        7,
-        95,
-        184,
+        13,
+        62,
+        179,
         177
       ],
       "margins": {
-        "left": 7,
-        "top": 95,
-        "right": 8,
+        "left": 13,
+        "top": 62,
+        "right": 13,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -88,15 +88,15 @@
         192
       ],
       "bbox": [
-        22,
-        78,
-        170,
+        12,
+        32,
+        179,
         177
       ],
       "margins": {
-        "left": 22,
-        "top": 78,
-        "right": 22,
+        "left": 12,
+        "top": 32,
+        "right": 13,
         "bottom": 15
       },
       "baseline_y": 176,

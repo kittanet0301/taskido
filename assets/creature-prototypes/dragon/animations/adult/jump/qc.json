@@ -5,14 +5,14 @@
   "playback": "one-shot",
   "baseline_mode": "variable",
   "frame_count": 4,
-  "shared_baseline_y": null,
-  "baseline_span": 60,
+  "shared_baseline_y": 176,
+  "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.092784,
+  "body_height_cv": 0.083467,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
-  "reference_scale_drift": 0.191667,
-  "reference_scale_passed": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
   "frames": [
     {
       "frame": 1,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        8,
-        95,
-        184,
+        18,
+        30,
+        174,
         177
       ],
       "margins": {
-        "left": 8,
-        "top": 95,
-        "right": 8,
+        "left": 18,
+        "top": 30,
+        "right": 18,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -44,18 +44,18 @@
         192
       ],
       "bbox": [
+        17,
         10,
-        43,
-        182,
-        147
+        174,
+        177
       ],
       "margins": {
-        "left": 10,
-        "top": 43,
-        "right": 10,
-        "bottom": 45
+        "left": 17,
+        "top": 10,
+        "right": 18,
+        "bottom": 15
       },
-      "baseline_y": 146,
+      "baseline_y": 176,
       "magenta_fringe_pixels": 0
     },
     {
@@ -66,18 +66,18 @@
         192
       ],
       "bbox": [
-        37,
-        13,
-        154,
-        117
+        25,
+        45,
+        167,
+        177
       ],
       "margins": {
-        "left": 37,
-        "top": 13,
-        "right": 38,
-        "bottom": 75
+        "left": 25,
+        "top": 45,
+        "right": 25,
+        "bottom": 15
       },
-      "baseline_y": 116,
+      "baseline_y": 176,
       "magenta_fringe_pixels": 0
     },
     {
@@ -88,15 +88,15 @@
         192
       ],
       "bbox": [
-        14,
-        79,
-        177,
+        20,
+        26,
+        171,
         177
       ],
       "margins": {
-        "left": 14,
-        "top": 79,
-        "right": 15,
+        "left": 20,
+        "top": 26,
+        "right": 21,
         "bottom": 15
       },
       "baseline_y": 176,

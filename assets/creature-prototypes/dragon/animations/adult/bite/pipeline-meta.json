@@ -1,21 +1,21 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.codex\\generated_images\\019f8fcb-c231-7bf0-848b-9326d7a10090\\call_gIJkAuN53b1U4qMcb6ueVUMq.png",
+  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-adult-bite-raw.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
-  "cell_inset_ratio": 0.03,
-  "cell_inset_min": 10,
-  "fit_scale": 0.92,
-  "trim_border": 6,
-  "edge_clean_depth": 2,
+  "cell_inset_ratio": 0.01,
+  "cell_inset_min": 4,
+  "fit_scale": 0.87,
+  "trim_border": 4,
+  "edge_clean_depth": 1,
   "align": "feet",
   "baseline_y": 176,
   "preserve_cell_position": false,
   "shared_scale": true,
   "component_mode": "all",
-  "component_padding": 2,
-  "min_component_area": 32,
+  "component_padding": 6,
+  "min_component_area": 96,
   "chroma_key": "magenta",
   "frame_labels": [
     "bite-1",
@@ -32,34 +32,34 @@
       "outer_box": [
         0,
         0,
-        627,
-        627
+        512,
+        512
       ],
       "inner_box": [
-        18,
-        18,
-        609,
-        609
+        5,
+        5,
+        507,
+        507
       ],
-      "cell_inset_px": 18,
+      "cell_inset_px": 5,
       "component_mode": "all",
       "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        71,
-        198,
-        508,
-        491
+        114,
+        76,
+        494,
+        478
       ],
       "edge_touch": false,
       "output_size": [
-        148,
-        99
+        140,
+        148
       ],
       "paste_position": [
-        22,
-        78
+        26,
+        29
       ]
     },
     {
@@ -68,36 +68,36 @@
         1
       ],
       "outer_box": [
-        627,
+        512,
         0,
-        1254,
-        627
+        1024,
+        512
       ],
       "inner_box": [
-        645,
-        18,
-        1236,
-        609
+        517,
+        5,
+        1019,
+        507
       ],
-      "cell_inset_px": 18,
+      "cell_inset_px": 5,
       "component_mode": "all",
       "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        44,
-        175,
-        502,
-        491
+        32,
+        97,
+        442,
+        478
       ],
       "edge_touch": false,
       "output_size": [
-        155,
-        107
+        151,
+        140
       ],
       "paste_position": [
-        18,
-        70
+        20,
+        37
       ]
     },
     {
@@ -107,35 +107,35 @@
       ],
       "outer_box": [
         0,
-        627,
-        627,
-        1254
+        512,
+        512,
+        1024
       ],
       "inner_box": [
-        18,
-        645,
-        609,
-        1236
+        5,
+        517,
+        507,
+        1019
       ],
-      "cell_inset_px": 18,
+      "cell_inset_px": 5,
       "component_mode": "all",
       "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        34,
-        147,
-        557,
-        391
+        44,
+        96,
+        494,
+        408
       ],
       "edge_touch": false,
       "output_size": [
-        177,
-        82
+        166,
+        115
       ],
       "paste_position": [
-        7,
-        95
+        13,
+        62
       ]
     },
     {
@@ -144,38 +144,43 @@
         1
       ],
       "outer_box": [
-        627,
-        627,
-        1254,
-        1254
+        512,
+        512,
+        1024,
+        1024
       ],
       "inner_box": [
-        645,
-        645,
-        1236,
-        1236
+        517,
+        517,
+        1019,
+        1019
       ],
-      "cell_inset_px": 18,
+      "cell_inset_px": 5,
       "component_mode": "all",
       "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        70,
-        102,
-        508,
-        394
+        0,
+        43,
+        454,
+        436
       ],
-      "edge_touch": false,
+      "edge_touch": true,
       "output_size": [
-        148,
-        99
+        167,
+        145
       ],
       "paste_position": [
-        22,
-        78
+        12,
+        32
       ]
     }
   ],
-  "edge_touch_frames": []
+  "edge_touch_frames": [
+    [
+      1,
+      1
+    ]
+  ]
 }

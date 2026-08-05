@@ -1,21 +1,21 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.codex\\generated_images\\019f8fcb-c231-7bf0-848b-9326d7a10090\\call_QhuGtHkGlmbe0JCEca7xyOfd.png",
+  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-baby-idle-raw-v2.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
   "cell_inset_ratio": 0.03,
   "cell_inset_min": 10,
-  "fit_scale": 0.72,
+  "fit_scale": 0.85,
   "trim_border": 6,
   "edge_clean_depth": 2,
   "align": "feet",
   "baseline_y": 176,
   "preserve_cell_position": false,
   "shared_scale": true,
-  "component_mode": "all",
+  "component_mode": "largest",
   "component_padding": 2,
-  "min_component_area": 32,
+  "min_component_area": 96,
   "chroma_key": "magenta",
   "frame_labels": [
     "idle-1",
@@ -32,34 +32,39 @@
       "outer_box": [
         0,
         0,
-        627,
-        627
+        512,
+        512
       ],
       "inner_box": [
-        18,
-        18,
-        609,
-        609
+        15,
+        15,
+        497,
+        497
       ],
-      "cell_inset_px": 18,
-      "component_mode": "all",
+      "cell_inset_px": 15,
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
+      "selected_component_area": 67629,
+      "selected_component_bbox": [
+        84,
+        81,
+        423,
+        443
+      ],
       "crop_bbox": [
-        71,
-        176,
-        512,
-        491
+        82,
+        79,
+        425,
+        445
       ],
       "edge_touch": false,
       "output_size": [
-        130,
-        93
+        148,
+        158
       ],
       "paste_position": [
-        31,
-        84
+        22,
+        19
       ]
     },
     {
@@ -68,36 +73,41 @@
         1
       ],
       "outer_box": [
-        627,
+        512,
         0,
-        1254,
-        627
+        1024,
+        512
       ],
       "inner_box": [
-        645,
-        18,
-        1236,
-        609
+        527,
+        15,
+        1009,
+        497
       ],
-      "cell_inset_px": 18,
-      "component_mode": "all",
+      "cell_inset_px": 15,
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
+      "selected_component_area": 71681,
+      "selected_component_bbox": [
+        37,
+        68,
+        375,
+        443
+      ],
       "crop_bbox": [
-        51,
-        154,
-        495,
-        491
+        35,
+        66,
+        377,
+        445
       ],
       "edge_touch": false,
       "output_size": [
-        131,
-        100
+        147,
+        163
       ],
       "paste_position": [
-        30,
-        77
+        22,
+        14
       ]
     },
     {
@@ -107,35 +117,40 @@
       ],
       "outer_box": [
         0,
-        627,
-        627,
-        1254
+        512,
+        512,
+        1024
       ],
       "inner_box": [
-        18,
-        645,
-        609,
-        1236
+        15,
+        527,
+        497,
+        1009
       ],
-      "cell_inset_px": 18,
-      "component_mode": "all",
+      "cell_inset_px": 15,
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
+      "selected_component_area": 68442,
+      "selected_component_bbox": [
+        84,
+        31,
+        422,
+        396
+      ],
       "crop_bbox": [
-        71,
-        125,
-        539,
-        439
+        82,
+        29,
+        424,
+        398
       ],
       "edge_touch": false,
       "output_size": [
-        138,
-        93
+        147,
+        159
       ],
       "paste_position": [
-        27,
-        84
+        22,
+        18
       ]
     },
     {
@@ -144,36 +159,41 @@
         1
       ],
       "outer_box": [
-        627,
-        627,
-        1254,
-        1254
+        512,
+        512,
+        1024,
+        1024
       ],
       "inner_box": [
-        645,
-        645,
-        1236,
-        1236
+        527,
+        527,
+        1009,
+        1009
       ],
-      "cell_inset_px": 18,
-      "component_mode": "all",
+      "cell_inset_px": 15,
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
+      "selected_component_area": 66890,
+      "selected_component_bbox": [
+        45,
+        32,
+        380,
+        396
+      ],
       "crop_bbox": [
-        54,
-        125,
-        492,
-        438
+        43,
+        30,
+        382,
+        398
       ],
       "edge_touch": false,
       "output_size": [
-        129,
-        92
+        146,
+        158
       ],
       "paste_position": [
-        31,
-        85
+        23,
+        19
       ]
     }
   ],

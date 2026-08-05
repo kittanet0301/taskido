@@ -1,21 +1,21 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.codex\\generated_images\\019f8fcb-c231-7bf0-848b-9326d7a10090\\call_NDEO6Wyv1jn3TlFOCvAZCNSR.png",
+  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-adult-jump-raw-v2.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
-  "cell_inset_ratio": 0.03,
-  "cell_inset_min": 10,
+  "cell_inset_ratio": 0.01,
+  "cell_inset_min": 4,
   "fit_scale": 0.87,
-  "trim_border": 12,
-  "edge_clean_depth": 3,
+  "trim_border": 4,
+  "edge_clean_depth": 1,
   "align": "feet",
-  "baseline_y": null,
-  "preserve_cell_position": true,
+  "baseline_y": 176,
+  "preserve_cell_position": false,
   "shared_scale": true,
   "component_mode": "all",
-  "component_padding": 2,
-  "min_component_area": 32,
+  "component_padding": 6,
+  "min_component_area": 96,
   "chroma_key": "magenta",
   "frame_labels": [
     "jump-1",
@@ -32,36 +32,35 @@
       "outer_box": [
         0,
         0,
-        627,
-        627
+        512,
+        512
       ],
       "inner_box": [
-        0,
-        0,
-        627,
-        627
+        5,
+        5,
+        507,
+        507
       ],
-      "cell_inset_px": 0,
+      "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": null,
+      "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        58,
-        277,
-        614,
-        534
+        119,
+        165,
+        466,
+        492
       ],
       "edge_touch": false,
       "output_size": [
-        170,
-        79
+        156,
+        147
       ],
       "paste_position": [
         18,
-        85
-      ],
-      "position_preserved": true
+        30
+      ]
     },
     {
       "grid": [
@@ -69,38 +68,37 @@
         1
       ],
       "outer_box": [
-        627,
+        512,
         0,
-        1254,
-        627
+        1024,
+        512
       ],
       "inner_box": [
-        627,
-        0,
-        1254,
-        627
+        517,
+        5,
+        1019,
+        507
       ],
-      "cell_inset_px": 0,
+      "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": null,
+      "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        27,
-        108,
-        568,
-        435
+        67,
+        51,
+        415,
+        422
       ],
       "edge_touch": false,
       "output_size": [
-        166,
-        100
+        157,
+        167
       ],
       "paste_position": [
-        8,
-        33
-      ],
-      "position_preserved": true
+        17,
+        10
+      ]
     },
     {
       "grid": [
@@ -109,37 +107,36 @@
       ],
       "outer_box": [
         0,
-        627,
-        627,
-        1254
+        512,
+        512,
+        1024
       ],
       "inner_box": [
-        0,
-        627,
-        627,
-        1254
+        5,
+        517,
+        507,
+        1019
       ],
-      "cell_inset_px": 0,
+      "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": null,
+      "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        116,
-        74,
-        488,
-        401
+        121,
+        39,
+        436,
+        332
       ],
       "edge_touch": false,
       "output_size": [
-        113,
-        100
+        142,
+        132
       ],
       "paste_position": [
-        36,
-        23
-      ],
-      "position_preserved": true
+        25,
+        45
+      ]
     },
     {
       "grid": [
@@ -147,38 +144,37 @@
         1
       ],
       "outer_box": [
-        627,
-        627,
-        1254,
-        1254
+        512,
+        512,
+        1024,
+        1024
       ],
       "inner_box": [
-        627,
-        627,
-        1254,
-        1254
+        517,
+        517,
+        1019,
+        1019
       ],
-      "cell_inset_px": 0,
+      "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": null,
+      "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        27,
-        196,
-        540,
-        506
+        77,
+        118,
+        413,
+        453
       ],
       "edge_touch": false,
       "output_size": [
-        157,
-        95
+        151,
+        151
       ],
       "paste_position": [
-        8,
-        60
-      ],
-      "position_preserved": true
+        20,
+        26
+      ]
     }
   ],
   "edge_touch_frames": []

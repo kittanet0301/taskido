@@ -29,10 +29,9 @@
       "playback": "loop",
       "qc": "idle/qc.json",
       "passed": true,
-      "body_height_cv": 0.031856,
+      "body_height_cv": 0.007181,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.1625
+      "output_baseline_y": 176
     },
     "move": {
       "path": "move",
@@ -44,10 +43,9 @@
       "playback": "loop",
       "qc": "move/qc.json",
       "passed": true,
-      "body_height_cv": 0.004476,
+      "body_height_cv": 0.006024,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.19375
+      "output_baseline_y": 176
     },
     "hurt": {
       "path": "hurt",
@@ -59,10 +57,9 @@
       "playback": "one-shot",
       "qc": "hurt/qc.json",
       "passed": true,
-      "body_height_cv": 0.112925,
+      "body_height_cv": 0.128307,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.195833
+      "output_baseline_y": 176
     },
     "bite": {
       "path": "bite",
@@ -74,10 +71,9 @@
       "playback": "one-shot",
       "qc": "bite/qc.json",
       "passed": true,
-      "body_height_cv": 0.094271,
+      "body_height_cv": 0.095031,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.19375
+      "output_baseline_y": 176
     },
     "jump": {
       "path": "jump",
@@ -89,9 +85,9 @@
       "playback": "one-shot",
       "qc": "jump/qc.json",
       "passed": true,
-      "body_height_cv": 0.092784,
+      "body_height_cv": 0.083467,
       "magenta_fringe_pixels": 0,
-      "reference_scale_drift": 0.191667,
+      "output_baseline_y": 176,
       "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
       "target_baselines_y": [
         176,
@@ -99,7 +95,7 @@
         116,
         176
       ],
-      "baseline_span": 60,
+      "baseline_span": 0,
       "ground_return_delta": 0
     }
   },

@@ -5,14 +5,14 @@
   "playback": "loop",
   "baseline_mode": "shared",
   "frame_count": 4,
-  "shared_baseline_y": 176,
+  "shared_baseline_y": 175,
   "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.033879,
+  "body_height_cv": 0.013089,
   "loop_first_last_identity_match": false,
   "final_identity_reference_match": null,
-  "reference_scale_drift": 0.045455,
-  "reference_scale_passed": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
   "frames": [
     {
       "frame": 1,
@@ -22,18 +22,18 @@
         192
       ],
       "bbox": [
-        31,
-        84,
-        161,
-        177
+        23,
+        20,
+        169,
+        176
       ],
       "margins": {
-        "left": 31,
-        "top": 84,
-        "right": 31,
-        "bottom": 15
+        "left": 23,
+        "top": 20,
+        "right": 23,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -44,18 +44,18 @@
         192
       ],
       "bbox": [
-        30,
-        77,
-        161,
-        177
+        23,
+        15,
+        168,
+        176
       ],
       "margins": {
-        "left": 30,
-        "top": 77,
-        "right": 31,
-        "bottom": 15
+        "left": 23,
+        "top": 15,
+        "right": 24,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -66,18 +66,18 @@
         192
       ],
       "bbox": [
-        27,
-        84,
-        165,
-        177
+        23,
+        19,
+        168,
+        176
       ],
       "margins": {
-        "left": 27,
-        "top": 84,
-        "right": 27,
-        "bottom": 15
+        "left": 23,
+        "top": 19,
+        "right": 24,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -88,18 +88,18 @@
         192
       ],
       "bbox": [
-        31,
-        85,
-        160,
-        177
+        24,
+        20,
+        168,
+        176
       ],
       "margins": {
-        "left": 31,
-        "top": 85,
-        "right": 32,
-        "bottom": 15
+        "left": 24,
+        "top": 20,
+        "right": 24,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     }
   ]

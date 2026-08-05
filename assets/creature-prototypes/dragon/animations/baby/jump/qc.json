@@ -5,14 +5,14 @@
   "playback": "one-shot",
   "baseline_mode": "variable",
   "frame_count": 4,
-  "shared_baseline_y": null,
-  "baseline_span": 64,
+  "shared_baseline_y": 175,
+  "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.091424,
+  "body_height_cv": 0.077374,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
-  "reference_scale_drift": 0.005051,
-  "reference_scale_passed": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
   "frames": [
     {
       "frame": 1,
@@ -22,18 +22,18 @@
         192
       ],
       "bbox": [
-        23,
-        93,
-        169,
-        177
+        20,
+        36,
+        172,
+        176
       ],
       "margins": {
-        "left": 23,
-        "top": 93,
-        "right": 23,
-        "bottom": 15
+        "left": 20,
+        "top": 36,
+        "right": 20,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -44,18 +44,18 @@
         192
       ],
       "bbox": [
-        26,
-        37,
-        166,
-        143
+        22,
+        15,
+        169,
+        176
       ],
       "margins": {
-        "left": 26,
-        "top": 37,
-        "right": 26,
-        "bottom": 49
+        "left": 22,
+        "top": 15,
+        "right": 23,
+        "bottom": 16
       },
-      "baseline_y": 142,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -66,18 +66,18 @@
         192
       ],
       "bbox": [
-        34,
-        11,
-        158,
-        113
+        26,
+        43,
+        166,
+        176
       ],
       "margins": {
-        "left": 34,
-        "top": 11,
-        "right": 34,
-        "bottom": 79
+        "left": 26,
+        "top": 43,
+        "right": 26,
+        "bottom": 16
       },
-      "baseline_y": 112,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -88,18 +88,18 @@
         192
       ],
       "bbox": [
-        26,
-        71,
-        166,
-        177
+        24,
+        20,
+        167,
+        176
       ],
       "margins": {
-        "left": 26,
-        "top": 71,
-        "right": 26,
-        "bottom": 15
+        "left": 24,
+        "top": 20,
+        "right": 25,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     }
   ]

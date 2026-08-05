@@ -12,7 +12,7 @@
   "generation_anchor": "references/idle-anchor-2x2.png",
   "processing": {
     "resize_filter": "nearest-neighbor",
-    "fit_scale": 0.72,
+    "fit_scale": 0.85,
     "align": "feet",
     "baseline_y_argument": 176,
     "component_mode": "all",
@@ -29,10 +29,9 @@
       "playback": "loop",
       "qc": "idle/qc.json",
       "passed": true,
-      "body_height_cv": 0.033879,
+      "body_height_cv": 0.013089,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.045455
+      "output_baseline_y": 175
     },
     "move": {
       "path": "move",
@@ -46,8 +45,7 @@
       "passed": true,
       "body_height_cv": 0,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.060606
+      "output_baseline_y": 175
     },
     "hurt": {
       "path": "hurt",
@@ -59,10 +57,9 @@
       "playback": "one-shot",
       "qc": "hurt/qc.json",
       "passed": true,
-      "body_height_cv": 0.074724,
+      "body_height_cv": 0.103082,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.116162
+      "output_baseline_y": 175
     },
     "bite": {
       "path": "bite",
@@ -74,10 +71,8 @@
       "playback": "one-shot",
       "qc": "bite/qc.json",
       "passed": true,
-      "body_height_cv": 0.042654,
-      "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
-      "reference_scale_drift": 0.106061
+      "body_height_cv": 0.094222,
+      "magenta_fringe_pixels": 0
     },
     "jump": {
       "path": "jump",
@@ -89,9 +84,9 @@
       "playback": "one-shot",
       "qc": "jump/qc.json",
       "passed": true,
-      "body_height_cv": 0.091424,
+      "body_height_cv": 0.077374,
       "magenta_fringe_pixels": 0,
-      "reference_scale_drift": 0.005051,
+      "output_baseline_y": 175,
       "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
       "target_baselines_y": [
         176,
@@ -99,7 +94,7 @@
         112,
         176
       ],
-      "baseline_span": 64,
+      "baseline_span": 0,
       "ground_return_delta": 0
     }
   },

@@ -29,9 +29,9 @@
       "playback": "loop",
       "qc": "move/qc.json",
       "passed": true,
-      "body_height_cv": 0.060867,
+      "body_height_cv": 0.085197,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176
+      "output_baseline_y": 175
     },
     "hatch": {
       "path": "hatch",
@@ -43,9 +43,9 @@
       "playback": "one-shot",
       "qc": "hatch/qc.json",
       "passed": true,
-      "body_height_cv": 0.153466,
+      "body_height_cv": 0.034754,
       "magenta_fringe_pixels": 0,
-      "output_baseline_y": 176,
+      "output_baseline_y": 175,
       "final_identity_reference_match": true
     }
   },

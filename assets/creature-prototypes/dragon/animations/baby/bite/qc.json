@@ -3,16 +3,16 @@
   "input_dir": "assets\\creature-prototypes\\dragon\\animations\\baby\\bite",
   "prefix": "bite",
   "playback": "one-shot",
-  "baseline_mode": "shared",
+  "baseline_mode": "variable",
   "frame_count": 4,
-  "shared_baseline_y": 176,
-  "baseline_span": 0,
-  "ground_return_delta": 0,
-  "body_height_cv": 0.042654,
+  "shared_baseline_y": null,
+  "baseline_span": 1,
+  "ground_return_delta": 1,
+  "body_height_cv": 0.094222,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
-  "reference_scale_drift": 0.106061,
-  "reference_scale_passed": true,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
   "frames": [
     {
       "frame": 1,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        32,
-        86,
-        159,
+        26,
+        26,
+        166,
         177
       ],
       "margins": {
-        "left": 32,
-        "top": 86,
-        "right": 33,
+        "left": 26,
+        "top": 26,
+        "right": 26,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -44,15 +44,15 @@
         192
       ],
       "bbox": [
-        34,
-        87,
-        158,
+        21,
+        33,
+        171,
         177
       ],
       "margins": {
-        "left": 34,
-        "top": 87,
-        "right": 34,
+        "left": 21,
+        "top": 33,
+        "right": 21,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -66,18 +66,18 @@
         192
       ],
       "bbox": [
-        27,
-        95,
-        165,
-        177
+        15,
+        58,
+        177,
+        176
       ],
       "margins": {
-        "left": 27,
-        "top": 95,
-        "right": 27,
-        "bottom": 15
+        "left": 15,
+        "top": 58,
+        "right": 15,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     },
     {
@@ -88,18 +88,18 @@
         192
       ],
       "bbox": [
-        33,
-        86,
-        159,
-        177
+        25,
+        27,
+        167,
+        176
       ],
       "margins": {
-        "left": 33,
-        "top": 86,
-        "right": 33,
-        "bottom": 15
+        "left": 25,
+        "top": 27,
+        "right": 25,
+        "bottom": 16
       },
-      "baseline_y": 176,
+      "baseline_y": 175,
       "magenta_fringe_pixels": 0
     }
   ]

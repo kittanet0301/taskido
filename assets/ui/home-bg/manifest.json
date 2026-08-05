@@ -1,6 +1,6 @@
 {
   "schema": "taskino.home-bg-manifest.v5",
-  "generatedAt": "2026-08-05T19:05:39.719132+00:00",
+  "generatedAt": "2026-08-05T19:58:34.894969+00:00",
   "target": {
     "width": 1672,
     "height": 941
@@ -181,19 +181,20 @@
         "/ui/home-bg/dragon/frame-3.png"
       ],
       "standYs": [
-        635,
-        639,
-        635,
-        635
+        735,
+        735,
+        735,
+        735
       ],
-      "standDriftPx": 4,
+      "standDriftPx": 0,
       "continuityPassed": true,
       "sourceSizes": [
-        "1536x1024",
-        "1536x1024",
-        "1536x1024",
-        "1536x1024"
-      ]
+        "1536x1024*master+sparks_up",
+        "1536x1024*master+sparks_up",
+        "1536x1024*master+sparks_up",
+        "1536x1024*master+sparks_up"
+      ],
+      "motion": "sparks_up"
     },
     "dark": {
       "frames": [
@@ -490,38 +491,38 @@
     {
       "element": "dragon",
       "frame": 0,
-      "stand_y": 635,
-      "stand_drift_px": 4,
+      "stand_y": 735,
+      "stand_drift_px": 0,
       "continuity_passed": true,
       "passed": true,
-      "motion": null
+      "motion": "sparks_up"
     },
     {
       "element": "dragon",
       "frame": 1,
-      "stand_y": 639,
-      "stand_drift_px": 4,
+      "stand_y": 735,
+      "stand_drift_px": 0,
       "continuity_passed": true,
       "passed": true,
-      "motion": null
+      "motion": "sparks_up"
     },
     {
       "element": "dragon",
       "frame": 2,
-      "stand_y": 635,
-      "stand_drift_px": 4,
+      "stand_y": 735,
+      "stand_drift_px": 0,
       "continuity_passed": true,
       "passed": true,
-      "motion": null
+      "motion": "sparks_up"
     },
     {
       "element": "dragon",
       "frame": 3,
-      "stand_y": 635,
-      "stand_drift_px": 4,
+      "stand_y": 735,
+      "stand_drift_px": 0,
       "continuity_passed": true,
       "passed": true,
-      "motion": null
+      "motion": "sparks_up"
     }
   ]
 }
