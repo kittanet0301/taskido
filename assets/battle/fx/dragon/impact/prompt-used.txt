@@ -1,0 +1,1 @@
+Taskino pixel-inspired elemental impact animation atlas on solid #FF00FF. Nine elemental four-frame sequences: fire, grass, ground, electric, water, ice, dragon, dark, neutral. Crisp readable burst silhouettes, consistent scale, generous cell padding, no text or UI.

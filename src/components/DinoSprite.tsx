@@ -28,6 +28,8 @@ interface Props {
   /** Temporary care clip on the hub (eat / happy); ignored while hatching or for eggs. */
   careAnim?: AnimationState | null
   movementAnim?: AnimationState
+  /** Restarts a temporary clip even when the clip name is unchanged. */
+  animationKey?: string | number
   onHatchComplete?: () => void
 }
 
@@ -50,6 +52,7 @@ export function DinoSprite({
   hatching = false,
   careAnim = null,
   movementAnim,
+  animationKey,
   onHatchComplete
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -170,7 +173,7 @@ export function DinoSprite({
       cancelled = true
       cancelAnimationFrame(raf)
     }
-  }, [pet, canvasSize, drawSize, feetAnchored, hatching, hubMode, movementAnim, activeCareAnim])
+  }, [pet, canvasSize, drawSize, feetAnchored, hatching, hubMode, movementAnim, animationKey, activeCareAnim])
 
   return (
     <canvas

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BattleCommand, BattleSession, BattleTurn } from '../../shared/battle/types'
 import type { BattleConsumableCounts, BotDifficulty } from '../../shared/battle/bot'
@@ -8,8 +8,10 @@ import { DinoSprite } from '../../components/DinoSprite'
 import { getSkillDef, skillPower } from '../../shared/battle/skillTrees'
 import { SkillIcon } from '../../components/SkillIcon'
 import { deriveCombatStats } from '../../shared/combatStats'
+import { collectUnseenBattleFx, isSelfBattleFx, usesAura, usesProjectile, type BattleFxDescriptor } from '../../shared/battle/battleFx'
 
 type MenuView = 'commands' | 'items'
+type FighterAnchor = { x: number; y: number }
 
 interface Props {
   session: BattleSession
@@ -94,6 +96,17 @@ export function BattleArena({
   const [submitting, setSubmitting] = useState(false)
   const [menu, setMenu] = useState<MenuView>('commands')
   const [logOpen, setLogOpen] = useState(false)
+  const [fxQueue, setFxQueue] = useState<BattleFxDescriptor[]>([])
+  const [activeFx, setActiveFx] = useState<BattleFxDescriptor | null>(null)
+  const seenTurnIds = useRef(new Set<string>())
+  const baselineSessionId = useRef<string | null>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const challengerSpriteRef = useRef<HTMLDivElement>(null)
+  const defenderSpriteRef = useRef<HTMLDivElement>(null)
+  const [fighterAnchors, setFighterAnchors] = useState<Record<'challenger' | 'defender', FighterAnchor>>({
+    challenger: { x: 0, y: 0 },
+    defender: { x: 0, y: 0 }
+  })
 
   useEffect(() => {
     if (!logOpen) return
@@ -103,6 +116,59 @@ export function BattleArena({
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [logOpen])
+
+  useEffect(() => {
+    if (baselineSessionId.current !== session.id) {
+      baselineSessionId.current = session.id
+      seenTurnIds.current = new Set(turns.map((turn) => turn.id))
+      setFxQueue([])
+      setActiveFx(null)
+      return
+    }
+    const descriptors = collectUnseenBattleFx(
+      turns,
+      seenTurnIds.current,
+      session.challengerUserId,
+      session.defenderUserId
+    )
+    if (descriptors.length > 0) setFxQueue((current) => [...current, ...descriptors])
+  }, [session.id, session.challengerUserId, session.defenderUserId, turns])
+
+  useEffect(() => {
+    if (activeFx || fxQueue.length === 0) return
+    const [next, ...rest] = fxQueue
+    setFxQueue(rest)
+    setActiveFx(next)
+  }, [activeFx, fxQueue])
+
+  useEffect(() => {
+    if (!activeFx) return
+    const timer = window.setTimeout(() => setActiveFx(null), activeFx.durationMs)
+    return () => window.clearTimeout(timer)
+  }, [activeFx])
+
+  useLayoutEffect(() => {
+    if (!activeFx) return
+    const updateAnchors = () => {
+      const stage = stageRef.current?.getBoundingClientRect()
+      const challenger = challengerSpriteRef.current?.getBoundingClientRect()
+      const defender = defenderSpriteRef.current?.getBoundingClientRect()
+      if (!stage || !challenger || !defender || stage.width <= 0 || stage.height <= 0) return
+      const relativeCenter = (rect: DOMRect): FighterAnchor => ({
+        x: rect.left - stage.left + rect.width / 2,
+        y: rect.top - stage.top + rect.height / 2
+      })
+      setFighterAnchors({ challenger: relativeCenter(challenger), defender: relativeCenter(defender) })
+    }
+    updateAnchors()
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateAnchors)
+    if (observer && stageRef.current) observer.observe(stageRef.current)
+    window.addEventListener('resize', updateAnchors)
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', updateAnchors)
+    }
+  }, [activeFx])
 
   const isChallenger = session.challengerUserId === userId
   const myTurn = session.turnUserId === userId && session.status === 'active'
@@ -119,14 +185,21 @@ export function BattleArena({
     ? deriveCombatStats(defenderPet.primaries).maxMp
     : Math.max(session.defenderMp, 1)
   const loadout = myPet?.skillLoadout?.slots ?? []
-  const latestTurn = turns[turns.length - 1]
-  const latestHasDamage = (latestTurn?.damage ?? 0) > 0
-  const challengerActing = latestTurn?.actorUserId === session.challengerUserId
-  const challengerHit = latestHasDamage && !challengerActing
-  const defenderHit = latestHasDamage && challengerActing
+  const latestTurn = activeFx ? turns.find((turn) => turn.id === activeFx.eventId) : undefined
+  const latestHasDamage = (activeFx?.damage ?? 0) > 0
+  const challengerActing = activeFx?.actorSide === 'challenger'
+  const challengerHit = latestHasDamage && activeFx?.targetSide === 'challenger'
+  const defenderHit = latestHasDamage && activeFx?.targetSide === 'defender'
+  const fxBusy = activeFx != null || fxQueue.length > 0
+  const fxStyle = activeFx ? ({
+    '--fx-actor-x': `${fighterAnchors[activeFx.actorSide].x}px`,
+    '--fx-actor-y': `${fighterAnchors[activeFx.actorSide].y}px`,
+    '--fx-target-x': `${fighterAnchors[activeFx.targetSide].x}px`,
+    '--fx-target-y': `${fighterAnchors[activeFx.targetSide].y}px`
+  } as CSSProperties) : undefined
 
   const act = async (command: BattleCommand, extra?: { skillId?: string; itemType?: string }) => {
-    if (!myTurn || submitting) return
+    if (!myTurn || submitting || fxBusy) return
     setSubmitting(true)
     try {
       await onAction(command, extra)
@@ -198,10 +271,10 @@ export function BattleArena({
         </div>
 
         <div className={`rpg-scene-main${mode === 'bot' && rewardPreview ? ' rpg-scene-main--with-info' : ''}`}>
-          <div className="battle-stage rpg-stage">
-          <div className={`battle-fighter battle-fighter--player${challengerHit ? ' is-hit' : ''}${latestHasDamage && challengerActing ? ' is-attacking' : ''}`}>
-            <div className="battle-fighter-sprite">
-              {challengerPet ? <DinoSprite pet={challengerPet} size={176} movementAnim="idle" /> : <div className="battle-fighter-placeholder" aria-hidden />}
+          <div ref={stageRef} className="battle-stage rpg-stage">
+          <div key={`challenger-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--player${challengerHit ? ' is-hit' : ''}${activeFx && challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
+            <div ref={challengerSpriteRef} className="battle-fighter-sprite">
+              {challengerPet ? <DinoSprite pet={challengerPet} size={176} movementAnim={activeFx?.actorSide === 'challenger' && !isSelfBattleFx(activeFx) ? 'bite' : challengerHit ? 'hurt' : 'idle'} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
               {session.challengerDefending && <span className="battle-fighter-badge">{t('battle.defend')}</span>}
             </div>
             {challengerHit && latestHasDamage && latestTurn && <span
@@ -212,9 +285,9 @@ export function BattleArena({
             <div className="rpg-mini-hp">{challengerName ?? t('battle.challenger')}</div>
           </div>
           <div className="battle-vs">VS</div>
-          <div className={`battle-fighter battle-fighter--enemy${defenderHit ? ' is-hit' : ''}${latestHasDamage && !challengerActing ? ' is-attacking' : ''}`}>
-            <div className="battle-fighter-sprite battle-fighter-sprite--flip">
-              {defenderPet ? <DinoSprite pet={defenderPet} size={176} movementAnim="idle" /> : <div className="battle-fighter-placeholder" aria-hidden />}
+          <div key={`defender-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--enemy${defenderHit ? ' is-hit' : ''}${activeFx && !challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
+            <div ref={defenderSpriteRef} className="battle-fighter-sprite battle-fighter-sprite--flip">
+              {defenderPet ? <DinoSprite pet={defenderPet} size={176} movementAnim={activeFx?.actorSide === 'defender' && !isSelfBattleFx(activeFx) ? 'bite' : defenderHit ? 'hurt' : 'idle'} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
               {session.defenderDefending && <span className="battle-fighter-badge">{t('battle.defend')}</span>}
             </div>
             {defenderHit && latestHasDamage && latestTurn && <span
@@ -224,6 +297,18 @@ export function BattleArena({
             >-{latestTurn.damage}</span>}
             <div className="rpg-mini-hp">{defenderName ?? t('battle.defender')}</div>
           </div>
+          {activeFx && <div
+            key={activeFx.eventId}
+            className={`battle-fx-layer battle-fx-layer--${activeFx.actorSide} battle-fx-layer--${activeFx.element} battle-fx-layer--${activeFx.role}`}
+            style={fxStyle}
+            data-battle-fx-event={activeFx.eventId}
+            aria-hidden="true"
+          >
+            {activeFx.role === 'ultimate' && <span className="battle-fx-ultimate-flash" />}
+            {usesProjectile(activeFx) && <img className="battle-fx battle-fx--projectile" src={activeFx.assetPaths.projectile} alt="" onError={(event) => { event.currentTarget.hidden = true }} />}
+            {usesAura(activeFx) && <img className={`battle-fx battle-fx--aura battle-fx--at-${activeFx.targetSide}`} src={activeFx.assetPaths.aura} alt="" onError={(event) => { event.currentTarget.hidden = true }} />}
+            {!isSelfBattleFx(activeFx) && <img className={`battle-fx battle-fx--impact battle-fx--at-${activeFx.targetSide}`} src={activeFx.assetPaths.impact} alt="" onError={(event) => { event.currentTarget.hidden = true }} />}
+          </div>}
           </div>
 
           {mode === 'bot' && rewardPreview && <aside className="rpg-battle-info">
@@ -262,7 +347,7 @@ export function BattleArena({
                             ? 'DODGE ↑'
                             : 'BUFF'
                       return (
-                        <button key={`${slot.pathId}-${slot.kind}`} type="button" className={`rpg-quick-skill rpg-quick-skill--${slot.element}${isUlt ? ' rpg-quick-skill--ultimate' : ''}`} disabled={!myTurn || submitting || needTp || needMp} title={isUlt ? t('battle.ultimateNeedEnergy', { required: TP_MAX, current: myTp }) : def ? `MP ${def.mpCost} · Lv${slot.rank}` : undefined} onClick={() => void act('skill', { skillId: slot.pathId })}>
+                        <button key={`${slot.pathId}-${slot.kind}`} type="button" className={`rpg-quick-skill rpg-quick-skill--${slot.element}${isUlt ? ' rpg-quick-skill--ultimate' : ''}`} disabled={!myTurn || submitting || fxBusy || needTp || needMp} title={isUlt ? t('battle.ultimateNeedEnergy', { required: TP_MAX, current: myTp }) : def ? `MP ${def.mpCost} · Lv${slot.rank}` : undefined} onClick={() => void act('skill', { skillId: slot.pathId })}>
                           <span className="rpg-quick-skill__name"><span>{label}</span></span>
                           <span className="rpg-quick-skill__art" aria-hidden="true"><SkillIcon pathId={slot.pathId} className="rpg-quick-skill__icon" /></span>
                           <span className="rpg-quick-skill__stats">
@@ -275,10 +360,10 @@ export function BattleArena({
                     {loadout.length === 0 && <p className="rpg-hint rpg-quick-skills__empty">{t('battle.noSkills')}</p>}
                   </div>
                   <div className="rpg-core-commands">
-                    <button type="button" className="primary rpg-attack-command" disabled={!myTurn || submitting} onClick={() => void act('attack')}><img src="/battle/command-icons/attack.png" alt="" />{t('battle.attack')}</button>
-                    <button type="button" className="secondary" disabled={!myTurn || submitting} onClick={() => void act('defend')}><img src="/battle/command-icons/defend.png" alt="" />{t('battle.defend')}</button>
-                    <button type="button" className="secondary" disabled={!myTurn || submitting} onClick={() => setMenu('items')}><img src="/battle/command-icons/item.png" alt="" />{t('battle.itemMenu')}</button>
-                    <button type="button" className="danger-btn" disabled={!myTurn || submitting} onClick={() => void act('flee')}><img src="/battle/command-icons/flee.png" alt="" />{t('battle.flee')}</button>
+                    <button type="button" className="primary rpg-attack-command" disabled={!myTurn || submitting || fxBusy} onClick={() => void act('attack')}><img src="/battle/command-icons/attack.png" alt="" />{t('battle.attack')}</button>
+                    <button type="button" className="secondary" disabled={!myTurn || submitting || fxBusy} onClick={() => void act('defend')}><img src="/battle/command-icons/defend.png" alt="" />{t('battle.defend')}</button>
+                    <button type="button" className="secondary" disabled={!myTurn || submitting || fxBusy} onClick={() => setMenu('items')}><img src="/battle/command-icons/item.png" alt="" />{t('battle.itemMenu')}</button>
+                    <button type="button" className="danger-btn" disabled={!myTurn || submitting || fxBusy} onClick={() => void act('flee')}><img src="/battle/command-icons/flee.png" alt="" />{t('battle.flee')}</button>
                   </div>
                 </div>
               )}

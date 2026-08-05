@@ -1,0 +1,1 @@
+Taskino pixel-inspired elemental projectile animation atlas on solid #FF00FF. Nine elemental four-frame sequences: fire, grass, ground, electric, water, ice, dragon, dark, neutral. Side-view, crisp readable silhouette, consistent scale, generous cell padding, no text or UI.

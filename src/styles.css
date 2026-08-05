@@ -6528,6 +6528,115 @@ button.dash-hud-avatar--btn:disabled {
 .battle-fighter--enemy.is-attacking { animation: rpg-lunge-left .34s ease-out; }
 .battle-fighter.is-hit .battle-fighter-sprite { animation: rpg-hit-shake .38s ease-out; filter: brightness(1.45) drop-shadow(0 12px 3px rgba(30, 20, 8, .42)); }
 
+.battle-fx-layer {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  --fx-actor-x: 22%;
+  --fx-actor-y: 48%;
+  --fx-target-x: 78%;
+  --fx-target-y: 48%;
+  --fx-color: #fff1a8;
+}
+.battle-fx-layer--fire { --fx-color: #ff6a32; }
+.battle-fx-layer--grass { --fx-color: #8ee44f; }
+.battle-fx-layer--ground { --fx-color: #d39a55; }
+.battle-fx-layer--electric { --fx-color: #f6ef45; }
+.battle-fx-layer--water { --fx-color: #48cfff; }
+.battle-fx-layer--ice { --fx-color: #b8f4ff; }
+.battle-fx-layer--dragon { --fx-color: #ca79ff; }
+.battle-fx-layer--dark { --fx-color: #8e56d9; }
+.battle-fx-layer--neutral { --fx-color: #fff0c8; }
+.battle-fx {
+  position: absolute;
+  z-index: 2;
+  width: clamp(150px, 18vw, 220px);
+  height: clamp(150px, 18vw, 220px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--fx-color));
+}
+.battle-fx--projectile {
+  width: clamp(110px, 14vw, 170px);
+  height: clamp(110px, 14vw, 170px);
+  top: var(--fx-actor-y);
+  left: var(--fx-actor-x);
+  transform: translate(-50%, -50%);
+  animation: battle-fx-projectile .5s .14s ease-in both;
+}
+.battle-fx-layer--defender .battle-fx--projectile { scale: -1 1; }
+.battle-fx--at-challenger,
+.battle-fx--at-defender { left: var(--fx-target-x); }
+.battle-fx--impact {
+  top: var(--fx-target-y);
+  transform: translate(-50%, -50%) scale(.35);
+  opacity: 0;
+  animation: battle-fx-impact .42s .27s ease-out both;
+}
+.battle-fx--aura {
+  width: clamp(180px, 21vw, 260px);
+  height: clamp(180px, 21vw, 260px);
+  top: var(--fx-target-y);
+  transform: translate(-50%, -50%) scale(.45);
+  opacity: 0;
+  animation: battle-fx-aura .68s ease-out both;
+}
+.battle-fx-layer--heavy .battle-fx--impact,
+.battle-fx-layer--burst .battle-fx--impact { width: clamp(190px, 23vw, 290px); height: clamp(190px, 23vw, 290px); }
+.battle-fx-layer--ultimate .battle-fx--impact { width: clamp(220px, 26vw, 340px); height: clamp(220px, 26vw, 340px); animation-delay: .38s; }
+.battle-fx-layer--mark .battle-fx--aura { animation-delay: .16s; }
+.battle-fx-ultimate-flash {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: radial-gradient(circle at var(--fx-target-x) var(--fx-target-y), color-mix(in srgb, var(--fx-color) 65%, transparent), transparent 55%);
+  animation: battle-fx-ultimate-flash 1.05s ease-out both;
+}
+.battle-fx-layer::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: var(--fx-target-y);
+  left: var(--fx-target-x);
+  width: 28px;
+  height: 28px;
+  border: 4px solid var(--fx-color);
+  border-radius: 50%;
+  box-shadow: 0 0 18px 5px var(--fx-color);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.3);
+  animation: battle-fx-fallback-impact .42s .27s ease-out both;
+}
+.battle-fx-layer--guard::after,
+.battle-fx-layer--dodge::after,
+.battle-fx-layer--support::after { animation-delay: .08s; }
+
+@keyframes battle-fx-projectile {
+  0% { left: var(--fx-actor-x); top: var(--fx-actor-y); opacity: 0; transform: translate(-50%, -50%) scale(.55); }
+  18% { opacity: 1; }
+  100% { left: var(--fx-target-x); top: var(--fx-target-y); opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
+}
+@keyframes battle-fx-impact {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.35); }
+  22%, 68% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.18); }
+}
+@keyframes battle-fx-aura {
+  0% { opacity: 0; transform: translate(-50%, -42%) scale(.4); }
+  25%, 70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -56%) scale(1.05); }
+}
+@keyframes battle-fx-fallback-impact {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.3); }
+  35% { opacity: .9; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.8); }
+}
+@keyframes battle-fx-ultimate-flash {
+  0%, 100% { opacity: 0; }
+  24%, 58% { opacity: .62; }
+}
+
 @keyframes rpg-lunge-right {
   0%, 100% { transform: translateX(0); }
   55% { transform: translateX(34px) scale(1.04); }
@@ -6559,7 +6668,9 @@ button.dash-hud-avatar--btn:disabled {
 
 @media (prefers-reduced-motion: reduce) {
   .rpg-wave-notice, .rpg-floating-damage, .battle-fighter.is-hit .battle-fighter-sprite,
-  .battle-fighter.is-attacking, .bot-battle-result, .rpg-log-overlay, .rpg-log-dialog { animation: none; }
+  .battle-fighter.is-attacking, .bot-battle-result, .rpg-log-overlay, .rpg-log-dialog,
+  .battle-fx, .battle-fx-layer::after, .battle-fx-ultimate-flash { animation: none; }
+  .battle-fx--impact, .battle-fx--aura { opacity: .7; }
 }
 
 @media (max-width: 900px) {
