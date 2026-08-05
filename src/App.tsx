@@ -9,6 +9,7 @@ import {
 } from './shared/eggNotifications'
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
+import { getGameSpeedMultiplier, setGameSpeedMultiplier } from './shared/gameSpeed'
 import './i18n'
 import { GetStarted } from './hub/GetStarted'
 import { LoginGate } from './hub/LoginGate'
@@ -89,6 +90,7 @@ function AppContent({ variant = 'desktop' }: Props) {
   const [showTitle, setShowTitle] = useState(true)
   const [passwordRecovery, setPasswordRecovery] = useState(() => isPasswordRecoveryPending())
   const [homeFocus, setHomeFocus] = useState(false)
+  const [, setGameSpeedRevision] = useState(0)
 
   const refresh = useCallback(async () => {
     if (!window.electronAPI) return
@@ -227,13 +229,22 @@ function AppContent({ variant = 'desktop' }: Props) {
     refresh()
     window.electronAPI.supabaseConfigured().then(setCloudReady)
     checkSession()
+    void window.electronAPI.getGameSpeed().then((multiplier) => {
+      setGameSpeedMultiplier(multiplier)
+      setGameSpeedRevision((revision) => revision + 1)
+    }).catch(() => undefined)
     const unsubscribe = window.electronAPI.onGameUpdated(setSave)
+    const unsubscribeGameSpeed = window.electronAPI.onGameSpeedUpdated((multiplier) => {
+      setGameSpeedMultiplier(multiplier)
+      setGameSpeedRevision((revision) => revision + 1)
+    })
     const onFocus = () => {
       void refresh()
     }
     window.addEventListener('focus', onFocus)
     return () => {
       unsubscribe()
+      unsubscribeGameSpeed()
       window.removeEventListener('focus', onFocus)
     }
   }, [refresh, checkSession])
@@ -490,6 +501,7 @@ function AppContent({ variant = 'desktop' }: Props) {
           clicks={save.activity.clicks}
           keystrokes={save.activity.keystrokes}
           activityScore={getActivityScore(save.activity)}
+          gameSpeed={getGameSpeedMultiplier()}
           syncing={tabSyncing}
         >
           <LanguageSwitcher variant="pixel" />

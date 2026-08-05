@@ -98,7 +98,14 @@ const api: GameAPI = {
   adminGrantGems: (targetId, amount) => ipcRenderer.invoke('admin:grantGems', targetId, amount),
   adminGrantItem: (targetId, itemType, qty) =>
     ipcRenderer.invoke('admin:grantItem', targetId, itemType, qty),
-  adminDeleteUser: (targetId) => ipcRenderer.invoke('admin:deleteUser', targetId)
+  adminDeleteUser: (targetId) => ipcRenderer.invoke('admin:deleteUser', targetId),
+  getGameSpeed: () => ipcRenderer.invoke('gameSpeed:get'),
+  setGameSpeed: (multiplier) => ipcRenderer.invoke('gameSpeed:set', multiplier),
+  onGameSpeedUpdated: (callback) => {
+    const handler = (_: unknown, multiplier: number) => callback(multiplier as 1 | 2 | 4 | 8 | 16)
+    ipcRenderer.on('game:speedUpdated', handler)
+    return () => ipcRenderer.removeListener('game:speedUpdated', handler)
+  }
 }
 
 contextBridge.exposeInMainWorld('electronAPI', api)

@@ -4,6 +4,7 @@ import type { ItemType } from '../shared/types'
 import { ALL_ITEM_TYPES } from '../shared/itemIcons'
 import { tItemLabel } from '../i18n/labels'
 import { formatApiError } from '../shared/formatError'
+import { GAME_SPEED_MULTIPLIERS, type GameSpeedMultiplier } from '../shared/gameSpeed'
 
 interface AdminPlayer {
   id: string
@@ -29,6 +30,8 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
   const [itemType, setItemType] = useState<ItemType>('food_basic')
   const [itemQty, setItemQty] = useState(1)
   const [pendingDelete, setPendingDelete] = useState<AdminPlayer | null>(null)
+  const [gameSpeed, setGameSpeed] = useState<GameSpeedMultiplier>(1)
+  const [gameSpeedLoading, setGameSpeedLoading] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -47,6 +50,37 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
   useEffect(() => {
     void load()
   }, [load])
+
+  useEffect(() => {
+    let active = true
+    void window.electronAPI.getGameSpeed().then((multiplier) => {
+      if (active) setGameSpeed(multiplier)
+    }).catch((error) => {
+      if (active) setMessage(formatApiError(error))
+    })
+    const unsubscribe = window.electronAPI.onGameSpeedUpdated((multiplier) => {
+      if (active) setGameSpeed(multiplier)
+    })
+    return () => {
+      active = false
+      unsubscribe()
+    }
+  }, [])
+
+  const updateGameSpeed = async (multiplier: GameSpeedMultiplier) => {
+    if (multiplier === gameSpeed || gameSpeedLoading) return
+    setGameSpeedLoading(true)
+    setMessage('')
+    try {
+      const next = await window.electronAPI.setGameSpeed(multiplier)
+      setGameSpeed(next)
+      setMessage(t('admin.gameSpeedDone', { multiplier: next }))
+    } catch (error) {
+      setMessage(formatApiError(error))
+    } finally {
+      setGameSpeedLoading(false)
+    }
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -145,6 +179,26 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
               {loading ? t('common.loading') : t('common.refresh')}
             </button>
           </div>
+
+          <section className="admin-game-speed" aria-label={t('admin.gameSpeedTitle')}>
+            <div>
+              <strong>{t('admin.gameSpeedTitle')}</strong>
+              <p>{t('admin.gameSpeedDescription')}</p>
+            </div>
+            <div className="admin-game-speed-actions">
+              {GAME_SPEED_MULTIPLIERS.map((multiplier) => (
+                <button
+                  key={multiplier}
+                  type="button"
+                  className={multiplier === gameSpeed ? 'dash-hud-action active' : 'secondary'}
+                  disabled={gameSpeedLoading}
+                  onClick={() => void updateGameSpeed(multiplier)}
+                >
+                  X{multiplier}
+                </button>
+              ))}
+            </div>
+          </section>
 
           <div className="admin-grant-defaults">
             <label>

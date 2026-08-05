@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { normalizeGameSpeedMultiplier, type GameSpeedMultiplier } from './gameSpeed'
 
 export type SupabaseGetter = () => SupabaseClient | null
 
@@ -162,6 +163,38 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     const supabase = requireSupabase()
     const { error } = await supabase.rpc('admin_delete_user', { p_target_id: targetId })
     if (error) rpcError(error)
+  }
+
+  async function getGameSpeed(): Promise<GameSpeedMultiplier> {
+    const supabase = requireSupabase()
+    const { data, error } = await supabase.rpc('get_game_speed_multiplier')
+    if (error) rpcError(error)
+    return normalizeGameSpeedMultiplier(data)
+  }
+
+  async function setGameSpeed(multiplier: GameSpeedMultiplier): Promise<GameSpeedMultiplier> {
+    const supabase = requireSupabase()
+    const { data, error } = await supabase.rpc('admin_set_game_speed_multiplier', {
+      p_multiplier: multiplier
+    })
+    if (error) rpcError(error)
+    return normalizeGameSpeedMultiplier(data)
+  }
+
+  function subscribeToGameSpeed(onUpdate: (multiplier: GameSpeedMultiplier) => void) {
+    const supabase = getSupabase()
+    if (!supabase) return () => undefined
+    const channel = supabase
+      .channel('game-speed')
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'game_settings', filter: 'id=eq:global' },
+        (payload) => onUpdate(normalizeGameSpeedMultiplier((payload.new as { multiplier?: unknown }).multiplier))
+      )
+      .subscribe()
+    return () => {
+      supabase.removeChannel(channel)
+    }
   }
 
   async function updateProfile(userId: string, fields: { username?: string }) {
@@ -712,6 +745,9 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     adminGrantGems,
     adminGrantItem,
     adminDeleteUser,
+    getGameSpeed,
+    setGameSpeed,
+    subscribeToGameSpeed,
     syncPetToCloud,
     getActivePet,
     searchProfileByFriendCode,

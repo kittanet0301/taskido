@@ -1,7 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach } from 'vitest'
 import { applyGamePatch, setSessionIsAdmin } from './gameMutators'
 import { createDefaultSave, createEggPet } from './growth'
-import { TEST_FAST_EVO } from './constants'
 
 describe('TEST debug buttons', () => {
   beforeEach(() => {
@@ -9,10 +8,6 @@ describe('TEST debug buttons', () => {
   })
   afterEach(() => {
     setSessionIsAdmin(false)
-  })
-
-  it('is enabled in test-fast mode', () => {
-    expect(TEST_FAST_EVO).toBe(true)
   })
 
   it('debugSetSpecies switches species and assigns its fixed element', () => {

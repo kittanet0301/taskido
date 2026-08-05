@@ -23,6 +23,9 @@ import {
   adminGrantGems,
   adminGrantItem,
   adminDeleteUser,
+  getGameSpeed,
+  setGameSpeed,
+  subscribeToGameSpeed,
   syncPetToCloud,
   getActivePet,
   isSupabaseConfigured,
@@ -66,12 +69,15 @@ import type { MinigameId } from '@shared/types'
 import { setSessionIsAdmin } from '@shared/gameMutators'
 import { isAdminRole } from '@shared/userRole'
 import { updateSave } from './gameStore'
+import { setGameSpeedMultiplier } from '@shared/gameSpeed'
 
 const chatRoomListeners = new Set<(payload: unknown) => void>()
 const battleListeners = new Set<(payload: unknown) => void>()
 let chatRoomUnsubscribe: (() => void) | null = null
 let battleUnsubscribe: (() => void) | null = null
 let roomUnsubscribe: (() => void) | null = null
+const gameSpeedListeners = new Set<(multiplier: 1 | 2 | 4 | 8 | 16) => void>()
+let gameSpeedUnsubscribe: (() => void) | null = null
 
 export function createWebApi(): GameAPI {
   return {
@@ -239,6 +245,27 @@ export function createWebApi(): GameAPI {
     adminListPlayers: async () => adminListPlayers(),
     adminGrantGems: async (targetId, amount) => adminGrantGems(targetId, amount),
     adminGrantItem: async (targetId, itemType, qty) => adminGrantItem(targetId, itemType, qty),
-    adminDeleteUser: async (targetId) => adminDeleteUser(targetId)
+    adminDeleteUser: async (targetId) => adminDeleteUser(targetId),
+    getGameSpeed: async () => {
+      const multiplier = await getGameSpeed()
+      setGameSpeedMultiplier(multiplier)
+      return multiplier
+    },
+    setGameSpeed: async (multiplier) => {
+      const next = await setGameSpeed(multiplier)
+      setGameSpeedMultiplier(next)
+      for (const callback of gameSpeedListeners) callback(next)
+      return next
+    },
+    onGameSpeedUpdated: (callback) => {
+      gameSpeedListeners.add(callback)
+      if (!gameSpeedUnsubscribe) {
+        gameSpeedUnsubscribe = subscribeToGameSpeed((multiplier) => {
+          setGameSpeedMultiplier(multiplier)
+          for (const listener of gameSpeedListeners) listener(multiplier)
+        })
+      }
+      return () => gameSpeedListeners.delete(callback)
+    }
   }
 }

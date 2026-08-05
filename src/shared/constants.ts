@@ -1,6 +1,6 @@
 import type { PetSpecies } from './types'
 import { CREATURE_PREVIEW_COLORS } from './creatureCharacters'
-import { getSessionIsAdmin } from './sessionFlags'
+import { getGameSpeedMultiplier } from './gameSpeed'
 
 export const SAVE_VERSION = 7
 
@@ -10,40 +10,28 @@ export const PET_SLOTS_PER_PAGE = 12
 export const WEEKLY_SLOT_REWARD = 5
 export const QUICK_ITEM_SLOT_COUNT = 6
 
-/**
- * When true, signed-in admins get fast hatch/evolve/breed timings.
- * Regular users always use the normal (slow) values.
- */
-export const TEST_FAST_EVO = true
-
-/** True only for admins while TEST_FAST_EVO is enabled. */
-export function fastEvoEnabled(): boolean {
-  return TEST_FAST_EVO && getSessionIsAdmin()
-}
-
-/** Instant hatch/evolve while admin is testing creature art. */
 export function getDevPointsHatch(): number {
-  return fastEvoEnabled() ? 0 : 100
+  return DEV_POINTS_HATCH / getGameSpeedMultiplier()
 }
 export function getDevPointsAdult(): number {
-  return fastEvoEnabled() ? 0 : 500
+  return DEV_POINTS_ADULT / getGameSpeedMultiplier()
 }
 export function getAdultMinHours(): number {
-  return fastEvoEnabled() ? 0 : 48
+  return ADULT_MIN_HOURS / getGameSpeedMultiplier()
 }
 export function getClicksPerDev(): number {
-  return fastEvoEnabled() ? 10 : 100
+  return CLICKS_PER_DEV / getGameSpeedMultiplier()
 }
 export function getKeysPerDev(): number {
-  return fastEvoEnabled() ? 50 : 500
+  return KEYS_PER_DEV / getGameSpeedMultiplier()
 }
 export function getMaxDevPerHour(): number {
-  return fastEvoEnabled() ? 999 : 10
+  return MAX_DEV_PER_HOUR * getGameSpeedMultiplier()
 }
 
 /** Cooldown before a bred pet can breed again. */
 export function getBreedCooldownMs(): number {
-  return fastEvoEnabled() ? 60_000 : 6 * 60 * 60 * 1000
+  return BREED_COOLDOWN_MS / getGameSpeedMultiplier()
 }
 
 /** Normal (non-admin) defaults — prefer getters for runtime checks. */

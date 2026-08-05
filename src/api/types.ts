@@ -1,4 +1,5 @@
 import type { GameSave, PetData } from '../shared/types'
+import type { GameSpeedMultiplier } from '../shared/gameSpeed'
 import type { MinigameFinishResult, MinigameLeaderboardRow } from '../shared/minigame'
 
 export interface GameAPI {
@@ -103,6 +104,9 @@ export interface GameAPI {
   adminGrantGems: (targetId: string, amount: number) => Promise<number>
   adminGrantItem: (targetId: string, itemType: string, qty: number) => Promise<number>
   adminDeleteUser: (targetId: string) => Promise<void>
+  getGameSpeed: () => Promise<GameSpeedMultiplier>
+  setGameSpeed: (multiplier: GameSpeedMultiplier) => Promise<GameSpeedMultiplier>
+  onGameSpeedUpdated: (callback: (multiplier: GameSpeedMultiplier) => void) => () => void
 }
 
 /** @deprecated use GameAPI — kept for Electron preload compatibility */

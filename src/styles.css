@@ -3226,6 +3226,30 @@ button.dash-hud-avatar--btn:disabled {
   box-shadow: none;
 }
 
+.hub-topbar-speed {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 5px 12px;
+  border: 3px solid #2c1408;
+  background: #8b291d;
+  box-shadow: 3px 3px 0 rgba(30, 14, 4, 0.75);
+  color: #fff5cf;
+  font-size: clamp(.72rem, 1vw, .88rem);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hub-topbar-speed strong {
+  color: #ffe16b;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+}
+
+.admin-game-speed { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px; border: 2px solid #825020; background: rgba(31, 18, 8, .32); }
+.admin-game-speed p { margin: 4px 0 0; color: #eacb8c; font-size: .85rem; }
+.admin-game-speed-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+
 .dash-home-egg-notification {
   position: absolute;
   top: clamp(14px, 2.2vh, 28px);
@@ -3345,6 +3369,10 @@ button.dash-hud-avatar--btn:disabled {
   }
 
   .dash-hud-counter span {
+    display: none;
+  }
+
+  .hub-topbar-speed span {
     display: none;
   }
 

@@ -39,6 +39,7 @@ import {
 import type { GameSave, MinigameId, PetData } from '../../src/shared/types'
 import { applyGamePatch, setSessionIsAdmin } from '../../src/shared/gameMutators'
 import { isAdminRole } from '../../src/shared/userRole'
+import { setGameSpeedMultiplier } from '../../src/shared/gameSpeed'
 import { applyFinishMinigame } from '../../src/shared/minigame'
 import {
   getSession,
@@ -53,6 +54,9 @@ import {
   adminGrantGems,
   adminGrantItem,
   adminDeleteUser,
+  getGameSpeed,
+  setGameSpeed,
+  subscribeToGameSpeed,
   syncPetToCloud,
   getActivePet,
   isSupabaseConfigured,
@@ -95,6 +99,7 @@ import {
 
 let activeBattleRoomId: string | null = null
 let chatRoomUnsubscribe: (() => void) | null = null
+let gameSpeedUnsubscribe: (() => void) | null = null
 
 loadEnvFile()
 registerAppProtocolScheme()
@@ -103,6 +108,13 @@ const isDev = !app.isPackaged
 
 function getAllWindows(): BrowserWindow[] {
   return BrowserWindow.getAllWindows()
+}
+
+async function refreshGameSpeed(): Promise<number> {
+  const multiplier = await getGameSpeed()
+  setGameSpeedMultiplier(multiplier)
+  for (const window of getAllWindows()) window.webContents.send('game:speedUpdated', multiplier)
+  return multiplier
 }
 
 function notifyAll(): void {
@@ -221,6 +233,13 @@ function setupIpc(): void {
     adminGrantItem(targetId, itemType, qty)
   )
   ipcMain.handle('admin:deleteUser', async (_e, targetId: string) => adminDeleteUser(targetId))
+  ipcMain.handle('gameSpeed:get', async () => refreshGameSpeed())
+  ipcMain.handle('gameSpeed:set', async (_e, multiplier: number) => {
+    const next = await setGameSpeed(multiplier as 1 | 2 | 4 | 8 | 16)
+    setGameSpeedMultiplier(next)
+    for (const window of getAllWindows()) window.webContents.send('game:speedUpdated', next)
+    return next
+  })
   ipcMain.handle('locale:set', (_e, locale: 'en' | 'th') => {
     setMainLocale(locale)
     refreshTray(getGameSave)
@@ -381,6 +400,15 @@ app.whenReady().then(async () => {
   setupIpc()
   await startActivityTracker()
   await hydrateFromSession()
+  try {
+    await refreshGameSpeed()
+    gameSpeedUnsubscribe = subscribeToGameSpeed((multiplier) => {
+      setGameSpeedMultiplier(multiplier)
+      for (const window of getAllWindows()) window.webContents.send('game:speedUpdated', multiplier)
+    })
+  } catch (error) {
+    console.warn('[game-speed] using x1:', error)
+  }
 
   createPetWindow()
   createTray({
@@ -422,6 +450,7 @@ app.on('before-quit', () => {
     activeBattleRoomId = null
   }
   stopActivityTracker()
+  gameSpeedUnsubscribe?.()
   destroyTray()
 })
 

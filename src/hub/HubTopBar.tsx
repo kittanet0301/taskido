@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { GameSpeedMultiplier } from '../shared/gameSpeed'
 
 interface Props {
   displayName?: string
@@ -7,6 +8,7 @@ interface Props {
   clicks: number
   keystrokes: number
   activityScore: number
+  gameSpeed: GameSpeedMultiplier
   syncing: boolean
   children?: ReactNode
 }
@@ -24,6 +26,7 @@ export function HubTopBar({
   clicks,
   keystrokes,
   activityScore,
+  gameSpeed,
   syncing,
   children
 }: Props) {
@@ -58,6 +61,12 @@ export function HubTopBar({
           <span>{t('home.activityScore')}</span>
           <strong>{activityScore.toLocaleString()}</strong>
         </div>
+        {gameSpeed > 1 && (
+          <div className="hub-topbar-speed" aria-label={`${t('admin.gameSpeedTitle')} X${gameSpeed}`}>
+            <span>{t('admin.gameSpeedTitle')}</span>
+            <strong>X{gameSpeed}</strong>
+          </div>
+        )}
       </div>
       {syncing && <div className="hub-topbar-sync">{t('app.syncing')}</div>}
       <div className="hub-topbar-extra">
