@@ -16,7 +16,7 @@
     "preview": "electron-vite preview",
     "preview:web": "vite preview --config web/vite.config.ts",
     "build:win": "npm run build && electron-builder --win",
-    "build:mac": "npm run build && electron-builder --mac",
+    "build:mac": "npm run build && electron-builder --mac --publish never",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
