@@ -70,16 +70,24 @@
       {
         "from": "assets/ui/hud-icon-dino.png",
         "to": "hud-icon-dino.png"
+      },
+      {
+        "from": "build/icons/taskino.ico",
+        "to": "app-icon.ico"
+      },
+      {
+        "from": "build/icons/taskino.icns",
+        "to": "app-icon.icns"
       }
     ],
     "mac": {
       "target": "dmg",
-      "category": "public.app-category.games"
+      "category": "public.app-category.games",
+      "icon": "build/icons/taskino.icns"
     },
     "win": {
       "target": "nsis",
-      "icon": "assets/ui/hud-icon-dino.png",
-      "signAndEditExecutable": false
+      "icon": "build/icons/taskino.ico"
     },
     "linux": {
       "icon": "assets/ui/hud-icon-dino.png"
