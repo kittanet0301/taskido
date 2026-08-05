@@ -1,13 +1,34 @@
+import { HUB_PET_FEET_BOTTOM_INSET, CREATURE_BOB_PADDING } from '../shared/petSprites'
+
 export const DASH_BG_WIDTH = 1672
 export const DASH_BG_HEIGHT = 941
 
 /** Anchor points in source background pixels (1672x941). */
 export const DASH_SCENE_ANCHORS = {
-  /** Center of the warm hatch glow. */
-  egg: { x: 836, y: 690 },
-  /** Feet on the warm hatch glow. */
-  pedestal: { x: 836, y: 700 }
+  /**
+   * Stand surface center of circular hub platforms (~84% height).
+   * Higher Y = lower on the dais (not the back rim of the ellipse).
+   */
+  egg: { x: 836, y: 780 },
+  /** Pet feet on the stand disc. */
+  pedestal: { x: 836, y: 790 }
 } as const
+
+/** Match DinoSprite hub feet anchor: translate Y as fraction from top of sprite box. */
+export function dashPetFeetAnchorFraction(drawSize: number): number {
+  const canvasSize = drawSize + CREATURE_BOB_PADDING
+  return (canvasSize - HUB_PET_FEET_BOTTOM_INSET) / canvasSize
+}
+
+/** object-position fractions for cover-cropped BG — locks stand line to pet feet anchor. */
+export const DASH_BG_OBJECT_POSITION = {
+  x: DASH_SCENE_ANCHORS.pedestal.x / DASH_BG_WIDTH,
+  y: DASH_SCENE_ANCHORS.pedestal.y / DASH_BG_HEIGHT
+} as const
+
+export function dashBgObjectPositionCss(): string {
+  return `${DASH_BG_OBJECT_POSITION.x * 100}% ${DASH_BG_OBJECT_POSITION.y * 100}%`
+}
 
 export function coverImagePointToPercent(
   containerW: number,

@@ -19,11 +19,21 @@ import { ALL_ITEM_TYPES, ITEM_ICON_SRC } from '../shared/itemIcons'
 import { HomeMissionsPanel } from './HomeMissionsPanel'
 import { CombatStatCheck } from '../components/CombatStatCheck'
 import { GrowthLevelUpModal } from '../components/GrowthLevelUpModal'
+import type { ElementId } from '../shared/elements'
+import {
+  DASH_BG_FRAME_COUNT,
+  DASH_BG_FRAME_MS,
+  DASH_SCENE_BG_DIMENSIONS,
+  dashBgFrameSrc,
+  dashBgObjectPosition,
+  dashSceneAnchorForElement
+} from './dashSceneBackgrounds'
 import {
   coverImagePointToPercent,
+  DASH_BG_OBJECT_POSITION,
+  dashPetFeetAnchorFraction,
   DASH_BG_HEIGHT,
   DASH_BG_WIDTH,
-  DASH_SCENE_ANCHORS,
   dashSpriteSize
 } from './dashSceneLayout'
 
@@ -53,6 +63,7 @@ const QUICK_ITEM_TYPES: ItemType[] = ALL_ITEM_TYPES
 const LEVEL_UP_FX_MS = 2200
 const EVOLVE_CHARGE_MS = 750
 const EVOLVE_FX_MS = 2400
+const BG_CROSSFADE_MS = 280
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => {
@@ -106,7 +117,13 @@ export function HomeDashboard({
   const [evolveFx, setEvolveFx] = useState<{ key: number } | null>(null)
   const [now, setNow] = useState(() => Date.now())
   const hatchDoneRef = useRef<(() => void) | null>(null)
-  const sceneKey = 'hatch'
+  const bgFadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const petElement = pet?.elementPrimary ?? 'neutral'
+  const renderedBgRef = useRef<ElementId>(petElement)
+  const [renderedBg, setRenderedBg] = useState<ElementId>(petElement)
+  const [bgFrame, setBgFrame] = useState(0)
+  const [outgoingBg, setOutgoingBg] = useState<ElementId | null>(null)
+  const [bgFading, setBgFading] = useState(false)
   const hasPendingLevelUp = (pet?.pendingGrowthOffers?.length ?? 0) > 0
 
   const quickSlots = useMemo(
@@ -115,20 +132,50 @@ export function HomeDashboard({
   )
 
   useEffect(() => {
+    if (petElement === renderedBgRef.current) return
+    if (bgFadeTimerRef.current) clearTimeout(bgFadeTimerRef.current)
+    setOutgoingBg(renderedBgRef.current)
+    setRenderedBg(petElement)
+    renderedBgRef.current = petElement
+    setBgFading(true)
+    bgFadeTimerRef.current = setTimeout(() => {
+      setOutgoingBg(null)
+      setBgFading(false)
+      bgFadeTimerRef.current = null
+    }, BG_CROSSFADE_MS)
+    return () => {
+      if (bgFadeTimerRef.current) clearTimeout(bgFadeTimerRef.current)
+    }
+  }, [petElement])
+
+  useEffect(() => {
+    setBgFrame(0)
+  }, [petElement])
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setBgFrame((frame) => (frame + 1) % DASH_BG_FRAME_COUNT)
+    }, DASH_BG_FRAME_MS)
+    return () => window.clearInterval(id)
+  }, [])
+
+  useEffect(() => {
     const el = sceneRef.current
     if (!el || !pet) return
 
     const update = () => {
       const { width, height } = el.getBoundingClientRect()
       if (width === 0 || height === 0) return
-      const anchor = DASH_SCENE_ANCHORS[isEgg ? 'egg' : 'pedestal']
+      const anchor = dashSceneAnchorForElement(petElement, isEgg ? 'egg' : 'pedestal')
       const pos = coverImagePointToPercent(
         width,
         height,
         DASH_BG_WIDTH,
         DASH_BG_HEIGHT,
         anchor.x,
-        anchor.y
+        anchor.y,
+        DASH_BG_OBJECT_POSITION.x,
+        DASH_BG_OBJECT_POSITION.y
       )
       setLayout({
         leftPct: pos.leftPct,
@@ -143,7 +190,7 @@ export function HomeDashboard({
     const ro = new ResizeObserver(update)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [isEgg, pet])
+  }, [isEgg, pet, petElement])
 
   useEffect(() => {
     return () => {
@@ -384,16 +431,30 @@ export function HomeDashboard({
   }
 
   return (
-    <div className={`dash-hud dash-hud--${sceneKey}${focusMode ? ' dash-hud--focus' : ''}`}>
+    <div className={`dash-hud dash-hud--${petElement}${focusMode ? ' dash-hud--focus' : ''}`}>
       <div ref={sceneRef} className="dash-hud-scene">
-        <img
-          src="/ui/dash-bg-hatch-v2.png"
-          alt=""
-          className="dash-scene-bg"
-          width={DASH_BG_WIDTH}
-          height={DASH_BG_HEIGHT}
-          draggable={false}
-        />
+        <div className="dash-scene-bg-stack" aria-hidden>
+          {outgoingBg && (
+            <img
+              src={dashBgFrameSrc(outgoingBg, bgFrame)}
+              alt=""
+              className="dash-scene-bg dash-scene-bg--fade-out"
+              style={{ objectPosition: dashBgObjectPosition(outgoingBg) }}
+              width={DASH_SCENE_BG_DIMENSIONS.width}
+              height={DASH_SCENE_BG_DIMENSIONS.height}
+              draggable={false}
+            />
+          )}
+          <img
+            src={dashBgFrameSrc(renderedBg, bgFrame)}
+            alt=""
+            className={`dash-scene-bg${bgFading ? ' dash-scene-bg--fade-in' : ''}`}
+            style={{ objectPosition: dashBgObjectPosition(renderedBg) }}
+            width={DASH_SCENE_BG_DIMENSIONS.width}
+            height={DASH_SCENE_BG_DIMENSIONS.height}
+            draggable={false}
+          />
+        </div>
 
         {newEggCount > 0 && (
           <button
@@ -616,7 +677,11 @@ export function HomeDashboard({
           ]
             .filter(Boolean)
             .join(' ')}
-          style={{ left: `${layout.leftPct}%`, top: `${layout.topPct}%` }}
+          style={{
+            left: `${layout.leftPct}%`,
+            top: `${layout.topPct}%`,
+            transform: `translate(-50%, -${dashPetFeetAnchorFraction(layout.spriteSize) * 100}%)`
+          }}
         >
           {evolving && <div className="dash-evolve-burst" aria-hidden />}
           <div className="dash-evolve-sprite">

@@ -1,0 +1,1 @@
+Dark master only — pipeline bakes frames via motion.txt = shadow_up. Empty platform, no creatures.

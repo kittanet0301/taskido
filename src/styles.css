@@ -586,10 +586,8 @@ body {
   box-shadow: none;
 }
 
-.hub-shell--home .hub-content--home {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
+.hub-shell--home .dash-hud-scene {
+  --hub-nav-gutter: calc(var(--hub-edge) + var(--hub-nav-width));
 }
 
 .hub-shell--home .dash-hud-missions {
@@ -1337,9 +1335,35 @@ input, select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: 50% 74.39%;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+.dash-scene-bg-stack {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dash-scene-bg--fade-out {
+  z-index: 1;
+  animation: dash-scene-bg-fade-out 280ms ease forwards;
+}
+
+.dash-scene-bg--fade-in {
+  z-index: 2;
+  animation: dash-scene-bg-fade-in 280ms ease forwards;
+}
+
+@keyframes dash-scene-bg-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes dash-scene-bg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .dash-scene-pet {
@@ -2001,11 +2025,7 @@ button.dash-hud-avatar--btn:disabled {
   z-index: 2;
   filter: drop-shadow(4px 8px 0 rgba(22, 11, 5, 0.4));
   overflow: visible;
-}
-
-.dash-hud .dash-scene-pet--egg,
-.dash-hud .dash-scene-pet--pedestal {
-  transform: translate(-50%, -78%);
+  /* transform set inline from dashPetFeetAnchorFraction — syncs feet with BG stand line */
 }
 
 .dash-hud-action {

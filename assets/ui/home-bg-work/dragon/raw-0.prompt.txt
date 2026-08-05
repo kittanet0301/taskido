@@ -1,0 +1,1 @@
+Dragon reverted: arcane ruins master (empty dais) + motion=arcane_up. Not electric-style AI 4 frames.

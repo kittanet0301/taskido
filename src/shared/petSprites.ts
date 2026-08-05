@@ -102,6 +102,11 @@ export function pixelScaleForCanvas(
 
 const CREATURE_BOB_PADDING = 8
 
+/** Hub canvas inset from bottom edge to drawn feet (matches DinoSprite feetAnchored). */
+export const HUB_PET_FEET_BOTTOM_INSET = 4
+
+export { CREATURE_BOB_PADDING }
+
 /** Canvas includes bob room so the scaled creature is not clipped. */
 export function resolveSpriteRenderSize(
   pet: Pick<PetData, 'character' | 'stage'>,
