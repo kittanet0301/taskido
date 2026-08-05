@@ -7,6 +7,9 @@ interface Props {
   onLoggedIn: () => void
 }
 
+/** Re-enable when password recovery flow is ready. */
+const SHOW_FORGOT_PASSWORD = false
+
 function AuthShell({
   tagline,
   message,
@@ -34,7 +37,7 @@ function LoginPage({
 }: {
   onLoggedIn: () => void
   onGoSignUp: () => void
-  onGoForgot: () => void
+  onGoForgot?: () => void
 }) {
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
@@ -91,11 +94,13 @@ function LoginPage({
         />
       </div>
 
-      <p className="pixel-forgot-link">
-        <button type="button" className="auth-link" onClick={onGoForgot} disabled={loading}>
-          {t('auth.forgotPassword')}
-        </button>
-      </p>
+      {onGoForgot && (
+        <p className="pixel-forgot-link">
+          <button type="button" className="auth-link" onClick={onGoForgot} disabled={loading}>
+            {t('auth.forgotPassword')}
+          </button>
+        </p>
+      )}
 
       <button className="primary cover-btn pixel-btn" onClick={signIn} disabled={loading}>
         {loading ? t('auth.loadingLogin') : t('common.login')}
@@ -288,7 +293,7 @@ export function LoginGate({ onLoggedIn }: Props) {
     return <SignUpPage onLoggedIn={onLoggedIn} onGoLogin={() => setView('login')} />
   }
 
-  if (view === 'forgot') {
+  if (SHOW_FORGOT_PASSWORD && view === 'forgot') {
     return <ForgotPasswordPage onGoLogin={() => setView('login')} />
   }
 
@@ -296,7 +301,7 @@ export function LoginGate({ onLoggedIn }: Props) {
     <LoginPage
       onLoggedIn={onLoggedIn}
       onGoSignUp={() => setView('signup')}
-      onGoForgot={() => setView('forgot')}
+      onGoForgot={SHOW_FORGOT_PASSWORD ? () => setView('forgot') : undefined}
     />
   )
 }
