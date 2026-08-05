@@ -1,6 +1,6 @@
 import type { AnimationState, GameSave, InventoryItem, ItemType, MinigameId, PetData, PetSpecies, Stage } from './types'
 import { hatchPet, evolvePet, createEggPet, resetPetToEggStage, breedPetsLocal, canBreed } from './growth'
-import { canEvolveToAdult, canHatchEgg } from './stats'
+import { addDevPoints, canEvolveToAdult, canHatchEgg } from './stats'
 import { ITEMS, normalizeQuickItemSlots, useItem } from './items'
 import { getCareFeedback } from './careFeedback'
 import { getMissionDefinition, applyDailyResets, recordDailyMissionClaim, updateMissionProgress } from './missions'
@@ -224,12 +224,23 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
     const prev = save.pet
     const boosted: PetData = {
       ...prev,
-      stats: {
-        ...prev.stats,
-        evolution: Math.min(999, prev.stats.evolution + amount)
-      }
+      stats: addDevPoints(prev.stats, amount)
     }
     return { ...save, pet: applyLevelGainRewards(prev, boosted) }
+  }
+  if (debugMutatorsEnabled() && mutatorName === 'debugAdjustEvoTime' && typeof args[0] === 'number') {
+    if (save.pet?.stage !== 'baby' || !save.pet.hatchedAt) return save
+    const hours = Math.max(-168, Math.min(168, Math.trunc(args[0])))
+    const hatchedAt = new Date(save.pet.hatchedAt).getTime()
+    if (hours === 0 || Number.isNaN(hatchedAt)) return save
+    return {
+      ...save,
+      pet: {
+        ...save.pet,
+        // Moving hatch time backward shortens the remaining evolution wait.
+        hatchedAt: new Date(hatchedAt + hours * 3_600_000).toISOString()
+      }
+    }
   }
   if (debugMutatorsEnabled() && mutatorName === 'debugCycleSpecies') {
     if (!save.pet) return save
@@ -385,7 +396,7 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
     } else if ('emotion' in reward && pet) {
       pet = { ...pet, stats: { ...pet.stats, emotion: Math.min(100, pet.stats.emotion + reward.emotion) } }
     } else if ('evolution' in reward && pet) {
-      pet = { ...pet, stats: { ...pet.stats, evolution: Math.min(999, pet.stats.evolution + reward.evolution) } }
+      pet = { ...pet, stats: addDevPoints(pet.stats, reward.evolution) }
     } else if ('newEgg' in reward) {
       collection = [...collection, createEggPet()]
     } else if ('slots' in reward) {
@@ -438,7 +449,7 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
       const previous = pet
       pet = {
         ...pet,
-        stats: { ...pet.stats, evolution: Math.min(999, pet.stats.evolution + reward.evolution) }
+        stats: addDevPoints(pet.stats, reward.evolution)
       }
       pet = applyLevelGainRewards(previous, pet)
     }

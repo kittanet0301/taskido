@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { AnimationState, GameSave, ItemType } from '../shared/types'
 import { DinoSprite } from '../components/DinoSprite'
 import { getPetLevel, getStageLabel } from '../shared/activityScore'
-import { QUICK_ITEM_SLOT_COUNT } from '../shared/constants'
+import { getAdultMinHours, getDevPointsAdult, getDevPointsHatch, QUICK_ITEM_SLOT_COUNT } from '../shared/constants'
 import { normalizeQuickItemSlots } from '../shared/items'
 import {
   CARE_FEEDBACK_MS,
@@ -64,6 +64,14 @@ function statPercent(value: number, max: number): string {
   return `${Math.max(0, Math.min(100, (value / max) * 100))}%`
 }
 
+function formatCountdown(remainingMs: number): string {
+  const totalSeconds = Math.max(0, Math.ceil(remainingMs / 1_000))
+  const hours = Math.floor(totalSeconds / 3_600)
+  const minutes = Math.floor((totalSeconds % 3_600) / 60)
+  const seconds = totalSeconds % 60
+  return [hours, minutes, seconds].map((value) => String(value).padStart(2, '0')).join(':')
+}
+
 export function HomeDashboard({
   save,
   focusMode = false,
@@ -96,6 +104,7 @@ export function HomeDashboard({
   const [careFx, setCareFx] = useState<CareFxState | null>(null)
   const [levelUpFx, setLevelUpFx] = useState<{ key: number; level: number } | null>(null)
   const [evolveFx, setEvolveFx] = useState<{ key: number } | null>(null)
+  const [now, setNow] = useState(() => Date.now())
   const hatchDoneRef = useRef<(() => void) | null>(null)
   const sceneKey = 'hatch'
   const hasPendingLevelUp = (pet?.pendingGrowthOffers?.length ?? 0) > 0
@@ -143,6 +152,13 @@ export function HomeDashboard({
       if (evolveFxTimerRef.current) clearTimeout(evolveFxTimerRef.current)
     }
   }, [])
+
+  useEffect(() => {
+    if (pet?.stage !== 'baby' || !pet.hatchedAt) return
+    setNow(Date.now())
+    const timer = window.setInterval(() => setNow(Date.now()), 1_000)
+    return () => window.clearInterval(timer)
+  }, [pet?.stage, pet?.hatchedAt])
 
   const clearCareFeedback = useCallback(async () => {
     setCareAnim(null)
@@ -268,6 +284,17 @@ export function HomeDashboard({
   const inventoryByType = new Map(save.inventory.map((item) => [item.type, item.quantity]))
   const canHatch = canHatchEgg(pet)
   const canEvolve = canEvolveToAdult(pet)
+  const evolutionGoal = pet.stage === 'egg'
+    ? getDevPointsHatch()
+    : pet.stage === 'baby'
+      ? getDevPointsAdult()
+      : 999
+  const evolutionProgress = pet.stats.evolution
+  const evolutionGoalLabel = evolutionProgress > 999 ? '-' : evolutionGoal
+  const adultReadyAt = pet.stage === 'baby' && pet.hatchedAt
+    ? new Date(pet.hatchedAt).getTime() + getAdultMinHours() * 3_600_000
+    : null
+  const adultWaitMs = adultReadyAt == null ? 0 : Math.max(0, adultReadyAt - now)
 
   const useQuickItem = async (type: ItemType | null) => {
     if (!type || !inventoryByType.get(type)) return
@@ -413,9 +440,14 @@ export function HomeDashboard({
             </div>
             <div className="hud-bar hud-bar--xp">
               <span>{t('home.evolution')}</span>
-              <div><i style={{ width: statPercent(pet.stats.evolution, 999) }} /></div>
-              <b>{pet.stats.evolution}/999</b>
+              <div><i style={{ width: statPercent(evolutionProgress, evolutionGoal) }} /></div>
+              <b>{evolutionProgress}/{evolutionGoalLabel}</b>
             </div>
+            {adultWaitMs > 0 && (
+              <p className="dash-hud-evolution-wait">
+                {t('pet.evolveCountdown', { time: formatCountdown(adultWaitMs) })}
+              </p>
+            )}
             <CombatStatCheck pet={pet} variant="compact" className="dash-hud-combat-stats" />
             {hasPendingLevelUp && (
               <button
@@ -514,6 +546,24 @@ export function HomeDashboard({
                     title={t('home.evolution')}
                   >
                     +50 Evo
+                  </button>
+                  <button
+                    type="button"
+                    className="dash-hud-debug-btn"
+                    onClick={() => runDebug('debugAdjustEvoTime', [-12])}
+                    disabled={pet.stage !== 'baby'}
+                    title={t('pet.evolveTimeDecrease')}
+                  >
+                    Evo -12h
+                  </button>
+                  <button
+                    type="button"
+                    className="dash-hud-debug-btn"
+                    onClick={() => runDebug('debugAdjustEvoTime', [12])}
+                    disabled={pet.stage !== 'baby'}
+                    title={t('pet.evolveTimeIncrease')}
+                  >
+                    Evo +12h
                   </button>
                   {CREATURE_SPECIES.map((species) => (
                     <button

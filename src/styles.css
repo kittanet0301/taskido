@@ -1989,6 +1989,14 @@ button.dash-hud-avatar--btn:disabled {
   font-size: 0.75rem;
 }
 
+.dash-hud-evolution-wait {
+  margin: -1px 0 4px;
+  color: #7b3c0a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: right;
+}
+
 .dash-hud .dash-scene-pet {
   z-index: 2;
   filter: drop-shadow(4px 8px 0 rgba(22, 11, 5, 0.4));
@@ -3248,7 +3256,24 @@ button.dash-hud-avatar--btn:disabled {
 
 .admin-game-speed { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px; border: 2px solid #825020; background: rgba(31, 18, 8, .32); }
 .admin-game-speed p { margin: 4px 0 0; color: #eacb8c; font-size: .85rem; }
-.admin-game-speed-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.admin-game-speed-actions { display: grid; grid-template-columns: repeat(5, 1fr); flex: 0 0 266px; gap: 5px; }
+.admin-game-speed-button {
+  position: static;
+  min-width: 0;
+  min-height: 44px;
+  padding: 6px 4px;
+  border: 3px solid #351708;
+  background: #f7e3bd;
+  box-shadow: 3px 3px 0 rgba(30, 14, 4, 0.75);
+  color: #3b210e;
+  font: inherit;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.admin-game-speed-button:hover { background: #ffd07f; }
+.admin-game-speed-button.is-active { background: #ffb85c; color: #351708; }
+.admin-game-speed-button:disabled { cursor: wait; opacity: .65; }
 
 .dash-home-egg-notification {
   position: absolute;
@@ -6089,6 +6114,82 @@ button.dash-hud-avatar--btn:disabled {
 .breed-ready {
   color: #166534;
   font-size: 0.8rem;
+}
+
+/* Collection and breeding flow */
+.collection-capacity { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.collection-capacity-status { padding: 2px 7px; border: 1px solid #4f7b4d; background: #e5f4df; color: #245123; font-size: .72rem; font-weight: 800; }
+.collection-capacity-status--full { border-color: #9f3d28; background: #ffe2d2; color: #7a2619; }
+.collection-capacity-alert, .breed-status-message { display: flex; gap: 8px; margin: -6px 0 14px; padding: 9px 10px; border: 2px solid #b45309; background: #fff4d6; color: #6b3510; font-size: .82rem; }
+.breed-picker { display: none; }
+.breed-card-picker { margin: 12px 0; }
+.breed-modal { width: min(880px, 94vw); }
+.breed-modal .pet-profile-hint { max-width: 680px; }
+.breed-modal .breed-candidate-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 330px; gap: 12px; }
+.breed-modal .breed-candidate-card { min-height: 96px; padding: 10px; gap: 12px; }
+.breed-modal .breed-candidate-preview { width: 78px; height: 78px; }
+.breed-modal .breed-candidate-details strong { font-size: .95rem; }
+.breed-modal .breed-candidate-details small, .breed-modal .breed-candidate-details em { font-size: .78rem; }
+.breed-card-picker { position: relative; padding: 12px; border: 3px solid #3b210e; background: linear-gradient(145deg, #fff8e8 0%, #ffe8c0 55%, #ffd3a0 100%); box-shadow: inset 0 0 0 2px rgba(255,255,255,.7), 4px 4px 0 rgba(59,33,14,.7); overflow: hidden; }
+.breed-card-picker::before, .breed-card-picker::after { position: absolute; z-index: 0; color: rgba(154,84,27,.16); font-size: 1.2rem; content: '✦'; animation: breed-sparkle 2.2s steps(2, end) infinite; }
+.breed-card-picker::before { top: 42px; right: 16px; }
+.breed-card-picker::after { bottom: 12px; left: 12px; animation-delay: .8s; }
+.breed-card-picker > * { position: relative; z-index: 1; }
+.breed-requirements { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.breed-requirements span { padding: 4px 7px; border: 1px solid #9a7247; background: #fff8e8; color: #604122; font-size: .74rem; font-weight: 700; }
+.breed-requirements .breed-requirement--met { border-color: #4e7d4e; background: #e7f5e2; color: #245123; }
+.breed-requirements .breed-requirement--missing { border-color: #a64b31; background: #ffe3d7; color: #7a2619; }
+.breed-journey { display: flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 7px; border: 2px solid #9a7247; background: rgba(255,255,255,.55); }
+.breed-journey span { display: inline-flex; align-items: center; gap: 4px; color: #87684e; font-size: .7rem; font-weight: 800; white-space: nowrap; }
+.breed-journey b { display: grid; width: 18px; height: 18px; place-items: center; border: 1px solid #8e6b4b; background: #fff7e6; color: #69401f; }
+.breed-journey i { height: 2px; min-width: 9px; flex: 1; background: #c9a57d; }
+.breed-journey .breed-journey-step--active, .breed-journey .breed-journey-step--done, .breed-journey .breed-journey-step--ready { color: #3b210e; }
+.breed-journey .breed-journey-step--active b { border-color: #a6501d; background: #ffd26f; animation: breed-pulse 1.2s steps(2, end) infinite; }
+.breed-journey .breed-journey-step--done b { border-color: #39733d; background: #9edb85; }
+.breed-journey .breed-journey-step--ready b { border-color: #925021; background: #ffbd62; animation: breed-pulse .85s steps(2, end) infinite; }
+.breed-parent-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.breed-parent-slot { position: relative; min-height: 94px; padding: 8px; border: 2px dashed #9a7247; background: #fffaf0; }
+.breed-parent-slot--selected { border-style: solid; border-color: var(--pixel-accent); background: #fff1d8; box-shadow: inset 0 0 0 2px #fff9e9, 0 0 0 2px rgba(255,177,68,.3); }
+.breed-parent-label { display: block; margin-bottom: 6px; color: #654125; font-size: .75rem; font-weight: 800; }
+.breed-parent-placeholder { color: #8b735e; font-size: .78rem; }
+.breed-parent-selected { display: flex; align-items: center; gap: 7px; }
+.breed-parent-preview, .breed-candidate-preview { display: grid; flex: 0 0 auto; place-items: center; overflow: hidden; }
+.breed-parent-preview { width: 54px; height: 54px; }
+.breed-parent-selected > span, .breed-candidate-details { display: flex; flex-direction: column; min-width: 0; }
+.breed-parent-selected strong, .breed-candidate-details strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.breed-parent-selected small, .breed-candidate-details small { color: var(--pixel-muted); font-size: .7rem; }
+.breed-clear-btn { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; padding: 0; border: 2px solid var(--pixel-border); background: #ffe2b3; color: #3b210e; cursor: pointer; font-weight: 900; }
+.breed-candidate-heading { display: flex; justify-content: space-between; gap: 8px; margin: 14px 0 7px; font-size: .8rem; }
+.breed-candidate-heading span { color: var(--pixel-muted); }
+.breed-candidate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-height: 240px; overflow-y: auto; padding: 2px; }
+.breed-candidate-card { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 7px; border: 2px solid var(--pixel-border); background: #fffaf0; color: inherit; cursor: pointer; font: inherit; text-align: left; box-shadow: 2px 2px 0 var(--pixel-shadow); transition: transform .08s ease, filter .08s ease; }
+.breed-candidate-card:hover:not(:disabled), .breed-candidate-card:focus-visible:not(:disabled) { background: #ffeac4; transform: translate(-1px, -2px); box-shadow: 4px 5px 0 var(--pixel-shadow), 0 0 0 3px #ffd269; outline: none; }
+.breed-candidate-card--disabled { opacity: .58; cursor: not-allowed; filter: saturate(.7); }
+.breed-candidate-preview { width: 64px; height: 64px; }
+.breed-candidate-details { gap: 2px; flex: 1; }
+.breed-candidate-details em { font-style: normal; }
+.breed-success-fx { position: relative; display: grid; min-height: 310px; place-items: center; align-content: center; gap: 7px; overflow: hidden; border: 3px solid #3b210e; background: radial-gradient(circle at center, #fff9cc 0 18%, #ffd16a 48%, #f1973d 100%); color: #48230e; text-align: center; box-shadow: inset 0 0 0 3px rgba(255,255,255,.55); }
+.breed-success-fx strong { font-size: 1.15rem; text-shadow: 1px 1px 0 #fff2c4; }
+.breed-success-fx > span:last-child { font-size: .82rem; }
+.breed-success-egg { position: relative; width: 104px; height: 128px; margin-bottom: 8px; border: 4px solid #3b210e; border-radius: 55% 55% 45% 45% / 62% 62% 38% 38%; background: linear-gradient(135deg, #ffe6a1 0 35%, #ef8f36 36% 62%, #a94929 63%); box-shadow: 6px 6px 0 rgba(59,33,14,.55), 0 0 0 9px rgba(255,247,167,.45), 0 0 28px 15px rgba(255,241,142,.75); animation: breed-egg-arrive 1.45s steps(7, end) both; }
+.breed-success-egg i { position: absolute; display: block; width: 12px; height: 12px; border: 2px solid rgba(59,33,14,.5); background: #ffcf66; }
+.breed-success-egg i:nth-child(1) { top: 30px; left: 28px; }
+.breed-success-egg i:nth-child(2) { top: 56px; right: 20px; background: #fff1b4; }
+.breed-success-egg i:nth-child(3) { bottom: 20px; left: 40px; background: #c35a30; }
+.breed-success-star { position: absolute; color: #fffbe6; font-size: 2rem; text-shadow: 2px 2px 0 #aa5529; animation: breed-star-pop 1.45s steps(6, end) both; }
+.breed-success-star--one { top: 42px; left: 25%; }
+.breed-success-star--two { top: 72px; right: 23%; animation-delay: .18s; }
+.breed-success-star--three { bottom: 60px; right: 30%; animation-delay: .38s; }
+@keyframes breed-egg-arrive { 0% { transform: scale(.25) rotate(-12deg); opacity: 0; } 45% { transform: scale(1.2) rotate(7deg); opacity: 1; } 64% { transform: scale(.92) rotate(-4deg); } 80% { transform: scale(1.06) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
+@keyframes breed-star-pop { 0%, 35% { transform: scale(0) rotate(0); opacity: 0; } 55% { transform: scale(1.25) rotate(20deg); opacity: 1; } 100% { transform: scale(.85) rotate(40deg); opacity: .9; } }
+@keyframes breed-sparkle { 0%, 100% { transform: scale(.6) rotate(0); opacity: .25; } 50% { transform: scale(1.15) rotate(18deg); opacity: .9; } }
+@keyframes breed-pulse { 0%, 100% { transform: translateY(0); filter: brightness(1); } 50% { transform: translateY(-2px); filter: brightness(1.15); } }
+@media (prefers-reduced-motion: reduce) { .breed-card-picker::before, .breed-card-picker::after, .breed-journey .breed-journey-step--active b, .breed-journey .breed-journey-step--ready b, .breed-success-egg, .breed-success-star { animation: none; } }
+
+@media (max-width: 640px) {
+  .collection-header, .breed-candidate-heading { align-items: flex-start; flex-direction: column; }
+  .breed-parent-slots, .breed-candidate-grid { grid-template-columns: 1fr; }
+  .breed-modal .breed-candidate-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {

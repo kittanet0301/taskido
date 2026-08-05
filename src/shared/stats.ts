@@ -58,7 +58,7 @@ export function healPet(stats: PetStats, amount: number): PetStats {
 
 export function addDevPoints(stats: PetStats, amount: number): PetStats {
   const s = normalizeCareStats(stats)
-  return { ...s, evolution: Math.min(999, s.evolution + amount) }
+  return { ...s, evolution: Math.max(0, s.evolution + amount) }
 }
 
 /** @deprecated alias */

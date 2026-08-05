@@ -190,7 +190,7 @@ export function AdminPanel({ currentUserId, onClose }: Props) {
                 <button
                   key={multiplier}
                   type="button"
-                  className={multiplier === gameSpeed ? 'dash-hud-action active' : 'secondary'}
+                  className={`admin-game-speed-button${multiplier === gameSpeed ? ' is-active' : ''}`}
                   disabled={gameSpeedLoading}
                   onClick={() => void updateGameSpeed(multiplier)}
                 >

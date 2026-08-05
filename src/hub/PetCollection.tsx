@@ -45,9 +45,11 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
   const [nameDraft, setNameDraft] = useState('')
   const skipRenameBlurRef = useRef(false)
   const [breedOpen, setBreedOpen] = useState(false)
+  const [breedCelebrating, setBreedCelebrating] = useState(false)
   const [breedA, setBreedA] = useState<string | null>(null)
   const [breedB, setBreedB] = useState<string | null>(null)
   const [now, setNow] = useState(() => Date.now())
+  const breedCelebrationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   /** Keep detail modal in sync after growth/skill mutators. */
   const liveDetailPet = useMemo(() => {
@@ -77,6 +79,10 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
     const id = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(id)
   }, [breedOpen])
+
+  useEffect(() => () => {
+    if (breedCelebrationTimerRef.current) clearTimeout(breedCelebrationTimerRef.current)
+  }, [])
 
   const allPets = useMemo<PetData[]>(
     () => (save.pet ? [save.pet, ...save.collection] : [...save.collection]),
@@ -115,6 +121,8 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
 
   const canBreedNow =
     petA && petB && petA.id !== petB.id && canBreed(petA, petB, now) && breedNestCount > 0 && canAddPet(save)
+  const usedSlots = getUsedSlots(save)
+  const freeSlots = Math.max(0, save.petSlotLimit - usedSlots)
 
   const breedBlockReason = ((): string | null => {
     if (adultPets.length < 2) return t('breed.needAdults')
@@ -222,15 +230,19 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
     setBusy(true)
     try {
       await window.electronAPI.patchGame('breedPets', [petA.id, petB.id])
+      setBreedCelebrating(true)
+      onUpdated()
       try {
         await window.electronAPI.forceCloudSave()
       } catch (err) {
         console.error('[collection] failed to sync after breed:', err)
       }
-      setBreedOpen(false)
-      setBreedA(null)
-      setBreedB(null)
-      onUpdated()
+      breedCelebrationTimerRef.current = window.setTimeout(() => {
+        setBreedCelebrating(false)
+        setBreedOpen(false)
+        setBreedA(null)
+        setBreedB(null)
+      }, 1500)
     } finally {
       setBusy(false)
     }
@@ -248,9 +260,12 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
         </button>
       </div>
       <div className="collection-header">
-        <span className="collection-slots">
-          {t('collection.slots', { used: getUsedSlots(save), limit: save.petSlotLimit })}
-        </span>
+        <div className="collection-capacity">
+          <span className="collection-slots">{t('collection.slots', { used: usedSlots, limit: save.petSlotLimit })}</span>
+          <span className={`collection-capacity-status ${freeSlots === 0 ? 'collection-capacity-status--full' : ''}`}>
+            {t(freeSlots === 0 ? 'collection.full' : 'collection.freeSlots', { count: freeSlots })}
+          </span>
+        </div>
         <button
           type="button"
           className="secondary"
@@ -261,6 +276,12 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
           {t('breed.open')} ({breedNestCount})
         </button>
       </div>
+      {freeSlots === 0 && (
+        <div className="collection-capacity-alert" role="status">
+          <strong>{t('collection.noSlots')}</strong>
+          <span>{t('collection.noSlotsHint')}</span>
+        </div>
+      )}
 
       {save.pet && (
         <button
@@ -519,15 +540,16 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
           className="hub-modal-overlay"
           role="dialog"
           aria-modal="true"
-          onClick={() => setBreedOpen(false)}
+          onClick={() => !breedCelebrating && setBreedOpen(false)}
         >
-          <div className="hub-modal card" onClick={(e) => e.stopPropagation()}>
+          <div className="hub-modal hub-modal--lg breed-modal card" onClick={(e) => e.stopPropagation()}>
             <div className="hub-modal-head">
               <h2>{t('breed.title')}</h2>
               <button
                 type="button"
                 className="hub-modal-close"
-                onClick={() => setBreedOpen(false)}
+                onClick={() => !breedCelebrating && setBreedOpen(false)}
+                disabled={breedCelebrating}
                 aria-label={t('common.cancel')}
               >
                 ×
@@ -540,7 +562,17 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
               {' · '}
               {t('breed.nestSource')}
             </p>
-            {breedBlockReason && (
+            {breedCelebrating && (
+              <div className="breed-success-fx" role="status" aria-live="polite">
+                <span className="breed-success-star breed-success-star--one">✦</span>
+                <span className="breed-success-star breed-success-star--two">✦</span>
+                <span className="breed-success-star breed-success-star--three">✦</span>
+                <div className="breed-success-egg" aria-hidden><i /><i /><i /></div>
+                <strong>{t('breed.successTitle')}</strong>
+                <span>{t('breed.successBody')}</span>
+              </div>
+            )}
+            {!breedCelebrating && breedBlockReason && (
               <p className="pet-profile-hint" role="status">
                 <strong>{breedBlockReason}</strong>
               </p>
@@ -602,7 +634,54 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
                 )
               })}
             </div>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+            {!breedCelebrating && <div className="breed-card-picker">
+              <div className="breed-requirements" aria-label={t('breed.requirements')}>
+                <span className={breedNestCount > 0 ? 'breed-requirement--met' : 'breed-requirement--missing'}>{t('breed.nestsOwned', { count: breedNestCount })}</span>
+                <span className={freeSlots > 0 ? 'breed-requirement--met' : 'breed-requirement--missing'}>{t('breed.freeSlots', { count: freeSlots })}</span>
+                <span>{t('breed.oppositeGenderRule')}</span>
+              </div>
+              <div className="breed-journey" aria-label={t('breed.requirements')}>
+                <span className={petA ? 'breed-journey-step--done' : 'breed-journey-step--active'}><b>1</b>{t('breed.parentA')}</span>
+                <i aria-hidden />
+                <span className={petB ? 'breed-journey-step--done' : petA ? 'breed-journey-step--active' : ''}><b>2</b>{t('breed.parentB')}</span>
+                <i aria-hidden />
+                <span className={canBreedNow ? 'breed-journey-step--ready' : ''}><b>3</b>{t('breed.eggResult')}</span>
+              </div>
+              {breedBlockReason && <p className="breed-status-message" role="status"><strong>{breedBlockReason}</strong></p>}
+              <div className="breed-parent-slots">
+                {(['a', 'b'] as const).map((side) => {
+                  const selected = side === 'a' ? petA : petB
+                  const clear = side === 'a' ? () => setBreedA(null) : () => setBreedB(null)
+                  return <div key={side} className={`breed-parent-slot ${selected ? 'breed-parent-slot--selected' : ''}`}>
+                    <span className="breed-parent-label">{t(`breed.parent${side === 'a' ? 'A' : 'B'}`)}</span>
+                    {selected ? <div className="breed-parent-selected">
+                      <div className="breed-parent-preview" style={{ background: petPreviewColor(selected.character) }}><DinoSprite pet={selected} size={54} /></div>
+                      <span><strong>{selected.name}</strong><small>{tCharacter(selected.character)} · {tStage(selected.stage)}</small></span>
+                      <button type="button" className="breed-clear-btn" onClick={clear} aria-label={t('breed.clearParent', { parent: side.toUpperCase() })}>×</button>
+                    </div> : <span className="breed-parent-placeholder">{t('breed.chooseParent')}</span>}
+                  </div>
+                })}
+              </div>
+              <div className="breed-candidate-heading">
+                <strong>{t('breed.choosePet')}</strong>
+                <span>{!petA ? t('breed.choosingParent', { parent: 'A' }) : !petB ? t('breed.choosingParent', { parent: 'B' }) : t('breed.pairComplete')}</span>
+              </div>
+              <div className="breed-candidate-grid">
+                {adultPets.map((pet) => {
+                  const cooldown = breedCooldownLeft(pet)
+                  const selected = pet.id === petA?.id || pet.id === petB?.id
+                  const wrongGender = !!((petA && pet.id !== petA.id && pet.gender === petA.gender) || (petB && pet.id !== petB.id && pet.gender === petB.gender))
+                  const unavailableReason = cooldown > 0 ? t('breed.cooldownLeft', { time: formatCooldown(cooldown) }) : selected ? t('breed.selected') : wrongGender ? t('breed.sameGender') : null
+                  const disabled = selected || !!unavailableReason || (!!petA && !!petB)
+                  return <button key={pet.id} type="button" className={`breed-candidate-card${disabled ? ' breed-candidate-card--disabled' : ''}`} disabled={disabled}
+                    onClick={() => (!petA ? setBreedA(pet.id) : setBreedB(pet.id))}>
+                    <div className="breed-candidate-preview" style={{ background: petPreviewColor(pet.character) }}><DinoSprite pet={pet} size={64} /></div>
+                    <span className="breed-candidate-details"><strong>{pet.name}</strong><small>{tCharacter(pet.character)} · <GenderTag gender={pet.gender} /></small><em className={unavailableReason ? 'breed-cooldown' : 'breed-ready'}>{unavailableReason ?? t('breed.ready')}</em></span>
+                  </button>
+                })}
+              </div>
+            </div>}
+            {!breedCelebrating && <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
               <button type="button" className="secondary" onClick={() => setBreedOpen(false)}>
                 {t('common.cancel')}
               </button>
@@ -614,7 +693,7 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
               >
                 {t('breed.breed')}
               </button>
-            </div>
+            </div>}
           </div>
         </div>
       )}

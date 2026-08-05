@@ -69,6 +69,31 @@ describe('TEST debug buttons', () => {
     expect(save.pet?.pendingGrowthOffers?.length).toBeGreaterThan(0)
   })
 
+  it('debugBoostDev allows evolution to exceed 999', () => {
+    const save = {
+      ...createDefaultSave(),
+      pet: { ...createEggPet('neutral'), stats: { health: 100, emotion: 80, evolution: 999 } }
+    }
+
+    const next = applyGamePatch(save, 'debugBoostDev', [51])
+    expect(next.pet?.stats.evolution).toBe(1050)
+  })
+
+  it('debugAdjustEvoTime changes only a baby pet hatch time', () => {
+    let save = { ...createDefaultSave(), pet: createEggPet('neutral') }
+    save = applyGamePatch(save, 'debugSetStage', ['baby'])
+    const before = new Date(save.pet!.hatchedAt!).getTime()
+
+    const shortened = applyGamePatch(save, 'debugAdjustEvoTime', [-1])
+    expect(new Date(shortened.pet!.hatchedAt!).getTime()).toBe(before - 3_600_000)
+
+    const lengthened = applyGamePatch(shortened, 'debugAdjustEvoTime', [2])
+    expect(new Date(lengthened.pet!.hatchedAt!).getTime()).toBe(before + 3_600_000)
+
+    const egg = createDefaultSave()
+    expect(applyGamePatch(egg, 'debugAdjustEvoTime', [-1])).toBe(egg)
+  })
+
   it('newEgg adds a species-specific egg into collection', () => {
     const save = createDefaultSave()
     const used = 1 + save.collection.length

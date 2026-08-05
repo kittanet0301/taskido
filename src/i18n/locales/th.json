@@ -259,6 +259,9 @@
     "delete": "ปล่อยทิ้ง",
     "deleteConfirm": "ปล่อย {{name}} ออกจากคลัง? ไม่สามารถกู้คืนได้",
     "noSlots": "ไม่มีช่องว่าง",
+    "noSlotsHint": "ปล่อยสัตว์หรือเพิ่มพื้นที่คอลเลกชันก่อนผสมพันธุ์",
+    "freeSlots": "เหลือ {{count}} ช่อง",
+    "full": "คอลเลกชันเต็ม",
     "page": "หน้า {{current}} / {{total}}",
     "active": "กำลังเล่น",
     "viewDetails": "ดูรายละเอียดสัตว์",
@@ -360,6 +363,9 @@
     "evolveBanner": "พัฒนาร่างแล้ว!",
     "evolveBannerAdult": "ร่าง Adult",
     "evolveRequirementHint": "ต้องมีพัฒนาร่าง >= {{points}} และเลี้ยงมาอย่างน้อย {{hours}} ชั่วโมง",
+    "evolveCountdown": "รอวิวัฒนาการอีก {{time}}",
+    "evolveTimeDecrease": "ลดเวลารอวิวัฒนาการ 12 ชั่วโมง",
+    "evolveTimeIncrease": "เพิ่มเวลารอวิวัฒนาการ 12 ชั่วโมง",
     "noCloudPetForFriend": "เพื่อนยังไม่มีสัตว์เลี้ยงในคลาวด์"
   },
   "battle": {
@@ -818,7 +824,19 @@
     "needNest": "ต้องมีรังผสมพันธุ์ก่อน",
     "needAdults": "ต้องมีสัตว์โตอย่างน้อย 2 ตัว",
     "needOppositeGender": "ต้องเลือกเพศต่างกัน",
-    "sameGender": "เพศเดียวกัน"
+    "sameGender": "เพศเดียวกัน",
+    "requirements": "เงื่อนไขการผสมพันธุ์",
+    "freeSlots": "ช่องว่าง: {{count}}",
+    "oppositeGenderRule": "เลือกเพศต่างกัน",
+    "chooseParent": "เลือกสัตว์จากด้านล่าง",
+    "clearParent": "ล้างพ่อแม่ {{parent}}",
+    "choosePet": "เลือกสัตว์โต",
+    "choosingParent": "กำลังเลือกพ่อแม่ {{parent}}",
+    "pairComplete": "เลือกคู่แล้ว",
+    "selected": "เลือกแล้ว",
+    "eggResult": "ไข่ใบใหม่"
+    ,"successTitle": "ได้ไข่ใบใหม่แล้ว!"
+    ,"successBody": "เพื่อนใหม่ของคุณกำลังรออยู่ในคอลเลกชัน"
   },
   "months": {
     "1": "ม.ค.",

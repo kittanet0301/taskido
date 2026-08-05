@@ -260,6 +260,9 @@
     "delete": "Release",
     "deleteConfirm": "Release {{name}} from your collection? This cannot be undone.",
     "noSlots": "No free slots",
+    "noSlotsHint": "Release a pet or increase your collection space before breeding.",
+    "freeSlots": "{{count}} free slot",
+    "full": "Collection full",
     "page": "Page {{current}} / {{total}}",
     "active": "Playing",
     "viewDetails": "View pet details",
@@ -361,6 +364,9 @@
     "evolveBanner": "Evolved!",
     "evolveBannerAdult": "Adult form",
     "evolveRequirementHint": "Requires evolution >= {{points}} and at least {{hours}} hours raised.",
+    "evolveCountdown": "Evolution available in {{time}}",
+    "evolveTimeDecrease": "Reduce evolution wait by 12 hours",
+    "evolveTimeIncrease": "Increase evolution wait by 12 hours",
     "noCloudPetForFriend": "Friend has no pet in cloud."
   },
   "battle": {
@@ -819,7 +825,19 @@
     "needNest": "You need a breeding nest first",
     "needAdults": "You need at least two adult pets",
     "needOppositeGender": "Pick opposite genders",
-    "sameGender": "same gender"
+    "sameGender": "same gender",
+    "requirements": "Breeding requirements",
+    "freeSlots": "Free slots: {{count}}",
+    "oppositeGenderRule": "Choose opposite genders",
+    "chooseParent": "Choose a pet below",
+    "clearParent": "Clear parent {{parent}}",
+    "choosePet": "Choose an adult pet",
+    "choosingParent": "Selecting Parent {{parent}}",
+    "pairComplete": "Pair selected",
+    "selected": "Selected",
+    "eggResult": "New egg"
+    ,"successTitle": "A new egg is here!"
+    ,"successBody": "Your new companion is waiting in the collection."
   },
   "months": {
     "1": "Jan",
