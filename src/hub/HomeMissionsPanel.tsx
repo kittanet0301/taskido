@@ -5,6 +5,7 @@ import { getMissionDefinition, isEggRewardMission, type MissionDefinition, type 
 import { canAddPet } from '../shared/petCollection'
 import { missionRewardIconSrc } from '../shared/itemIcons'
 import { tMissionReward, tMissionTitle } from '../i18n/labels'
+import { playSfx } from '../shared/audio'
 
 interface Props {
   save: GameSave
@@ -36,6 +37,7 @@ export function HomeMissionsPanel({ save, onUpdated }: Props) {
 
   const claim = async (missionId: string) => {
     await window.electronAPI.patchGame('claimMission', [missionId])
+    playSfx('mission_claim')
     onUpdated()
   }
 

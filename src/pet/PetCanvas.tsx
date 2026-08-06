@@ -22,6 +22,8 @@ import {
   spriteFrameIndexForClip
 } from '../shared/petSprites'
 import type { PetSpriteFolder } from '../shared/petSprites'
+import { careItemSfx } from '../shared/audio/careSfx'
+import { playSfx } from '../shared/audio'
 
 const DEFAULT_SIZE = 96
 /** Desktop overlay pet is half the hub/collection display size. */
@@ -251,7 +253,10 @@ export function PetCanvas() {
 
   useEffect(() => {
     const onDblClick = () => {
-      if (save?.pet && save.pet.stage !== 'egg') window.petAPI.patchGame('useItem', ['toy'])
+      if (save?.pet && save.pet.stage !== 'egg') {
+        window.petAPI.patchGame('useItem', ['toy'])
+        playSfx(careItemSfx('toy'), { element: save.pet.elementPrimary })
+      }
     }
     const onContext = (e: MouseEvent) => {
       e.preventDefault()

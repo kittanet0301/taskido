@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { PetData } from '../shared/types'
 import { getDevPointsHatch, petPreviewColor } from '../shared/constants'
 import { waitForHatchAnimation } from '../shared/petSprites'
+import { playSfx } from '../shared/audio'
 import { DinoSprite } from '../components/DinoSprite'
 import { GenderTag } from '../components/GenderTag'
 import { canHatchEgg } from '../shared/stats'
@@ -56,6 +57,7 @@ export function EggHatch({ pet, onHatched }: Props) {
     hatchDoneRef.current = null
     await window.electronAPI.patchGame('rename', [name])
     await window.electronAPI.patchGame('hatch')
+    playSfx('hatch', { element: pet.elementPrimary })
     setHatching(false)
     onHatched()
   }

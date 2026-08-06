@@ -10,6 +10,7 @@ import {
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
 import { setGameSpeedMultiplier, type GameSpeedMultiplier } from './shared/gameSpeed'
+import { playSfx } from './shared/audio'
 import './i18n'
 import { GetStarted } from './hub/GetStarted'
 import { LoginGate } from './hub/LoginGate'
@@ -279,6 +280,9 @@ function AppContent({ variant = 'desktop' }: Props) {
     }
 
     const next = reconcileEggNotifications(save.collection, previous)
+    if (next.unreadIds.length > (previous?.unreadIds.length ?? 0)) {
+      playSfx('egg_notify')
+    }
     setEggNotifications(next)
     localStorage.setItem(storageKey, JSON.stringify(next))
   }, [session?.user?.id, save?.collection])
@@ -432,6 +436,7 @@ function AppContent({ variant = 'desktop' }: Props) {
                   : null
 
   const handleSidebarNavigate = (target: HubSidebarTarget) => {
+    playSfx('ui_tab')
     if (target === 'battle') {
       void handleMainViewChange('battle')
       return

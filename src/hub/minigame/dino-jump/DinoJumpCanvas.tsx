@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { GameSave, Stage } from '../../../shared/types'
+import { playSfx } from '../../../shared/audio'
 import { petPreviewColor } from '../../../shared/constants'
 import { flipXForFacing } from '../../../shared/dinoAnim'
 import { isCreatureSpecies } from '../../../shared/creatureCharacters'
@@ -134,6 +135,7 @@ export function DinoJumpCanvas({ save, running, onDistanceChange, onGameOver }: 
     const tick = async () => {
       frameRef.current += 1
       const input = jumpInputRef.current
+      const prev = stateRef.current
       stateRef.current = tickJumpState(stateRef.current, input)
       jumpInputRef.current = {
         jumpPressed: false,
@@ -141,6 +143,9 @@ export function DinoJumpCanvas({ save, running, onDistanceChange, onGameOver }: 
         jumpReleased: false
       }
       const state = stateRef.current
+      if (input.jumpPressed && state.jumping && !prev.jumping) playSfx('jump')
+      if (state.grounded && prev.jumping && !state.jumping) playSfx('land')
+      if (state.dead && !prev.dead) playSfx('minigame_hit')
       const score = getScore(state.distanceRan)
       onDistanceChangeRef.current(state.distanceRan, score)
 
@@ -219,6 +224,7 @@ export function DinoJumpCanvas({ save, running, onDistanceChange, onGameOver }: 
 
       if (state.dead && !reportedOverRef.current) {
         reportedOverRef.current = true
+        playSfx('minigame_over')
         onGameOverRef.current(score)
       }
 

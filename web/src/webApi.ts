@@ -69,14 +69,14 @@ import type { MinigameId } from '@shared/types'
 import { setSessionIsAdmin } from '@shared/gameMutators'
 import { isAdminRole } from '@shared/userRole'
 import { updateSave } from './gameStore'
-import { setGameSpeedMultiplier } from '@shared/gameSpeed'
+import { setGameSpeedMultiplier, type GameSpeedMultiplier } from '@shared/gameSpeed'
 
 const chatRoomListeners = new Set<(payload: unknown) => void>()
 const battleListeners = new Set<(payload: unknown) => void>()
 let chatRoomUnsubscribe: (() => void) | null = null
 let battleUnsubscribe: (() => void) | null = null
 let roomUnsubscribe: (() => void) | null = null
-const gameSpeedListeners = new Set<(multiplier: 1 | 2 | 4 | 8 | 16) => void>()
+const gameSpeedListeners = new Set<(multiplier: GameSpeedMultiplier) => void>()
 let gameSpeedUnsubscribe: (() => void) | null = null
 
 export function createWebApi(): GameAPI {

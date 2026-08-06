@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BattleSession, BattleTurn } from '../../shared/battle/types'
+import { playBattleOutcome } from '../../shared/audio/battleSfx'
 
 interface Props {
   session: BattleSession
@@ -22,6 +24,11 @@ export function BattleEndModal({ session, turns, userId, onClose }: Props) {
   const winnerName = getWinnerName(turns)
   const isWinner = session.winnerUserId === userId
   const fledSelf = session.status === 'fled' && session.fledUserId === userId
+
+  useEffect(() => {
+    if (session.status === 'fled' && fledSelf) return
+    playBattleOutcome(isWinner)
+  }, [session.status, fledSelf, isWinner])
 
   let title: string
   let subtitle: string

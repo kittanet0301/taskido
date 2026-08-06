@@ -1,4 +1,4 @@
-export const GAME_SPEED_MULTIPLIERS = [1, 2, 4, 8, 16] as const
+export const GAME_SPEED_MULTIPLIERS = [1, 4, 8, 16, 32, 64] as const
 
 export type GameSpeedMultiplier = (typeof GAME_SPEED_MULTIPLIERS)[number]
 

@@ -1,3 +1,4 @@
+import type { BattleTurn } from '../battle/types'
 import type { BattleFxDescriptor, BattleFxPhase } from '../battle/battleFx'
 import type { SfxId } from './soundIds'
 import { playSfx } from './soundManager'
@@ -21,6 +22,16 @@ const PHASE_OFFSETS: Record<BattleFxPhase, number> = {
   recover: 0.52
 }
 
+export function playBattleTurnSfx(turn: BattleTurn): void {
+  if (turn.action === 'flee') {
+    playSfx('battle_flee')
+    return
+  }
+  if (turn.action === 'item') {
+    playSfx('battle_heal')
+  }
+}
+
 export function playBattleFxSounds(fx: BattleFxDescriptor): void {
   const roleSfx = ROLE_SFX[fx.role]
   if (roleSfx) {
@@ -35,12 +46,6 @@ export function playBattleFxSounds(fx: BattleFxDescriptor): void {
     window.setTimeout(() => {
       playSfx(sfx, { element: fx.element })
     }, delayMs)
-  }
-
-  if (fx.damage > 0 && fx.phases.includes('impact')) {
-    window.setTimeout(() => {
-      playSfx('battle_ko', { element: fx.element, pitchMultiplier: 0.85 })
-    }, Math.round(0.28 * fx.durationMs))
   }
 }
 

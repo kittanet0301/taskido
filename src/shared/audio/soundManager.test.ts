@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { SOUND_PRESETS } from './soundPresets'
 import { SFX_IDS } from './soundIds'
 import {
@@ -11,7 +11,28 @@ import {
   toggleMuted
 } from './soundManager'
 
+function installLocalStorageMock(): void {
+  const store = new Map<string, string>()
+  const mock = {
+    getItem: (key: string) => (store.has(key) ? store.get(key)! : null),
+    setItem: (key: string, value: string) => {
+      store.set(key, value)
+    },
+    removeItem: (key: string) => {
+      store.delete(key)
+    },
+    clear: () => {
+      store.clear()
+    }
+  }
+  Object.defineProperty(globalThis, 'localStorage', { value: mock, configurable: true })
+}
+
 describe('soundManager', () => {
+  beforeEach(() => {
+    installLocalStorageMock()
+  })
+
   afterEach(() => {
     __resetSoundManagerForTests(false)
     localStorage.removeItem(AUDIO_MUTE_STORAGE_KEY)

@@ -14,6 +14,8 @@ import {
 import { canEvolveToAdult, canHatchEgg } from '../shared/stats'
 import { tCharacter, tItemDescription, tItemLabel } from '../i18n/labels'
 import { creatureDisplaySize, waitForHatchAnimation } from '../shared/petSprites'
+import { careItemSfx } from '../shared/audio/careSfx'
+import { playSfx } from '../shared/audio'
 import { PLAYABLE_CREATURE_SPECIES, isCreatureSpecies } from '../shared/creatureCharacters'
 import { ALL_ITEM_TYPES, ITEM_ICON_SRC } from '../shared/itemIcons'
 import { HomeMissionsPanel } from './HomeMissionsPanel'
@@ -226,12 +228,13 @@ export function HomeDashboard({
         itemType: type,
         deltas: feedback.deltas
       })
+      playSfx(careItemSfx(type), { element: pet?.elementPrimary })
       careClearTimerRef.current = setTimeout(() => {
         careClearTimerRef.current = null
         void clearCareFeedback()
       }, CARE_FEEDBACK_MS)
     },
-    [clearCareFeedback]
+    [clearCareFeedback, pet?.elementPrimary]
   )
 
   const playStatFeedback = useCallback(
@@ -263,12 +266,13 @@ export function HomeDashboard({
     setEvolveFx(null)
     setCareAnim('happy')
     setLevelUpFx({ key: careFxKeyRef.current, level })
+    playSfx('level_up', { element: pet?.elementPrimary })
     levelUpFxTimerRef.current = setTimeout(() => {
       levelUpFxTimerRef.current = null
       setCareAnim(null)
       setLevelUpFx(null)
     }, LEVEL_UP_FX_MS)
-  }, [])
+  }, [pet?.elementPrimary])
 
   const finishEvolveFx = useCallback(async () => {
     setCareAnim(null)
@@ -295,11 +299,12 @@ export function HomeDashboard({
     setEvolvePhase('reveal')
     setCareAnim('happy')
     setEvolveFx({ key: careFxKeyRef.current })
+    playSfx('evolve', { element: pet?.elementPrimary })
     evolveFxTimerRef.current = setTimeout(() => {
       evolveFxTimerRef.current = null
       void finishEvolveFx()
     }, EVOLVE_FX_MS)
-  }, [finishEvolveFx])
+  }, [finishEvolveFx, pet?.elementPrimary])
 
   useEffect(() => {
     if (!carePulse || carePulse.key === lastCarePulseKeyRef.current) return
@@ -373,6 +378,7 @@ export function HomeDashboard({
       })
       hatchDoneRef.current = null
       await window.electronAPI.patchGame('hatch')
+      playSfx('hatch', { element: pet.elementPrimary })
       await onUpdated()
       setHatching(false)
       return

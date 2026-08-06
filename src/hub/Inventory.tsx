@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { GameSave, ItemType } from '../shared/types'
+import { careItemSfx } from '../shared/audio/careSfx'
+import { playSfx } from '../shared/audio'
 import { getCareFeedback } from '../shared/careFeedback'
 import { ITEM_ICON_SRC } from '../shared/itemIcons'
 import { tItemDescription, tItemLabel } from '../i18n/labels'
@@ -48,6 +50,9 @@ export function Inventory({ save, onClose, onUpdated, onCareUsed, onSkillForget 
     setError(null)
     try {
       await window.electronAPI.patchGame('useItem', [type])
+      playSfx(getCareFeedback(type) ? careItemSfx(type) : 'item_use', {
+        element: save.pet?.elementPrimary
+      })
       await onUpdated?.()
       onCareUsed?.(type)
       onClose()

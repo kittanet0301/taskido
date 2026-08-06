@@ -13,7 +13,7 @@ import { setGameSpeedMultiplier } from './gameSpeed'
 describe('global game speed multiplier', () => {
   afterEach(() => setGameSpeedMultiplier(1))
 
-  it.each([1, 2, 4, 8, 16] as const)('applies x%s to every progress rule', (multiplier) => {
+  it.each([1, 4, 8, 16, 32, 64] as const)('applies x%s to every progress rule', (multiplier) => {
     setGameSpeedMultiplier(multiplier)
     expect(getDevPointsHatch()).toBe(100 / multiplier)
     expect(getDevPointsAdult()).toBe(500 / multiplier)

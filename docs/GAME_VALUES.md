@@ -37,7 +37,7 @@
 | `BREED_COOLDOWN_MS` | 6 ชม. | Cooldown ผสมพันธุ์ต่อตัว |
 | `BREED_PURE_BONUS` | +5% | โบนัส pure element ตอนผสม (พ่อแม่ pure ธาตุเดียวกัน) |
 
-**Game Speed (Admin):** ค่าข้างต้นหาร/คูณด้วย multiplier (1, 2, 4, 8, 16) — ดู `src/shared/gameSpeed.ts`
+**Game Speed (Admin):** ค่าข้างต้นหาร/คูณด้วย multiplier (1, 4, 8, 16, 32, 64) — ดู `src/shared/gameSpeed.ts`
 
 ### Activity Score
 

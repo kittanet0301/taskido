@@ -9,6 +9,7 @@ import { tCharacter, tStage } from '../i18n/labels'
 import { canAddPet, getCollectionPageCount, getUsedSlots } from '../shared/petCollection'
 import { getPetLevel, getStageLabel } from '../shared/activityScore'
 import { canBreed } from '../shared/growth'
+import { playSfx } from '../shared/audio'
 import { CombatStatCheck } from '../components/CombatStatCheck'
 import { PetLoadoutPanel } from '../components/PetLoadoutPanel'
 
@@ -220,6 +221,7 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
   const confirmDelete = async () => {
     if (!pendingDelete) return
     await window.electronAPI.patchGame('releasePet', [pendingDelete.id])
+    playSfx('release')
     setPendingDelete(null)
     setDetailPet(null)
     onUpdated()
@@ -230,6 +232,7 @@ export function PetCollection({ save, newEggIds = [], onEggViewed, onUpdated, on
     setBusy(true)
     try {
       await window.electronAPI.patchGame('breedPets', [petA.id, petB.id])
+      playSfx('breed')
       setBreedCelebrating(true)
       onUpdated()
       try {

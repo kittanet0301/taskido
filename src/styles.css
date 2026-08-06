@@ -3283,7 +3283,7 @@ button.dash-hud-avatar--btn:disabled {
 
 .admin-game-speed { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px; border: 2px solid #825020; background: rgba(31, 18, 8, .32); }
 .admin-game-speed p { margin: 4px 0 0; color: #eacb8c; font-size: .85rem; }
-.admin-game-speed-actions { display: grid; grid-template-columns: repeat(5, 1fr); flex: 0 0 266px; gap: 5px; }
+.admin-game-speed-actions { display: grid; grid-template-columns: repeat(6, 1fr); flex: 0 0 318px; gap: 5px; }
 .admin-game-speed-button {
   position: static;
   min-width: 0;

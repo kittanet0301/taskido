@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { GameSave } from '../shared/types'
+import { playSfx } from '../shared/audio'
 import { ITEM_ICON_SRC } from '../shared/itemIcons'
 import { PET_SLOT_MAX } from '../shared/constants'
 import { canAddPet } from '../shared/petCollection'
@@ -77,6 +78,7 @@ export function Market({ save, onClose, onUpdated }: Props) {
     setError(null)
     try {
       await window.electronAPI.patchGame('buyMarket', [offerId])
+      playSfx('market_buy')
       await onUpdated?.()
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e))

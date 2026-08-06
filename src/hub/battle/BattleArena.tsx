@@ -9,6 +9,8 @@ import { getSkillDef, skillPower } from '../../shared/battle/skillTrees'
 import { SkillIcon } from '../../components/SkillIcon'
 import { deriveCombatStats } from '../../shared/combatStats'
 import { collectUnseenBattleFx, isSelfBattleFx, resolveBattleFighterAnim, usesAura, usesProjectile, type BattleFxDescriptor } from '../../shared/battle/battleFx'
+import { playBattleFxSounds, playBattleTurnSfx } from '../../shared/audio/battleSfx'
+import { playSfx } from '../../shared/audio'
 
 type MenuView = 'commands' | 'items'
 type FighterAnchor = { x: number; y: number }
@@ -125,6 +127,10 @@ export function BattleArena({
       setActiveFx(null)
       return
     }
+    for (const turn of turns) {
+      if (seenTurnIds.current.has(turn.id)) continue
+      playBattleTurnSfx(turn)
+    }
     const descriptors = collectUnseenBattleFx(
       turns,
       seenTurnIds.current,
@@ -143,6 +149,7 @@ export function BattleArena({
 
   useEffect(() => {
     if (!activeFx) return
+    playBattleFxSounds(activeFx)
     const timer = window.setTimeout(() => setActiveFx(null), activeFx.durationMs)
     return () => window.clearTimeout(timer)
   }, [activeFx])
@@ -212,6 +219,7 @@ export function BattleArena({
 
   const act = async (command: BattleCommand, extra?: { skillId?: string; itemType?: string }) => {
     if (!myTurn || submitting || fxBusy) return
+    playSfx('ui_confirm')
     setSubmitting(true)
     try {
       await onAction(command, extra)

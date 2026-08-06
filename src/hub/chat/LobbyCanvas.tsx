@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { Gender, Stage } from '../../shared/types'
+import { playSfx } from '../../shared/audio'
 import { petPreviewColor } from '../../shared/constants'
 import { normalizePetSpecies } from '../../shared/creatureCharacters'
 import {
@@ -198,6 +199,7 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
   const bubblesRef = useRef<Map<string, import('./types').SpeechBubble>>(new Map())
   const spriteCacheRef = useRef<Map<string, HTMLImageElement>>(new Map())
   const lastSyncRef = useRef(0)
+  const prevAnimRef = useRef<string>('idle')
   const membersRef = useRef(members)
   const onSyncRef = useRef(onPositionSync)
 
@@ -344,6 +346,11 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
 
       physicsRef.current = tickPhysics(physicsRef.current, frame, input)
       const phys = physicsRef.current
+      if (phys.anim !== prevAnimRef.current) {
+        if (phys.anim === 'dash') playSfx('chat_dash')
+        if (phys.anim === 'bite') playSfx('chat_bite')
+        prevAnimRef.current = phys.anim
+      }
 
       if (now - lastSyncRef.current >= SYNC_MS) {
         lastSyncRef.current = now

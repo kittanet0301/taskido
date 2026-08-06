@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { GameSave, Stage } from '../../../shared/types'
+import { playSfx } from '../../../shared/audio'
 import { petPreviewColor } from '../../../shared/constants'
 import { flipXForFacing } from '../../../shared/dinoAnim'
 import { isCreatureSpecies } from '../../../shared/creatureCharacters'
@@ -198,8 +199,11 @@ export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Pr
     const tick = async () => {
       frameRef.current += 1
       const input = inputRef.current
+      const prev = stateRef.current
       stateRef.current = tickDodgeState(stateRef.current, input)
       const state = stateRef.current
+      if (state.eggsCollected > prev.eggsCollected) playSfx('collect')
+      if (state.dead && !prev.dead) playSfx('minigame_hit')
       if (input.move === -1) facingRef.current = 'left'
       else if (input.move === 1) facingRef.current = 'right'
 
@@ -281,6 +285,7 @@ export function RockDodgeCanvas({ save, running, onScoreChange, onGameOver }: Pr
 
       if ((state.dead || state.won) && !reportedOverRef.current) {
         reportedOverRef.current = true
+        playSfx('minigame_over')
         onGameOverRef.current(score)
       }
 
