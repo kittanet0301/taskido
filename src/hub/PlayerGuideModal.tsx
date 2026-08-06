@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
+import techStackMd from '../../docs/TECH_STACK.md?raw'
+
 import {
 
   ELEMENT_IDS,
@@ -20,7 +22,7 @@ import {
 
 } from '../shared/elements'
 
-
+import { MarkdownContent } from './MarkdownContent'
 
 interface Props {
 
@@ -61,6 +63,10 @@ const PLAY_STEP_IDS = ['login', 'activity', 'hatch', 'care', 'level', 'pvp', 'mi
 
 
 const GUIDE_SCROLL_ANCHOR_PX = 96
+
+type GuideModalTab = 'guide' | 'techStack'
+
+const TECH_STACK_DISPLAY = techStackMd.split('\n## เอกสารที่เกี่ยวข้อง')[0]?.trimEnd() ?? techStackMd
 
 
 
@@ -177,9 +183,9 @@ export function PlayerGuideModal({ onClose }: Props) {
   const { t } = useTranslation()
 
   const contentRef = useRef<HTMLDivElement>(null)
-
+  const techStackRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLElement>(null)
-
+  const [activeTab, setActiveTab] = useState<GuideModalTab>('guide')
   const [activeSection, setActiveSection] = useState<string>('howto')
 
   const purePct = Math.round(PURE_CHANCE * 100)
@@ -209,6 +215,7 @@ export function PlayerGuideModal({ onClose }: Props) {
 
 
   useEffect(() => {
+    if (activeTab !== 'guide') return
 
     const root = contentRef.current
 
@@ -262,7 +269,7 @@ export function PlayerGuideModal({ onClose }: Props) {
 
     return () => root.removeEventListener('scroll', syncActiveSection)
 
-  }, [])
+  }, [activeTab])
 
 
 
@@ -294,6 +301,14 @@ export function PlayerGuideModal({ onClose }: Props) {
 
 
 
+  const switchTab = useCallback((tab: GuideModalTab) => {
+    setActiveTab(tab)
+    contentRef.current?.scrollTo({ top: 0 })
+    techStackRef.current?.scrollTo({ top: 0 })
+  }, [])
+
+
+
   return (
 
     <div className="hub-modal-overlay" role="dialog" aria-modal="true" onClick={onClose}>
@@ -308,9 +323,31 @@ export function PlayerGuideModal({ onClose }: Props) {
 
       >
 
-        <div className="hub-modal-head guide-modal-head">
+        <div className="guide-modal-topbar">
 
-          <h2 id="player-guide-title">{t('guide.title')}</h2>
+          <div className="guide-modal-tabs" role="tablist" aria-label={t('guide.navLabel')}>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'guide'}
+              className={`guide-modal-tab${activeTab === 'guide' ? ' guide-modal-tab--active' : ''}`}
+              onClick={() => switchTab('guide')}
+            >
+              {t('guide.tabs.guide')}
+            </button>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'techStack'}
+              className={`guide-modal-tab${activeTab === 'techStack' ? ' guide-modal-tab--active' : ''}`}
+              onClick={() => switchTab('techStack')}
+            >
+              {t('guide.tabs.techStack')}
+            </button>
+
+          </div>
 
           <button type="button" className="hub-modal-close" onClick={onClose} aria-label={t('common.cancel')}>
 
@@ -321,6 +358,18 @@ export function PlayerGuideModal({ onClose }: Props) {
         </div>
 
 
+
+        <div className="hub-modal-head guide-modal-head">
+
+          <h2 id="player-guide-title">
+            {activeTab === 'guide' ? t('guide.tabs.guide') : t('guide.tabs.techStack')}
+          </h2>
+
+        </div>
+
+
+
+        {activeTab === 'guide' ? (
 
         <div className="guide-modal-body">
 
@@ -1043,6 +1092,16 @@ export function PlayerGuideModal({ onClose }: Props) {
           </div>
 
         </div>
+
+        ) : (
+
+        <div ref={techStackRef} className="guide-techstack-body">
+
+          <MarkdownContent source={TECH_STACK_DISPLAY} />
+
+        </div>
+
+        )}
 
       </div>
 

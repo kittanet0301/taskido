@@ -200,6 +200,7 @@ src/
 │   ├── types.ts
 │   ├── gameMutators.ts  # Save mutations (patchGame API)
 │   ├── battle/          # Engine, damage, skills, bot
+│   ├── audio/           # Procedural chiptune SFX + BGM (Web Audio API)
 │   └── supabaseService.ts
 ├── components/          # Reusable UI
 ├── i18n/                # en.json, th.json
@@ -225,6 +226,180 @@ src/
 - **Frame data:** `src/shared/creatureFrameManifest.ts` (sync กับ `assets/creatures/frame-manifest.json`)
 - **Battle FX:** sprite atlas จาก `src/shared/battle/battleFx.ts`
 - **Minigames:** dedicated canvas components (`DinoJumpCanvas`, `RockDodgeCanvas`)
+
+---
+
+## Audio — Procedural Chiptune (Web Audio API)
+
+Taskino **ไม่ใช้ไฟล์เสียง (.mp3 / .wav / .ogg)** — SFX และ BGM ทั้งหมดสังเคราะห์แบบ real-time ผ่าน **Web Audio API** ใน renderer (desktop + web) สไตล์ chiptune/8-bit โดยไม่มี dependency เพิ่มเติม
+
+### สถาปัตยกรรม
+
+```text
+src/shared/audio/
+├── soundManager.ts       ← singleton: unlock, mute, playSfx, setBgmTrack
+├── chiptuneSynth.ts      ← one-shot SFX (oscillator / noise buffer)
+├── chiptuneSequencer.ts  ← looping BGM scheduler
+├── soundPresets.ts       ← SFX preset catalog (freq, wave, ADSR, sequence)
+├── musicTracks.ts        ← BGM track definitions (BPM, channels, patterns)
+├── soundIds.ts           ← typed SfxId list (40 รายการ)
+├── musicIds.ts           ← typed BgmId list (5 แทร็ก)
+├── audioLevels.ts        ← global gain constants + peak limiter
+├── elementPitch.ts       ← pitch multiplier ตาม element ของ creature
+├── battleSfx.ts          ← map battle FX phases → SFX + timing offset
+├── careSfx.ts            ← map care item type → SFX
+└── index.ts              ← public exports
+
+src/components/AudioMuteButton.tsx   ← HUD mute toggle
+```
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  SoundManager (singleton)                                   │
+│  · AudioContext lifecycle + browser unlock                  │
+│  · mute state → localStorage `taskino-audio-muted`          │
+└──────────────┬──────────────────────────┬───────────────────┘
+               │                          │
+    ┌──────────▼──────────┐    ┌──────────▼──────────┐
+    │  ChiptuneSynth      │    │  ChiptuneSequencer  │
+    │  one-shot SFX       │    │  looping BGM        │
+    │  max 8 voices       │    │  max 6 voices       │
+    └──────────┬──────────┘    └──────────┬──────────┘
+               │                          │
+    ┌──────────▼──────────┐    ┌──────────▼──────────┐
+    │  SOUND_PRESETS      │    │  MUSIC_TRACKS       │
+    │  (soundPresets.ts)  │    │  (musicTracks.ts)   │
+    └─────────────────────┘    └─────────────────────┘
+               │                          │
+               └──────────┬───────────────┘
+                          ▼
+                 Web Audio API → destination
+```
+
+### หลักการ gen เสียง
+
+| หลักการ | รายละเอียด |
+|---|---|
+| **Procedural only** | ไม่ bundle asset เสียง — ทุกเสียง gen จาก oscillator / noise buffer ตอน runtime |
+| **Preset-as-data** | เพิ่ม/แก้เสียงโดยแก้ TypeScript preset ไม่ต้อง export WAV |
+| **Chiptune waves** | `square`, `triangle`, `sawtooth`, `noise` (noise ผ่าน bandpass filter) |
+| **ADSR envelope** | `attack`, `decay`, `sustain`, `release`, `gain` ต่อ preset |
+| **Melodic sequences** | SFX แบบ arpeggio ใช้ `sequence: ToneStep[]` + `noteDuration` |
+| **Element pitch** | battle/creature SFX ปรับ pitch ตาม element (`elementPitch.ts`) |
+| **Peak limiting** | `AUDIO_PEAK_LIMIT` กัน clipping บน Web Audio bus |
+
+### SFX preset model (`SoundPreset`)
+
+```typescript
+interface SoundPreset {
+  wave?: 'square' | 'triangle' | 'sawtooth' | 'noise'
+  freq?: number          // Hz เริ่มต้น
+  freqEnd?: number       // pitch slide ตอนจบ (optional)
+  duration?: number      // วินาที
+  attack?: number
+  decay?: number
+  sustain?: number
+  release?: number
+  gain?: number
+  sequence?: { freq: number; duration?: number }[]  // arpeggio
+  noteDuration?: number
+}
+```
+
+**ตัวอย่าง preset:**
+
+| Preset | รูปแบบ |
+|---|---|
+| `ui_click` | single tone — triangle 880 Hz, 40 ms |
+| `battle_impact` | pitch slide — square 440→110 Hz |
+| `level_up` | arpeggio — C5→E5→G5→B5 |
+| `battle_travel` | noise sweep — bandpass 600→200 Hz |
+
+**SFX catalog (40 รายการ)** แบ่งตาม domain:
+
+| กลุ่ม | ตัวอย่าง ID |
+|---|---|
+| UI | `ui_click`, `ui_confirm`, `ui_cancel`, `ui_tab`, `ui_error`, `title_start` |
+| Care | `care_eat`, `care_drink`, `care_medicine`, `care_toy`, `care_happy` |
+| Progression | `level_up`, `evolve`, `hatch`, `egg_notify`, `mission_claim` |
+| Battle | `battle_windup`, `battle_travel`, `battle_impact`, `battle_recover`, `battle_guard`, `battle_dodge`, `battle_heal`, `battle_flee`, `battle_ko`, `battle_win`, `battle_lose` |
+| Minigame | `jump`, `land`, `minigame_hit`, `minigame_over` |
+| Economy / social | `collect`, `market_buy`, `item_use`, `breed`, `release`, `chat_dash`, `chat_bite`, `notification_pop` |
+
+ทุก `SfxId` ใน `soundIds.ts` ต้องมี entry ใน `SOUND_PRESETS` — ตรวจด้วย Vitest (`soundManager.test.ts`)
+
+### BGM track model (`MusicTrack`)
+
+```typescript
+interface MusicTrack {
+  bpm: number
+  beatsPerBar: number
+  bars: number
+  masterGain: number
+  channels: {
+    wave: WaveType
+    gain: number
+    pattern: { freq: number | null; beats: number }[]  // null = rest
+  }[]
+}
+```
+
+Sequencer วน loop ตาม `beatsPerBar × bars` โดย schedule note ล่วงหน้า 200 ms (`LOOKAHEAD_SEC`) ผ่าน interval tick 25 ms — crossfade 400 ms ตอนเปลี่ยน/หยุดแทร็ก
+
+| BgmId | BPM | บทบาท | ใช้ที่ |
+|---|---|---|---|
+| `title` | 90 | เปิดเกม / intro | `TitleScreen` |
+| `hub` | 110 | เมนูหลัก / home | hub views ทั่วไป |
+| `battle` | 140 | ต่อสู้ปกติ | `BotBattle`, PvP |
+| `boss` | 168 | ต่อสู้ boss / intense | boss encounters |
+| `minigame` | 130 | มินิเกม | `DinoJump`, `RockDodge` |
+
+### API ที่ UI เรียกใช้
+
+| Function | หน้าที่ |
+|---|---|
+| `playSfx(id, { element?, pitchMultiplier? })` | เล่น one-shot SFX |
+| `setBgmTrack(id \| null)` | สลับ/หยุด BGM (crossfade) |
+| `pauseBgm()` / `stopBgm()` | หยุด playback โดยไม่ลืม track ที่เลือก / ล้าง selection |
+| `unlockAudio()` | resume `AudioContext` หลัง user gesture (browser autoplay policy) |
+| `toggleMuted()` / `isMuted()` | mute ทั้ง SFX + BGM, persist ใน localStorage |
+
+**Browser autoplay:** `SoundManager` attach `pointerdown` / `keydown` listener ครั้งแรกเพื่อ unlock — `TitleScreen` เรียก `unlockAudio()` ก่อนเล่นเสียง
+
+**Battle integration:** `battleSfx.ts` map FX phase (`windup`, `travel`, `impact`, `recover`) → SFX พร้อม delay offset ตาม `fx.durationMs`; guard/dodge ใช้ role-based mapping
+
+### Gain staging (`audioLevels.ts`)
+
+| Constant | ค่า | ใช้กับ |
+|---|---|---|
+| `SFX_OUTPUT_GAIN` | 1.55 | peak gain ของ one-shot SFX |
+| `BGM_BUS_GAIN` | 2.0 | master bus ของ sequencer |
+| `BGM_NOTE_GAIN` | 0.42 | gain ต่อ note ใน channel |
+| `AUDIO_PEAK_LIMIT` | 0.48 | hard ceiling กัน clipping |
+
+### วิธีเพิ่มเสียงใหม่
+
+```text
+1. เพิ่ม id ใน soundIds.ts (หรือ musicIds.ts สำหรับ BGM)
+2. เพิ่ม preset/track ใน soundPresets.ts (หรือ musicTracks.ts)
+3. เรียก playSfx('new_id') / setBgmTrack('new_id') จาก UI
+4. npm test -- src/shared/audio/   ← ตรวจ catalog coverage
+```
+
+**Tips ออกแบบ preset chiptune:**
+
+- UI click สั้น (~40–60 ms), gain ต่ำ (~0.10–0.14)
+- Impact ใช้ pitch slide (`freq` → `freqEnd` ต่ำลง) + square wave
+- Victory fanfare ใช้ `sequence` arpeggio ขึ้น
+- Defeat ใช้ arpeggio ลง
+- Noise channel เหมาะกับ whoosh / hi-hat — ใส่ `freq` เป็น center frequency ของ bandpass
+
+### Tests
+
+| ไฟล์ | ตรวจอะไร |
+|---|---|
+| `soundManager.test.ts` | SFX catalog completeness, mute persistence |
+| `musicManager.test.ts` | BGM track switching, sequencer lifecycle |
 
 ---
 

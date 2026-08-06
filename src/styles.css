@@ -7925,10 +7925,197 @@ button.dash-hud-avatar--btn:disabled {
 
 .guide-modal-head {
   align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--pixel-border);
 }
 
 .guide-modal-head h2 {
   margin: 0;
+}
+
+.guide-modal-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.guide-modal-topbar .hub-modal-close {
+  flex: none;
+}
+
+.guide-modal-tabs {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.guide-modal-tab {
+  flex: 1;
+  padding: 8px 14px;
+  border: 3px solid var(--pixel-border);
+  background: var(--pixel-card-bg);
+  color: var(--pixel-text);
+  font: 700 0.88rem 'Mali', 'Noto Sans Thai', sans-serif;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--pixel-shadow);
+}
+
+.guide-modal-tab:hover {
+  background: rgba(255, 176, 124, 0.25);
+}
+
+.guide-modal-tab--active {
+  background: var(--pixel-accent);
+  color: var(--pixel-text);
+}
+
+.guide-techstack-body {
+  min-height: 0;
+  max-height: calc(90vh - 150px);
+  overflow-y: auto;
+  padding: 4px 16px 18px 4px;
+  scrollbar-gutter: stable;
+}
+
+.markdown-content {
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--pixel-text);
+}
+
+.markdown-heading {
+  margin: 0 0 10px;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--pixel-text);
+}
+
+.markdown-heading--h1 {
+  font-size: 1.35rem;
+}
+
+.markdown-heading--h2 {
+  margin-top: 24px;
+  font-size: 1.12rem;
+}
+
+.markdown-heading--h3 {
+  margin-top: 18px;
+  font-size: 1rem;
+}
+
+.markdown-heading--h4 {
+  margin-top: 14px;
+  font-size: 0.92rem;
+}
+
+.markdown-paragraph {
+  margin: 0 0 12px;
+}
+
+.markdown-blockquote {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-left: 4px solid var(--pixel-accent);
+  background: rgba(255, 176, 124, 0.15);
+  font-style: italic;
+}
+
+.markdown-hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 2px dashed rgba(61, 29, 44, 0.18);
+}
+
+.markdown-pre {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  border: 3px solid var(--pixel-border);
+  background: #fff8ef;
+  box-shadow: inset 0 0 0 1px #fff8ef;
+}
+
+.markdown-pre code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: pre;
+}
+
+.markdown-code-lang {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pixel-muted);
+  text-transform: uppercase;
+}
+
+.markdown-inline-code {
+  padding: 1px 5px;
+  border: 1px solid rgba(61, 29, 44, 0.15);
+  background: rgba(255, 248, 239, 0.9);
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.82em;
+}
+
+.markdown-list {
+  margin: 0 0 14px;
+  padding-left: 1.4rem;
+}
+
+.markdown-list li {
+  margin-bottom: 6px;
+}
+
+.markdown-table-wrap {
+  margin: 0 0 14px;
+  overflow-x: auto;
+}
+
+.markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.markdown-table th,
+.markdown-table td {
+  padding: 8px 10px;
+  border: 2px solid var(--pixel-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown-table th {
+  background: var(--pixel-accent);
+  font-weight: 700;
+}
+
+.markdown-table tr:nth-child(even) td {
+  background: rgba(255, 248, 239, 0.65);
+}
+
+.markdown-content a {
+  color: #b45309;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.markdown-content a:hover {
+  color: #92400e;
 }
 
 .guide-hero-kicker {
@@ -8303,15 +8490,6 @@ button.dash-hud-avatar--btn:disabled {
   margin-bottom: 16px;
 }
 
-.guide-element-table th {
-  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 10px 12px;
-  color: var(--pixel-text);
-  white-space: nowrap;
-}
-
 .guide-element-table td {
   padding: 11px 12px;
   line-height: 1.45;
@@ -8394,9 +8572,17 @@ button.dash-hud-avatar--btn:disabled {
   text-align: left;
   padding: 8px 10px;
   border-bottom: 3px solid var(--pixel-border);
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.38rem;
-  color: var(--pixel-muted);
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--pixel-text);
+  background: rgba(255, 176, 124, 0.35);
+}
+
+.guide-calc-table.guide-element-table th {
+  padding: 10px 12px;
+  background: var(--pixel-accent);
+  white-space: nowrap;
 }
 
 .guide-calc-table td {
@@ -8518,6 +8704,10 @@ button.dash-hud-avatar--btn:disabled {
 @media (max-width: 900px) {
   .guide-modal-body {
     grid-template-columns: 1fr;
+  }
+
+  .guide-techstack-body {
+    max-height: calc(90vh - 190px);
   }
 
   .guide-nav {

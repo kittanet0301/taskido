@@ -68,6 +68,10 @@
     "subtitle": "คู่มือการเล่นและการคำนวณ",
     "openLabel": "คู่มือการเล่น",
     "navLabel": "หัวข้อในคู่มือ",
+    "tabs": {
+      "guide": "คู่มือการเล่น",
+      "techStack": "Tech Stack"
+    },
     "footer": "TASKINO — คู่มือผู้เล่น · taskimon.vercel.app",
     "sections": {
       "howto": "วิธีการเล่น",
