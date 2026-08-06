@@ -4,6 +4,8 @@ Tamagotchi-style desktop pet game with dino characters — desktop (Electron) + 
 
 **เวอร์ชันเว็บ (production):** [https://taskimon.vercel.app](https://taskimon.vercel.app)
 
+**สรุปโปรเจกต์ฉบับเต็ม:** [docs/PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) · **คู่มือการเล่น:** [docs/GAME_GUIDE_TH.md](docs/GAME_GUIDE_TH.md) · **ค่าต่างๆ ในเกม:** [docs/GAME_VALUES.md](docs/GAME_VALUES.md)
+
 ## Features
 
 - Transparent always-on-top pet window on desktop
