@@ -11,10 +11,21 @@ export const CREATURE_SPECIES = [
   'water',
   'ice',
   'dragon',
-  'dark'
+  'dark',
+  'kmutnb'
 ] as const
 
 export type CreatureSpecies = (typeof CREATURE_SPECIES)[number]
+
+/** Bot-only hard-wave boss; not hatchable or player-selectable. */
+export const BOT_ONLY_CREATURE_SPECIES = ['kmutnb'] as const satisfies readonly CreatureSpecies[]
+
+export type BotOnlyCreatureSpecies = (typeof BOT_ONLY_CREATURE_SPECIES)[number]
+
+export const PLAYABLE_CREATURE_SPECIES = CREATURE_SPECIES.filter(
+  (species): species is Exclude<CreatureSpecies, BotOnlyCreatureSpecies> =>
+    !(BOT_ONLY_CREATURE_SPECIES as readonly string[]).includes(species)
+)
 
 /** Default species for new eggs and saves while creature art is the POC focus. */
 export const DEFAULT_CREATURE_SPECIES: CreatureSpecies = 'neutral'
@@ -29,7 +40,8 @@ export const CREATURE_SPECIES_ELEMENTS: Record<CreatureSpecies, ElementId> = {
   water: 'water',
   ice: 'ice',
   dragon: 'dragon',
-  dark: 'dark'
+  dark: 'dark',
+  kmutnb: 'electric'
 }
 
 export function elementForCreatureSpecies(species: CreatureSpecies): ElementId {
@@ -63,11 +75,20 @@ export const CREATURE_PREVIEW_COLORS: Record<CreatureSpecies, string> = {
   water: '#3d8ed0',
   ice: '#82d6e8',
   dragon: '#f0940f',
-  dark: '#4b405f'
+  dark: '#4b405f',
+  kmutnb: '#2f2f2f'
 }
 
 export function isCreatureSpecies(value: string): value is CreatureSpecies {
   return (CREATURE_SPECIES as readonly string[]).includes(value)
+}
+
+export function isPlayableCreatureSpecies(value: string): value is Exclude<CreatureSpecies, BotOnlyCreatureSpecies> {
+  return isCreatureSpecies(value) && !(BOT_ONLY_CREATURE_SPECIES as readonly string[]).includes(value)
+}
+
+export function isBotOnlyCreatureSpecies(value: string): value is BotOnlyCreatureSpecies {
+  return (BOT_ONLY_CREATURE_SPECIES as readonly string[]).includes(value)
 }
 
 const LEGACY_SPECIES_MIGRATIONS: Record<string, CreatureSpecies> = {
@@ -93,13 +114,13 @@ export function rollGender(): Gender {
 }
 
 export function rollPetSpecies(): PetSpecies {
-  return pickRandom(CREATURE_SPECIES)
+  return pickRandom(PLAYABLE_CREATURE_SPECIES)
 }
 
 /** New eggs use an explicit live species, or a random creature from the live pool. */
 export function hatchEgg(species?: PetSpecies): HatchResult {
   return {
-    character: species && isCreatureSpecies(species) ? species : rollPetSpecies(),
+    character: species && isPlayableCreatureSpecies(species) ? species : rollPetSpecies(),
     gender: rollGender()
   }
 }

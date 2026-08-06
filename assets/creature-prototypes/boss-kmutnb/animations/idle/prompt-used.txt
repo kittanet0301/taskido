@@ -1,0 +1,6 @@
+Use case: Taskino bot-battle humanoid boss combat bundle
+Asset type: KMUTNB Engineer Boss idle (photo-reference identity lock)
+Create exactly four seamless loop frames in an exact 2x2 grid.
+Preserve photo identity: young East Asian man, jet-black bowl-cut fringe, rectangular glasses, playful pout, lean build, black crew-neck tee with white gear emblem only (no readable text), dark pants, sneakers. Signature hands-behind-head boss idle.
+Frames: neutral; inhale/chest rise; peak bob + glasses glint; settle for loop.
+Hard-edged polished 16-bit pixel art, flat #FF00FF, centered body, stable feet, central 60-70% safe area, no edge crossing.

@@ -1,12 +1,12 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-adult-move-raw.png",
+  "input": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\dragon\\animations\\adult\\move\\raw-sheet.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
   "cell_inset_ratio": 0.01,
   "cell_inset_min": 4,
-  "fit_scale": 0.87,
+  "fit_scale": 0.62,
   "trim_border": 4,
   "edge_clean_depth": 1,
   "align": "feet",
@@ -47,19 +47,19 @@
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        99,
-        59,
-        476,
-        457
+        107,
+        58,
+        483,
+        460
       ],
       "edge_touch": false,
       "output_size": [
-        157,
-        165
+        111,
+        119
       ],
       "paste_position": [
-        17,
-        12
+        40,
+        58
       ]
     },
     {
@@ -85,19 +85,19 @@
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        78,
         59,
-        455,
-        457
+        57,
+        437,
+        460
       ],
       "edge_touch": false,
       "output_size": [
-        157,
-        165
+        112,
+        119
       ],
       "paste_position": [
-        17,
-        12
+        40,
+        58
       ]
     },
     {
@@ -123,19 +123,19 @@
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        97,
-        27,
-        476,
-        429
+        107,
+        24,
+        474,
+        419
       ],
       "edge_touch": false,
       "output_size": [
-        157,
-        167
+        108,
+        117
       ],
       "paste_position": [
-        17,
-        10
+        42,
+        60
       ]
     },
     {
@@ -161,19 +161,19 @@
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        78,
-        28,
-        455,
-        429
+        56,
+        23,
+        440,
+        419
       ],
       "edge_touch": false,
       "output_size": [
-        157,
-        167
+        113,
+        117
       ],
       "paste_position": [
-        17,
-        10
+        39,
+        60
       ]
     }
   ],

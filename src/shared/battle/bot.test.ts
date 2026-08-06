@@ -91,6 +91,25 @@ describe('bot battle', () => {
     expect(first.name).not.toBe(last.name)
   })
 
+  it('spawns the KMUTNB boss on the final hard wave only', () => {
+    const early = createBotPet(player, { difficulty: 'hard', wave: 3, rng: () => 0 })
+    const boss = createBotPet(player, { difficulty: 'hard', wave: 4, rng: () => 0 })
+    const normalFinal = createBotPet(player, { difficulty: 'normal', wave: 3, rng: () => 0 })
+
+    expect(early.character).not.toBe('kmutnb')
+    expect(boss.character).toBe('kmutnb')
+    expect(boss.elementPrimary).toBe('electric')
+    expect(normalFinal.character).not.toBe('kmutnb')
+    expect(boss.primaries.str).toBeGreaterThan(early.primaries.str)
+  })
+
+  it('keeps the KMUTNB boss out of the random bot pool', () => {
+    for (let i = 0; i < 40; i++) {
+      const bot = createBotPet(player, { difficulty: 'hard', wave: 1, rng: () => i / 40 })
+      expect(bot.character).not.toBe('kmutnb')
+    }
+  })
+
   it('calculates deterministic difficulty rewards and drops', () => {
     expect(calculateBotBattleReward('easy', 0.9)).toMatchObject({ gems: 4, evolution: 2, drop: null })
     expect(calculateBotBattleReward('hard', 0)).toMatchObject({ gems: 12, evolution: 7, drop: 'battle_shield' })

@@ -57,3 +57,6 @@ export const CHALLENGE_EXPIRE_DAYS = 7
 export const ROOM_MAX_MEMBERS = 8
 export const ROOM_IDLE_MINUTES = 30
 export const BREED_COOLDOWN_MS = 6 * 60 * 60 * 1000
+
+/** Hold defeated fighters on hurt before wave swap or result overlay. */
+export const BATTLE_DEFEAT_HOLD_MS = 1400

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { collectUnseenBattleFx, resolveBattleFx, usesAura, usesProjectile } from './battleFx'
+import { collectUnseenBattleFx, resolveBattleFighterAnim, resolveBattleFx, usesAura, usesProjectile } from './battleFx'
 import type { BattleTurn } from './types'
 
 const turn = (overrides: Partial<BattleTurn> = {}): BattleTurn => ({
@@ -51,5 +51,17 @@ describe('resolveBattleFx', () => {
     expect(resolveBattleFx(turn({ action: 'avoid', damage: 0 }), 'a', 'b')?.role).toBe('dodge')
     expect(resolveBattleFx(turn({ action: 'skill', skillId: 'missing' }), 'a', 'b')?.element).toBe('neutral')
     expect(resolveBattleFx(turn({ action: 'item' }), 'a', 'b')).toBeNull()
+  })
+})
+
+describe('resolveBattleFighterAnim', () => {
+  it('keeps defeated fighters on hurt until the scene changes', () => {
+    expect(resolveBattleFighterAnim('defender', { defeated: true, activeFx: null, hit: false })).toBe('battle_hurt')
+  })
+
+  it('prioritizes attack and hit clips while the fighter is still up', () => {
+    const fx = resolveBattleFx(turn(), 'a', 'b')!
+    expect(resolveBattleFighterAnim('challenger', { defeated: false, activeFx: fx, hit: false })).toBe('battle_attack')
+    expect(resolveBattleFighterAnim('defender', { defeated: false, activeFx: fx, hit: true })).toBe('battle_hurt')
   })
 })

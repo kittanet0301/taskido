@@ -1,12 +1,12 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-adult-idle-raw.png",
+  "input": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\dragon\\animations\\adult\\idle\\raw-sheet.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
   "cell_inset_ratio": 0.01,
   "cell_inset_min": 4,
-  "fit_scale": 0.87,
+  "fit_scale": 0.86,
   "trim_border": 4,
   "edge_clean_depth": 1,
   "align": "feet",
@@ -47,19 +47,19 @@
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        86,
-        89,
-        437,
-        443
+        147,
+        197,
+        478,
+        494
       ],
       "edge_touch": false,
       "output_size": [
-        150,
-        152
+        134,
+        120
       ],
       "paste_position": [
-        21,
-        25
+        29,
+        57
       ]
     },
     {
@@ -81,23 +81,23 @@
       ],
       "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": 4,
+      "component_count": 1,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        32,
-        95,
-        422,
-        445
+        73,
+        194,
+        397,
+        494
       ],
       "edge_touch": false,
       "output_size": [
-        167,
-        150
+        131,
+        122
       ],
       "paste_position": [
-        12,
-        27
+        30,
+        55
       ]
     },
     {
@@ -119,23 +119,23 @@
       ],
       "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": 1,
+      "component_count": 3,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        73,
-        48,
-        459,
-        405
+        147,
+        0,
+        478,
+        407
       ],
-      "edge_touch": false,
+      "edge_touch": true,
       "output_size": [
-        165,
-        153
+        134,
+        165
       ],
       "paste_position": [
-        13,
-        24
+        29,
+        12
       ]
     },
     {
@@ -157,25 +157,34 @@
       ],
       "cell_inset_px": 5,
       "component_mode": "all",
-      "component_count": 1,
+      "component_count": 3,
       "selected_component_area": null,
       "selected_component_bbox": null,
       "crop_bbox": [
-        71,
-        49,
-        423,
-        405
+        65,
+        0,
+        397,
+        406
       ],
-      "edge_touch": false,
+      "edge_touch": true,
       "output_size": [
-        151,
-        152
+        135,
+        165
       ],
       "paste_position": [
-        20,
-        25
+        28,
+        12
       ]
     }
   ],
-  "edge_touch_frames": []
+  "edge_touch_frames": [
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ]
+  ]
 }

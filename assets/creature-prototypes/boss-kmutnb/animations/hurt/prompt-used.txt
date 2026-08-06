@@ -1,0 +1,3 @@
+Use case: Taskino bot-battle humanoid boss combat bundle
+Asset type: KMUTNB Engineer Boss hurt body-only
+Exact 2x2 grid, same identity as idle. Hurt: impact, recoil, stagger, recovery. No detached bursts. Flat #FF00FF, no edge crossing.

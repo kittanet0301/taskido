@@ -57,6 +57,14 @@
     "syncing": "กำลังซิงก์...",
     "autoSync": "ซิงก์อัตโนมัติ"
   },
+  "guide": {
+    "title": "คู่มือการเล่น",
+    "eyebrow": "คู่มือ",
+    "subtitle": "คู่มือการเล่นและการคำนวณ",
+    "openLabel": "คู่มือการเล่น",
+    "navLabel": "หัวข้อในคู่มือ",
+    "footer": "TASKINO — คู่มือผู้เล่น · taskimon.vercel.app"
+  },
   "title": {
     "pressAnyKey": "กรุณากดปุ่มใดก็ได้"
   },
@@ -383,6 +391,7 @@
       "enemyNameWave2": "ไอรอนแฟง",
       "wave": "เวฟ {{current}}/{{total}}",
       "waveIncoming": "เวฟ {{wave}} กำลังมา!",
+      "bossIncoming": "บอสสุดท้าย: {{name}}!",
       "difficulty": "ระดับความยาก",
       "selectDifficulty": "เลือกระดับความยาก",
       "selectDifficultyHint": "เลือกระดับความท้าทายและจำนวนเวฟก่อนเริ่มต่อสู้",
@@ -597,7 +606,8 @@
     "water": "สไปโนซอรัส",
     "ice": "แพคคีไรโนซอรัส",
     "dragon": "ไทรันโนซอรัสมังกร",
-    "dark": "เวโลซีแรปเตอร์"
+    "dark": "เวโลซีแรปเตอร์",
+    "kmutnb": "Tae ตัวร้ายพระนคร"
   },
   "defaultPetNames": {
     "neutral": "สเตโก",
@@ -608,7 +618,8 @@
     "water": "สไปโน",
     "ice": "แพคคี",
     "dragon": "เดรโกเร็กซ์",
-    "dark": "แรปเตอร์"
+    "dark": "แรปเตอร์",
+    "kmutnb": "Tae ตัวร้ายพระนคร"
   },
   "stages": {
     "egg": "Egg",

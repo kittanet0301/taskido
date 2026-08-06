@@ -1,10 +1,19 @@
-import { CREATURE_SPECIES, defaultPetName, elementForCreatureSpecies, type CreatureSpecies } from '../creatureCharacters'
+import {
+  CREATURE_SPECIES,
+  defaultPetName,
+  elementForCreatureSpecies,
+  isBotOnlyCreatureSpecies,
+  type CreatureSpecies
+} from '../creatureCharacters'
 import { deriveCombatStats, ELEMENT_BASE_STATS } from '../combatStats'
 import type { PetData } from '../types'
 import { baseSkillsFor, getSkillDef, ultimateFor } from './skillTrees'
 import { TP_MAX } from './constants'
 import type { BattleActionPayload, BattleCombatant, BattleSessionState } from './types'
 import type { ItemType } from '../types'
+
+/** Hard-mode final-wave boss (KMUTNB Engineer). */
+export const HARD_FINAL_WAVE_BOSS: CreatureSpecies = 'kmutnb'
 
 export const LOCAL_PLAYER_USER_ID = 'local-player'
 export const BOT_USER_ID = 'taskino-bot'
@@ -77,6 +86,34 @@ interface CreateBotPetOptions {
   name?: string
 }
 
+export function isHardFinalBossWave(difficulty: BotDifficulty, wave: number): boolean {
+  return difficulty === 'hard' && wave === BOT_DIFFICULTY_RULES.hard.waves
+}
+
+function botWaveStatMultiplier(difficulty: BotDifficulty, wave: number): number {
+  if (isHardFinalBossWave(difficulty, wave)) return 1.28
+  return wave === 1 ? 0.94 : 1.06
+}
+
+function randomBotSpecies(
+  player: PetData,
+  excludeCharacters: readonly CreatureSpecies[],
+  rng: () => number
+): CreatureSpecies {
+  const pool = CREATURE_SPECIES.filter((species) => (
+    !isBotOnlyCreatureSpecies(species)
+    && species !== player.character
+    && !excludeCharacters.includes(species)
+  ))
+  const candidates = pool.length > 0
+    ? pool
+    : CREATURE_SPECIES.filter((species) => (
+      !isBotOnlyCreatureSpecies(species) && species !== player.character
+    ))
+  const roll = Math.max(0, Math.min(0.999999, rng()))
+  return candidates[Math.floor(roll * candidates.length)]!
+}
+
 export function createBotPet(
   player: PetData,
   options: CreateBotPetOptions = {}
@@ -88,14 +125,9 @@ export function createBotPet(
     excludeCharacters = [],
     name
   } = options
-  const available = CREATURE_SPECIES.filter((species) => (
-    species !== player.character && !excludeCharacters.includes(species)
-  ))
-  const candidates = available.length > 0
-    ? available
-    : CREATURE_SPECIES.filter((species) => species !== player.character)
-  const roll = Math.max(0, Math.min(0.999999, rng()))
-  const character = candidates[Math.floor(roll * candidates.length)]!
+  const character = isHardFinalBossWave(difficulty, wave)
+    ? HARD_FINAL_WAVE_BOSS
+    : randomBotSpecies(player, excludeCharacters, rng)
   const elementPrimary = elementForCreatureSpecies(character)
   const bases = baseSkillsFor(elementPrimary).filter((skill) => skill.power > 0).slice(0, 3)
   const ultimate = ultimateFor(elementPrimary)
@@ -110,7 +142,7 @@ export function createBotPet(
     primaries: scaledBotPrimaries(
       player,
       elementPrimary,
-      BOT_DIFFICULTY_RULES[difficulty].statScale * (wave === 1 ? 0.94 : 1.06)
+      BOT_DIFFICULTY_RULES[difficulty].statScale * botWaveStatMultiplier(difficulty, wave)
     ),
     elementPrimary,
     elementSecondary: null,

@@ -1086,10 +1086,10 @@
           ],
           "mode": "RGBA",
           "bbox": [
-            48,
-            51,
+            49,
+            28,
             143,
-            174
+            176
           ],
           "edge_touch": false,
           "magenta_fringe_pixels": 0
@@ -1103,10 +1103,10 @@
           ],
           "mode": "RGBA",
           "bbox": [
-            27,
-            75,
-            165,
-            174
+            50,
+            82,
+            142,
+            176
           ],
           "edge_touch": false,
           "magenta_fringe_pixels": 0
@@ -1120,10 +1120,10 @@
           ],
           "mode": "RGBA",
           "bbox": [
-            6,
-            54,
-            186,
-            174
+            29,
+            57,
+            163,
+            177
           ],
           "edge_touch": false,
           "magenta_fringe_pixels": 0

@@ -1,0 +1,201 @@
+{
+  "target": "creature",
+  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-baby-bite-raw.png",
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.03,
+  "cell_inset_min": 10,
+  "fit_scale": 0.85,
+  "trim_border": 6,
+  "edge_clean_depth": 2,
+  "align": "feet",
+  "baseline_y": 176,
+  "preserve_cell_position": false,
+  "shared_scale": true,
+  "component_mode": "largest",
+  "component_padding": 2,
+  "min_component_area": 96,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "bite-1",
+    "bite-2",
+    "bite-3",
+    "bite-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "inner_box": [
+        15,
+        15,
+        497,
+        497
+      ],
+      "cell_inset_px": 15,
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 81141,
+      "selected_component_bbox": [
+        103,
+        76,
+        470,
+        468
+      ],
+      "crop_bbox": [
+        101,
+        74,
+        470,
+        470
+      ],
+      "edge_touch": false,
+      "output_size": [
+        141,
+        152
+      ],
+      "paste_position": [
+        25,
+        25
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "inner_box": [
+        527,
+        15,
+        1009,
+        497
+      ],
+      "cell_inset_px": 15,
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 81504,
+      "selected_component_bbox": [
+        21,
+        93,
+        414,
+        470
+      ],
+      "crop_bbox": [
+        19,
+        91,
+        416,
+        470
+      ],
+      "edge_touch": false,
+      "output_size": [
+        152,
+        145
+      ],
+      "paste_position": [
+        20,
+        32
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "inner_box": [
+        15,
+        527,
+        497,
+        1009
+      ],
+      "cell_inset_px": 15,
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 68935,
+      "selected_component_bbox": [
+        46,
+        89,
+        470,
+        399
+      ],
+      "crop_bbox": [
+        44,
+        87,
+        470,
+        401
+      ],
+      "edge_touch": false,
+      "output_size": [
+        163,
+        120
+      ],
+      "paste_position": [
+        14,
+        57
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "inner_box": [
+        527,
+        527,
+        1009,
+        1009
+      ],
+      "cell_inset_px": 15,
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 79021,
+      "selected_component_bbox": [
+        42,
+        27,
+        413,
+        416
+      ],
+      "crop_bbox": [
+        40,
+        25,
+        415,
+        418
+      ],
+      "edge_touch": false,
+      "output_size": [
+        144,
+        151
+      ],
+      "paste_position": [
+        24,
+        26
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

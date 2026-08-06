@@ -1,17 +1,17 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-baby-jump-raw.png",
+  "input": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\dragon\\animations\\baby\\jump\\raw-sheet.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
   "cell_inset_ratio": 0.03,
   "cell_inset_min": 10,
-  "fit_scale": 0.85,
+  "fit_scale": 0.52,
   "trim_border": 6,
   "edge_clean_depth": 2,
   "align": "feet",
   "baseline_y": 176,
-  "preserve_cell_position": false,
+  "preserve_cell_position": true,
   "shared_scale": true,
   "component_mode": "largest",
   "component_padding": 2,
@@ -36,36 +36,32 @@
         512
       ],
       "inner_box": [
-        15,
-        15,
-        497,
-        497
+        0,
+        0,
+        512,
+        512
       ],
-      "cell_inset_px": 15,
-      "component_mode": "largest",
-      "component_count": 1,
-      "selected_component_area": 63652,
-      "selected_component_bbox": [
-        99,
-        133,
-        450,
-        455
-      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
       "crop_bbox": [
-        97,
-        131,
-        452,
-        457
+        141,
+        205,
+        470,
+        493
       ],
       "edge_touch": false,
       "output_size": [
-        154,
-        142
+        123,
+        108
       ],
       "paste_position": [
-        19,
-        35
-      ]
+        53,
+        77
+      ],
+      "position_preserved": true
     },
     {
       "grid": [
@@ -79,36 +75,32 @@
         512
       ],
       "inner_box": [
-        527,
-        15,
-        1009,
-        497
+        512,
+        0,
+        1024,
+        512
       ],
-      "cell_inset_px": 15,
-      "component_mode": "largest",
-      "component_count": 1,
-      "selected_component_area": 66597,
-      "selected_component_bbox": [
-        27,
-        37,
-        366,
-        408
-      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
       "crop_bbox": [
-        25,
-        35,
-        368,
-        410
+        71,
+        87,
+        379,
+        412
       ],
       "edge_touch": false,
       "output_size": [
-        149,
-        163
+        115,
+        121
       ],
       "paste_position": [
-        21,
-        14
-      ]
+        27,
+        33
+      ],
+      "position_preserved": true
     },
     {
       "grid": [
@@ -122,36 +114,32 @@
         1024
       ],
       "inner_box": [
-        15,
-        527,
-        497,
-        1009
+        0,
+        512,
+        512,
+        1024
       ],
-      "cell_inset_px": 15,
-      "component_mode": "largest",
-      "component_count": 1,
-      "selected_component_area": 54988,
-      "selected_component_bbox": [
-        94,
-        15,
-        417,
-        321
-      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
       "crop_bbox": [
-        92,
-        13,
-        419,
-        323
+        152,
+        54,
+        382,
+        364
       ],
       "edge_touch": false,
       "output_size": [
-        142,
-        135
+        86,
+        116
       ],
       "paste_position": [
-        25,
-        42
-      ]
+        57,
+        20
+      ],
+      "position_preserved": true
     },
     {
       "grid": [
@@ -165,36 +153,32 @@
         1024
       ],
       "inner_box": [
-        527,
-        527,
-        1009,
-        1009
+        512,
+        512,
+        1024,
+        1024
       ],
-      "cell_inset_px": 15,
-      "component_mode": "largest",
-      "component_count": 1,
-      "selected_component_area": 65413,
-      "selected_component_bbox": [
-        56,
-        77,
-        386,
-        436
-      ],
+      "cell_inset_px": 0,
+      "component_mode": "all",
+      "component_count": null,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
       "crop_bbox": [
-        54,
-        75,
-        388,
-        438
+        76,
+        132,
+        385,
+        444
       ],
       "edge_touch": false,
       "output_size": [
-        145,
-        158
+        116,
+        117
       ],
       "paste_position": [
-        23,
-        19
-      ]
+        28,
+        49
+      ],
+      "position_preserved": true
     }
   ],
   "edge_touch_frames": []

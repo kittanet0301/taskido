@@ -57,6 +57,14 @@
     "syncing": "Syncing...",
     "autoSync": "Auto sync"
   },
+  "guide": {
+    "title": "Player Guide",
+    "eyebrow": "Guide",
+    "subtitle": "How to play and game calculations",
+    "openLabel": "Player guide",
+    "navLabel": "Guide sections",
+    "footer": "TASKINO — PLAYER GUIDE · taskimon.vercel.app"
+  },
   "title": {
     "pressAnyKey": "Please press any key"
   },
@@ -384,6 +392,7 @@
       "enemyNameWave2": "Ironfang",
       "wave": "Wave {{current}}/{{total}}",
       "waveIncoming": "Wave {{wave}} incoming!",
+      "bossIncoming": "Final boss: {{name}}!",
       "difficulty": "Difficulty",
       "selectDifficulty": "Choose difficulty",
       "selectDifficultyHint": "Select a challenge and its wave count before entering battle.",
@@ -598,7 +607,8 @@
     "water": "Spinosaurus",
     "ice": "Pachyrhinosaurus",
     "dragon": "Dragon Tyrannosaurus",
-    "dark": "Velociraptor"
+    "dark": "Velociraptor",
+    "kmutnb": "Tae, Phranakhon Villain"
   },
   "defaultPetNames": {
     "neutral": "Stego",
@@ -609,7 +619,8 @@
     "water": "Spino",
     "ice": "Pachy",
     "dragon": "Draco Rex",
-    "dark": "Raptor"
+    "dark": "Raptor",
+    "kmutnb": "Tae, Phranakhon Villain"
   },
   "stages": {
     "egg": "Egg",

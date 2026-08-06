@@ -8,7 +8,7 @@
   "shared_baseline_y": 175,
   "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.013089,
+  "body_height_cv": 0.018232,
   "loop_first_last_identity_match": false,
   "final_identity_reference_match": null,
   "reference_scale_drift": null,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        23,
-        20,
-        169,
+        50,
+        82,
+        142,
         176
       ],
       "margins": {
-        "left": 23,
-        "top": 20,
-        "right": 23,
+        "left": 50,
+        "top": 82,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -44,15 +44,15 @@
         192
       ],
       "bbox": [
-        23,
-        15,
-        168,
+        52,
+        78,
+        140,
         176
       ],
       "margins": {
-        "left": 23,
-        "top": 15,
-        "right": 24,
+        "left": 52,
+        "top": 78,
+        "right": 52,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -66,15 +66,15 @@
         192
       ],
       "bbox": [
-        23,
-        19,
-        168,
+        49,
+        82,
+        142,
         176
       ],
       "margins": {
-        "left": 23,
-        "top": 19,
-        "right": 24,
+        "left": 49,
+        "top": 82,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -88,15 +88,15 @@
         192
       ],
       "bbox": [
-        24,
-        20,
-        168,
+        49,
+        82,
+        142,
         176
       ],
       "margins": {
-        "left": 24,
-        "top": 20,
-        "right": 24,
+        "left": 49,
+        "top": 82,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,

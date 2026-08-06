@@ -8,7 +8,7 @@
   "shared_baseline_y": 175,
   "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.034754,
+  "body_height_cv": 0.150135,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": true,
   "reference_scale_drift": null,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        44,
-        15,
-        147,
+        49,
+        28,
+        142,
         176
       ],
       "margins": {
-        "left": 44,
-        "top": 15,
-        "right": 45,
+        "left": 49,
+        "top": 28,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -44,15 +44,15 @@
         192
       ],
       "bbox": [
-        44,
-        15,
-        147,
+        49,
+        28,
+        142,
         176
       ],
       "margins": {
-        "left": 44,
-        "top": 15,
-        "right": 45,
+        "left": 49,
+        "top": 28,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -66,15 +66,15 @@
         192
       ],
       "bbox": [
-        43,
-        26,
-        149,
+        49,
+        30,
+        143,
         176
       ],
       "margins": {
-        "left": 43,
-        "top": 26,
-        "right": 43,
+        "left": 49,
+        "top": 30,
+        "right": 49,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -88,15 +88,15 @@
         192
       ],
       "bbox": [
-        42,
-        8,
-        149,
+        50,
+        53,
+        142,
         176
       ],
       "margins": {
-        "left": 42,
-        "top": 8,
-        "right": 43,
+        "left": 50,
+        "top": 53,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -110,15 +110,15 @@
         192
       ],
       "bbox": [
-        33,
-        19,
-        159,
+        45,
+        53,
+        147,
         176
       ],
       "margins": {
-        "left": 33,
-        "top": 19,
-        "right": 33,
+        "left": 45,
+        "top": 53,
+        "right": 45,
         "bottom": 16
       },
       "baseline_y": 175,
@@ -132,15 +132,15 @@
         192
       ],
       "bbox": [
-        23,
-        20,
-        169,
+        50,
+        82,
+        142,
         176
       ],
       "margins": {
-        "left": 23,
-        "top": 20,
-        "right": 23,
+        "left": 50,
+        "top": 82,
+        "right": 50,
         "bottom": 16
       },
       "baseline_y": 175,
