@@ -287,7 +287,177 @@ assets/ui/                                       ← HUD icons, logos, home back
 assets/creatures/frame-manifest.json             ← per-frame dimensions
 ```
 
-### Generation pipeline
+### Agent Sprite Forge (`generate2dsprite`)
+
+**Agent Sprite Forge** คือ workflow สร้าง sprite/animation sheet แบบ 2 ชั้น ที่ Taskino ใช้สำหรับ creature, FX และ asset 2D อื่นๆ — skill อยู่ที่ `.agents/skills/generate2dsprite/` (ชื่อ skill: `generate2dsprite`, invoke ด้วย `$generate2dsprite`)
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 1 — Creative (Agent + built-in image_gen)                │
+│  · เขียน prompt เอง (ไม่ใช้ script สร้าง prompt เป็นค่าเริ่มต้น) │
+│  · สร้าง raw sheet พื้นหลัง solid magenta (#FF00FF)           │
+│  · grid หลายแถว (2×2, 2×3 …) — ห้าม 1×N สำหรับตัวละคร         │
+└────────────────────────────┬────────────────────────────────────┘
+                             │ raw-sheet.png
+┌────────────────────────────▼────────────────────────────────────┐
+│  Layer 2 — Deterministic postprocess (generate2dsprite.py)      │
+│  · chroma key cleanup · แยก frame · crop/align · shared scale   │
+│  · QC metadata · transparent sheet · GIF preview                │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+┌────────────────────────────▼────────────────────────────────────┐
+│  Layer 3 — Taskino project scripts (repo-specific)              │
+│  · creature-manifest.mjs เป็น source of truth                   │
+│  · process-creature-clip.mjs → creature_sheet_crop.py → stitch  │
+│  · validate / promote → assets/creatures/                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### หลักการสำคัญ
+
+| หลักการ | รายละเอียด |
+|---|---|
+| **AI สร้างภาพ, script ประมวลผล** | ห้ามใช้ Canvas/SVG/PIL วาด sprite แทน image_gen |
+| **หนึ่ง action ต่อหนึ่ง raw sheet** | ไม่รวม idle+attack+run ใน sheet เดียว |
+| **Body-only สำหรับ attack** | slash arc / projectile / dust แยกเป็น FX sheet |
+| **Anchor contract** | grounded action ใช้ feet baseline (`y=176` บน cell 192px) |
+| **Scale profile** | idle/run ที่ pass QC กลายเป็น reference สำหรับ action อื่น |
+| **Taskino override** | กฎ repo (`creature-manifest.mjs`) ชนะ default ของ skill |
+
+#### ไฟล์ skill หลัก
+
+| Path | บทบาท |
+|---|---|
+| `.agents/skills/generate2dsprite/SKILL.md` | กฎ workflow สำหรับ agent |
+| `.agents/skills/generate2dsprite/scripts/generate2dsprite.py` | Postprocessor หลัก (Pillow + NumPy) |
+| `.agents/skills/generate2dsprite/scripts/make_layout_guide.py` | Layout guide สำหรับ image_gen |
+| `.agents/skills/generate2dsprite/scripts/make_anchor_layout.py` | Character anchor sheet (lock scale/feet) |
+| `.agents/skills/generate2dsprite/references/prompt-rules.md` | กฎเขียน prompt |
+| `.agents/skills/generate2dsprite/references/modes.md` | เลือก bundle/mode เมื่อ request คลุมเครือ |
+
+Script ค้นหา skill จาก (ลำดับความสำคัญ):
+
+1. `~/.agents/skills/generate2dsprite/scripts/`
+2. `~/.codex/skills/generate2dsprite/scripts/`
+3. `.agents/skills/generate2dsprite/scripts/` (ใน repo)
+
+#### CLI ของ `generate2dsprite.py`
+
+```bash
+# ดู target/mode ที่รองรับ
+python .agents/skills/generate2dsprite/scripts/generate2dsprite.py list-options
+
+# Postprocess raw sheet (ใช้บ่อยที่สุด)
+python .agents/skills/generate2dsprite/scripts/generate2dsprite.py process \
+  --input raw-sheet.png \
+  --target creature --mode idle \
+  --rows 2 --cols 2 \
+  --output-dir ./output \
+  --cell-size 192 \
+  --align feet \
+  --fit-scale 0.85 \
+  --component-mode largest \
+  --strict-qc
+
+# สร้าง scale profile จาก action ที่ accept แล้ว
+python .../generate2dsprite.py process \
+  ... \
+  --scale-strategy preserve \
+  --write-scale-profile ./character-scale-profile.json
+
+# Godot Sprite3D contract (ไม่ใช่ runtime หลักของ Taskino แต่ skill รองรับ)
+python .../generate2dsprite.py build-godot-bundle \
+  --action idle=.../godot-sprite3d.json \
+  --output ./godot-sprite3d-bundle.json
+```
+
+**Python dependencies:** Pillow, NumPy
+
+#### Workflow สำหรับ Taskino creatures
+
+```text
+1. สร้าง/แก้ master ต่อ element
+   assets/creature-prototypes/{species}/master-{egg|baby|adult}.png
+   python scripts/finalize_creature_master.py finalize ...
+
+2. สร้าง animation ต่อ clip (agent + image_gen)
+   assets/creature-prototypes/{species}/animations/{stage}/{clip}/
+     ├── prompt-used.txt
+     ├── raw-sheet.png          ← จาก image_gen (magenta bg)
+     ├── raw-sheet-clean.png    ← หลัง chroma key
+     ├── {clip}-1.png …         ← frames 192×192 RGBA
+     ├── sheet-transparent.png
+     ├── animation.gif          ← preview
+     ├── pipeline-meta.json
+     └── qc.json                ← pass/fail + metrics
+
+3. Postprocess ผ่าน project wrapper
+   npm run creature:process -- \
+     --input raw-sheet.png \
+     --species dragon --stage baby --clip idle
+
+   ภายในเรียก creature_sheet_crop.py → (import จาก generate2dsprite) → stitch_sprite_strip.py
+
+4. Validate prototype
+   python scripts/validate_prototype_animation.py \
+     --input-dir assets/creature-prototypes/dragon/animations/baby/idle \
+     --prefix idle --frames 4 \
+     --scale-reference assets/creature-prototypes/dragon/master-baby.png
+
+5. Promote ไป runtime (เมื่อ roster approve)
+   node scripts/promote-creature-prototypes.mjs
+   → assets/creatures/{species}/{stage}/{clip}.png
+   → sync frame-manifest.json + src/shared/creatureFrameManifest.ts
+
+6. ตรวจ coverage
+   npm run check:creatures
+   npm run check:assets
+```
+
+#### Clip / grid ตาม `creature-manifest.mjs`
+
+| Stage | Clips | Grid | Frames |
+|---|---|---|---|
+| `egg` | move, hatch | 2×3 | 6 |
+| `baby` | idle, move, hurt, bite, jump | 2×2 | 4 |
+| `adult` | idle, move, hurt, bite, jump | 2×2 | 4 |
+
+- **Chroma key ปัจจุบัน:** green (runtime cropper) — prototype บางชุดใช้ magenta ตอน generate
+- **Process cell size:** 192px
+- **Jump clips:** ใช้ `--preserve-cell-position` + `finalize_creature_jump.py` (ไม่ใช้ feet aligner)
+- **Hatch frame 6:** ต้องตรง pixel กับ baby idle master (transition ไม่กระโดดขนาด)
+
+#### npm scripts ที่เกี่ยวข้อง
+
+| Command | หน้าที่ |
+|---|---|
+| `npm run creature:process` | Process clip เดียว → runtime strip |
+| `npm run creature:stitch` | Stitch frames เป็น horizontal strip |
+| `npm run creature:batch -- <cmd>` | Batch pipeline (`plan`, `process`, `all`, …) |
+| `npm run check:creatures` | ตรวจ strips + adaptive frame sizes |
+| `npm run check:assets` | ตรวจ UI asset references |
+
+#### Output artifacts ที่ agent ควรเก็บ
+
+| ไฟล์ | เนื้อหา |
+|---|---|
+| `qc.json` | edge touch, scale drift, anchor std, pass/fail |
+| `pipeline-meta.json` | rows/cols, fit_scale, baseline_y, chroma settings |
+| `anchor-contract.json` | feet line, scale profile, reference paths |
+| `prompt-used.txt` | prompt ที่ใช้ generate (audit/repro) |
+| `animation.gif` | preview loop สำหรับ review |
+
+#### เมื่อไหร่ invoke skill
+
+| งาน | Skill |
+|---|---|
+| สร้าง/แก้ creature animation sheet | `generate2dsprite` (+ อ่าน `taskido` skill) |
+| Battle FX, projectiles, skill icons | `generate2dsprite` |
+| Map backgrounds / props | `generate2dmap` (ไม่ใช่ Sprite Forge) |
+
+ดูรายละเอียด prototype roster: [assets/creature-prototypes/README.md](../assets/creature-prototypes/README.md)
+
+### Generation pipeline (สรุป)
 
 ```text
 assets/creature-prototypes/   → AI raw sheets + QC metadata
@@ -296,8 +466,6 @@ scripts/*.mjs + *.py          → chroma key, crop, stitch, adaptive fit
 sprite-output/                → intermediate
 assets/creatures/             → final runtime strips
 ```
-
-**Python deps (processors):** Pillow, NumPy
 
 **Validation:**
 - `npm run check:assets` — UI asset coverage

@@ -346,7 +346,7 @@ Installer อ่าน Supabase จาก `resources/.env` (bundle จาก `.e
 | Skill | ใช้เมื่อ |
 |---|---|
 | `taskido` | งาน repo ทั่วไป, debugging, testing, release |
-| `generate2dsprite` | สร้าง/แก้ creature sprites, animations, FX |
+| `generate2dsprite` (Agent Sprite Forge) | สร้าง/แก้ creature sprites, animations, FX |
 | `generate2dmap` | Battle arenas, map backgrounds, collision |
 | `supabase` | Auth, DB, migrations, RLS, RPC |
 | `supabase-postgres-best-practices` | SQL, indexing, performance |
