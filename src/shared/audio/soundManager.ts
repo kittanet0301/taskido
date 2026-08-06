@@ -1,5 +1,8 @@
+import { ChiptuneSequencer } from './chiptuneSequencer'
 import { ChiptuneSynth } from './chiptuneSynth'
 import { elementPitchMultiplier } from './elementPitch'
+import type { BgmId } from './musicIds'
+import { getMusicTrack } from './musicTracks'
 import { SOUND_PRESETS } from './soundPresets'
 import { SFX_IDS, type SfxId } from './soundIds'
 
@@ -25,19 +28,35 @@ function writeStoredMute(muted: boolean): void {
 class SoundManager {
   private context: AudioContext | null = null
   private synth: ChiptuneSynth | null = null
+  private sequencer: ChiptuneSequencer | null = null
   private muted = readStoredMute()
   private unlocked = false
   private unlockListenerAttached = false
   private readonly muteListeners = new Set<MuteListener>()
+  private currentBgmTrack: BgmId | null = null
+  private bgmPausedByMute = false
+
+  constructor() {
+    this.ensureUnlockListener()
+  }
 
   isMuted(): boolean {
     return this.muted
   }
 
   setMuted(muted: boolean): void {
+    const wasMuted = this.muted
     this.muted = muted
     writeStoredMute(muted)
     for (const listener of this.muteListeners) listener(muted)
+
+    this.sequencer?.setVolume(muted ? 0 : 1)
+
+    if (muted && !wasMuted) {
+      this.pauseBgmForMute()
+    } else if (!muted && wasMuted) {
+      this.resumeBgmAfterMute()
+    }
   }
 
   toggleMuted(): boolean {
@@ -67,7 +86,53 @@ class SoundManager {
       }
     }
     this.unlocked = ctx.state === 'running'
+    if (this.unlocked && this.currentBgmTrack && !this.muted) {
+      this.startBgmPlayback(this.currentBgmTrack)
+    }
     return this.unlocked
+  }
+
+  setBgmTrack(id: BgmId | null): void {
+    if (
+      id === this.currentBgmTrack
+      && this.sequencer?.isPlaying()
+      && !this.bgmPausedByMute
+    ) {
+      return
+    }
+
+    this.currentBgmTrack = id
+
+    if (!id || typeof window === 'undefined') {
+      this.stopBgmPlayback()
+      return
+    }
+
+    if (this.muted) {
+      this.stopBgmPlayback(false)
+      return
+    }
+
+    if (!this.unlocked) {
+      this.stopBgmPlayback(false)
+      return
+    }
+
+    this.startBgmPlayback(id)
+  }
+
+  stopBgm(): void {
+    this.currentBgmTrack = null
+    this.stopBgmPlayback()
+  }
+
+  /** Stop playback without clearing the selected track (e.g. login/onboarding screens). */
+  pauseBgm(): void {
+    this.stopBgmPlayback()
+  }
+
+  getCurrentBgmTrack(): BgmId | null {
+    return this.currentBgmTrack
   }
 
   playSfx(id: SfxId, options: PlaySfxOptions = {}): void {
@@ -87,6 +152,46 @@ class SoundManager {
     synth.playPreset(preset, pitchMultiplier)
   }
 
+  private startBgmPlayback(id: BgmId): void {
+    void this.startBgmPlaybackAsync(id)
+  }
+
+  private async startBgmPlaybackAsync(id: BgmId): Promise<void> {
+    const ctx = this.getContext()
+    const sequencer = this.getSequencer()
+    if (!ctx || !sequencer) return
+    if (ctx.state === 'suspended') {
+      try {
+        await ctx.resume()
+      } catch {
+        return
+      }
+    }
+    if (this.currentBgmTrack !== id || this.muted || !this.unlocked) return
+    this.bgmPausedByMute = false
+    sequencer.setVolume(1)
+    sequencer.start(getMusicTrack(id))
+  }
+
+  private stopBgmPlayback(fade = true): void {
+    this.sequencer?.stop(fade)
+    this.bgmPausedByMute = false
+  }
+
+  private pauseBgmForMute(): void {
+    if (!this.sequencer?.isPlaying()) return
+    this.bgmPausedByMute = true
+    this.sequencer.pause()
+  }
+
+  private resumeBgmAfterMute(): void {
+    if (!this.currentBgmTrack || !this.unlocked) return
+    const sequencer = this.getSequencer()
+    if (!sequencer) return
+    this.bgmPausedByMute = false
+    sequencer.resume(getMusicTrack(this.currentBgmTrack))
+  }
+
   private getContext(): AudioContext | null {
     if (typeof window === 'undefined') return null
     if (!this.context) {
@@ -102,6 +207,13 @@ class SoundManager {
     if (!ctx) return null
     if (!this.synth) this.synth = new ChiptuneSynth(ctx)
     return this.synth
+  }
+
+  private getSequencer(): ChiptuneSequencer | null {
+    const ctx = this.getContext()
+    if (!ctx) return null
+    if (!this.sequencer) this.sequencer = new ChiptuneSequencer(ctx)
+    return this.sequencer
   }
 
   private ensureUnlockListener(): void {
@@ -141,7 +253,24 @@ export function getAllSfxIds(): readonly SfxId[] {
   return SFX_IDS
 }
 
+export function setBgmTrack(id: BgmId | null): void {
+  soundManager.setBgmTrack(id)
+}
+
+export function stopBgm(): void {
+  soundManager.stopBgm()
+}
+
+export function pauseBgm(): void {
+  soundManager.pauseBgm()
+}
+
+export function getCurrentBgmTrack(): BgmId | null {
+  return soundManager.getCurrentBgmTrack()
+}
+
 /** @internal test helper */
 export function __resetSoundManagerForTests(muted = false): void {
+  soundManager.stopBgm()
   soundManager.setMuted(muted)
 }

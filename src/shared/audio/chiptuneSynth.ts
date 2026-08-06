@@ -1,4 +1,5 @@
 import type { SoundPreset, ToneStep, WaveType } from './soundPresets'
+import { AUDIO_PEAK_LIMIT, SFX_OUTPUT_GAIN } from './audioLevels'
 
 const MAX_VOICES = 8
 
@@ -82,7 +83,7 @@ export class ChiptuneSynth {
     const gainNode = ctx.createGain()
     gainNode.connect(ctx.destination)
 
-    const peak = Math.max(0.001, Math.min(0.35, tone.gain))
+    const peak = Math.max(0.001, Math.min(AUDIO_PEAK_LIMIT, tone.gain * SFX_OUTPUT_GAIN))
     gainNode.gain.setValueAtTime(0.0001, startAt)
     gainNode.gain.exponentialRampToValueAtTime(peak, startAt + tone.attack)
     gainNode.gain.exponentialRampToValueAtTime(

@@ -10,7 +10,7 @@ import {
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
 import { setGameSpeedMultiplier, type GameSpeedMultiplier } from './shared/gameSpeed'
-import { playSfx } from './shared/audio'
+import { playSfx, pauseBgm, setBgmTrack, unlockAudio } from './shared/audio'
 import './i18n'
 import { GetStarted } from './hub/GetStarted'
 import { LoginGate } from './hub/LoginGate'
@@ -207,6 +207,7 @@ function AppContent({ variant = 'desktop' }: Props) {
     setSession(s)
     setAuthLoading(false)
     if (s?.user?.id) {
+      setShowTitle(false)
       try {
         const p = (await window.electronAPI.getProfile(s.user.id)) as UserProfile
         setProfile(p)
@@ -286,6 +287,23 @@ function AppContent({ variant = 'desktop' }: Props) {
     setEggNotifications(next)
     localStorage.setItem(storageKey, JSON.stringify(next))
   }, [session?.user?.id, save?.collection])
+
+  useEffect(() => {
+    if (showTitle && !session?.user?.id) return
+    if (!session?.user?.id || showCover) {
+      pauseBgm()
+      return
+    }
+    if (showMinigame) {
+      setBgmTrack('minigame')
+      return
+    }
+    if (mainView === 'battle') {
+      setBgmTrack('battle')
+      return
+    }
+    setBgmTrack('hub')
+  }, [session?.user?.id, showCover, showTitle, showMinigame, mainView])
 
   const markEggViewed = useCallback((petId: string) => {
     const userId = session?.user?.id
