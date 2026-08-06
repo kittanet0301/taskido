@@ -360,6 +360,7 @@ Installer อ่าน Supabase จาก `resources/.env` (bundle จาก `.e
 | [README.md](../README.md) | Quick start, features, build |
 | [docs/GAME_GUIDE_TH.md](./GAME_GUIDE_TH.md) | คู่มือการเล่น (ภาษาไทย) |
 | [docs/GAME_VALUES.md](./GAME_VALUES.md) | ค่าคงที่และสูตรในเกม (อ้างอิงจาก source) |
+| [docs/TECH_STACK.md](./TECH_STACK.md) | สถาปัตยกรรมและ tech stack ฝั่ง technical |
 | [supabase/SETUP.md](../supabase/SETUP.md) | ตั้งค่า Supabase + migrations |
 | [web/DEPLOY.md](../web/DEPLOY.md) | Deploy เวอร์ชัน web |
 | [.agents/skills/taskido/references/project-map.md](../.agents/skills/taskido/references/project-map.md) | Project map สำหรับ agent |
