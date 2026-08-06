@@ -3,12 +3,12 @@
   "input_dir": "assets\\creature-prototypes\\dragon\\animations\\adult\\bite",
   "prefix": "bite",
   "playback": "one-shot",
-  "baseline_mode": "shared",
+  "baseline_mode": "variable",
   "frame_count": 4,
   "shared_baseline_y": 176,
   "baseline_span": 0,
   "ground_return_delta": 0,
-  "body_height_cv": 0.095031,
+  "body_height_cv": 0.042506,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
   "reference_scale_drift": null,
@@ -22,15 +22,15 @@
         192
       ],
       "bbox": [
-        26,
-        29,
-        166,
+        16,
+        11,
+        175,
         177
       ],
       "margins": {
-        "left": 26,
-        "top": 29,
-        "right": 26,
+        "left": 16,
+        "top": 11,
+        "right": 17,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -44,15 +44,15 @@
         192
       ],
       "bbox": [
-        20,
-        37,
-        171,
+        15,
+        8,
+        177,
         177
       ],
       "margins": {
-        "left": 20,
-        "top": 37,
-        "right": 21,
+        "left": 15,
+        "top": 8,
+        "right": 15,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -67,14 +67,14 @@
       ],
       "bbox": [
         13,
-        62,
-        179,
+        23,
+        178,
         177
       ],
       "margins": {
         "left": 13,
-        "top": 62,
-        "right": 13,
+        "top": 23,
+        "right": 14,
         "bottom": 15
       },
       "baseline_y": 176,
@@ -88,15 +88,15 @@
         192
       ],
       "bbox": [
-        12,
-        32,
-        179,
+        16,
+        23,
+        176,
         177
       ],
       "margins": {
-        "left": 12,
-        "top": 32,
-        "right": 13,
+        "left": 16,
+        "top": 23,
+        "right": 16,
         "bottom": 15
       },
       "baseline_y": 176,

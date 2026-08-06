@@ -1,0 +1,181 @@
+{
+  "target": "creature",
+  "input": "C:\\Users\\Kittanet\\.cursor\\projects\\c-Users-Kittanet-OneDrive-Desktop-taskido\\assets\\dragon-adult-jump-raw-v2.png",
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 192,
+  "cell_inset_ratio": 0.01,
+  "cell_inset_min": 4,
+  "fit_scale": 0.87,
+  "trim_border": 4,
+  "edge_clean_depth": 1,
+  "align": "feet",
+  "baseline_y": 176,
+  "preserve_cell_position": false,
+  "shared_scale": true,
+  "component_mode": "all",
+  "component_padding": 6,
+  "min_component_area": 96,
+  "chroma_key": "magenta",
+  "frame_labels": [
+    "jump-1",
+    "jump-2",
+    "jump-3",
+    "jump-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "outer_box": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "inner_box": [
+        5,
+        5,
+        507,
+        507
+      ],
+      "cell_inset_px": 5,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        119,
+        165,
+        466,
+        492
+      ],
+      "edge_touch": false,
+      "output_size": [
+        156,
+        147
+      ],
+      "paste_position": [
+        18,
+        30
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "outer_box": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "inner_box": [
+        517,
+        5,
+        1019,
+        507
+      ],
+      "cell_inset_px": 5,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        67,
+        51,
+        415,
+        422
+      ],
+      "edge_touch": false,
+      "output_size": [
+        157,
+        167
+      ],
+      "paste_position": [
+        17,
+        10
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "outer_box": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "inner_box": [
+        5,
+        517,
+        507,
+        1019
+      ],
+      "cell_inset_px": 5,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        121,
+        39,
+        436,
+        332
+      ],
+      "edge_touch": false,
+      "output_size": [
+        142,
+        132
+      ],
+      "paste_position": [
+        25,
+        45
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "outer_box": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "inner_box": [
+        517,
+        517,
+        1019,
+        1019
+      ],
+      "cell_inset_px": 5,
+      "component_mode": "all",
+      "component_count": 1,
+      "selected_component_area": null,
+      "selected_component_bbox": null,
+      "crop_bbox": [
+        77,
+        118,
+        413,
+        453
+      ],
+      "edge_touch": false,
+      "output_size": [
+        151,
+        151
+      ],
+      "paste_position": [
+        20,
+        26
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

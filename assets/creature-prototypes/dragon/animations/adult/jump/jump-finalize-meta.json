@@ -1,76 +1,76 @@
 {
-  "scale": 1.035294,
+  "scale": 0.999522,
   "resize_filter": "nearest-neighbor",
   "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
   "target_baselines_y": [
     176,
-    146,
-    116,
+    148,
+    126,
     176
   ],
-  "reference": "assets\\creature-prototypes\\dragon\\master-adult.png",
+  "reference": "assets\\creature-prototypes\\dragon\\animations\\adult\\idle\\idle-1.png",
   "frames": [
     {
       "frame": 1,
       "source_size": [
-        170,
-        79
+        136,
+        119
       ],
       "output_size": [
-        176,
-        82
+        136,
+        119
       ],
       "paste_position": [
-        8,
-        95
+        28,
+        58
       ],
       "target_baseline_y": 176
     },
     {
       "frame": 2,
       "source_size": [
-        166,
-        100
+        135,
+        147
       ],
       "output_size": [
-        172,
-        104
+        135,
+        147
       ],
       "paste_position": [
-        10,
-        43
+        28,
+        2
       ],
-      "target_baseline_y": 146
+      "target_baseline_y": 148
     },
     {
       "frame": 3,
       "source_size": [
-        113,
-        100
+        105,
+        122
       ],
       "output_size": [
-        117,
-        104
+        105,
+        122
       ],
       "paste_position": [
-        37,
-        13
+        43,
+        5
       ],
-      "target_baseline_y": 116
+      "target_baseline_y": 126
     },
     {
       "frame": 4,
       "source_size": [
-        157,
-        95
+        126,
+        125
       ],
       "output_size": [
-        163,
-        98
+        126,
+        125
       ],
       "paste_position": [
-        14,
-        79
+        33,
+        52
       ],
       "target_baseline_y": 176
     }

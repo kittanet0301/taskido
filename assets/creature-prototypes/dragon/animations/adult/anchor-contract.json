@@ -12,7 +12,7 @@
   "generation_anchor": "references/idle-anchor-2x2.png",
   "processing": {
     "resize_filter": "nearest-neighbor",
-    "fit_scale": 0.87,
+    "fit_scale": 0.86,
     "align": "feet",
     "baseline_y_argument": 176,
     "component_mode": "all",
@@ -29,7 +29,7 @@
       "playback": "loop",
       "qc": "idle/qc.json",
       "passed": true,
-      "body_height_cv": 0.007181,
+      "body_height_cv": 0.153926,
       "magenta_fringe_pixels": 0,
       "output_baseline_y": 176
     },
@@ -43,7 +43,8 @@
       "playback": "loop",
       "qc": "move/qc.json",
       "passed": true,
-      "body_height_cv": 0.006024,
+      "fit_scale": 0.62,
+      "body_height_cv": 0.008475,
       "magenta_fringe_pixels": 0,
       "output_baseline_y": 176
     },
@@ -57,7 +58,8 @@
       "playback": "one-shot",
       "qc": "hurt/qc.json",
       "passed": true,
-      "body_height_cv": 0.128307,
+      "fit_scale": 0.65,
+      "body_height_cv": 0.119803,
       "magenta_fringe_pixels": 0,
       "output_baseline_y": 176
     },
@@ -71,7 +73,8 @@
       "playback": "one-shot",
       "qc": "bite/qc.json",
       "passed": true,
-      "body_height_cv": 0.095031,
+      "fit_scale": 0.88,
+      "body_height_cv": 0.042506,
       "magenta_fringe_pixels": 0,
       "output_baseline_y": 176
     },
@@ -85,20 +88,22 @@
       "playback": "one-shot",
       "qc": "jump/qc.json",
       "passed": true,
-      "body_height_cv": 0.083467,
+      "fit_scale": 0.78,
+      "body_height_cv": 0.086013,
       "magenta_fringe_pixels": 0,
       "output_baseline_y": 176,
       "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
       "target_baselines_y": [
         176,
-        146,
-        116,
+        148,
+        126,
         176
       ],
-      "baseline_span": 0,
+      "baseline_span": 50,
       "ground_return_delta": 0
     }
   },
   "stage_action_set_complete": true,
-  "runtime_registered": true
+  "runtime_registered": true,
+  "resize_note": "Regenerated 2026-08-06 with roster-matched adult scale after baby resize. Previous oversized set preserved in adult-prev/."
 }

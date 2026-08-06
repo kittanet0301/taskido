@@ -1,0 +1,103 @@
+{
+  "element": "dragon",
+  "stage": "baby",
+  "status": "accepted-complete-action-set",
+  "canvas": [
+    192,
+    192
+  ],
+  "raw_background": "#FF00FF",
+  "grounded_output_baseline_y": 176,
+  "master_reference": "../../master-baby.png",
+  "generation_anchor": "references/idle-anchor-2x2.png",
+  "processing": {
+    "resize_filter": "nearest-neighbor",
+    "fit_scale": 0.85,
+    "align": "feet",
+    "baseline_y_argument": 176,
+    "component_mode": "all",
+    "shared_scale": true
+  },
+  "actions": {
+    "idle": {
+      "path": "idle",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "loop",
+      "qc": "idle/qc.json",
+      "passed": true,
+      "body_height_cv": 0.013089,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 175
+    },
+    "move": {
+      "path": "move",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "loop",
+      "qc": "move/qc.json",
+      "passed": true,
+      "body_height_cv": 0,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 175
+    },
+    "hurt": {
+      "path": "hurt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "qc": "hurt/qc.json",
+      "passed": true,
+      "body_height_cv": 0.103082,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 175
+    },
+    "bite": {
+      "path": "bite",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "qc": "bite/qc.json",
+      "passed": true,
+      "body_height_cv": 0.094222,
+      "magenta_fringe_pixels": 0
+    },
+    "jump": {
+      "path": "jump",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "playback": "one-shot",
+      "qc": "jump/qc.json",
+      "passed": true,
+      "body_height_cv": 0.077374,
+      "magenta_fringe_pixels": 0,
+      "output_baseline_y": 175,
+      "position_policy": "authored-trajectory-normalized-to-explicit-baselines",
+      "target_baselines_y": [
+        176,
+        142,
+        112,
+        176
+      ],
+      "baseline_span": 0,
+      "ground_return_delta": 0
+    }
+  },
+  "stage_action_set_complete": true,
+  "runtime_registered": true
+}

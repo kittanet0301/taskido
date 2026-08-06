@@ -5,10 +5,10 @@
   "playback": "one-shot",
   "baseline_mode": "variable",
   "frame_count": 4,
-  "shared_baseline_y": 175,
-  "baseline_span": 0,
+  "shared_baseline_y": null,
+  "baseline_span": 64,
   "ground_return_delta": 0,
-  "body_height_cv": 0.077374,
+  "body_height_cv": 0.042211,
   "loop_first_last_identity_match": null,
   "final_identity_reference_match": null,
   "reference_scale_drift": null,
@@ -22,18 +22,18 @@
         192
       ],
       "bbox": [
-        20,
-        36,
-        172,
-        176
+        45,
+        88,
+        146,
+        177
       ],
       "margins": {
-        "left": 20,
-        "top": 36,
-        "right": 20,
-        "bottom": 16
+        "left": 45,
+        "top": 88,
+        "right": 46,
+        "bottom": 15
       },
-      "baseline_y": 175,
+      "baseline_y": 176,
       "magenta_fringe_pixels": 0
     },
     {
@@ -44,18 +44,18 @@
         192
       ],
       "bbox": [
-        22,
-        15,
-        169,
-        176
+        48,
+        43,
+        143,
+        143
       ],
       "margins": {
-        "left": 22,
-        "top": 15,
-        "right": 23,
-        "bottom": 16
+        "left": 48,
+        "top": 43,
+        "right": 49,
+        "bottom": 49
       },
-      "baseline_y": 175,
+      "baseline_y": 142,
       "magenta_fringe_pixels": 0
     },
     {
@@ -66,18 +66,18 @@
         192
       ],
       "bbox": [
-        26,
-        43,
-        166,
-        176
+        60,
+        17,
+        131,
+        113
       ],
       "margins": {
-        "left": 26,
-        "top": 43,
-        "right": 26,
-        "bottom": 16
+        "left": 60,
+        "top": 17,
+        "right": 61,
+        "bottom": 79
       },
-      "baseline_y": 175,
+      "baseline_y": 112,
       "magenta_fringe_pixels": 0
     },
     {
@@ -88,18 +88,18 @@
         192
       ],
       "bbox": [
-        24,
-        20,
-        167,
-        176
+        48,
+        80,
+        144,
+        177
       ],
       "margins": {
-        "left": 24,
-        "top": 20,
-        "right": 25,
-        "bottom": 16
+        "left": 48,
+        "top": 80,
+        "right": 48,
+        "bottom": 15
       },
-      "baseline_y": 175,
+      "baseline_y": 176,
       "magenta_fringe_pixels": 0
     }
   ]

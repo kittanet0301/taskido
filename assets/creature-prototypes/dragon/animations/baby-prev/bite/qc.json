@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "input_dir": "assets\\creature-prototypes\\dragon\\animations\\baby\\bite",
+  "prefix": "bite",
+  "playback": "one-shot",
+  "baseline_mode": "variable",
+  "frame_count": 4,
+  "shared_baseline_y": null,
+  "baseline_span": 1,
+  "ground_return_delta": 1,
+  "body_height_cv": 0.094222,
+  "loop_first_last_identity_match": null,
+  "final_identity_reference_match": null,
+  "reference_scale_drift": null,
+  "reference_scale_passed": null,
+  "frames": [
+    {
+      "frame": 1,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        26,
+        26,
+        166,
+        177
+      ],
+      "margins": {
+        "left": 26,
+        "top": 26,
+        "right": 26,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 2,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        21,
+        33,
+        171,
+        177
+      ],
+      "margins": {
+        "left": 21,
+        "top": 33,
+        "right": 21,
+        "bottom": 15
+      },
+      "baseline_y": 176,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 3,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        15,
+        58,
+        177,
+        176
+      ],
+      "margins": {
+        "left": 15,
+        "top": 58,
+        "right": 15,
+        "bottom": 16
+      },
+      "baseline_y": 175,
+      "magenta_fringe_pixels": 0
+    },
+    {
+      "frame": 4,
+      "passed": true,
+      "size": [
+        192,
+        192
+      ],
+      "bbox": [
+        25,
+        27,
+        167,
+        176
+      ],
+      "margins": {
+        "left": 25,
+        "top": 27,
+        "right": 25,
+        "bottom": 16
+      },
+      "baseline_y": 175,
+      "magenta_fringe_pixels": 0
+    }
+  ]
+}
