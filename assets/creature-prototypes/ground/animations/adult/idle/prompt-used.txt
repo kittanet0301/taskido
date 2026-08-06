@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Adult Ground Ankylosaurus body-only idle animation
-Create exactly four seamless loop frames in an exact 2x2 grid. Image 1 locks strict adult identity and Image 2 locks scale, centered torso root, common feet line and padding. Preserve the left-facing broad adult Ankylosaurus, ochre skin, massive layered tan stone armor plates, side spikes, four sturdy legs and large faceted rock club tail.
-Frames: neutral, tiny chest inhale/head lift, restrained club-tail sway, exact return to neutral. Keep all feet planted, heavy torso centered and armor silhouette stable.
-Hard-edged polished 16-bit pixel art, limited earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, background texture, floor/shadow, cracks, falling stones, dust, debris, particles, text, UI, watermark, borders, guides, grid lines or separators. No turn, crop, armor mutation or extra/missing legs. Full snout, armor, spikes, club and feet inside generous padding. Clean production raw animation sheet for Taskino.

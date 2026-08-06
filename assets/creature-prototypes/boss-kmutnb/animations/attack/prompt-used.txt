@@ -1,3 +1,0 @@
-Use case: Taskino bot-battle humanoid boss combat bundle
-Asset type: KMUTNB Engineer Boss attack body-only
-Exact 2x2 grid, same identity as idle. Body-only punch sequence: wind-up, step-in, strike peak, recovery. No detached slash/FX/projectiles. Flat #FF00FF, stable feet, no edge crossing.

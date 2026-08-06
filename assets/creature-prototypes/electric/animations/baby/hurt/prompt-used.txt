@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Baby Electric Parasaurolophus body-only hurt animation
-Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing baby Parasaurolophus, yellow skin, cobalt lightning markings, attached lightning crest, blue back spikes, forearms, two hind legs and long tail.
-Frames: neutral brace; quick flinch with crest lowered and eyes squeezed; deepest crouch with knees bent and tail pulled inward; recovery near neutral. Keep torso centered and at least one hind foot on the same ground line. Hurt reads only through pose.
-Hard-edged polished 16-bit pixel art, limited yellow/cobalt palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, sparks, bolts, glow, blood, wounds, slash, hit flash, stars, dust, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached crest, extra/missing limbs. Full crest, snout, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Adult Ground Ankylosaurus body-only walking animation
-Create exactly four seamless loop frames in an exact 2x2 grid. Image 1 locks adult identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing broad Ankylosaurus, ochre skin, massive layered tan stone armor, side spikes, four sturdy legs and large rock club tail.
-Frames: slow weighty four-beat walk-in-place—front contact, passing, opposite contact, passing/return. Keep the heavy torso centered with restrained bob, club tail counter-swaying slightly, and at least two feet on the common ground line in every frame.
-Hard-edged polished 16-bit pixel art, limited earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, falling rocks, dust, debris, particles, text, UI, watermark, guides, grid lines or separators. No turn, run, crop, armor mutation or extra/missing legs. Full snout, armor, spikes, tail club and feet inside generous padding. Clean production raw animation sheet for Taskino.

@@ -1,7 +1,0 @@
-Use case: stylized-concept (roster-scale resize 2026-08-06)
-Asset type: Dragon Wyrmling egg hatch animation
-Create exactly six one-shot frames in an exact 2 columns x 3 rows grid. Egg identity from move reference; final baby must match resized baby idle reference exactly.
-Frames: intact egg; subtle crack; horned shell plates separate; baby snout and attached cream antennae emerge; baby pushes free with shell close to feet; clean full baby standing matching baby reference with no shell occlusion. Keep every frame centered and grounded on one line.
-Hatch finalize replaces frame 6 with exact baby/idle/idle-1.png pixels at shared baseline.
-Processing: fit_scale=0.78, baseline_y=176, finalize --baby-reference baby/idle/idle-1.png.
-Hard-edged polished 16-bit pixel art, limited orange/cream/gold palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, background texture, floor/shadow, fire, smoke, embers, glow, sparks, dust, debris, particles, text, UI, watermark, guides, grid lines or separators. No crop, extra limbs or species mutation. Clean production raw sprite sheet for Taskino.

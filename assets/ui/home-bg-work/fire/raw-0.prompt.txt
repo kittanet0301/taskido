@@ -1,3 +1,0 @@
-Taskino home hub BACKGROUND — single full frame (not a sprite sheet).
-
-Fire element frame 0 (calm rest): volcanic hub clearing, circular cracked basalt stand ring with lava tile top, molten-vein trees left/right, distant volcano under crimson sky. Stand ring at horizontal center ~74% down. Clean detailed pixel art, no characters/UI/text. Ambient story for loop: embers rise upward only; lava glow pulses.

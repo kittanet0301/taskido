@@ -1,8 +1,0 @@
-Use case: stylized-concept
-Asset type: Baby Grass Brachiosaurus one-shot hurt reaction
-Create exactly four frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks camera scale, torso root, ground line and padding.
-Preserve strict left-facing baby Brachiosaurus, lime-green skin, cream neck/belly, dark vine curls, attached leafy scales/head sprout, friendly eye, long neck, four legs, curled tail, outline, palette and pixel density.
-Frames: 1 impact, head pulls back slightly and knees brace; 2 strongest recoil, long neck curves into a compact safe S-shape, body crouches, eye shut, tail tucked; 3 stagger, head lowered and one forefoot lifts slightly while another foot remains grounded; 4 recovery near neutral with tired blink. Keep torso centered and never translate the whole body.
-Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF, no antialiasing, shadow, floor, gradient or texture.
-Natural neck curve/crouch may change bbox but anatomy never resizes. No blood, wounds, broken leaves, detached leaves/vines/pollen, knockdown, airborne motion, attack, particles, dust or effects. Full sprout, neck, tail, feet and leaves stay within the central 68% envelope. No extra/missing legs, text, UI, watermark, borders, guides, grid lines or separators.
-Create a clean production raw sprite animation sheet for Taskino.

@@ -1,8 +1,0 @@
-Use case: stylized-concept
-Asset type: production 2D game Baby Grass Brachiosaurus idle sprite sheet
-Create exactly four idle-loop frames in an exact 2x2 grid for the same character in Image 1. Image 1 locks identity; Image 2 locks cell positions, camera distance, anatomy scale, torso root, feet line and padding.
-Preserve strict left-facing side view, baby Brachiosaurus long-neck proportions, lime-green skin, cream neck/belly, dark-green vine curls, attached leafy dorsal scales, tiny attached two-leaf head sprout, friendly eye, four sturdy legs, curled tail, dark outline, limited palette, pixel density and upper-left lighting.
-Frames: 1 calm neutral; 2 subtle inhale with chest/neck rising only a few pixels and leaves lifting slightly; 3 gentle blink with small neck settle and tail-tip relaxation; 4 return near frame 1. Keep torso and all planted feet rooted; never sway the whole long neck sideways or step.
-Polished hand-pixeled 16-bit pixel art with hard square pixels; no antialiasing, smoothing or painterly look. Perfectly flat #FF00FF background with no shadow, floor, gradient, texture or transparency.
-Same scale in all frames; full head sprout, long neck, snout, tail, leaves, legs and toes stay inside the central 68% envelope with magenta margin. No detached leaves, vines, pollen, particles, dust, effects, shadow, text, UI, watermark, boxes, guides, grid lines or separators. Do not reproduce the anchor guide.
-Create a clean production raw sprite animation sheet for Taskino.

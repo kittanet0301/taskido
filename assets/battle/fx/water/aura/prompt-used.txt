@@ -1,1 +1,0 @@
-Taskino pixel-inspired elemental aura and sigil animation atlas on solid #FF00FF. Nine elemental four-frame sequences: fire, grass, ground, electric, water, ice, dragon, dark, neutral. Open center for creature layering, consistent scale, generous cell padding, no text or UI.

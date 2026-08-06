@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Dragon Wyrmling egg hatch animation
-Create exactly six one-shot frames in an exact 2 columns x 3 rows grid. Image 1 locks orange/cream mottled horned egg identity, Image 2 locks final left-facing baby dragon identity, and Image 3 locks egg scale, center, bottom line and padding.
-Frames: intact egg; subtle crack; horned shell plates separate; baby snout and attached cream antennae emerge; baby pushes free with shell close to feet; clean full baby standing matching Image 2 with no shell occlusion. Keep every frame centered and grounded on one line.
-Hard-edged polished 16-bit pixel art, limited orange/cream/gold palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, background texture, floor/shadow, fire, smoke, embers, glow, sparks, dust, debris, particles, text, UI, watermark, guides, grid lines or separators. No crop, extra limbs or species mutation. Clean production raw sprite sheet for Taskino; deterministic processing replaces final frame with exact baby master.

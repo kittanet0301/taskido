@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Water Spinosaurus egg wobble animation
-Create exactly six seamless loop frames in an exact 2 columns x 3 rows grid. Image 1 locks the deep-blue egg with turquoise wave bands, pale sandy base and attached fin crest; Image 2 locks scale, center, bottom line and padding.
-Frames: neutral, tilt left, neutral, tilt right, tiny squash, exact return to neutral. Subtle wobble only; keep egg centered, fin attached and bottom on one shared line.
-Hard-edged polished 16-bit pixel art, limited blue/turquoise palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradients, background texture, floor/shadow, water droplets, bubbles, splash, foam, particles, text, UI, watermark, guides, grid lines or separators. No crop, scale change or detached fin. Clean production raw sprite sheet for Taskino.

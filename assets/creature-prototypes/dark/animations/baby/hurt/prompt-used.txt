@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Baby Dark Velociraptor body-only hurt animation
-Create exactly four one-shot reaction frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing slender navy-black baby feathered Velociraptor, large glossy eye, narrow silver muzzle/neck, feathered forearms and tail, two legs with sickle claws, attached crescent markings.
-Frames: neutral alert, flinch backward with eyes squeezed, low recoil while grounded, recovery near neutral. Every visible pixel belongs to the dinosaur.
-Hard-edged polished 16-bit pixel art, limited navy/black/silver palette, upper-left lighting, perfectly flat #FF00FF. No impact star, motion lines, detached strokes, smoke, shadow aura, mist, moon glow, sparkles, particles, text, UI, watermark, guides, grid lines or separators. No antialiasing, gradient, background texture, floor/shadow, wound, turn, crop, detached feathers, extra/missing limbs. Full snout, forearm feathers, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

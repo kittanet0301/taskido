@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Ground Ankylosaurus egg hatch animation
-Create exactly six one-shot frames in an exact 2 columns x 3 rows grid. Image 1 locks the stone egg identity, Image 2 locks the final baby Ankylosaurus identity, and Image 3 locks egg scale, center, common bottom line and padding.
-Frames in reading order: 1 intact egg; 2 subtle central crack; 3 shell plates separate slightly; 4 baby armored snout and forefeet emerge while shell stays centered; 5 baby pushes free with shell halves close to its feet; 6 clean full left-facing baby Ankylosaurus standing, matching Image 2, with no shell occluding the body. Keep every frame centered and grounded on one common line.
-Hard-edged polished 16-bit pixel art, limited tan/ochre earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, floating rocks, dust, debris, particles, text, UI, watermark, borders, guides, grid lines or separators. No crop, extra limbs or species mutation. Clean production raw sprite sheet for Taskino; deterministic processing will replace the final frame with the exact baby master.

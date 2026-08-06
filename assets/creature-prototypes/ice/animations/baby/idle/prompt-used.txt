@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Baby Ice Pachyrhinosaurus body-only idle animation
-Create exactly four seamless loop frames in an exact 2x2 grid. Image 1 strictly locks identity; Image 2 locks scale, torso root, common feet line and padding. Preserve strict left-facing pale ice-blue baby Pachyrhinosaurus with huge glossy eye, solid rounded nose boss, attached translucent crystal frill spikes, snowflake markings, four short legs and short tail.
-Frames: neutral, tiny inhale/head lift, subtle frill/tail sway, exact return to neutral. Keep feet planted and torso centered.
-Hard-edged polished 16-bit pixel art, limited ice-blue/white palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, snow, frost cloud, shards, sparkles, mist, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached crystals, extra/missing limbs. Full nose, frill crystals, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

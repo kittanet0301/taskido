@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Adult Dragon Wyrmling body-only bite animation
-Create exactly four frames in an exact 2x2 grid. Preserve a chubby, friendly, rounded biped dragon: left-facing, plump orange body, cream/pale-tan belly and lower jaw, two small stubby folded wings on its back, two small cream horn-like antennae, short thick tapering tail, big round dark eyes, small clawed feet; no armor, no weapons.
-Frames: ready stance, head wind-up with jaws opening, short forward chomp with jaws closing, grounded recovery near neutral. Attack readable without effects.
-Hard-edged polished 16-bit pixel art, limited orange/cream/gold palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, fire, smoke, embers, aura, sparks, slash arc, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, detached horns/wings, extra/missing limbs. Full snout, horns, wings, tail and feet inside generous padding. Clean production raw animation sheet for Taskino.

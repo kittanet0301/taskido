@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Adult Water Spinosaurus body-only jump animation
-Create exactly four one-shot frames in the exact 2x2 layout defined by Image 2. Image 1 strictly locks adult identity, blue/turquoise palette, tall attached sail, fish-tail fin and proportions. Preserve left-facing adult Spinosaurus, crocodilian snout and four limbs.
-Frames: grounded anticipation crouch; rising airborne with all feet tucked and tail fin close; apex compact pose with tall sail safely inside cell; grounded landing/recovery near neutral. Author pose only, center each subject at consistent torso scale; deterministic processing applies vertical trajectory.
-Hard-edged polished 16-bit pixel art on perfectly flat #FF00FF. No antialiasing, gradient, background texture, floor/shadow, grid/separators/guides, text, UI, watermark, water, bubbles, splash, foam, droplets or particles. No turn, swim, crop, detached sail/fin, extra/missing limbs. Full snout, sail, tail fin and feet inside generous padding. Clean production raw animation sheet for Taskino.

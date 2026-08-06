@@ -1,9 +1,0 @@
-Use case: production-correction-v2
-Asset type: Baby Grass Brachiosaurus body-only jump animation
-Image 1 is the exact identity, anatomy, palette, face, outline, lighting, pixel density, and 16-bit pixel-art reference. Image 2 is the previous jump concept; preserve only its four phases while correcting the layout defects.
-
-Create exactly four frames in one square 2x2 grid, read left-to-right then top-to-bottom. Frames: 1 grounded anticipation crouch; 2 rising airborne with all four feet tucked; 3 apex with all four feet tucked and compact neck; 4 grounded landing/recovery near neutral. Keep the torso center fixed in each cell and do not encode vertical travel near a cell edge.
-
-The full head sprout, skull, muzzle, neck, leafy scales, torso, all four feet, and tail tip must remain inside the central 68% safe envelope with thick magenta padding on every side. Keep identical anatomy scale and camera distance.
-
-Perfectly flat #FF00FF background. No visible grid lines, black separators, borders, frames, guides, text, UI, shadow, floor, dust, particles, detached effects, antialiasing, anatomy mutation, missing limbs, or extra limbs.

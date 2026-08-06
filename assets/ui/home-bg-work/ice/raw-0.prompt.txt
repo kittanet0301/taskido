@@ -1,1 +1,0 @@
-Ice master only — pipeline bakes frames 0-3 via motion.txt = snow_down (locked geometry).

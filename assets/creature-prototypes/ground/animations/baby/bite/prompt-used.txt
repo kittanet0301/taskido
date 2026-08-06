@@ -1,5 +1,0 @@
-Use case: stylized-concept
-Asset type: Baby Ground Ankylosaurus body-only bite animation
-Create exactly four one-shot frames in an exact 2x2 grid. Image 1 locks identity; Image 2 locks scale, centered torso root, common feet line and padding. Preserve strict left-facing low baby Ankylosaurus, ochre skin, layered stone armor, side spikes, four short legs and round rock club tail.
-Frames: closed-jaw wind-up with head slightly back; modest open bite with head reaching left and small clean teeth; snap closed with head dip; recovery near neutral. Keep torso, pelvis and all feet rooted; only head/short neck moves. No lunge.
-Hard-edged polished 16-bit pixel art, limited earth palette, upper-left lighting, perfectly flat #FF00FF. No antialiasing, gradient, texture background, shadow/floor, target, food, blood, saliva, slash, impact, falling rocks, dust, debris, particles, text, UI, watermark, guides, grid lines or separators. No turn, crop, armor mutation or extra/missing legs. Full jaw, armor, tail club and feet inside generous padding. Clean production raw animation sheet for Taskino.
