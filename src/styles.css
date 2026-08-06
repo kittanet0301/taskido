@@ -4636,9 +4636,10 @@ button.dash-hud-avatar--btn:disabled {
 .pixel-cover .cover-btn {
   width: 100%;
   padding: 14px 16px;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.65rem;
-  line-height: 1.6;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
   border: 4px solid var(--pixel-border);
   border-radius: 0;
   cursor: pointer;
@@ -4760,7 +4761,7 @@ button.dash-hud-avatar--btn:disabled {
   .pixel-cover .pixel-btn,
   .pixel-cover .cover-btn,
   .pixel-cover button.primary.cover-btn {
-    font-size: 0.55rem;
+    font-size: 0.95rem;
     padding: 12px 10px;
   }
 }
