@@ -15,7 +15,7 @@ interface BeatEvent {
 }
 
 export class ChiptuneSequencer {
-  private readonly masterGain: GainNode
+  private masterGain: GainNode
   private timer: ReturnType<typeof setInterval> | null = null
   private track: MusicTrack | null = null
   private events: BeatEvent[] = []
@@ -47,11 +47,15 @@ export class ChiptuneSequencer {
 
   start(track: MusicTrack): void {
     this.stop(false)
+    this.masterGain = this.context.createGain()
+    this.masterGain.gain.value = 0.0001
+    this.masterGain.connect(this.context.destination)
     this.track = track
     this.targetGain = track.masterGain
     this.events = buildBeatEvents(track)
     this.loopEpoch = this.context.currentTime + 0.05
     this.scheduledKeys.clear()
+    this.activeVoices = 0
     this.paused = false
     this.applyMasterGain(this.targetGain * this.volumeMultiplier * BGM_BUS_GAIN)
     this.timer = setInterval(() => this.tick(), TICK_MS)
@@ -63,18 +67,24 @@ export class ChiptuneSequencer {
       clearInterval(this.timer)
       this.timer = null
     }
+    const bus = this.masterGain
     const now = this.context.currentTime
     if (fade) {
-      this.masterGain.gain.cancelScheduledValues(now)
-      this.masterGain.gain.setValueAtTime(Math.max(0.0001, this.masterGain.gain.value), now)
-      this.masterGain.gain.linearRampToValueAtTime(0.0001, now + CROSSFADE_SEC)
+      bus.gain.cancelScheduledValues(now)
+      bus.gain.setValueAtTime(Math.max(0.0001, bus.gain.value), now)
+      bus.gain.linearRampToValueAtTime(0.0001, now + CROSSFADE_SEC)
+      window.setTimeout(() => {
+        try { bus.disconnect() } catch { /* already disconnected */ }
+      }, CROSSFADE_SEC * 1000 + 50)
     } else {
-      this.masterGain.gain.cancelScheduledValues(now)
-      this.masterGain.gain.setValueAtTime(0.0001, now)
+      bus.gain.cancelScheduledValues(now)
+      bus.gain.setValueAtTime(0.0001, now)
+      try { bus.disconnect() } catch { /* already disconnected */ }
     }
     this.track = null
     this.events = []
     this.scheduledKeys.clear()
+    this.activeVoices = 0
     this.targetGain = 0
   }
 

@@ -1,4 +1,5 @@
 import type { AnimationState, PetData } from './types'
+import { battleClipFlipX, battleHurtClipFlipX } from './creatureCharacters'
 import { getMoodLabel, shouldBeSick } from './stats'
 import type { PetSpriteFolder } from './petSprites'
 import {
@@ -46,8 +47,8 @@ export function resolvePetClip(
 
   const folder = bodyFolder(pet)
 
-  if (movementAnim === 'battle_attack') return { folder, clip: 'bite', flipX: IDLE_FLIP_X }
-  if (movementAnim === 'battle_hurt') return { folder, clip: 'hurt', flipX: IDLE_FLIP_X }
+  if (movementAnim === 'battle_attack') return { folder, clip: 'bite', flipX: battleClipFlipX(pet.character) }
+  if (movementAnim === 'battle_hurt') return { folder, clip: 'hurt', flipX: battleHurtClipFlipX(pet.character) }
 
   if (pet.animationState === 'eat') return { folder, clip: 'bite', flipX: IDLE_FLIP_X }
   if (pet.animationState === 'happy') return { folder, clip: 'jump', flipX: IDLE_FLIP_X }
@@ -56,8 +57,8 @@ export function resolvePetClip(
   }
   if (pet.animationState === 'sleep') return { folder, clip: 'idle', flipX: IDLE_FLIP_X }
   if (pet.animationState === 'evolve') return { folder, clip: 'jump', flipX: IDLE_FLIP_X }
-  if (pet.animationState === 'battle_attack') return { folder, clip: 'bite', flipX: IDLE_FLIP_X }
-  if (pet.animationState === 'battle_hurt') return { folder, clip: 'hurt', flipX: IDLE_FLIP_X }
+  if (pet.animationState === 'battle_attack') return { folder, clip: 'bite', flipX: battleClipFlipX(pet.character) }
+  if (pet.animationState === 'battle_hurt') return { folder, clip: 'hurt', flipX: battleHurtClipFlipX(pet.character) }
   if (pet.stats.health <= 0) return { folder, clip: 'hurt', flipX: IDLE_FLIP_X }
 
   if (shouldBeSick(pet.stats)) return { folder, clip: 'hurt', flipX: IDLE_FLIP_X }

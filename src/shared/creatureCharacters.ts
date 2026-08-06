@@ -66,6 +66,35 @@ export function creatureDisplaySize(stage: Stage): number {
 
 export type CreatureStageFolder = 'egg' | 'baby' | 'adult'
 
+/** Default facing in raw sprite sheets before canvas/CSS mirroring. */
+export const CREATURE_ART_FACING: Record<CreatureSpecies, 'left' | 'right'> = {
+  neutral: 'left',
+  fire: 'left',
+  grass: 'left',
+  ground: 'left',
+  electric: 'left',
+  water: 'left',
+  ice: 'left',
+  dragon: 'left',
+  dark: 'left',
+  kmutnb: 'right'
+}
+
+export function creatureArtFacing(species: string): 'left' | 'right' {
+  return isCreatureSpecies(species) ? CREATURE_ART_FACING[species] : 'left'
+}
+
+/** Battle clips render toward screen-right before defender-side CSS mirroring. */
+export function battleClipFlipX(species: string): boolean {
+  return creatureArtFacing(species) === 'left'
+}
+
+/** Hurt sheets that face the opposite way from the species' default battle art. */
+export function battleHurtClipFlipX(species: string): boolean {
+  if (species === 'kmutnb') return true
+  return battleClipFlipX(species)
+}
+
 export const CREATURE_PREVIEW_COLORS: Record<CreatureSpecies, string> = {
   neutral: '#a9a38f',
   fire: '#e85d3f',

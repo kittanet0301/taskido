@@ -35,4 +35,18 @@ describe('resolvePetClip', () => {
       flipX: true
     })
   })
+
+  it('mirrors boss hurt art because the hurt sheet faces left', () => {
+    const bossPet = { ...adultPet, character: 'kmutnb' as const, elementPrimary: 'electric' as const }
+    expect(resolvePetClip(bossPet, 0, 'battle_attack')).toEqual({
+      folder: 'adult',
+      clip: 'bite',
+      flipX: false
+    })
+    expect(resolvePetClip(bossPet, 0, 'battle_hurt')).toEqual({
+      folder: 'adult',
+      clip: 'hurt',
+      flipX: true
+    })
+  })
 })

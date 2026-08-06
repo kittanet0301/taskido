@@ -44,7 +44,7 @@ describe('musicManager', () => {
   })
 
   it('exposes every bgm id in the track catalog without duplicates', () => {
-    expect(BGM_IDS).toEqual(['title', 'hub', 'battle', 'minigame'])
+    expect(BGM_IDS).toEqual(['title', 'hub', 'battle', 'boss', 'minigame'])
     expect(new Set(BGM_IDS).size).toBe(BGM_IDS.length)
     for (const id of BGM_IDS) {
       expect(MUSIC_TRACKS[id]).toBeDefined()

@@ -82,7 +82,7 @@ export const ADULT_CROP_SETTINGS = {
   trimBorder: 4,
   edgeCleanDepth: 1,
   componentPadding: 6,
-  componentMode: 'all',
+  componentMode: 'largest',
   fitScale: 0.78
 }
 

@@ -272,7 +272,6 @@ export function BattleArena({
       </div>
 
       <div className="rpg-scene">
-        {announcement && <div className="rpg-wave-notice" role="status">{announcement}</div>}
         <div className="rpg-scene-statuses">
           <div className={`rpg-status${session.status === 'active' && session.turnUserId === session.challengerUserId ? ' is-active-turn' : ''}`}>
             <div className="rpg-status-head"><strong>{challengerPet?.name ?? challengerName}</strong><ElementBadges pet={challengerPet} /></div>
@@ -289,6 +288,8 @@ export function BattleArena({
             <ResourceBar label="MP" value={session.defenderMp} max={defenderMpMax} className="rpg-bar--mp" />
           </div>
         </div>
+
+        {announcement && <div className="rpg-wave-notice" role="status">{announcement}</div>}
 
         <div className={`rpg-scene-main${mode === 'bot' && rewardPreview ? ' rpg-scene-main--with-info' : ''}`}>
           <div ref={stageRef} className="battle-stage rpg-stage">

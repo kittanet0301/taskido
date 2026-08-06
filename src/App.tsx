@@ -10,7 +10,7 @@ import {
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
 import { setGameSpeedMultiplier, type GameSpeedMultiplier } from './shared/gameSpeed'
-import { playSfx, pauseBgm, setBgmTrack } from './shared/audio'
+import { playSfx, pauseBgm, setBgmTrack, getCurrentBgmTrack } from './shared/audio'
 import './i18n'
 import { GetStarted } from './hub/GetStarted'
 import { LoginGate } from './hub/LoginGate'
@@ -299,7 +299,9 @@ function AppContent({ variant = 'desktop' }: Props) {
       return
     }
     if (mainView === 'battle') {
-      setBgmTrack('battle')
+      if (getCurrentBgmTrack() !== 'boss') {
+        setBgmTrack('battle')
+      }
       return
     }
     setBgmTrack('hub')

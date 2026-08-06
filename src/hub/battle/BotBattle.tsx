@@ -20,6 +20,7 @@ import {
   type BotDifficulty
 } from '../../shared/battle/bot'
 import { BATTLE_DEFEAT_HOLD_MS } from '../../shared/battle/constants'
+import { setBgmTrack, getCurrentBgmTrack } from '../../shared/audio'
 import { BattleArena } from './BattleArena'
 
 interface Props {
@@ -82,7 +83,7 @@ function delay(ms: number): Promise<void> {
 }
 
 export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [difficulty, setDifficulty] = useState<BotDifficulty>('normal')
   const [started, setStarted] = useState(false)
   const [wave, setWave] = useState(1)
@@ -111,6 +112,17 @@ export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
   useEffect(() => {
     onStartedChange?.(started)
   }, [onStartedChange, started])
+
+  useEffect(() => {
+    if (!started) return
+    setBgmTrack(isHardFinalBossWave(difficulty, wave) ? 'boss' : 'battle')
+  }, [difficulty, started, wave])
+
+  useEffect(() => () => {
+    if (getCurrentBgmTrack() === 'boss') {
+      setBgmTrack('battle')
+    }
+  }, [])
 
   useEffect(() => {
     if (wave <= 1) {
@@ -191,6 +203,14 @@ export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
     return wave === totalWaves ? t('battle.bot.resultWin') : null
   }, [match.state.status, match.state.winnerUserId, t, totalWaves, wave])
 
+  const defenderPet = useMemo(
+    () => ({
+      ...match.bot,
+      name: t(`defaultPetNames.${match.bot.character}`)
+    }),
+    [match.bot, i18n.language, t]
+  )
+
   if (!started) {
     return <section className="bot-battle-setup" aria-labelledby="bot-difficulty-title">
       <div className="bot-setup-heading">
@@ -235,7 +255,7 @@ export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
   return <div className="bot-battle-shell">
     <BattleArena
       session={asSession(match.state)} turns={turns} userId={LOCAL_PLAYER_USER_ID}
-      challengerName={pet.name} defenderName={match.bot.name} challengerPet={pet} defenderPet={match.bot}
+      challengerName={pet.name} defenderName={defenderPet.name} challengerPet={pet} defenderPet={defenderPet}
       battleItemCounts={match.playerItems} mode="bot" onAction={act}
       wave={wave} totalWaves={totalWaves} difficulty={difficulty}
       paused={paused} auto={auto} speed={speed}

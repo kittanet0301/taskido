@@ -1,6 +1,6 @@
 {
   "target": "creature",
-  "input": "C:\\Users\\Kittanet\\OneDrive\\Desktop\\taskido\\assets\\creature-prototypes\\dragon\\animations\\adult\\idle\\raw-sheet.png",
+  "input": "assets\\creature-prototypes\\dragon\\animations\\adult\\idle\\raw-sheet-clean.png",
   "rows": 2,
   "cols": 2,
   "cell_size": 192,
@@ -13,7 +13,7 @@
   "baseline_y": 176,
   "preserve_cell_position": false,
   "shared_scale": true,
-  "component_mode": "all",
+  "component_mode": "largest",
   "component_padding": 6,
   "min_component_area": 96,
   "chroma_key": "magenta",
@@ -42,24 +42,29 @@
         507
       ],
       "cell_inset_px": 5,
-      "component_mode": "all",
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
-      "crop_bbox": [
+      "selected_component_area": 57312,
+      "selected_component_bbox": [
         147,
         197,
         478,
         494
       ],
+      "crop_bbox": [
+        141,
+        191,
+        484,
+        494
+      ],
       "edge_touch": false,
       "output_size": [
-        134,
-        120
+        163,
+        144
       ],
       "paste_position": [
-        29,
-        57
+        14,
+        33
       ]
     },
     {
@@ -80,24 +85,29 @@
         507
       ],
       "cell_inset_px": 5,
-      "component_mode": "all",
+      "component_mode": "largest",
       "component_count": 1,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
-      "crop_bbox": [
+      "selected_component_area": 57893,
+      "selected_component_bbox": [
         73,
         194,
         397,
         494
       ],
+      "crop_bbox": [
+        67,
+        188,
+        403,
+        494
+      ],
       "edge_touch": false,
       "output_size": [
-        131,
-        122
+        159,
+        145
       ],
       "paste_position": [
-        30,
-        55
+        16,
+        32
       ]
     },
     {
@@ -118,23 +128,28 @@
         1019
       ],
       "cell_inset_px": 5,
-      "component_mode": "all",
+      "component_mode": "largest",
       "component_count": 3,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
-      "crop_bbox": [
+      "selected_component_area": 63228,
+      "selected_component_bbox": [
         147,
-        0,
+        71,
         478,
         407
       ],
-      "edge_touch": true,
+      "crop_bbox": [
+        141,
+        65,
+        484,
+        413
+      ],
+      "edge_touch": false,
       "output_size": [
-        134,
+        163,
         165
       ],
       "paste_position": [
-        29,
+        14,
         12
       ]
     },
@@ -156,35 +171,31 @@
         1019
       ],
       "cell_inset_px": 5,
-      "component_mode": "all",
+      "component_mode": "largest",
       "component_count": 3,
-      "selected_component_area": null,
-      "selected_component_bbox": null,
-      "crop_bbox": [
+      "selected_component_area": 63082,
+      "selected_component_bbox": [
         65,
-        0,
+        71,
         397,
         406
       ],
-      "edge_touch": true,
+      "crop_bbox": [
+        59,
+        65,
+        403,
+        412
+      ],
+      "edge_touch": false,
       "output_size": [
-        135,
+        163,
         165
       ],
       "paste_position": [
-        28,
+        14,
         12
       ]
     }
   ],
-  "edge_touch_frames": [
-    [
-      1,
-      0
-    ],
-    [
-      1,
-      1
-    ]
-  ]
+  "edge_touch_frames": []
 }

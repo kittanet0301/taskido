@@ -136,6 +136,49 @@ const BATTLE_TRACK: MusicTrack = {
   ]
 }
 
+const A3 = 220
+const A5 = 880
+
+const BOSS_BATTLE_TRACK: MusicTrack = {
+  bpm: 168,
+  beatsPerBar: 4,
+  bars: 4,
+  masterGain: 0.18,
+  channels: [
+    {
+      wave: 'square',
+      gain: 0.52,
+      pattern: repeatPattern([
+        note(A5, 0.25), note(G5, 0.25), note(E5, 0.25), note(C5, 0.25),
+        note(D5, 0.5), note(E5, 0.5), note(A5, 0.5), note(G5, 0.5),
+        note(E5, 0.25), note(C5, 0.25), note(A4, 0.25), note(E4, 0.25),
+        note(A4, 1), note(E4, 1),
+        note(C5, 0.5), note(A4, 0.5), note(G4, 0.5), note(E4, 0.5)
+      ], 2)
+    },
+    {
+      wave: 'square',
+      gain: 0.42,
+      pattern: repeatPattern([note(A2, 1), note(E2, 1), note(G2, 1), note(A2, 1)], 4)
+    },
+    {
+      wave: 'triangle',
+      gain: 0.38,
+      pattern: repeatPattern([
+        note(A3, 2), note(C4, 2), note(E4, 2), note(A3, 2)
+      ], 2)
+    },
+    {
+      wave: 'noise',
+      gain: 0.16,
+      pattern: repeatPattern([
+        note(950, 0.125), rest(0.125), note(950, 0.125), rest(0.125),
+        note(750, 0.125), rest(0.125), note(750, 0.125), rest(0.125)
+      ], 16)
+    }
+  ]
+}
+
 const MINIGAME_TRACK: MusicTrack = {
   bpm: 130,
   beatsPerBar: 4,
@@ -169,6 +212,7 @@ export const MUSIC_TRACKS: Record<BgmId, MusicTrack> = {
   title: TITLE_TRACK,
   hub: HUB_TRACK,
   battle: BATTLE_TRACK,
+  boss: BOSS_BATTLE_TRACK,
   minigame: MINIGAME_TRACK
 }
 

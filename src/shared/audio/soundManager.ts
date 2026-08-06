@@ -101,6 +101,7 @@ class SoundManager {
       return
     }
 
+    const previous = this.currentBgmTrack
     this.currentBgmTrack = id
 
     if (!id || typeof window === 'undefined') {
@@ -108,13 +109,15 @@ class SoundManager {
       return
     }
 
-    if (this.muted) {
+    if (previous !== id) {
       this.stopBgmPlayback(false)
+    }
+
+    if (this.muted) {
       return
     }
 
     if (!this.unlocked) {
-      this.stopBgmPlayback(false)
       return
     }
 
