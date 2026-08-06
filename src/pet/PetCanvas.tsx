@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { AudioMuteButton } from '../components/AudioMuteButton'
 import type { AnimationState, GameSave } from '../shared/types'
 import { petPreviewColor } from '../shared/constants'
 import { resolvePetClip } from '../shared/dinoAnim'
@@ -462,6 +463,11 @@ export function PetCanvas() {
             value={bubbleFontSize}
             onChange={(event) => setBubbleFontSize(Number(event.target.value))}
           />
+          <div className="pet-setting-divider" />
+          <div className="pet-settings-heading" style={{ fontSize: 10 }}>
+            <strong>{t('audio.sound')}</strong>
+          </div>
+          <AudioMuteButton variant="pet" />
         </aside>
       )}
     </div>

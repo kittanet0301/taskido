@@ -1,601 +1,1055 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
+
 import {
+
   ELEMENT_IDS,
+
   ELEMENT_STRONG_AGAINST,
+
   ELEMENT_RESIST_MULT,
+
   ELEMENT_SE_MULT,
+
   PURE_CHANCE,
+
   PURE_DAMAGE_BONUS,
+
   type ElementId
+
 } from '../shared/elements'
 
+
+
 interface Props {
+
   onClose: () => void
+
 }
 
-const GUIDE_SECTIONS = [
-  { id: 'howto', num: '01', title: 'วิธีการเล่น' },
-  { id: 'species', num: '02', title: 'สายพันธุ์ & ธาตุ' },
-  { id: 'activity', num: '03', title: 'Activity Score & การเติบโต' },
-  { id: 'care', num: '04', title: 'การดูแล & ไอเทม' },
-  { id: 'rpgstat', num: '05', title: 'ค่าพลัง RPG' },
-  { id: 'growth', num: '06', title: 'เลเวล, Growth Cards & สกิล' },
-  { id: 'battle', num: '07', title: 'การต่อสู้' },
-  { id: 'breed', num: '08', title: 'ผสมพันธุ์' },
-  { id: 'economy', num: '09', title: 'ภารกิจ & เศรษฐกิจ' },
-  { id: 'more', num: '10', title: 'มินิเกม & สังคม' }
+
+
+const GUIDE_SECTION_IDS = [
+
+  'howto',
+
+  'species',
+
+  'activity',
+
+  'care',
+
+  'rpgstat',
+
+  'growth',
+
+  'battle',
+
+  'breed',
+
+  'economy',
+
+  'more'
+
 ] as const
 
-const GUIDE_SECTION_IDS = GUIDE_SECTIONS.map((section) => section.id)
+
+
+const PLAY_STEP_IDS = ['login', 'activity', 'hatch', 'care', 'level', 'pvp', 'missions', 'social'] as const
+
+
+
 const GUIDE_SCROLL_ANCHOR_PX = 96
 
+
+
 const ELEMENT_SWATCH: Record<(typeof ELEMENT_IDS)[number], string> = {
+
   neutral: '#a9a38f',
+
   fire: '#e85d3f',
+
   grass: '#55a85b',
+
   ground: '#9a724e',
+
   electric: '#f2cf42',
+
   water: '#3d8ed0',
+
   ice: '#82d6e8',
+
   dragon: '#f0940f',
+
   dark: '#4b405f'
+
 }
 
-const CARE_ITEMS: Array<{ name: string; effect: string }> = [
-  { name: '🍚 food_basic', effect: '+15 Feed' },
-  { name: '🍱 food_premium', effect: '+30 Feed, +10 Heal' },
-  { name: '💊 medicine', effect: '+40 Heal' },
-  { name: '💧 water', effect: '+10 Feed, +5 Heal' },
-  { name: '🧸 toy', effect: '+25 Feed (ผลต่อ Emotion)' },
-  { name: '🧪 dev_vitamin', effect: '+50 Evolution' },
-  { name: '🛡 battle_shield', effect: 'ป้องกันพิเศษระหว่างต่อสู้' },
-  { name: '🪺 breed_nest', effect: 'ใช้เริ่มการผสมพันธุ์' },
-  { name: '🌀 skill_forget', effect: 'รีเซ็ตสกิลที่เลือกไว้' }
-]
 
-const GROWTH_CARDS: Array<{ icon: string; name: string; desc: string }> = [
-  { icon: '💪', name: 'power_up', desc: 'เน้นสายโจมตี' },
-  { icon: '💨', name: 'swift', desc: 'เน้นสายเร็ว/หลบ' },
-  { icon: '🎯', name: 'focus', desc: 'เน้นสายเวท/แม่นยำ' },
-  { icon: '🛡️', name: 'tough', desc: 'เน้นสายทนทาน' },
-  { icon: '🥊', name: 'bruiser', desc: 'โจมตี + ทนทาน ผสมกัน' },
-  { icon: '🔮', name: 'magelet', desc: 'เวทเบา ๆ เสริม INT' },
-  { icon: '⚖️', name: 'all_round', desc: 'บาลานซ์ทุกด้าน' }
-]
+
+const CARE_ITEM_IDS = [
+
+  'food_basic',
+
+  'food_premium',
+
+  'medicine',
+
+  'water',
+
+  'toy',
+
+  'dev_vitamin',
+
+  'battle_shield',
+
+  'breed_nest',
+
+  'skill_forget'
+
+] as const
+
+
+
+const GROWTH_CARD_IDS = ['power_up', 'swift', 'focus', 'tough', 'bruiser', 'magelet', 'all_round'] as const
+
+
+
+const GROWTH_CARD_ICONS: Record<(typeof GROWTH_CARD_IDS)[number], string> = {
+
+  power_up: '💪',
+
+  swift: '💨',
+
+  focus: '🎯',
+
+  tough: '🛡️',
+
+  bruiser: '🥊',
+
+  magelet: '🔮',
+
+  all_round: '⚖️'
+
+}
+
+
 
 function elementsThatResist(attacker: ElementId): ElementId[] {
+
   return ELEMENT_IDS.filter((def) => (ELEMENT_STRONG_AGAINST[def] ?? []).includes(attacker))
+
 }
+
+
 
 function formatElementList(t: (key: string) => string, ids: ElementId[]): string {
+
   if (ids.length === 0) return '—'
+
   return ids.map((id) => t(`elements.${id}`)).join(', ')
+
 }
 
-const PLAY_STEPS: Array<{ title: string; body: string }> = [
-  {
-    title: 'สมัคร / เข้าสู่ระบบ',
-    body: 'ก่อนล็อกอิน คุณจะเห็นแค่ไข่บนหน้าจอ ยังไม่มีสถิติใด ๆ ให้ดู — ล็อกอินเพื่อโหลดสัตว์เลี้ยงจริงจากคลาวด์'
-  },
-  {
-    title: 'สะสม Activity จากการใช้คอมพิวเตอร์',
-    body: 'หลังล็อกอิน (บน Desktop) ระบบจะนับคลิกเมาส์และการพิมพ์ทั้งเครื่อง แล้วแปลงเป็นความก้าวหน้าของไข่'
-  },
-  {
-    title: 'ฟักไข่',
-    body: 'เมื่อสะสมพอ ไข่จะฟักออกมาเป็น 1 ใน 9 สายพันธุ์แบบสุ่ม พร้อมเพศ (ตัวผู้/ตัวเมีย) และธาตุประจำตัว'
-  },
-  {
-    title: 'ดูแล Health / Emotion / Evolution',
-    body: 'ให้อาหาร รักษา และเล่นกับสัตว์เลี้ยงผ่านไอเทมและ Quick-care slots เพื่อรักษาสถานะและเร่งวิวัฒนาการ Egg → Baby → Adult'
-  },
-  {
-    title: 'เก็บเลเวล RPG',
-    body: 'เลเวลอัพเพื่อเลือก Growth Card และอัปแรงค์สกิล สร้างสไตล์การเล่นของสัตว์แต่ละตัว'
-  },
-  {
-    title: 'ต่อสู้ PvP แบบ Async',
-    body: 'สร้างหรือเข้าห้องต่อสู้ด้วยรหัส ดวล 1v1 หรือฝึกกับ Bot ก่อนก็ได้'
-  },
-  {
-    title: 'ทำภารกิจ ซื้อของ ผสมพันธุ์',
-    body: 'Daily/Weekly Missions ให้ Gems ไว้ซื้อของใน Market เก็บ Breed Nest ไว้ผสมพันธุ์สร้างไข่ใบใหม่'
-  },
-  {
-    title: 'เล่นมินิเกมและเข้าสังคม',
-    body: 'Dino Jump / Rock Dodge แข่งอันดับ พร้อมระบบเพื่อน แชท และของขวัญ'
-  }
-]
+
 
 function ChapterHead({ num, title }: { num: string; title: string }) {
+
   return (
+
     <div className="guide-chapter-head">
+
       <span className="guide-chapter-num">{num}</span>
+
       <h3 className="guide-chapter-title">{title}</h3>
+
     </div>
+
   )
+
 }
+
+
 
 export function PlayerGuideModal({ onClose }: Props) {
+
   const { t } = useTranslation()
+
   const contentRef = useRef<HTMLDivElement>(null)
+
   const navRef = useRef<HTMLElement>(null)
+
   const [activeSection, setActiveSection] = useState<string>('howto')
+
   const purePct = Math.round(PURE_CHANCE * 100)
+
   const dualPct = 100 - purePct
 
+
+
+  const guideSections = useMemo(
+
+    () =>
+
+      GUIDE_SECTION_IDS.map((id, index) => ({
+
+        id,
+
+        num: String(index + 1).padStart(2, '0'),
+
+        title: t(`guide.sections.${id}`)
+
+      })),
+
+    [t]
+
+  )
+
+
+
   useEffect(() => {
+
     const root = contentRef.current
+
     if (!root) return
+
+
 
     const syncActiveSection = () => {
+
       const rootTop = root.getBoundingClientRect().top
+
       let current = GUIDE_SECTION_IDS[0]
+
       const nearBottom = root.scrollTop + root.clientHeight >= root.scrollHeight - 12
 
+
+
       if (nearBottom) {
+
         current = GUIDE_SECTION_IDS[GUIDE_SECTION_IDS.length - 1]
+
       } else {
+
         for (const id of GUIDE_SECTION_IDS) {
+
           const el = root.querySelector<HTMLElement>(`#guide-${id}`)
+
           if (!el) continue
+
           if (el.getBoundingClientRect().top - rootTop <= GUIDE_SCROLL_ANCHOR_PX) {
+
             current = id
+
           }
+
         }
+
       }
 
+
+
       setActiveSection(current)
+
     }
 
+
+
     syncActiveSection()
+
     root.addEventListener('scroll', syncActiveSection, { passive: true })
+
     return () => root.removeEventListener('scroll', syncActiveSection)
+
   }, [])
+
+
 
   useEffect(() => {
+
     const nav = navRef.current
+
     if (!nav) return
+
     nav.querySelector<HTMLElement>('.guide-nav-link--active')?.scrollIntoView({ block: 'nearest' })
+
   }, [activeSection])
 
+
+
   const scrollToSection = useCallback((id: string) => {
+
     setActiveSection(id)
+
     const root = contentRef.current
+
     if (!root) return
+
     const target = root.querySelector<HTMLElement>(`#guide-${id}`)
+
     target?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
   }, [])
 
+
+
   return (
+
     <div className="hub-modal-overlay" role="dialog" aria-modal="true" onClick={onClose}>
+
       <div
+
         className="hub-modal hub-modal--lg guide-modal card"
+
         onClick={(e) => e.stopPropagation()}
+
         aria-labelledby="player-guide-title"
+
       >
+
         <div className="hub-modal-head guide-modal-head">
+
           <h2 id="player-guide-title">{t('guide.title')}</h2>
+
           <button type="button" className="hub-modal-close" onClick={onClose} aria-label={t('common.cancel')}>
+
             ×
+
           </button>
+
         </div>
+
+
 
         <div className="guide-modal-body">
+
           <nav ref={navRef} className="guide-nav" aria-label={t('guide.navLabel')}>
+
             <ul className="guide-nav-list">
-              {GUIDE_SECTIONS.map((section) => (
+
+              {guideSections.map((section) => (
+
                 <li key={section.id}>
+
                   <button
+
                     type="button"
+
                     className={`guide-nav-link${activeSection === section.id ? ' guide-nav-link--active' : ''}`}
+
                     onClick={() => scrollToSection(section.id)}
+
                   >
+
                     <span className="guide-nav-idx">{section.num}</span>
+
                     {section.title}
+
                   </button>
+
                 </li>
+
               ))}
+
             </ul>
+
           </nav>
 
+
+
           <div ref={contentRef} className="guide-content">
+
             <section id="guide-howto" className="guide-section">
+
               <div className="guide-hero card">
+
                 <p className="guide-hero-kicker">{t('guide.subtitle')}</p>
+
                 <h3 className="guide-hero-title">{t('common.appName')}</h3>
+
                 <p className="guide-hero-sub">
-                  เกมเลี้ยงไดโนเสาร์ธาตุแบบ Tamagotchi — ฟักไข่ ดูแล เก็บเลเวล ต่อสู้ PvP และผสมพันธุ์
-                  ทุกอย่างขับเคลื่อนด้วยการใช้คอมพิวเตอร์จริงของคุณ
+                  {t('guide.hero.line1')} {t('guide.hero.line2')}
                 </p>
+
                 <div className="guide-tagbar">
-                  <span className="guide-tag">🥚 9 สายพันธุ์</span>
-                  <span className="guide-tag">⚔️ Async PvP</span>
-                  <span className="guide-tag">🌱 Breeding</span>
-                  <span className="guide-tag">🖥 Desktop + 🌐 Web</span>
+
+                  <span className="guide-tag">{t('guide.hero.tagSpecies')}</span>
+
+                  <span className="guide-tag">{t('guide.hero.tagPvp')}</span>
+
+                  <span className="guide-tag">{t('guide.hero.tagBreed')}</span>
+
+                  <span className="guide-tag">{t('guide.hero.tagPlatform')}</span>
+
                 </div>
 
-                <ChapterHead num="01" title="วิธีการเล่นเกม" />
+
+
+                <ChapterHead num="01" title={t('guide.hero.howtoTitle')} />
+
                 <ol className="guide-steps">
-                  {PLAY_STEPS.map((step, index) => (
-                    <li key={step.title} className="guide-step">
+
+                  {PLAY_STEP_IDS.map((stepId, index) => (
+
+                    <li key={stepId} className="guide-step">
+
                       <span className="guide-step-num">{index + 1}</span>
+
                       <div>
-                        <strong>{step.title}</strong>
-                        <p>{step.body}</p>
+
+                        <strong>{t(`guide.steps.${stepId}.title`)}</strong>
+
+                        <p>{t(`guide.steps.${stepId}.body`)}</p>
+
                       </div>
+
                     </li>
+
                   ))}
+
                 </ol>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-species" className="guide-section">
-              <ChapterHead num="02" title="สายพันธุ์ & ธาตุ" />
-              <p className="guide-intro">
-                Taskino มีสัตว์ 9 สายพันธุ์ แต่ละตัวผูกกับธาตุประจำตัวหนึ่งธาตุ (หรือสองธาตุถ้าเปิดระบบ dual)
-                สุ่มได้ตอนฟักไข่
-              </p>
+
+              <ChapterHead num="02" title={t('guide.sections.species')} />
+
+              <p className="guide-intro">{t('guide.species.intro')}</p>
+
               <div className="guide-species-grid">
+
                 {ELEMENT_IDS.map((id) => (
+
                   <div key={id} className="guide-species-chip">
+
                     <span className="guide-swatch" style={{ background: ELEMENT_SWATCH[id] }} />
+
                     <div>
-                      <div className="guide-species-name">{id}</div>
+
+                      <div className="guide-species-name">{t(`elements.${id}`)}</div>
+
                       <div className="guide-species-hex">{ELEMENT_SWATCH[id]}</div>
+
                     </div>
+
                   </div>
+
                 ))}
+
               </div>
+
               <div className="card guide-panel">
-                <h4>🎲 โอกาสได้ธาตุตอนฟักไข่</h4>
+
+                <h4>{t('guide.species.hatchOddsTitle')}</h4>
+
                 <div className="guide-prob-bar">
+
                   <div className="guide-prob-pure" style={{ width: `${purePct}%` }}>
-                    Pure {purePct}%
+
+                    {t('guide.species.pureLabel', { pct: purePct })}
+
                   </div>
+
                   <div className="guide-prob-dual" style={{ width: `${dualPct}%` }}>
-                    Dual {dualPct}%
+
+                    {t('guide.species.dualLabel', { pct: dualPct })}
+
                   </div>
+
                 </div>
-                <p className="guide-note">
-                  Pure = ธาตุเดียว, Dual = สองธาตุผสม (ปัจจุบันระบบ Dual ปิดชั่วคราว สัตว์ทุกตัวจึงออกเป็น Pure
-                  element)
-                </p>
+
+                <p className="guide-note">{t('guide.species.pureDualNote')}</p>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-activity" className="guide-section">
-              <ChapterHead num="03" title="Activity Score & การเติบโต" />
-              <p className="guide-intro">
-                หัวใจของ Taskino คือการแปลงการใช้คอมพิวเตอร์จริงให้กลายเป็นค่า Evolution ที่ทำให้สัตว์เลี้ยงเติบโต
-              </p>
+
+              <ChapterHead num="03" title={t('guide.sections.activity')} />
+
+              <p className="guide-intro">{t('guide.activity.intro')}</p>
+
               <div className="card guide-panel">
-                <h4>🧮 สูตรคำนวณ Activity Score</h4>
-                <div className="guide-formula">
-                  Activity Score = จำนวนคลิก + floor( จำนวนปุ่มที่กด ÷ 10 )
-                </div>
-                <p className="guide-note">
-                  พูดง่าย ๆ: คลิก 1 ครั้ง = 1 คะแนนเต็ม ๆ ส่วนการพิมพ์ต้องกดครบทุก 10 ตัวอักษรถึงจะได้ 1 คะแนน —
-                  ระบบปัดเศษลง (floor) เสมอ เช่น พิมพ์ 24 ตัวอักษร = ได้แค่ 2 คะแนนจากการพิมพ์ ไม่ใช่ 2.4
-                </p>
+
+                <h4>{t('guide.activity.formulaTitle')}</h4>
+
+                <div className="guide-formula">{t('guide.activity.formula')}</div>
+
+                <p className="guide-note">{t('guide.activity.formulaNote')}</p>
+
               </div>
+
               <div className="guide-grid guide-grid-3">
+
                 <div className="card guide-panel">
-                  <h4>❤️ Health</h4>
-                  <p>สุขภาพของสัตว์เลี้ยง ค่อย ๆ ลดลงถ้าไม่ได้กลับมาดูแล ต้องเติมด้วยไอเทมอาหาร/ยา</p>
+
+                  <h4>{t('guide.activity.healthTitle')}</h4>
+
+                  <p>{t('guide.activity.healthBody')}</p>
+
                 </div>
+
                 <div className="card guide-panel">
-                  <h4>🙂 Emotion</h4>
-                  <p>อารมณ์ของสัตว์เลี้ยง ลดลงตามเวลาเช่นกัน เติมได้ด้วยของเล่นและการเล่นด้วยกัน</p>
+
+                  <h4>{t('guide.activity.emotionTitle')}</h4>
+
+                  <p>{t('guide.activity.emotionBody')}</p>
+
                 </div>
+
                 <div className="card guide-panel">
-                  <h4>✨ Evolution</h4>
+
+                  <h4>{t('guide.activity.evolutionTitle')}</h4>
+
                   <p>
-                    สะสมจาก Activity Score (คลิก/พิมพ์) โดยตรง และเติมเพิ่มได้ด้วยไอเทม{' '}
-                    <code>dev_vitamin</code> (+50 ต่อครั้ง)
+
+                    {t('guide.activity.evolutionBody', { vitamin: t('items.dev_vitamin.label') })}
+
                   </p>
+
                 </div>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>🐣 3 ระยะการเติบโต</h4>
+
+                <h4>{t('guide.activity.stagesTitle')}</h4>
+
                 <div className="guide-stage-strip">
+
                   <div className="guide-stage-node">
+
                     <div className="guide-stage-sprite guide-stage-egg">🥚</div>
-                    <div className="guide-stage-label">Egg</div>
-                    <div className="guide-stage-size">แสดงผล 250px</div>
+
+                    <div className="guide-stage-label">{t('stages.egg')}</div>
+
+                    <div className="guide-stage-size">{t('guide.activity.stageSize', { size: '250px' })}</div>
+
                   </div>
+
                   <div className="guide-stage-arrow" />
+
                   <div className="guide-stage-node">
+
                     <div className="guide-stage-sprite guide-stage-baby">🐣</div>
-                    <div className="guide-stage-label">Baby</div>
-                    <div className="guide-stage-size">แสดงผล 250px</div>
+
+                    <div className="guide-stage-label">{t('stages.baby')}</div>
+
+                    <div className="guide-stage-size">{t('guide.activity.stageSize', { size: '250px' })}</div>
+
                   </div>
+
                   <div className="guide-stage-arrow" />
+
                   <div className="guide-stage-node">
+
                     <div className="guide-stage-sprite guide-stage-adult">🐉</div>
-                    <div className="guide-stage-label">Adult</div>
-                    <div className="guide-stage-size">แสดงผล 500px</div>
+
+                    <div className="guide-stage-label">{t('stages.adult')}</div>
+
+                    <div className="guide-stage-size">{t('guide.activity.stageSize', { size: '500px' })}</div>
+
                   </div>
+
                 </div>
-                <p className="guide-note">
-                  เมื่อค่า Evolution สะสมถึงเกณฑ์ สัตว์จะขยับระยะถัดไปทันที — Egg มีแอนิเมชันแค่ move และ hatch ส่วน
-                  Baby กับ Adult จะปลดล็อกครบชุด idle / move / hurt / bite / jump และตัว Adult จะขยายขนาดแสดงผลเป็นสองเท่า
-                </p>
+
+                <p className="guide-note">{t('guide.activity.stagesNote')}</p>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-care" className="guide-section">
-              <ChapterHead num="04" title="การดูแล & การคำนวณไอเทม" />
-              <p className="guide-intro">
-                ทุกไอเทมมีผลเป็นตัวเลขตรง ๆ กับสถานะของสัตว์ — บวกเข้ากับค่าปัจจุบันทันทีที่ใช้
-              </p>
+
+              <ChapterHead num="04" title={t('guide.care.title')} />
+
+              <p className="guide-intro">{t('guide.care.intro')}</p>
+
               <div className="card guide-panel">
+
                 <table className="guide-calc-table">
+
                   <thead>
+
                     <tr>
-                      <th>ไอเทม</th>
-                      <th>ผลลัพธ์เมื่อใช้</th>
+
+                      <th>{t('guide.care.itemCol')}</th>
+
+                      <th>{t('guide.care.effectCol')}</th>
+
                     </tr>
+
                   </thead>
+
                   <tbody>
-                    {CARE_ITEMS.map((item) => (
-                      <tr key={item.name}>
-                        <td className="guide-calc-name">{item.name}</td>
-                        <td>{item.effect}</td>
+
+                    {CARE_ITEM_IDS.map((itemId) => (
+
+                      <tr key={itemId}>
+
+                        <td className="guide-calc-name">{t(`items.${itemId}.label`)}</td>
+
+                        <td>{t(`items.${itemId}.description`)}</td>
+
                       </tr>
+
                     ))}
+
                   </tbody>
+
                 </table>
+
               </div>
-              <p className="guide-note">ใช้งานได้เร็วผ่าน Quick-care slots (4 ช่อง) โดยไม่ต้องเปิด Inventory เต็ม</p>
+
+              <p className="guide-note">{t('guide.care.quickCareNote')}</p>
+
             </section>
+
+
 
             <section id="guide-rpgstat" className="guide-section">
-              <ChapterHead num="05" title="ค่าพลัง RPG เข้าใจง่าย" />
-              <p className="guide-intro">
-                สัตว์แต่ละตัวมีค่าพื้นฐาน 4 ค่า กำหนดตามธาตุตั้งแต่ตอนฟักไข่ แล้วระบบจะแปลงเป็นค่าที่ใช้จริงในสนามรบ
-              </p>
+
+              <ChapterHead num="05" title={t('guide.rpgstat.title')} />
+
+              <p className="guide-intro">{t('guide.rpgstat.intro')}</p>
+
               <div className="guide-grid guide-grid-2">
+
                 <div className="card guide-panel">
-                  <h4>ค่าพื้นฐาน (Primary Stats)</h4>
+
+                  <h4>{t('guide.rpgstat.primaryTitle')}</h4>
+
                   <div className="guide-stat-grid">
+
                     <div className="guide-stat-core guide-stat-str">
+
                       <div className="guide-stat-letters">STR</div>
-                      <div className="guide-stat-name">แรงโจมตี</div>
+
+                      <div className="guide-stat-name">{t('guide.rpgstat.strName')}</div>
+
                     </div>
+
                     <div className="guide-stat-core guide-stat-dex">
+
                       <div className="guide-stat-letters">DEX</div>
-                      <div className="guide-stat-name">ความเร็ว/หลบ</div>
+
+                      <div className="guide-stat-name">{t('guide.rpgstat.dexName')}</div>
+
                     </div>
+
                     <div className="guide-stat-core guide-stat-int">
+
                       <div className="guide-stat-letters">INT</div>
-                      <div className="guide-stat-name">พลังเวท/MP</div>
+
+                      <div className="guide-stat-name">{t('guide.rpgstat.intName')}</div>
+
                     </div>
+
                     <div className="guide-stat-core guide-stat-con">
+
                       <div className="guide-stat-letters">CON</div>
-                      <div className="guide-stat-name">พลังชีวิต/ป้องกัน</div>
+
+                      <div className="guide-stat-name">{t('guide.rpgstat.conName')}</div>
+
                     </div>
+
                   </div>
+
                 </div>
+
                 <div className="card guide-panel">
-                  <h4>ค่าที่ใช้จริงในสนามรบ (Derived Stats)</h4>
+
+                  <h4>{t('guide.rpgstat.derivedTitle')}</h4>
+
                   <div className="guide-formula">
-                    STR → ATK (พลังโจมตี)
+
+                    {t('guide.rpgstat.derived1')}
+
                     <br />
-                    CON → HP &amp; DEF (พลังชีวิต / ป้องกัน)
+
+                    {t('guide.rpgstat.derived2')}
+
                     <br />
-                    INT → MP (พลังสกิล)
+
+                    {t('guide.rpgstat.derived3')}
+
                     <br />
-                    DEX → EVA &amp; ลำดับเทิร์น
+
+                    {t('guide.rpgstat.derived4')}
+
                   </div>
+
                 </div>
+
               </div>
-              <p className="guide-note">
-                พูดง่าย ๆ คือ: ค่าพื้นฐาน 4 ตัวเป็นวัตถุดิบ ส่วนค่าต่อสู้ (HP/MP/ATK/DEF/EVA) คือผลลัพธ์ที่เกมคำนวณให้อัตโนมัติทุกครั้งที่เข้าสนามรบ
-              </p>
+
+              <p className="guide-note">{t('guide.rpgstat.summaryNote')}</p>
+
             </section>
+
+
 
             <section id="guide-growth" className="guide-section">
-              <ChapterHead num="06" title="เลเวล, Growth Cards & สกิล" />
-              <p className="guide-intro">
-                Evolution พาสัตว์ไปถึงระยะ Adult ส่วนเลเวลคือระบบเสริมพลังที่เดินหน้าต่อไปได้เรื่อย ๆ หลังจากนั้น —
-                ทุกครั้งที่เลเวลอัพ ผู้เล่นจะได้รับ 2 อย่างพร้อมกัน
-              </p>
+
+              <ChapterHead num="06" title={t('guide.growth.title')} />
+
+              <p className="guide-intro">{t('guide.growth.intro')}</p>
+
               <div className="card guide-panel">
-                <h4>🔁 วงจรเลเวลอัพ</h4>
+
+                <h4>{t('guide.growth.loopTitle')}</h4>
+
                 <div className="guide-loop-row">
-                  <div className="guide-loop-box guide-loop-box--hi">เก็บเลเวล</div>
+
+                  <div className="guide-loop-box guide-loop-box--hi">{t('guide.growth.loopLevel')}</div>
+
                   <span className="guide-loop-arrow">→</span>
+
                   <div className="guide-loop-box">
-                    เลือก Growth Card
-                    <br />1 จาก 3 ใบ
+
+                    {t('guide.growth.loopCardLine1')}
+
+                    <br />
+
+                    {t('guide.growth.loopCardLine2')}
+
                   </div>
+
                   <span className="guide-loop-arrow">+</span>
+
                   <div className="guide-loop-box">
-                    ได้ Skill Upgrade Point
-                    <br />1 แต้ม
+
+                    {t('guide.growth.loopSkillLine1')}
+
+                    <br />
+
+                    {t('guide.growth.loopSkillLine2')}
+
                   </div>
+
                 </div>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>🎴 Growth Card ทั้ง 7 แบบ</h4>
+
+                <h4>{t('guide.growth.cardsTitle')}</h4>
+
                 <p className="guide-note" style={{ marginTop: 0, marginBottom: 12 }}>
-                  ทุกครั้งที่เลเวลอัพ ระบบสุ่มชู 3 ใบจากพูลนี้ให้เลือก 1 ใบ — ชื่อการ์ดบ่งบอกแนวทางการเสริมพลังคร่าว ๆ
-                  ทำให้สัตว์ตัวเดียวกันเติบโตไปคนละแบบได้ในแต่ละรอบเล่น:
+
+                  {t('guide.growth.cardsIntro')}
+
                 </p>
+
                 <div className="guide-grid guide-grid-3">
-                  {GROWTH_CARDS.map((card) => (
-                    <div key={card.name} className="guide-gcard">
-                      <span className="guide-gcard-icon">{card.icon}</span>
-                      <div className="guide-gcard-name">{card.name}</div>
-                      <div className="guide-gcard-desc">{card.desc}</div>
+
+                  {GROWTH_CARD_IDS.map((cardId) => (
+
+                    <div key={cardId} className="guide-gcard">
+
+                      <span className="guide-gcard-icon">{GROWTH_CARD_ICONS[cardId]}</span>
+
+                      <div className="guide-gcard-name">{t(`growth.${cardId}`)}</div>
+
+                      <div className="guide-gcard-desc">{t(`guide.growth.cardDesc.${cardId}`)}</div>
+
                     </div>
+
                   ))}
+
                 </div>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>✦ สกิลและการอัปแรงค์</h4>
+
+                <h4>{t('guide.growth.skillsTitle')}</h4>
+
                 <ul className="guide-spec-list">
-                  <li>
-                    สัตว์แต่ละตัวมีโหลดเอาต์ตายตัว 4 สกิล: <strong>3 สกิลปกติ + 1 Ultimate</strong> ที่สุ่มตามธาตุตั้งแต่ตอนฟักไข่
-                  </li>
-                  <li>Skill Upgrade Point ที่ได้จากการเลเวลอัพ ใช้อัปแรงค์สกิลใดก็ได้ในโหลดเอาต์ทีละขั้น</li>
-                  <li>
-                    แต่ละสกิลอัปแรงค์ได้สูงสุดที่ <strong>Rank 8</strong>
-                  </li>
-                  <li>
-                    ถ้าอยากเปลี่ยนสกิลที่เคยเลือก ใช้ไอเทม <code>skill_forget</code> เพื่อรีเซ็ต
-                  </li>
+
+                  <li>{t('guide.growth.skills1')}</li>
+
+                  <li>{t('guide.growth.skills2')}</li>
+
+                  <li>{t('guide.growth.skills3')}</li>
+
+                  <li>{t('guide.growth.skills4', { item: t('items.skill_forget.label') })}</li>
+
                 </ul>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-battle" className="guide-section">
-              <ChapterHead num="07" title="การต่อสู้ & วิธีคิดดาเมจ" />
-              <p className="guide-intro">ต่อสู้แบบผลัดเทิร์น 1v1 — สร้าง/เข้าห้องด้วยรหัส หรือฝึกกับ Bot ก่อนก็ได้</p>
+
+              <ChapterHead num="07" title={t('guide.battle.title')} />
+
+              <p className="guide-intro">{t('guide.battle.intro')}</p>
+
               <div className="card guide-panel">
-                <h4>ลำดับเทิร์น</h4>
+
+                <h4>{t('guide.battle.turnTitle')}</h4>
+
                 <div className="guide-flow-row">
-                  <span className="guide-flow-pill">DEX สูงกว่า</span>
+
+                  <span className="guide-flow-pill">{t('guide.battle.turnHigherDex')}</span>
+
                   <span className="guide-flow-arrow">→</span>
-                  <span className="guide-flow-pill">ได้เล่นก่อน</span>
+
+                  <span className="guide-flow-pill">{t('guide.battle.turnGoesFirst')}</span>
+
                 </div>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>ปัจจัยที่กำหนดดาเมจ</h4>
-                <div className="guide-formula">
-                  Damage ≈ STR หรือ INT (ตามชนิดสกิล) + ความได้เปรียบธาตุ + แรงค์สกิลที่อัปไว้
-                </div>
-                <p className="guide-note">
-                  ยิ่งธาตุของท่าโจมตีมีข้อได้เปรียบเหนือธาตุคู่ต่อสู้ ยิ่งทำดาเมจได้มากขึ้น — เหมือนเกม element-based
-                  ทั่วไป (ธาตุนี้แรงใส่ธาตุนั้น อ่อนใส่อีกธาตุ)
-                </p>
+
+                <h4>{t('guide.battle.damageTitle')}</h4>
+
+                <div className="guide-formula">{t('guide.battle.damageFormula')}</div>
+
+                <p className="guide-note">{t('guide.battle.damageNote')}</p>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>⚡ ความได้เปรียบธาตุ</h4>
-                <p className="guide-note guide-note--spaced">
-                  ระบบจะเทียบ <strong>ธาตุของท่าโจมตี</strong> (โจมตีปกติใช้ธาตุสัตว์, สกิลใช้ธาตุของสกิลนั้น) กับ
-                  ธาตุประจำตัวของคู่ต่อสู้ แล้วคูณดาเมจตามตัวคูณด้านล่าง
-                </p>
+
+                <h4>{t('guide.battle.elementTitle')}</h4>
+
+                <p className="guide-note guide-note--spaced">{t('guide.battle.elementIntro')}</p>
+
                 <div className="guide-element-mults">
+
                   <div className="guide-element-mult guide-element-mult--se">
-                    <span className="guide-element-mult-label">ได้เปรียบ (SE)</span>
+
+                    <span className="guide-element-mult-label">{t('guide.battle.elementSe')}</span>
+
                     <span className="guide-element-mult-value">×{ELEMENT_SE_MULT}</span>
+
                   </div>
+
                   <div className="guide-element-mult guide-element-mult--resist">
-                    <span className="guide-element-mult-label">อ่อนแอ (Resist)</span>
+
+                    <span className="guide-element-mult-label">{t('guide.battle.elementResist')}</span>
+
                     <span className="guide-element-mult-value">×{ELEMENT_RESIST_MULT}</span>
+
                   </div>
+
                   <div className="guide-element-mult guide-element-mult--neutral">
-                    <span className="guide-element-mult-label">ธาตุเท่ากัน / ไม่เกี่ยว</span>
+
+                    <span className="guide-element-mult-label">{t('guide.battle.elementNeutral')}</span>
+
                     <span className="guide-element-mult-value">×1.0</span>
+
                   </div>
+
                 </div>
+
                 <table className="guide-calc-table guide-element-table">
+
                   <thead>
+
                     <tr>
-                      <th>ธาตุโจมตี</th>
-                      <th>แรงใส่</th>
-                      <th>อ่อนแอต่อ</th>
+
+                      <th>{t('guide.battle.elementAtkCol')}</th>
+
+                      <th>{t('guide.battle.elementStrongCol')}</th>
+
+                      <th>{t('guide.battle.elementWeakCol')}</th>
+
                     </tr>
+
                   </thead>
+
                   <tbody>
+
                     {ELEMENT_IDS.map((id) => (
+
                       <tr key={id}>
+
                         <td className="guide-calc-name guide-element-name">
+
                           <span className="guide-swatch guide-swatch--inline" style={{ background: ELEMENT_SWATCH[id] }} />
+
                           {t(`elements.${id}`)}
+
                         </td>
+
                         <td>{formatElementList(t, ELEMENT_STRONG_AGAINST[id])}</td>
+
                         <td>{formatElementList(t, elementsThatResist(id))}</td>
+
                       </tr>
+
                     ))}
+
                   </tbody>
+
                 </table>
+
                 <ul className="guide-spec-list guide-element-notes">
-                  <li>
-                    ถ้าคู่ต่อสู้มี <strong>สองธาตุ (Dual)</strong> จะนับว่าได้เปรียบถ้าแรงใส่ธาตุใดธาตุหนึ่ง และจะอ่อนแอก็ต่อเมื่อ
-                    ธาตุป้องกันทั้งสองช่องแรงใส่ธาตุโจมตีพร้อมกัน
-                  </li>
-                  <li>
-                    สัตว์ <strong>Pure</strong> (ธาตุเดียว) ได้โบนัสดาเมจ ×{PURE_DAMAGE_BONUS} เพิ่มจากความได้เปรียบธาตุ — แยกจากตารางด้านบน
-                  </li>
+
+                  <li>{t('guide.battle.elementNote1')}</li>
+
+                  <li>{t('guide.battle.elementNote2', { bonus: PURE_DAMAGE_BONUS })}</li>
+
                 </ul>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>การกระทำในแต่ละเทิร์น</h4>
+
+                <h4>{t('guide.battle.actionsTitle')}</h4>
+
                 <div className="guide-action-row">
-                  <span className="guide-action-pill">⚔ Attack</span>
-                  <span className="guide-action-pill">✦ Skill (ใช้ MP)</span>
-                  <span className="guide-action-pill">🎒 Item</span>
-                  <span className="guide-action-pill">🛡 Defend</span>
-                  <span className="guide-action-pill">🏃 Flee</span>
+
+                  <span className="guide-action-pill">{t('guide.battle.actionAttack')}</span>
+
+                  <span className="guide-action-pill">{t('guide.battle.actionSkill')}</span>
+
+                  <span className="guide-action-pill">{t('guide.battle.actionItem')}</span>
+
+                  <span className="guide-action-pill">{t('guide.battle.actionDefend')}</span>
+
+                  <span className="guide-action-pill">{t('guide.battle.actionFlee')}</span>
+
                 </div>
-                <p className="guide-note">
-                  ระหว่างต่อสู้ HP / MP / TP (Technique Points) จะคำนวณแยกเฉพาะในห้องนั้น ๆ ไม่กระทบค่าพื้นฐานถาวรของสัตว์
-                </p>
+
+                <p className="guide-note">{t('guide.battle.combatNote')}</p>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-breed" className="guide-section">
-              <ChapterHead num="08" title="ผสมพันธุ์" />
-              <p className="guide-intro">นำสัตว์ 2 ตัวมาผสมกันเพื่อสร้างไข่ใบใหม่</p>
+
+              <ChapterHead num="08" title={t('guide.sections.breed')} />
+
+              <p className="guide-intro">{t('guide.breed.intro')}</p>
+
               <div className="card guide-panel">
+
                 <ul className="guide-spec-list">
-                  <li>
-                    ต้องใช้ไอเทม <code>breed_nest</code> 1 ชิ้น
-                  </li>
-                  <li>หลังผสมพันธุ์แล้วต้องรอ Cooldown ก่อนทำได้อีกครั้ง</li>
-                  <li>ปัจจุบันลูกที่เกิดจะได้ธาตุ Pure เท่านั้น (ระบบบังคับชั่วคราว)</li>
+
+                  <li>{t('guide.breed.item', { item: t('items.breed_nest.label') })}</li>
+
+                  <li>{t('guide.breed.cooldown')}</li>
+
+                  <li>{t('guide.breed.pureOnly')}</li>
+
                 </ul>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-economy" className="guide-section">
-              <ChapterHead num="09" title="ภารกิจ & เศรษฐกิจในเกม" />
-              <p className="guide-intro">ภารกิจคือทางหลักในการหา Gems ไปใช้ใน Market</p>
+
+              <ChapterHead num="09" title={t('guide.economy.title')} />
+
+              <p className="guide-intro">{t('guide.economy.intro')}</p>
+
               <div className="guide-grid guide-grid-2">
+
                 <div className="card guide-panel">
-                  <h4>🗓 ภารกิจ</h4>
-                  <p>
-                    Daily และ Weekly Missions ที่ Sync ทั้งบนเครื่องและบนคลาวด์ ทำให้เล่นต่อเนื่องข้ามอุปกรณ์ได้
-                  </p>
+
+                  <h4>{t('guide.economy.missionsTitle')}</h4>
+
+                  <p>{t('guide.economy.missionsBody')}</p>
+
                 </div>
+
                 <div className="card guide-panel">
-                  <h4>💎 Gems &amp; Market</h4>
-                  <p>ทำภารกิจสำเร็จ → ได้ Gems → ใช้ซื้อไอเทมดูแลสัตว์ ของตกแต่ง หรือของใช้ในการต่อสู้/ผสมพันธุ์ที่ Market</p>
+
+                  <h4>{t('guide.economy.marketTitle')}</h4>
+
+                  <p>{t('guide.economy.marketBody')}</p>
+
                 </div>
+
               </div>
+
             </section>
+
+
 
             <section id="guide-more" className="guide-section">
-              <ChapterHead num="10" title="มินิเกม & สังคม" />
+
+              <ChapterHead num="10" title={t('guide.sections.more')} />
+
               <div className="guide-grid guide-grid-2">
+
                 <div className="card guide-panel">
-                  <h4>🦖 Dino Jump</h4>
-                  <p>เกมกระโดดหลบสิ่งกีดขวาง มีระบบ Ranking และ Best Score</p>
+
+                  <h4>{t('guide.more.dinoJumpTitle')}</h4>
+
+                  <p>{t('guide.more.dinoJumpBody')}</p>
+
                 </div>
+
                 <div className="card guide-panel">
-                  <h4>🪨 Rock Dodge</h4>
-                  <p>เกมหลบหินตกลงมา ลุ้นรางวัลไอเทมรายวันจากอันดับคะแนน</p>
+
+                  <h4>{t('guide.more.rockDodgeTitle')}</h4>
+
+                  <p>{t('guide.more.rockDodgeBody')}</p>
+
                 </div>
+
               </div>
+
               <div className="card guide-panel">
-                <h4>👥 ระบบสังคม</h4>
+
+                <h4>{t('guide.more.socialTitle')}</h4>
+
                 <ul className="guide-spec-list">
-                  <li>ค้นหาเพื่อนด้วย Friend Code</li>
-                  <li>แชทในห้อง (Chat Rooms + Lobby)</li>
-                  <li>ส่งของขวัญให้เพื่อน</li>
-                  <li>ดูโปรไฟล์และ Collection ของผู้เล่นอื่น</li>
+
+                  <li>{t('guide.more.social1')}</li>
+
+                  <li>{t('guide.more.social2')}</li>
+
+                  <li>{t('guide.more.social3')}</li>
+
+                  <li>{t('guide.more.social4')}</li>
+
                 </ul>
+
               </div>
+
             </section>
 
+
+
             <p className="guide-footer">{t('guide.footer')}</p>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   )
+
 }
+
+

@@ -57,13 +57,195 @@
     "syncing": "Syncing...",
     "autoSync": "Auto sync"
   },
+  "audio": {
+    "mute": "Mute sound",
+    "unmute": "Unmute sound",
+    "sound": "Sound"
+  },
   "guide": {
     "title": "Player Guide",
     "eyebrow": "Guide",
     "subtitle": "How to play and game calculations",
     "openLabel": "Player guide",
     "navLabel": "Guide sections",
-    "footer": "TASKINO — PLAYER GUIDE · taskimon.vercel.app"
+    "footer": "TASKINO — PLAYER GUIDE · taskimon.vercel.app",
+    "sections": {
+      "howto": "How to Play",
+      "species": "Species & Elements",
+      "activity": "Activity Score & Growth",
+      "care": "Care & Items",
+      "rpgstat": "RPG Stats",
+      "growth": "Levels, Growth Cards & Skills",
+      "battle": "Battle",
+      "breed": "Breeding",
+      "economy": "Missions & Economy",
+      "more": "Minigames & Social"
+    },
+    "hero": {
+      "line1": "An elemental dinosaur pet game — hatch eggs, care for pets, level up, battle, and breed.",
+      "line2": "Everything is powered by your real computer activity.",
+      "tagSpecies": "🥚 9 species",
+      "tagPvp": "⚔️ Async PvP",
+      "tagBreed": "🌱 Breeding",
+      "tagPlatform": "🖥 Desktop + 🌐 Web",
+      "howtoTitle": "How to Play"
+    },
+    "steps": {
+      "login": {
+        "title": "Sign up / Log in",
+        "body": "Before logging in you only see an egg on screen with no stats — log in to load your real pet from the cloud."
+      },
+      "activity": {
+        "title": "Earn activity from computer use",
+        "body": "After logging in (on desktop), the app tracks mouse clicks and keyboard input across your machine and converts them into egg progress."
+      },
+      "hatch": {
+        "title": "Hatch the egg",
+        "body": "Once you've earned enough progress, the egg hatches into 1 of 9 random species with a gender (male/female) and innate element."
+      },
+      "care": {
+        "title": "Care for Health / Emotion / Evolution",
+        "body": "Feed, heal, and play with your pet using items and quick-care slots to maintain stats and advance Egg → Baby → Adult."
+      },
+      "level": {
+        "title": "Level up",
+        "body": "Level up to pick growth cards and upgrade skills, shaping each pet's playstyle."
+      },
+      "pvp": {
+        "title": "Async PvP battles",
+        "body": "Create or join a battle room with a code for 1v1 duels, or practice against a bot first."
+      },
+      "missions": {
+        "title": "Missions, shopping, breeding",
+        "body": "Daily and weekly missions earn gems for the market. Keep a breed nest to combine pets and create new eggs."
+      },
+      "social": {
+        "title": "Minigames and social features",
+        "body": "Compete in Dino Jump and Rock Dodge rankings, plus friends, chat, and gifts."
+      }
+    },
+    "species": {
+      "intro": "Taskino has 9 pet species, each tied to one innate element (or two if dual elements are enabled), rolled when the egg hatches.",
+      "hatchOddsTitle": "🎲 Element odds at hatch",
+      "pureLabel": "Pure {{pct}}%",
+      "dualLabel": "Dual {{pct}}%",
+      "pureDualNote": "Pure = one element, Dual = two combined elements (dual elements are temporarily disabled, so all pets hatch as pure for now)."
+    },
+    "activity": {
+      "intro": "The heart of Taskino is turning real computer use into evolution progress that grows your pet.",
+      "formulaTitle": "🧮 Activity score formula",
+      "formula": "Activity Score = clicks + floor(key presses ÷ 10)",
+      "formulaNote": "In short: 1 click = 1 full point. Typing earns 1 point per 10 key presses — always rounded down. Example: 24 characters typed = only 2 typing points, not 2.4.",
+      "healthTitle": "❤️ Health",
+      "healthBody": "Your pet's health slowly drops if you don't check in. Restore it with food and medicine items.",
+      "emotionTitle": "🙂 Emotion",
+      "emotionBody": "Emotion also drops over time. Restore it with toys and playtime.",
+      "evolutionTitle": "✨ Evolution",
+      "evolutionBody": "Earned directly from activity score (clicks/typing), plus {{vitamin}} (+50 per use).",
+      "stagesTitle": "🐣 3 growth stages",
+      "stageSize": "Rendered at {{size}}",
+      "stagesNote": "When evolution reaches the threshold, your pet advances immediately — eggs only have move and hatch animations, while baby and adult unlock the full idle / move / hurt / bite / jump set, and adults render at double size."
+    },
+    "care": {
+      "title": "Care & item calculations",
+      "intro": "Every item applies a fixed numeric effect to your pet's stats the moment you use it.",
+      "itemCol": "Item",
+      "effectCol": "Effect when used",
+      "quickCareNote": "Use quick-care slots (4 slots) without opening the full item bag."
+    },
+    "rpgstat": {
+      "title": "RPG stats made simple",
+      "intro": "Each pet has 4 base stats set by element at hatch. The game converts them into battle-ready values.",
+      "primaryTitle": "Primary stats",
+      "derivedTitle": "Derived battle stats",
+      "strName": "Attack power",
+      "dexName": "Speed / evasion",
+      "intName": "Magic / MP",
+      "conName": "HP / defense",
+      "derived1": "STR → ATK (attack power)",
+      "derived2": "CON → HP & DEF (health / defense)",
+      "derived3": "INT → MP (skill power)",
+      "derived4": "DEX → EVA & turn order",
+      "summaryNote": "Think of the 4 base stats as ingredients. Combat stats (HP/MP/ATK/DEF/EVA) are calculated automatically whenever you enter battle."
+    },
+    "growth": {
+      "title": "Levels, Growth Cards & Skills",
+      "intro": "Evolution takes a pet to adulthood. Levels are the long-term power system afterward — each level-up grants two rewards at once.",
+      "loopTitle": "🔁 Level-up loop",
+      "loopLevel": "Level up",
+      "loopCardLine1": "Pick a growth card",
+      "loopCardLine2": "1 of 3",
+      "loopSkillLine1": "Earn a skill upgrade point",
+      "loopSkillLine2": "1 point",
+      "cardsTitle": "🎴 All 7 growth cards",
+      "cardsIntro": "Each level-up, the game offers 3 random cards from this pool — card names hint at the build direction, so the same pet can grow differently each run:",
+      "cardDesc": {
+        "power_up": "Offensive build",
+        "swift": "Speed / evasion build",
+        "focus": "Magic / accuracy build",
+        "tough": "Tank build",
+        "bruiser": "Attack + durability mix",
+        "magelet": "Light magic, boosts INT",
+        "all_round": "Balanced all-rounder"
+      },
+      "skillsTitle": "✦ Skills and upgrades",
+      "skills1": "Each pet has a fixed 4-skill loadout: 3 regular skills + 1 ultimate, rolled by element at hatch.",
+      "skills2": "Skill upgrade points from level-ups can rank up any skill in the loadout one step at a time.",
+      "skills3": "Each skill can be upgraded up to Rank 8.",
+      "skills4": "To change a skill you've invested in, use {{item}} to reset it."
+    },
+    "battle": {
+      "title": "Battle & damage basics",
+      "intro": "Turn-based 1v1 battles — create/join a room with a code, or practice against a bot.",
+      "turnTitle": "Turn order",
+      "turnHigherDex": "Higher DEX",
+      "turnGoesFirst": "Goes first",
+      "damageTitle": "What affects damage",
+      "damageFormula": "Damage ≈ STR or INT (by skill type) + element advantage + upgraded skill rank",
+      "damageNote": "The more your attack element beats the opponent's element, the more damage you deal — like typical elemental games (strong vs one, weak vs another).",
+      "elementTitle": "⚡ Element advantage",
+      "elementIntro": "The game compares the attack's element (normal attacks use the pet's element; skills use the skill's element) against the opponent's innate element(s), then multiplies damage using the values below.",
+      "elementSe": "Super effective",
+      "elementResist": "Resisted",
+      "elementNeutral": "Same / unrelated",
+      "elementAtkCol": "Attack element",
+      "elementStrongCol": "Strong vs",
+      "elementWeakCol": "Weak to",
+      "elementNote1": "If the opponent has two elements (Dual), advantage applies when strong against either one, and weakness only applies when both defense elements resist the attack element.",
+      "elementNote2": "Pure (single-element) pets get an extra ×{{bonus}} damage bonus on top of the chart above.",
+      "actionsTitle": "Actions each turn",
+      "actionAttack": "⚔ Attack",
+      "actionSkill": "✦ Skill (uses MP)",
+      "actionItem": "🎒 Item",
+      "actionDefend": "🛡 Defend",
+      "actionFlee": "🏃 Flee",
+      "combatNote": "During battle, HP / MP / TP (technique points) are calculated only in that room and do not affect your pet's permanent base stats."
+    },
+    "breed": {
+      "intro": "Combine two pets to create a new egg.",
+      "item": "Requires 1 {{item}}.",
+      "cooldown": "After breeding, you must wait before breeding again.",
+      "pureOnly": "Offspring currently hatch as pure element only (temporary restriction)."
+    },
+    "economy": {
+      "title": "Missions & in-game economy",
+      "intro": "Missions are the main way to earn gems for the market.",
+      "missionsTitle": "🗓 Missions",
+      "missionsBody": "Daily and weekly missions sync between your device and the cloud so you can keep playing across devices.",
+      "marketTitle": "💎 Gems & Market",
+      "marketBody": "Complete missions → earn gems → buy care items, cosmetics, or battle/breeding supplies at the market."
+    },
+    "more": {
+      "dinoJumpTitle": "🦖 Dino Jump",
+      "dinoJumpBody": "Jump over obstacles. Includes rankings and best score tracking.",
+      "rockDodgeTitle": "🪨 Rock Dodge",
+      "rockDodgeBody": "Dodge falling rocks and compete for daily item rewards from the scoreboard.",
+      "socialTitle": "👥 Social features",
+      "social1": "Find friends with a friend code",
+      "social2": "Chat in rooms (chat rooms + lobby)",
+      "social3": "Send gifts to friends",
+      "social4": "View other players' profiles and collections"
+    }
   },
   "title": {
     "pressAnyKey": "Please press any key"

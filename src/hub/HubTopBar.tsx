@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { AudioMuteButton } from '../components/AudioMuteButton'
 import type { GameSpeedMultiplier } from '../shared/gameSpeed'
 
 interface Props {
@@ -76,6 +77,7 @@ export function HubTopBar({
           </div>
         ) : null}
         {children}
+        <AudioMuteButton variant="hub" />
       </div>
     </div>
   )

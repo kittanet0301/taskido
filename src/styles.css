@@ -7728,6 +7728,27 @@ button.dash-hud-avatar--btn:disabled {
   line-height: 1;
 }
 
+.audio-mute-btn {
+  min-width: 42px;
+  padding: 6px 10px;
+  border: 2px solid #c9655d;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f6d4a8 0%, #efc18b 100%);
+  color: #3a2928;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.audio-mute-btn:hover {
+  filter: brightness(1.05);
+}
+
+.audio-mute-btn--pet {
+  width: 100%;
+  margin-top: 4px;
+}
+
 .guide-modal {
   width: min(1120px, 96vw);
   max-height: 90vh;
