@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ELEMENT_IDS, PURE_CHANCE } from '../shared/elements'
+import {
+  ELEMENT_IDS,
+  ELEMENT_STRONG_AGAINST,
+  ELEMENT_RESIST_MULT,
+  ELEMENT_SE_MULT,
+  PURE_CHANCE,
+  PURE_DAMAGE_BONUS,
+  type ElementId
+} from '../shared/elements'
 
 interface Props {
   onClose: () => void
@@ -55,6 +63,15 @@ const GROWTH_CARDS: Array<{ icon: string; name: string; desc: string }> = [
   { icon: '🔮', name: 'magelet', desc: 'เวทเบา ๆ เสริม INT' },
   { icon: '⚖️', name: 'all_round', desc: 'บาลานซ์ทุกด้าน' }
 ]
+
+function elementsThatResist(attacker: ElementId): ElementId[] {
+  return ELEMENT_IDS.filter((def) => (ELEMENT_STRONG_AGAINST[def] ?? []).includes(attacker))
+}
+
+function formatElementList(t: (key: string) => string, ids: ElementId[]): string {
+  if (ids.length === 0) return '—'
+  return ids.map((id) => t(`elements.${id}`)).join(', ')
+}
 
 const PLAY_STEPS: Array<{ title: string; body: string }> = [
   {
@@ -454,6 +471,57 @@ export function PlayerGuideModal({ onClose }: Props) {
                   ยิ่งธาตุของท่าโจมตีมีข้อได้เปรียบเหนือธาตุคู่ต่อสู้ ยิ่งทำดาเมจได้มากขึ้น — เหมือนเกม element-based
                   ทั่วไป (ธาตุนี้แรงใส่ธาตุนั้น อ่อนใส่อีกธาตุ)
                 </p>
+              </div>
+              <div className="card guide-panel">
+                <h4>⚡ ความได้เปรียบธาตุ</h4>
+                <p className="guide-note guide-note--spaced">
+                  ระบบจะเทียบ <strong>ธาตุของท่าโจมตี</strong> (โจมตีปกติใช้ธาตุสัตว์, สกิลใช้ธาตุของสกิลนั้น) กับ
+                  ธาตุประจำตัวของคู่ต่อสู้ แล้วคูณดาเมจตามตัวคูณด้านล่าง
+                </p>
+                <div className="guide-element-mults">
+                  <div className="guide-element-mult guide-element-mult--se">
+                    <span className="guide-element-mult-label">ได้เปรียบ (SE)</span>
+                    <span className="guide-element-mult-value">×{ELEMENT_SE_MULT}</span>
+                  </div>
+                  <div className="guide-element-mult guide-element-mult--resist">
+                    <span className="guide-element-mult-label">อ่อนแอ (Resist)</span>
+                    <span className="guide-element-mult-value">×{ELEMENT_RESIST_MULT}</span>
+                  </div>
+                  <div className="guide-element-mult guide-element-mult--neutral">
+                    <span className="guide-element-mult-label">ธาตุเท่ากัน / ไม่เกี่ยว</span>
+                    <span className="guide-element-mult-value">×1.0</span>
+                  </div>
+                </div>
+                <table className="guide-calc-table guide-element-table">
+                  <thead>
+                    <tr>
+                      <th>ธาตุโจมตี</th>
+                      <th>แรงใส่</th>
+                      <th>อ่อนแอต่อ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ELEMENT_IDS.map((id) => (
+                      <tr key={id}>
+                        <td className="guide-calc-name guide-element-name">
+                          <span className="guide-swatch guide-swatch--inline" style={{ background: ELEMENT_SWATCH[id] }} />
+                          {t(`elements.${id}`)}
+                        </td>
+                        <td>{formatElementList(t, ELEMENT_STRONG_AGAINST[id])}</td>
+                        <td>{formatElementList(t, elementsThatResist(id))}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <ul className="guide-spec-list guide-element-notes">
+                  <li>
+                    ถ้าคู่ต่อสู้มี <strong>สองธาตุ (Dual)</strong> จะนับว่าได้เปรียบถ้าแรงใส่ธาตุใดธาตุหนึ่ง และจะอ่อนแอก็ต่อเมื่อ
+                    ธาตุป้องกันทั้งสองช่องแรงใส่ธาตุโจมตีพร้อมกัน
+                  </li>
+                  <li>
+                    สัตว์ <strong>Pure</strong> (ธาตุเดียว) ได้โบนัสดาเมจ ×{PURE_DAMAGE_BONUS} เพิ่มจากความได้เปรียบธาตุ — แยกจากตารางด้านบน
+                  </li>
+                </ul>
               </div>
               <div className="card guide-panel">
                 <h4>การกระทำในแต่ละเทิร์น</h4>
