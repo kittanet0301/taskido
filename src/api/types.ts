@@ -28,6 +28,7 @@ export interface GameAPI {
   searchFriend: (code: string) => Promise<unknown>
   sendFriendRequest: (userId: string, friendId: string) => Promise<unknown>
   respondFriend: (requestId: string, accept: boolean) => Promise<unknown>
+  removeFriend: (userId: string, friendshipId: string) => Promise<void>
   listFriends: (userId: string) => Promise<unknown>
   listPending: (userId: string) => Promise<unknown>
   getFriendPet: (ownerId: string) => Promise<unknown>

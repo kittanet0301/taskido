@@ -35,6 +35,7 @@ const api: GameAPI = {
   searchFriend: (code) => ipcRenderer.invoke('friends:search', code),
   sendFriendRequest: (userId, friendId) => ipcRenderer.invoke('friends:request', userId, friendId),
   respondFriend: (requestId, accept) => ipcRenderer.invoke('friends:respond', requestId, accept),
+  removeFriend: (userId, friendshipId) => ipcRenderer.invoke('friends:remove', userId, friendshipId),
   listFriends: (userId) => ipcRenderer.invoke('friends:list', userId),
   listPending: (userId) => ipcRenderer.invoke('friends:pending', userId),
   getFriendPet: (ownerId) => ipcRenderer.invoke('friends:pet', ownerId),

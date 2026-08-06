@@ -42,8 +42,8 @@ export function hatchAnimMsForFrameCount(frameCount: number): number {
 
 export const DINO_HATCH_ANIM_MS = hatchAnimMsForFrameCount(DINO_HATCH_CLIP_FRAMES)
 
-/** Hold on the final hatch frame before transitioning to baby. */
-export const DINO_HATCH_POST_DELAY_MS = 4000
+/** Brief hold on the final hatch frame before transitioning to baby. */
+export const DINO_HATCH_POST_DELAY_MS = 600
 
 export const DINO_HATCH_POST_DELAY_TICKS = Math.round(
   (DINO_HATCH_POST_DELAY_MS / 1000) * DINO_ANIM_FPS

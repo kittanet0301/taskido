@@ -63,6 +63,7 @@ import {
   searchProfileByFriendCode,
   sendFriendRequest,
   respondFriendRequest,
+  removeFriend,
   listFriends,
   listPendingRequests,
   getFriendPet,
@@ -269,6 +270,9 @@ function setupIpc(): void {
   )
   ipcMain.handle('friends:respond', async (_e, requestId: string, accept: boolean) =>
     respondFriendRequest(requestId, accept)
+  )
+  ipcMain.handle('friends:remove', async (_e, userId: string, friendshipId: string) =>
+    removeFriend(userId, friendshipId)
   )
   ipcMain.handle('friends:list', async (_e, userId: string) => listFriends(userId))
   ipcMain.handle('friends:pending', async (_e, userId: string) => listPendingRequests(userId))

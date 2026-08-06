@@ -7,6 +7,11 @@ interface Props {
   variant?: 'hub' | 'pet'
 }
 
+const ICON_SRC = {
+  on: '/ui/hud-icon-audio-on.png',
+  off: '/ui/hud-icon-audio-off.png'
+} as const
+
 export function AudioMuteButton({ className = '', variant = 'hub' }: Props) {
   const { t } = useTranslation()
   const [muted, setMutedState] = useState(isMuted())
@@ -31,7 +36,12 @@ export function AudioMuteButton({ className = '', variant = 'hub' }: Props) {
       aria-label={label}
       aria-pressed={muted}
     >
-      {muted ? '🔇' : '🔊'}
+      <img
+        className="audio-mute-btn-icon hud-icon"
+        src={muted ? ICON_SRC.off : ICON_SRC.on}
+        alt=""
+        draggable={false}
+      />
     </button>
   )
 }

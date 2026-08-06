@@ -10,7 +10,7 @@ import {
 import { setSessionIsAdmin } from './shared/sessionFlags'
 import { isAdminRole } from './shared/userRole'
 import { setGameSpeedMultiplier, type GameSpeedMultiplier } from './shared/gameSpeed'
-import { playSfx, pauseBgm, setBgmTrack, unlockAudio } from './shared/audio'
+import { playSfx, pauseBgm, setBgmTrack } from './shared/audio'
 import './i18n'
 import { GetStarted } from './hub/GetStarted'
 import { LoginGate } from './hub/LoginGate'
@@ -530,17 +530,22 @@ function AppContent({ variant = 'desktop' }: Props) {
           gameSpeed={gameSpeed}
           syncing={tabSyncing}
         >
+          <LanguageSwitcher variant="pixel" />
           <button
             type="button"
-            className="secondary guide-open-btn"
+            className="guide-open-btn"
             onClick={() => openPopup(setShowGuide)}
             disabled={tabSyncing}
             title={t('guide.openLabel')}
             aria-label={t('guide.openLabel')}
           >
-            ?
+            <img
+              className="guide-open-btn-icon hud-icon"
+              src="/ui/hud-icon-guide.png"
+              alt=""
+              draggable={false}
+            />
           </button>
-          <LanguageSwitcher variant="pixel" />
         </HubTopBar>
 
         {mainView === 'home' ? (

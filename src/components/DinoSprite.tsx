@@ -9,6 +9,7 @@ import {
 } from '../shared/dinoTiming'
 import {
   drawPetSpriteFrame,
+  expectedHatchFrameCount,
   frameCountFromImage,
   frameSizeForPet,
   isHatchAnimationComplete,
@@ -143,12 +144,10 @@ export function DinoSprite({
               flipX: clip.flipX
             })
 
-            if (
-              hatching &&
-              clip.clip === 'hatch' &&
-              !hatchCompleteFiredRef.current
-            ) {
-              const frameCount = frameCountFromImage(currentImg, pet.character)
+            if (hatching && !hatchCompleteFiredRef.current) {
+              const frameCount = currentImg
+                ? frameCountFromImage(currentImg, pet.character)
+                : expectedHatchFrameCount(pet.character)
               if (isHatchAnimationComplete(frame, frameCount)) {
                 hatchCompleteFiredRef.current = true
                 onHatchCompleteRef.current?.()

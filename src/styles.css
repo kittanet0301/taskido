@@ -972,6 +972,134 @@ input, select {
   border-bottom: 1px solid #f3f4f6;
 }
 
+.friend-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.friend-list-section {
+  margin-top: 24px;
+}
+
+.friend-section-title {
+  margin: 0 0 12px;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--pixel-text, #3a2928);
+}
+
+.pixel-hub .friend-section-title {
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.friend-empty {
+  margin: 0 0 8px;
+  color: var(--pixel-muted, #6b7280);
+  font-size: 0.88rem;
+}
+
+.friend-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #fff9eb 0%, #f3d9a8 100%);
+  border: 3px solid var(--pixel-border, #5c3828);
+  box-shadow: 4px 4px 0 var(--pixel-shadow, #2a1020);
+}
+
+.friend-card--pending {
+  background: linear-gradient(180deg, #f0f7ff 0%, #cfe4ff 100%);
+}
+
+.friend-card-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.friend-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.friend-card-name {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--pixel-text, #3a2928);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friend-card-code {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--pixel-muted, #7a4f35);
+}
+
+.friend-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.friend-card-btn {
+  min-width: 104px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+}
+
+.friend-card-btn--profile {
+  background: linear-gradient(180deg, #ffffff 0%, #fde9bf 100%);
+}
+
+.friend-card-btn--remove {
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  box-shadow: 4px 4px 0 #5c1010;
+}
+
+.friend-card-btn--remove:hover:not(:disabled) {
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+}
+
+@media (max-width: 640px) {
+  .friend-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .friend-card-actions {
+    width: 100%;
+  }
+
+  .friend-card-btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .mission-claim-toast {
   margin: 0 0 12px;
   padding: 10px 12px;
@@ -7721,32 +7849,59 @@ button.dash-hud-avatar--btn:disabled {
 /* Player guide popup */
 .guide-open-btn {
   min-width: 42px;
-  padding: 6px 12px;
-  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 800;
-  line-height: 1;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.guide-open-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.guide-open-btn-icon {
+  width: 42px;
+  height: 42px;
+  max-width: 42px;
+}
+
+.guide-open-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
 }
 
 .audio-mute-btn {
   min-width: 42px;
-  padding: 6px 10px;
-  border: 2px solid #c9655d;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #f6d4a8 0%, #efc18b 100%);
-  color: #3a2928;
-  font-size: 1rem;
-  line-height: 1;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  line-height: 0;
   cursor: pointer;
 }
 
+.audio-mute-btn-icon {
+  width: 42px;
+  height: 42px;
+  max-width: 42px;
+}
+
 .audio-mute-btn:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.08);
 }
 
 .audio-mute-btn--pet {
   width: 100%;
   margin-top: 4px;
+}
+
+.audio-mute-btn--pet .audio-mute-btn-icon {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1;
 }
 
 .guide-modal {

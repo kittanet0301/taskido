@@ -40,6 +40,7 @@ export const {
   searchProfileByFriendCode,
   sendFriendRequest,
   respondFriendRequest,
+  removeFriend,
   listFriends,
   listPendingRequests,
   getFriendPet,

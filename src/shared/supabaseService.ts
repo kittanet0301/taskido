@@ -316,6 +316,22 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     return data
   }
 
+  async function removeFriend(userId: string, friendshipId: string) {
+    const supabase = requireSupabase()
+    const { data: row, error: findError } = await supabase
+      .from('friendships')
+      .select('id, user_id, friend_id, status')
+      .eq('id', friendshipId)
+      .maybeSingle()
+    if (findError) rpcError(findError)
+    if (!row) throw new Error('Friendship not found')
+    if (row.status !== 'accepted') throw new Error('Not friends')
+    if (row.user_id !== userId && row.friend_id !== userId) throw new Error('Not allowed')
+
+    const { error } = await supabase.from('friendships').delete().eq('id', friendshipId)
+    if (error) rpcError(error)
+  }
+
   async function listFriends(userId: string) {
     const supabase = getSupabase()
     if (!supabase) return []
@@ -753,6 +769,7 @@ export function createSupabaseService({ getSupabase, formatError = defaultFormat
     searchProfileByFriendCode,
     sendFriendRequest,
     respondFriendRequest,
+    removeFriend,
     listFriends,
     listPendingRequests,
     getFriendPet,
