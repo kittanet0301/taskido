@@ -12,11 +12,14 @@ import {
   createBotPet,
   createNextWaveState,
   DEFAULT_BATTLE_CONSUMABLES,
+  HARD_FINAL_WAVE_BOSS,
+  isHardFinalBossWave,
   LOCAL_PLAYER_USER_ID,
   type BattleConsumableCounts,
   type BotBattleReward,
   type BotDifficulty
 } from '../../shared/battle/bot'
+import { BATTLE_DEFEAT_HOLD_MS } from '../../shared/battle/constants'
 import { BattleArena } from './BattleArena'
 
 interface Props {
@@ -74,6 +77,10 @@ function consume(items: BattleConsumableCounts, type?: string): BattleConsumable
   return { ...items, [type]: Math.max(0, items[type] - 1) }
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms))
+}
+
 export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
   const { t } = useTranslation()
   const [difficulty, setDifficulty] = useState<BotDifficulty>('normal')
@@ -110,13 +117,18 @@ export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
       setWaveNotice(null)
       return
     }
-    setWaveNotice(t('battle.bot.waveIncoming', { wave }))
+    setWaveNotice(
+      isHardFinalBossWave(difficulty, wave)
+        ? t('battle.bot.bossIncoming', { name: t(`defaultPetNames.${HARD_FINAL_WAVE_BOSS}`) })
+        : t('battle.bot.waveIncoming', { wave })
+    )
     const id = window.setTimeout(() => setWaveNotice(null), 1100)
     return () => window.clearTimeout(id)
-  }, [t, wave])
+  }, [difficulty, t, wave])
 
   const finishWave = useCallback(async (state: BattleSessionState) => {
     if (state.status !== 'completed' || state.winnerUserId !== LOCAL_PLAYER_USER_ID) return
+    await delay(BATTLE_DEFEAT_HOLD_MS)
     if (wave < totalWaves) {
       const nextWave = wave + 1
       const bot = createBotPet(pet, {
@@ -138,15 +150,18 @@ export function BotBattle({ pet, onComplete, onStartedChange }: Props) {
   const act = useCallback(async (command: BattleActionPayload['command'], extra?: { skillId?: string; itemType?: string }) => {
     if (!started || actionLock.current || paused || match.state.status !== 'active' || match.state.turnUserId !== LOCAL_PLAYER_USER_ID) return
     actionLock.current = true
-    const action: BattleActionPayload = { command, ...extra }
-    const rank = action.skillId ? pet.skillLoadout?.slots.find((s) => s.pathId === action.skillId)?.rank : undefined
-    const result = applyAction(match.state, LOCAL_PLAYER_USER_ID,
-      action.skillId ? `skill:${action.skillId}` : action.itemType ? `item:${action.itemType}` : command,
-      { skillId: action.skillId, itemType: action.itemType, skillRank: rank })
-    setMatch((current) => ({ ...current, state: result.state, playerItems: consume(current.playerItems, action.itemType) }))
-    setTurns((current) => [...current, turnFrom(result.state, LOCAL_PLAYER_USER_ID, action, result.damage, result.logMessage, current.length)])
-    actionLock.current = false
-    await finishWave(result.state)
+    try {
+      const action: BattleActionPayload = { command, ...extra }
+      const rank = action.skillId ? pet.skillLoadout?.slots.find((s) => s.pathId === action.skillId)?.rank : undefined
+      const result = applyAction(match.state, LOCAL_PLAYER_USER_ID,
+        action.skillId ? `skill:${action.skillId}` : action.itemType ? `item:${action.itemType}` : command,
+        { skillId: action.skillId, itemType: action.itemType, skillRank: rank })
+      setMatch((current) => ({ ...current, state: result.state, playerItems: consume(current.playerItems, action.itemType) }))
+      setTurns((current) => [...current, turnFrom(result.state, LOCAL_PLAYER_USER_ID, action, result.damage, result.logMessage, current.length)])
+      await finishWave(result.state)
+    } finally {
+      actionLock.current = false
+    }
   }, [finishWave, match.state, paused, pet.skillLoadout?.slots, started])
 
   useEffect(() => {

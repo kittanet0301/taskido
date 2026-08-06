@@ -8,7 +8,7 @@ import { DinoSprite } from '../../components/DinoSprite'
 import { getSkillDef, skillPower } from '../../shared/battle/skillTrees'
 import { SkillIcon } from '../../components/SkillIcon'
 import { deriveCombatStats } from '../../shared/combatStats'
-import { collectUnseenBattleFx, isSelfBattleFx, usesAura, usesProjectile, type BattleFxDescriptor } from '../../shared/battle/battleFx'
+import { collectUnseenBattleFx, isSelfBattleFx, resolveBattleFighterAnim, usesAura, usesProjectile, type BattleFxDescriptor } from '../../shared/battle/battleFx'
 
 type MenuView = 'commands' | 'items'
 type FighterAnchor = { x: number; y: number }
@@ -190,6 +190,18 @@ export function BattleArena({
   const challengerActing = activeFx?.actorSide === 'challenger'
   const challengerHit = latestHasDamage && activeFx?.targetSide === 'challenger'
   const defenderHit = latestHasDamage && activeFx?.targetSide === 'defender'
+  const challengerDefeated = session.challengerHp <= 0
+  const defenderDefeated = session.defenderHp <= 0
+  const challengerAnim = resolveBattleFighterAnim('challenger', {
+    defeated: challengerDefeated,
+    activeFx,
+    hit: challengerHit
+  })
+  const defenderAnim = resolveBattleFighterAnim('defender', {
+    defeated: defenderDefeated,
+    activeFx,
+    hit: defenderHit
+  })
   const fxBusy = activeFx != null || fxQueue.length > 0
   const fxStyle = activeFx ? ({
     '--fx-actor-x': `${fighterAnchors[activeFx.actorSide].x}px`,
@@ -272,9 +284,9 @@ export function BattleArena({
 
         <div className={`rpg-scene-main${mode === 'bot' && rewardPreview ? ' rpg-scene-main--with-info' : ''}`}>
           <div ref={stageRef} className="battle-stage rpg-stage">
-          <div key={`challenger-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--player${challengerHit ? ' is-hit' : ''}${activeFx && challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
+          <div key={`challenger-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--player${challengerHit ? ' is-hit' : ''}${challengerDefeated ? ' is-defeated' : ''}${activeFx && challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
             <div ref={challengerSpriteRef} className="battle-fighter-sprite">
-              {challengerPet ? <DinoSprite pet={challengerPet} size={176} movementAnim={activeFx?.actorSide === 'challenger' && !isSelfBattleFx(activeFx) ? 'bite' : challengerHit ? 'hurt' : 'idle'} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
+              {challengerPet ? <DinoSprite pet={challengerPet} size={176} movementAnim={challengerAnim} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
               {session.challengerDefending && <span className="battle-fighter-badge">{t('battle.defend')}</span>}
             </div>
             {challengerHit && latestHasDamage && latestTurn && <span
@@ -285,9 +297,9 @@ export function BattleArena({
             <div className="rpg-mini-hp">{challengerName ?? t('battle.challenger')}</div>
           </div>
           <div className="battle-vs">VS</div>
-          <div key={`defender-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--enemy${defenderHit ? ' is-hit' : ''}${activeFx && !challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
+          <div key={`defender-${activeFx?.eventId ?? 'idle'}`} className={`battle-fighter battle-fighter--enemy${defenderHit ? ' is-hit' : ''}${defenderDefeated ? ' is-defeated' : ''}${activeFx && !challengerActing && !isSelfBattleFx(activeFx) ? ' is-attacking' : ''}`}>
             <div ref={defenderSpriteRef} className="battle-fighter-sprite battle-fighter-sprite--flip">
-              {defenderPet ? <DinoSprite pet={defenderPet} size={176} movementAnim={activeFx?.actorSide === 'defender' && !isSelfBattleFx(activeFx) ? 'bite' : defenderHit ? 'hurt' : 'idle'} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
+              {defenderPet ? <DinoSprite pet={defenderPet} size={176} movementAnim={defenderAnim} animationKey={activeFx?.eventId} /> : <div className="battle-fighter-placeholder" aria-hidden />}
               {session.defenderDefending && <span className="battle-fighter-badge">{t('battle.defend')}</span>}
             </div>
             {defenderHit && latestHasDamage && latestTurn && <span

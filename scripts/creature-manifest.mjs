@@ -16,7 +16,8 @@ export const CREATURE_SPECIES = [
   'water',
   'ice',
   'dragon',
-  'dark'
+  'dark',
+  'kmutnb'
 ]
 
 /** Clips per stage. Keys match folder names under assets/creatures/{species}/ */

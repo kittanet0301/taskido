@@ -46,6 +46,9 @@ export function resolvePetClip(
 
   const folder = bodyFolder(pet)
 
+  if (movementAnim === 'battle_attack') return { folder, clip: 'bite', flipX: IDLE_FLIP_X }
+  if (movementAnim === 'battle_hurt') return { folder, clip: 'hurt', flipX: IDLE_FLIP_X }
+
   if (pet.animationState === 'eat') return { folder, clip: 'bite', flipX: IDLE_FLIP_X }
   if (pet.animationState === 'happy') return { folder, clip: 'jump', flipX: IDLE_FLIP_X }
   if (pet.animationState === 'sad' || pet.animationState === 'sick') {

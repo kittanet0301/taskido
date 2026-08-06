@@ -14,7 +14,7 @@ import {
 import { canEvolveToAdult, canHatchEgg } from '../shared/stats'
 import { tCharacter, tItemDescription, tItemLabel } from '../i18n/labels'
 import { creatureDisplaySize, waitForHatchAnimation } from '../shared/petSprites'
-import { CREATURE_SPECIES, isCreatureSpecies } from '../shared/creatureCharacters'
+import { PLAYABLE_CREATURE_SPECIES, isCreatureSpecies } from '../shared/creatureCharacters'
 import { ALL_ITEM_TYPES, ITEM_ICON_SRC } from '../shared/itemIcons'
 import { HomeMissionsPanel } from './HomeMissionsPanel'
 import { CombatStatCheck } from '../components/CombatStatCheck'
@@ -541,7 +541,7 @@ export function HomeDashboard({
               <div className="dash-hud-debug" aria-label="Test controls">
                 <span className="dash-hud-debug-label">TEST</span>
                 <div className="dash-hud-debug-row">
-                  {CREATURE_SPECIES.map((species) => (
+                  {PLAYABLE_CREATURE_SPECIES.map((species) => (
                     <button
                       key={species}
                       type="button"
@@ -626,7 +626,7 @@ export function HomeDashboard({
                   >
                     Evo +12h
                   </button>
-                  {CREATURE_SPECIES.map((species) => (
+                  {PLAYABLE_CREATURE_SPECIES.map((species) => (
                     <button
                       key={`egg-${species}`}
                       type="button"

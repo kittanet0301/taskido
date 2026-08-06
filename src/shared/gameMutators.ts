@@ -16,7 +16,11 @@ export { setSessionIsAdmin, getSessionIsAdmin } from './sessionFlags'
 function debugMutatorsEnabled(): boolean {
   return getSessionIsAdmin()
 }
-import { CREATURE_SPECIES, elementForCreatureSpecies, isCreatureSpecies } from './creatureCharacters'
+import {
+  PLAYABLE_CREATURE_SPECIES,
+  elementForCreatureSpecies,
+  isPlayableCreatureSpecies
+} from './creatureCharacters'
 import { defaultPetName } from './creatureCharacters'
 import { getPetLevel } from './activityScore'
 import {
@@ -138,7 +142,7 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
   }
   if (mutatorName === 'newEgg') {
     if (!canAddPet(save)) return save
-    const speciesArg = typeof args[0] === 'string' && isCreatureSpecies(args[0]) ? args[0] : undefined
+    const speciesArg = typeof args[0] === 'string' && isPlayableCreatureSpecies(args[0]) ? args[0] : undefined
     return { ...save, collection: [...save.collection, createEggPet(speciesArg)] }
   }
   if (mutatorName === 'buyMarket' && typeof args[0] === 'string') {
@@ -188,7 +192,7 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
     return save
   }
   if (debugMutatorsEnabled() && mutatorName === 'debugSetSpecies' && typeof args[0] === 'string') {
-    if (!save.pet || !isCreatureSpecies(args[0])) return save
+    if (!save.pet || !isPlayableCreatureSpecies(args[0])) return save
     const species = args[0] as PetSpecies
     const elementPrimary = elementForCreatureSpecies(args[0])
     const elementSecondary = null
@@ -244,8 +248,10 @@ export function applyGamePatch(save: GameSave, mutatorName: string, args: unknow
   }
   if (debugMutatorsEnabled() && mutatorName === 'debugCycleSpecies') {
     if (!save.pet) return save
-    const idx = CREATURE_SPECIES.indexOf(save.pet.character as (typeof CREATURE_SPECIES)[number])
-    const next = CREATURE_SPECIES[(idx + 1) % CREATURE_SPECIES.length]
+    const idx = PLAYABLE_CREATURE_SPECIES.indexOf(
+      save.pet.character as (typeof PLAYABLE_CREATURE_SPECIES)[number]
+    )
+    const next = PLAYABLE_CREATURE_SPECIES[(Math.max(0, idx) + 1) % PLAYABLE_CREATURE_SPECIES.length]!
     const elementPrimary = elementForCreatureSpecies(next)
     const elementSecondary = null
     return {

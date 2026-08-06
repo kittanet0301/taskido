@@ -6641,7 +6641,6 @@ button.dash-hud-avatar--btn:disabled {
   place-items: center;
   padding: 18px;
   background: rgba(14, 7, 3, .68);
-  backdrop-filter: blur(3px);
 }
 .bot-battle-result {
   width: min(440px, 100%);

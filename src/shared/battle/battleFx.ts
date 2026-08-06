@@ -1,4 +1,5 @@
 import { getSkillDef, type SkillDef } from './skillTrees'
+import type { AnimationState } from '../types'
 import type { BattleTurn } from './types'
 
 export type BattleFxSide = 'challenger' | 'defender'
@@ -82,6 +83,20 @@ export function usesProjectile(fx: BattleFxDescriptor): boolean {
 
 export function usesAura(fx: BattleFxDescriptor): boolean {
   return isSelfBattleFx(fx) || fx.role === 'mark'
+}
+
+export function resolveBattleFighterAnim(
+  side: BattleFxSide,
+  options: {
+    defeated: boolean
+    activeFx: BattleFxDescriptor | null
+    hit: boolean
+  }
+): AnimationState {
+  if (options.defeated) return 'battle_hurt'
+  if (options.activeFx?.actorSide === side && !isSelfBattleFx(options.activeFx)) return 'battle_attack'
+  if (options.hit) return 'battle_hurt'
+  return 'idle'
 }
 
 /** Collect confirmed turns once, preserving server order for the playback queue. */

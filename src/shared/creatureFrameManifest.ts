@@ -508,6 +508,62 @@ export const CREATURE_FRAME_MANIFEST = {
         "frames": 4
       }
     }
+  },
+  "kmutnb": {
+    "egg": {
+      "move": {
+        "frameSize": 192,
+        "frames": 6
+      },
+      "hatch": {
+        "frameSize": 192,
+        "frames": 6
+      }
+    },
+    "baby": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    },
+    "adult": {
+      "idle": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "move": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "hurt": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "bite": {
+        "frameSize": 192,
+        "frames": 4
+      },
+      "jump": {
+        "frameSize": 192,
+        "frames": 4
+      }
+    }
   }
 } as const satisfies Record<
   CreatureSpecies,
