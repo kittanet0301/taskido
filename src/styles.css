@@ -8000,6 +8000,14 @@ button.dash-hud-avatar--btn:disabled {
   border: 2px solid var(--pixel-border);
 }
 
+.guide-swatch--inline {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 .guide-species-name {
   font-weight: 700;
   font-size: 0.86rem;
@@ -8051,6 +8059,93 @@ button.dash-hud-avatar--btn:disabled {
   margin: 10px 0 0;
   font-size: 0.8rem;
   color: var(--pixel-muted);
+}
+
+.guide-note--spaced {
+  margin-top: 0;
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+
+.guide-element-mults {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.guide-element-mult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 10px;
+  border: 3px solid var(--pixel-border);
+  background: #fff8da;
+  text-align: center;
+}
+
+.guide-element-mult-label {
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--pixel-muted);
+}
+
+.guide-element-mult-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.55rem;
+  line-height: 1.6;
+  color: var(--pixel-text);
+}
+
+.guide-element-mult--se {
+  background: #e8f8e8;
+}
+
+.guide-element-mult--resist {
+  background: #fde8e8;
+}
+
+.guide-element-mult--neutral {
+  background: #eef0f4;
+}
+
+.guide-element-table {
+  margin-bottom: 16px;
+}
+
+.guide-element-table th {
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 10px 12px;
+  color: var(--pixel-text);
+  white-space: nowrap;
+}
+
+.guide-element-table td {
+  padding: 11px 12px;
+  line-height: 1.45;
+  vertical-align: middle;
+}
+
+.guide-element-name {
+  white-space: nowrap;
+}
+
+.guide-element-notes {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 2px dashed rgba(61, 29, 44, 0.14);
+}
+
+.guide-element-notes li {
+  margin-bottom: 10px;
+  line-height: 1.55;
+}
+
+.guide-element-notes li:last-child {
+  margin-bottom: 0;
 }
 
 .guide-stage-strip {
@@ -8247,6 +8342,10 @@ button.dash-hud-avatar--btn:disabled {
   .guide-grid-2,
   .guide-grid-3,
   .guide-species-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-element-mults {
     grid-template-columns: 1fr;
   }
 }
