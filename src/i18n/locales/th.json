@@ -57,6 +57,14 @@
     "syncing": "กำลังซิงก์...",
     "autoSync": "ซิงก์อัตโนมัติ"
   },
+  "guide": {
+    "title": "คู่มือการเล่น",
+    "eyebrow": "คู่มือ",
+    "subtitle": "คู่มือการเล่นและการคำนวณ",
+    "openLabel": "คู่มือการเล่น",
+    "navLabel": "หัวข้อในคู่มือ",
+    "footer": "TASKINO — คู่มือผู้เล่น · taskimon.vercel.app"
+  },
   "title": {
     "pressAnyKey": "กรุณากดปุ่มใดก็ได้"
   },

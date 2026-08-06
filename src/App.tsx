@@ -26,6 +26,7 @@ import { PetCollection } from './hub/PetCollection'
 import { ChangePasswordForm } from './hub/ChangePasswordForm'
 import { LanguageSwitcher } from './hub/LanguageSwitcher'
 import { MiniGameHub } from './hub/minigame/MiniGameHub'
+import { PlayerGuideModal } from './hub/PlayerGuideModal'
 import { HubSidebar, type HubSidebarTarget } from './hub/HubSidebar'
 import { HubTopBar } from './hub/HubTopBar'
 import { Inventory } from './hub/Inventory'
@@ -76,6 +77,7 @@ function AppContent({ variant = 'desktop' }: Props) {
   const [showCommunity, setShowCommunity] = useState(false)
   const [showMinigame, setShowMinigame] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [showGuide, setShowGuide] = useState(false)
   const [pendingGiftCount, setPendingGiftCount] = useState(0)
   const [pendingFriendCount, setPendingFriendCount] = useState(0)
   const [eggNotifications, setEggNotifications] = useState<EggNotificationState>({
@@ -326,6 +328,7 @@ function AppContent({ variant = 'desktop' }: Props) {
     setShowCommunity(false)
     setShowMinigame(false)
     setShowSettings(false)
+    setShowGuide(false)
     setViewUserId(null)
   }
 
@@ -504,6 +507,16 @@ function AppContent({ variant = 'desktop' }: Props) {
           gameSpeed={gameSpeed}
           syncing={tabSyncing}
         >
+          <button
+            type="button"
+            className="secondary guide-open-btn"
+            onClick={() => openPopup(setShowGuide)}
+            disabled={tabSyncing}
+            title={t('guide.openLabel')}
+            aria-label={t('guide.openLabel')}
+          >
+            ?
+          </button>
           <LanguageSwitcher variant="pixel" />
         </HubTopBar>
 
@@ -609,9 +622,14 @@ function AppContent({ variant = 'desktop' }: Props) {
           cloudReady={cloudReady}
           onLogout={handleLogout}
           onDataReset={handleDataReset}
+          onOpenGuide={() => {
+            setShowSettings(false)
+            setShowGuide(true)
+          }}
           onClose={() => setShowSettings(false)}
         />
       )}
+      {showGuide && <PlayerGuideModal onClose={() => setShowGuide(false)} />}
       {viewUserId && (
         <UserProfile
           key={`profile-${viewUserId}`}

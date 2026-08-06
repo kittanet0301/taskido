@@ -57,6 +57,14 @@
     "syncing": "Syncing...",
     "autoSync": "Auto sync"
   },
+  "guide": {
+    "title": "Player Guide",
+    "eyebrow": "Guide",
+    "subtitle": "How to play and game calculations",
+    "openLabel": "Player guide",
+    "navLabel": "Guide sections",
+    "footer": "TASKINO — PLAYER GUIDE · taskimon.vercel.app"
+  },
   "title": {
     "pressAnyKey": "Please press any key"
   },

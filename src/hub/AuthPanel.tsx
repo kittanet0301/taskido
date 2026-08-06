@@ -13,6 +13,7 @@ interface Props {
   cloudReady: boolean
   onLogout?: () => void
   onDataReset?: () => void
+  onOpenGuide?: () => void
   onClose: () => void
 }
 
@@ -23,6 +24,7 @@ export function AuthPanel({
   cloudReady,
   onLogout,
   onDataReset,
+  onOpenGuide,
   onClose
 }: Props) {
   const { t } = useTranslation()
@@ -181,6 +183,11 @@ export function AuthPanel({
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <button className="primary" onClick={forceSave}>{t('auth.saveDbNow')}</button>
+            {onOpenGuide ? (
+              <button className="secondary" type="button" onClick={onOpenGuide}>
+                {t('guide.openLabel')}
+              </button>
+            ) : null}
             <button className="secondary" onClick={signOut}>{t('common.logout')}</button>
           </div>
 
