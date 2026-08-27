@@ -276,7 +276,8 @@ export function ChatRoomView({ roomId, roomSlug, roomName, userId, onLeave }: Pr
         incomingMessage={lastMessage}
       />
 
-      <p className="dash-activity-hint chat-room-controls">{t('chatLobby.controls')}</p>
+      <p className="dash-activity-hint chat-room-controls chat-room-controls--keys">{t('chatLobby.controls')}</p>
+      <p className="dash-activity-hint chat-room-controls chat-room-controls--touch">{t('chatLobby.controlsTouch')}</p>
 
       <div className="chat-room-input-row">
         <input

@@ -42,6 +42,8 @@ import {
 interface Props {
   save: GameSave
   focusMode?: boolean
+  /** Compact bottom-nav / sheet chrome for phone and short landscape viewports. */
+  phoneShell?: boolean
   /** Show TEST debug tools when the signed-in user is admin. */
   isAdmin?: boolean
   onUpdated: () => void | Promise<void>
@@ -88,6 +90,7 @@ function formatCountdown(remainingMs: number): string {
 export function HomeDashboard({
   save,
   focusMode = false,
+  phoneShell = false,
   isAdmin = false,
   onUpdated,
   carePulse = null,
@@ -127,6 +130,11 @@ export function HomeDashboard({
   const [outgoingBg, setOutgoingBg] = useState<ElementId | null>(null)
   const [bgFading, setBgFading] = useState(false)
   const hasPendingLevelUp = (pet?.pendingGrowthOffers?.length ?? 0) > 0
+  const [phoneSheet, setPhoneSheet] = useState<'status' | 'missions' | null>(null)
+
+  useEffect(() => {
+    if (!phoneShell || focusMode) setPhoneSheet(null)
+  }, [phoneShell, focusMode])
 
   const quickSlots = useMemo(
     () => normalizeQuickItemSlots(save.quickItemSlots).slice(0, QUICK_ITEM_SLOT_COUNT),
@@ -437,7 +445,7 @@ export function HomeDashboard({
   }
 
   return (
-    <div className={`dash-hud dash-hud--${petElement}${focusMode ? ' dash-hud--focus' : ''}`}>
+    <div className={`dash-hud dash-hud--${petElement}${focusMode ? ' dash-hud--focus' : ''}${phoneShell ? ' dash-hud--phone' : ''}${phoneSheet ? ` dash-hud--sheet-${phoneSheet}` : ''}`}>
       <div ref={sceneRef} className="dash-hud-scene">
         <div className="dash-scene-bg-stack" aria-hidden>
           {outgoingBg && (
@@ -477,7 +485,45 @@ export function HomeDashboard({
           </button>
         )}
 
+        {phoneShell && !focusMode && (
+          <div className="dash-phone-chips">
+            <button
+              type="button"
+              className={`dash-phone-chip${phoneSheet === 'status' ? ' active' : ''}`}
+              onClick={() => setPhoneSheet((open) => (open === 'status' ? null : 'status'))}
+            >
+              {t('home.openStatus')}
+            </button>
+            <button
+              type="button"
+              className={`dash-phone-chip${phoneSheet === 'missions' ? ' active' : ''}`}
+              onClick={() => setPhoneSheet((open) => (open === 'missions' ? null : 'missions'))}
+            >
+              {t('home.openMissions')}
+            </button>
+          </div>
+        )}
+
+        {phoneSheet && (
+          <button
+            type="button"
+            className="dash-phone-sheet-backdrop"
+            aria-label={t('home.closeSheet')}
+            onClick={() => setPhoneSheet(null)}
+          />
+        )}
+
         <section className="dash-hud-status" aria-label="Pet status">
+          {phoneShell && (
+            <button
+              type="button"
+              className="dash-phone-sheet-close"
+              onClick={() => setPhoneSheet(null)}
+              aria-label={t('home.closeSheet')}
+            >
+              ×
+            </button>
+          )}
           <div className="dash-hud-nameplate">
             <span>{pet.name}</span>
             <strong>
@@ -674,7 +720,11 @@ export function HomeDashboard({
           </div>
         </section>
 
-        <HomeMissionsPanel save={save} onUpdated={onUpdated} />
+        <HomeMissionsPanel
+          save={save}
+          onUpdated={onUpdated}
+          onCloseSheet={phoneShell ? () => setPhoneSheet(null) : undefined}
+        />
 
         <div
           className={[

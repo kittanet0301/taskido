@@ -274,10 +274,10 @@
 @media (max-width: 560px) {
   .rpg-battle-bar { grid-template-columns: 1fr auto; }
   .rpg-battle-bar > :nth-child(2) { display: none; }
-  .rpg-scene-statuses { grid-template-columns: 1fr; }
-  .rpg-scene-statuses > .rpg-status:first-child { grid-column: 1; }
-  .rpg-turn-status { grid-column: 1; }
-  .rpg-status--enemy { display: none; }
+  .rpg-scene-statuses { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .rpg-scene-statuses > .rpg-status:first-child { grid-column: auto; }
+  .rpg-turn-status { grid-column: 1 / -1; }
+  .rpg-status--enemy { display: flex; min-width: 0; }
   .rpg-arena .battle-fighter-sprite { width: 108px; height: 108px; }
   .rpg-arena .battle-fighter-sprite canvas { width: 104px; height: 104px; }
 }
@@ -1861,7 +1861,10 @@ button.dash-hud-avatar--btn:disabled {
   display: none;
 }
 
-.hub-shell--focus .hub-sidebar .dash-hud-nav-btn {
+.hub-shell--focus .hub-sidebar .dash-hud-nav-btn,
+.hub-shell--focus .hub-nav-menu-btn,
+.hub-shell--focus .hub-nav-menu,
+.hub-shell--focus .hub-nav-menu-backdrop {
   display: none;
 }
 
@@ -1882,7 +1885,9 @@ button.dash-hud-avatar--btn:disabled {
 .dash-hud--focus .dash-hud-debug,
 .dash-hud--focus .dash-hud-cta,
 .dash-hud--focus .dash-home-egg-notification,
-.dash-hud--focus .growth-levelup-overlay {
+.dash-hud--focus .growth-levelup-overlay,
+.dash-hud--focus .dash-phone-chips,
+.dash-hud--focus .dash-phone-sheet-backdrop {
   display: none !important;
 }
 
@@ -7090,11 +7095,13 @@ button.dash-hud-avatar--btn:disabled {
 }
 
 .hub-content--battle {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: 0;
   overflow: hidden;
   overflow-anchor: none;
-  padding: var(--hub-edge-y) var(--hub-edge) 30px calc(var(--hub-nav-gutter) + var(--hub-edge));
+  padding: var(--hub-edge-y) var(--hub-edge) var(--hub-edge-y) calc(var(--hub-nav-gutter) + var(--hub-edge));
   color: #ffeed0;
   background:
     linear-gradient(180deg, rgba(18, 9, 5, .82), rgba(30, 16, 8, .95)),
@@ -7111,10 +7118,11 @@ button.dash-hud-avatar--btn:disabled {
 
 .battle-page {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 12px;
   height: 100%;
-  min-height: 100%;
+  min-height: 0;
 }
 
 .battle-page--immersive {
@@ -7201,7 +7209,9 @@ button.dash-hud-avatar--btn:disabled {
 
 .battle-hub-body--bot {
   display: flex;
+  min-height: 0;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .battle-page--immersive .battle-hub-body {
@@ -7219,7 +7229,7 @@ button.dash-hud-avatar--btn:disabled {
 .battle-hub-body--bot > .bot-battle-setup,
 .battle-hub-body--bot > .bot-battle-shell {
   flex: 1;
-  min-height: 100%;
+  min-height: 0;
 }
 
 .battle-hub-body--bot > .bot-battle-shell {
@@ -7235,13 +7245,30 @@ button.dash-hud-avatar--btn:disabled {
 .battle-hub-body--room > .room-lobby,
 .battle-hub-body--room > .battle-room,
 .battle-hub-body--history > .battle-history,
-.battle-hub-body--active > .battle-active-empty {
-  min-height: min(590px, calc(100vh - 230px));
+.battle-hub-body--active > .battle-active-empty,
+.battle-hub-body > .battle-blocked-empty {
+  flex: 1;
+  min-height: 0;
   padding: clamp(20px, 3vw, 34px);
   color: #fff1d6;
   background: linear-gradient(120deg, rgba(38, 20, 10, .94), rgba(67, 38, 18, .9));
   border: 3px solid #b8732e;
   box-shadow: inset 0 0 0 2px #1b0d06, 4px 4px 0 rgba(15, 7, 3, .55);
+}
+
+.battle-hub-body > .battle-blocked-empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.battle-hub-body > .battle-blocked-empty p {
+  max-width: 28rem;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #ffd477;
+  text-shadow: 2px 2px 0 #1a0b05;
 }
 
 .battle-hub-body--room h3,
@@ -7348,7 +7375,7 @@ button.dash-hud-avatar--btn:disabled {
   border-color: #9a5b22;
 }
 
-.battle-page .bot-battle-setup { width: 100%; max-width: none; min-height: min(590px, calc(100vh - 230px)); margin: 0; padding-block: 14px; display: flex; flex-direction: column; justify-content: center; }
+.battle-page .bot-battle-setup { width: 100%; max-width: none; min-height: 0; margin: 0; padding-block: 14px; display: flex; flex-direction: column; justify-content: center; }
 .battle-page .bot-difficulty-cards { margin-block: 14px 10px; }
 .battle-page .bot-difficulty-card { min-height: 150px; padding-block: 12px; }
 .battle-page .bot-setup-items { margin-block: 8px; }
@@ -7362,6 +7389,7 @@ button.dash-hud-avatar--btn:disabled {
 .battle-hub-body--room > .room-lobby,
 .battle-hub-body--room > .battle-room,
 .battle-hub-body--active > .battle-active-empty,
+.battle-hub-body > .battle-blocked-empty,
 .battle-hub-body--history > .battle-history {
   border: 3px solid #3a1e0d;
   border-radius: 0;
@@ -7590,7 +7618,7 @@ button.dash-hud-avatar--btn:disabled {
 
 @media (max-width: 760px) {
   .hub-shell--battle { --hub-edge: 6px; --hub-nav-width: 52px; }
-  .hub-content--battle { padding-right: 6px; padding-bottom: 16px; }
+  .hub-content--battle { padding-right: 6px; padding-bottom: var(--hub-edge-y); }
   .battle-hub-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .battle-mode-tab { min-width: 0; padding-inline: 6px; }
   .battle-page .rpg-command-dock .rpg-skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -8728,4 +8756,416 @@ button.dash-hud-avatar--btn:disabled {
   .guide-element-mults {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================================
+ * Phone shell (hybrid): bottom nav + home sheets + lobby pads
+ * ============================================================ */
+
+.hub-shell--phone {
+  --hub-phone-nav-height: calc(62px + env(safe-area-inset-bottom, 0px));
+  --hub-nav-width: 0px;
+  --hub-nav-gutter: 0px;
+  --hub-edge: 10px;
+}
+
+.hub-shell--phone .hub-main {
+  padding-bottom: var(--hub-phone-nav-height);
+}
+
+.hub-shell--phone .hub-sidebar,
+.hub-shell--phone.hub-shell--home .hub-sidebar,
+.hub-shell--phone.hub-shell--battle .hub-sidebar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  z-index: 90;
+  width: 100%;
+  height: var(--hub-phone-nav-height);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, #2c1408 0%, #130f1e 100%);
+  border: 0;
+  border-top: 4px solid var(--pixel-border);
+  box-shadow: none;
+  overflow: visible;
+  backdrop-filter: none;
+}
+
+.hub-shell--phone .dash-hud-avatar {
+  display: grid;
+  width: 46px;
+  margin: 0;
+  padding: 4px;
+  flex: 0 0 auto;
+}
+
+.hub-nav-menu-backdrop {
+  position: fixed;
+  inset: 0 0 var(--hub-phone-nav-height) 0;
+  z-index: 89;
+  border: 0;
+  background: rgba(13, 6, 3, 0.45);
+  cursor: pointer;
+}
+
+.hub-nav-menu-btn {
+  position: relative;
+  z-index: 92;
+  min-width: 88px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 3px solid #2c1408;
+  background: #ffb55d;
+  color: #3b210e;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 rgba(30, 14, 4, 0.85);
+  cursor: pointer;
+}
+
+.hub-nav-menu-btn[aria-expanded='true'] {
+  background: #ffe2b3;
+}
+
+.hub-nav-menu {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: calc(100% + 8px);
+  z-index: 92;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: min(62vh, 480px);
+  overflow-y: auto;
+  padding: 8px;
+  border: 4px solid #2c1408;
+  background: rgba(255, 226, 179, 0.97);
+  box-shadow:
+    inset 0 0 0 3px #d08a22,
+    6px 6px 0 rgba(30, 14, 4, 0.78);
+}
+
+.hub-nav-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 3px solid #2c1408;
+  background: #fff6e8;
+  color: #3b210e;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hub-nav-menu-item .hud-icon {
+  width: 32px;
+  max-width: 32px;
+  flex: 0 0 auto;
+}
+
+.hub-nav-menu-item span:not(.dash-hud-nav-badge) {
+  flex: 1;
+  min-width: 0;
+}
+
+.hub-nav-menu-item .dash-hud-nav-badge {
+  position: static;
+}
+
+.hub-nav-menu-item.active {
+  background: #ffb55d;
+}
+
+.hub-shell--phone .hud-icon {
+  max-width: 28px;
+}
+
+.hub-shell--phone .hud-icon--large {
+  max-width: 32px;
+}
+
+.hub-shell--phone.hub-shell--home {
+  --hub-edge: 8px;
+  --hub-edge-y: 8px;
+}
+
+.hub-shell--phone.hub-shell--home .dash-hud-scene {
+  --hub-nav-gutter: 0px;
+}
+
+.hub-shell--phone .hub-content--battle {
+  padding-left: var(--hub-edge);
+  padding-right: var(--hub-edge);
+  padding-bottom: var(--hub-edge-y);
+}
+
+.hub-shell--phone .hub-modal-overlay {
+  padding: 12px 12px calc(12px + var(--hub-phone-nav-height));
+  align-items: flex-end;
+}
+
+.hub-shell--phone .hub-modal {
+  max-height: calc(100dvh - var(--hub-phone-nav-height) - 24px);
+}
+
+.dash-hud--phone .dash-hud-status,
+.dash-hud--phone .dash-hud-missions {
+  display: none;
+}
+
+.dash-phone-chips {
+  position: absolute;
+  z-index: 30;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.dash-phone-chip {
+  pointer-events: auto;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 3px solid #2c1408;
+  background: rgba(255, 226, 179, 0.94);
+  color: #3b210e;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 rgba(30, 14, 4, 0.78);
+}
+
+.dash-phone-chip.active {
+  background: #ffb55d;
+}
+
+.dash-phone-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border: 0;
+  background: rgba(13, 6, 3, 0.45);
+  cursor: pointer;
+}
+
+.dash-phone-sheet-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 4;
+  width: 36px;
+  height: 36px;
+  display: none;
+  place-items: center;
+  border: 3px solid #2c1408;
+  background: #ffe2b3;
+  color: #3b210e;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dash-hud--phone.dash-hud--sheet-status .dash-hud-status,
+.dash-hud--phone.dash-hud--sheet-missions .dash-hud-missions {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 25;
+  left: 8px;
+  right: 8px;
+  top: auto;
+  bottom: calc(8px + 72px);
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  max-height: min(58dvh, 480px);
+  padding-top: 8px;
+}
+
+.dash-hud--phone.dash-hud--sheet-status .dash-phone-sheet-close,
+.dash-hud--phone.dash-hud--sheet-missions .dash-phone-sheet-close {
+  display: grid;
+}
+
+.dash-hud--phone .dash-hud-quickbar {
+  bottom: 8px;
+  width: calc(100% - 16px);
+  grid-template-columns: repeat(6, minmax(44px, 1fr));
+  gap: 6px;
+}
+
+.dash-hud--phone .dash-home-egg-notification {
+  top: 58px;
+}
+
+.dash-hud--phone .dash-hud-slot,
+.dash-hud--phone .dash-hud-slot-edit {
+  min-width: 0;
+}
+
+.dash-hud--phone .dash-hud-slot {
+  min-height: 44px;
+}
+
+.chat-lobby-stage {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.chat-lobby-pads {
+  display: none;
+}
+
+.hub-shell--phone .chat-lobby-pads {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.chat-lobby-pads-move,
+.chat-lobby-pads-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-lobby-pad {
+  min-width: 52px;
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 3px solid #2c1408;
+  background: #ffe2b3;
+  color: #3b210e;
+  font-family: 'Mali', 'Noto Sans Thai', sans-serif;
+  font-weight: 800;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.chat-lobby-pad:active {
+  transform: translate(1px, 1px);
+  background: #ffb55d;
+}
+
+.chat-room-controls--touch {
+  display: none;
+}
+
+.hub-shell--phone .chat-room-controls--keys {
+  display: none;
+}
+
+.hub-shell--phone .chat-room-controls--touch {
+  display: block;
+}
+
+.hub-shell--phone .chat-room-view {
+  padding-bottom: 8px;
+}
+
+@media (max-height: 700px) {
+  .hub-shell--phone .battle-page .battle-arena.rpg-arena .rpg-scene {
+    min-height: 220px;
+  }
+}
+
+.hub-shell--phone .hub-topbar {
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 4px 6px;
+  min-height: 0;
+  border-bottom-width: 3px;
+}
+
+.hub-shell--phone .hub-topbar-logo {
+  height: 22px;
+  max-width: 72px;
+}
+
+.hub-shell--phone .hub-topbar-stats {
+  flex-wrap: nowrap;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hub-shell--phone .hub-topbar-stats::-webkit-scrollbar {
+  display: none;
+}
+
+.hub-shell--phone .dash-hud-counter {
+  min-height: 28px;
+  padding: 2px 8px 2px 26px;
+  border-width: 2px;
+  box-shadow:
+    inset 0 0 0 1px #c98b28,
+    2px 2px 0 rgba(30, 14, 4, 0.82);
+}
+
+.hub-shell--phone .dash-hud-counter-icon {
+  left: 2px;
+  width: 22px;
+  height: 22px;
+}
+
+.hub-shell--phone .dash-hud-counter span {
+  display: none;
+}
+
+.hub-shell--phone .dash-hud-counter strong {
+  font-size: 0.48rem;
+}
+
+.hub-shell--phone .hub-topbar-player,
+.hub-shell--phone .hub-topbar-speed span {
+  display: none;
+}
+
+.hub-shell--phone .hub-topbar-extra {
+  gap: 4px;
+  margin-left: 0;
+  flex-shrink: 0;
+}
+
+.hub-shell--phone .lang-switcher-pixel button {
+  min-width: 28px;
+  padding: 3px 5px;
+  font-size: 0.4rem;
+  border-width: 2px;
+}
+
+.hub-shell--phone .guide-open-btn,
+.hub-shell--phone .audio-mute-btn {
+  min-width: 28px;
+}
+
+.hub-shell--phone .guide-open-btn-icon,
+.hub-shell--phone .audio-mute-btn-icon {
+  width: 28px;
+  height: 28px;
+  max-width: 28px;
+}
+
+.hub-shell--phone .hub-topbar-speed {
+  min-height: 28px;
+  padding: 2px 6px;
 }

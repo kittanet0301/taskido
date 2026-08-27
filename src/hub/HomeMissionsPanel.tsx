@@ -10,6 +10,7 @@ import { playSfx } from '../shared/audio'
 interface Props {
   save: GameSave
   onUpdated: () => void | Promise<void>
+  onCloseSheet?: () => void
 }
 
 function MissionRewardIcon({ def }: { def: MissionDefinition }) {
@@ -31,7 +32,7 @@ function MissionRewardIcon({ def }: { def: MissionDefinition }) {
   )
 }
 
-export function HomeMissionsPanel({ save, onUpdated }: Props) {
+export function HomeMissionsPanel({ save, onUpdated, onCloseSheet }: Props) {
   const { t } = useTranslation()
   const [kind, setKind] = useState<MissionKind>('daily')
 
@@ -47,6 +48,16 @@ export function HomeMissionsPanel({ save, onUpdated }: Props) {
 
   return (
     <section className="dash-hud-missions" aria-label={t('home.dailyMissions')}>
+      {onCloseSheet && (
+        <button
+          type="button"
+          className="dash-phone-sheet-close"
+          onClick={onCloseSheet}
+          aria-label={t('home.closeSheet')}
+        >
+          ×
+        </button>
+      )}
       <div className="dash-hud-missions-tabs">
         <button
           type="button"

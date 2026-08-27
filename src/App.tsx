@@ -30,6 +30,7 @@ import { MiniGameHub } from './hub/minigame/MiniGameHub'
 import { PlayerGuideModal } from './hub/PlayerGuideModal'
 import { HubSidebar, type HubSidebarTarget } from './hub/HubSidebar'
 import { HubTopBar } from './hub/HubTopBar'
+import { usePhoneShell } from './hub/usePhoneShell'
 import { Inventory } from './hub/Inventory'
 import { SkillForgetModal } from './components/SkillForgetModal'
 import { Market } from './hub/Market'
@@ -94,6 +95,7 @@ function AppContent({ variant = 'desktop' }: Props) {
   const [passwordRecovery, setPasswordRecovery] = useState(() => isPasswordRecoveryPending())
   const [homeFocus, setHomeFocus] = useState(false)
   const [gameSpeed, setGameSpeed] = useState<GameSpeedMultiplier>(1)
+  const phoneShell = usePhoneShell()
 
   const refresh = useCallback(async () => {
     if (!window.electronAPI) return
@@ -505,6 +507,7 @@ function AppContent({ variant = 'desktop' }: Props) {
         community: pendingFriendCount
       }}
       onNavigate={handleSidebarNavigate}
+      compactMenu={phoneShell}
       onAvatarClick={
         mainView === 'home'
           ? () => setHomeFocus((v) => !v)
@@ -520,7 +523,7 @@ function AppContent({ variant = 'desktop' }: Props) {
     <div
       className={`app pixel-hub hub-shell${mainView === 'home' ? ' hub-shell--home' : ''}${mainView === 'battle' ? ' hub-shell--battle' : ''}${
         mainView === 'home' && homeFocus ? ' hub-shell--focus' : ''
-      }`}
+      }${phoneShell ? ' hub-shell--phone' : ''}`}
     >
       <div className="hub-main">
         <HubTopBar
@@ -557,6 +560,7 @@ function AppContent({ variant = 'desktop' }: Props) {
               <HomeDashboard
                 save={save}
                 focusMode={homeFocus}
+                phoneShell={phoneShell}
                 isAdmin={isAdmin}
                 onUpdated={refresh}
                 carePulse={carePulse}

@@ -102,3 +102,13 @@ export function pureBonus(primary: ElementId, secondary: ElementId | null | unde
 export function canEnterBattle(health: number, emotion: number): boolean {
   return health >= BATTLE_HEALTH_MIN && emotion >= BATTLE_EMOTION_MIN
 }
+
+export type BattleEntryBlock = 'egg' | 'care'
+
+export function battleEntryBlock(
+  pet: { stage: string; stats: { health: number; emotion: number } } | null | undefined
+): BattleEntryBlock | null {
+  if (!pet || pet.stage === 'egg') return 'egg'
+  if (!canEnterBattle(pet.stats.health, pet.stats.emotion)) return 'care'
+  return null
+}

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type PointerEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { Gender, Stage } from '../../shared/types'
 import { playSfx } from '../../shared/audio'
 import { petPreviewColor } from '../../shared/constants'
@@ -189,12 +190,14 @@ function drawBubble(
 }
 
 export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync, incomingMessage }: Props) {
+  const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const frameRef = useRef(0)
   const physicsRef = useRef<PhysicsState>(createPhysicsState())
   const inputRef = useRef<LobbyInput>({ move: 0, jump: false, dash: false, greet: false })
   const jumpQueuedRef = useRef(false)
   const greetQueuedRef = useRef(false)
+  const heldRef = useRef({ left: false, right: false, shift: false })
   const displayRef = useRef<Map<string, { x: number; y: number }>>(new Map())
   const bubblesRef = useRef<Map<string, import('./types').SpeechBubble>>(new Map())
   const spriteCacheRef = useRef<Map<string, HTMLImageElement>>(new Map())
@@ -205,6 +208,28 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
 
   membersRef.current = members
   onSyncRef.current = onPositionSync
+
+  const syncHeldInput = () => {
+    const held = heldRef.current
+    inputRef.current.move = held.left && !held.right ? -1 : held.right && !held.left ? 1 : 0
+    inputRef.current.dash = held.shift
+  }
+
+  const bindPadHold = (key: 'left' | 'right' | 'shift', pressed: boolean) => {
+    heldRef.current[key] = pressed
+    syncHeldInput()
+  }
+
+  const onPadPointer = (key: 'left' | 'right' | 'shift') => ({
+    onPointerDown: (e: PointerEvent<HTMLButtonElement>) => {
+      if (e.button !== 0) return
+      e.preventDefault()
+      e.currentTarget.setPointerCapture(e.pointerId)
+      bindPadHold(key, true)
+    },
+    onPointerUp: () => bindPadHold(key, false),
+    onPointerCancel: () => bindPadHold(key, false)
+  })
 
   useEffect(() => {
     physicsRef.current = resetPhysicsSpawn(createPhysicsState())
@@ -249,34 +274,27 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
       return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement
     }
 
-    const held = { left: false, right: false, shift: false }
-
     const isMoveLeft = (e: KeyboardEvent) =>
       e.code === 'KeyA' || e.key === 'a' || e.key === 'A' || e.key === 'ฟ'
 
     const isMoveRight = (e: KeyboardEvent) =>
       e.code === 'KeyD' || e.key === 'd' || e.key === 'D' || e.key === 'ก'
 
-    const syncInput = () => {
-      inputRef.current.move = held.left && !held.right ? -1 : held.right && !held.left ? 1 : 0
-      inputRef.current.dash = held.shift
-    }
-
     const onKeyDown = (e: KeyboardEvent) => {
       if (isTyping()) return
       if (isMoveLeft(e)) {
-        held.left = true
-        syncInput()
+        heldRef.current.left = true
+        syncHeldInput()
         e.preventDefault()
       }
       if (isMoveRight(e)) {
-        held.right = true
-        syncInput()
+        heldRef.current.right = true
+        syncHeldInput()
         e.preventDefault()
       }
       if (e.key === 'Shift') {
-        held.shift = true
-        syncInput()
+        heldRef.current.shift = true
+        syncHeldInput()
       }
       if (e.key === ' ' && !e.repeat) {
         jumpQueuedRef.current = true
@@ -290,23 +308,21 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
 
     const onKeyUp = (e: KeyboardEvent) => {
       if (isMoveLeft(e)) {
-        held.left = false
-        syncInput()
+        heldRef.current.left = false
+        syncHeldInput()
       }
       if (isMoveRight(e)) {
-        held.right = false
-        syncInput()
+        heldRef.current.right = false
+        syncHeldInput()
       }
       if (e.key === 'Shift') {
-        held.shift = false
-        syncInput()
+        heldRef.current.shift = false
+        syncHeldInput()
       }
     }
 
     const resetInput = () => {
-      held.left = false
-      held.right = false
-      held.shift = false
+      heldRef.current = { left: false, right: false, shift: false }
       inputRef.current = { move: 0, jump: false, dash: false, greet: false }
       jumpQueuedRef.current = false
       greetQueuedRef.current = false
@@ -442,11 +458,52 @@ export function LobbyCanvas({ roomId, roomSlug, userId, members, onPositionSync,
   }, [roomId, roomSlug, userId])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="chat-lobby-canvas dino-sprite-canvas"
-      tabIndex={0}
-      aria-label="Chat lobby"
-    />
+    <div className="chat-lobby-stage">
+      <canvas
+        ref={canvasRef}
+        className="chat-lobby-canvas dino-sprite-canvas"
+        tabIndex={0}
+        aria-label="Chat lobby"
+      />
+      <div className="chat-lobby-pads" aria-label={t('chatLobby.controlsTouch')}>
+        <div className="chat-lobby-pads-move">
+          <button type="button" className="chat-lobby-pad" {...onPadPointer('left')} aria-label={t('chatLobby.moveLeft')}>
+            ◀
+          </button>
+          <button type="button" className="chat-lobby-pad" {...onPadPointer('right')} aria-label={t('chatLobby.moveRight')}>
+            ▶
+          </button>
+        </div>
+        <div className="chat-lobby-pads-actions">
+          <button
+            type="button"
+            className="chat-lobby-pad"
+            aria-label={t('chatLobby.jump')}
+            onPointerDown={(e) => {
+              if (e.button !== 0) return
+              e.preventDefault()
+              jumpQueuedRef.current = true
+            }}
+          >
+            {t('chatLobby.jump')}
+          </button>
+          <button type="button" className="chat-lobby-pad" {...onPadPointer('shift')} aria-label={t('chatLobby.dash')}>
+            {t('chatLobby.dash')}
+          </button>
+          <button
+            type="button"
+            className="chat-lobby-pad"
+            aria-label={t('chatLobby.greet')}
+            onPointerDown={(e) => {
+              if (e.button !== 0) return
+              e.preventDefault()
+              greetQueuedRef.current = true
+            }}
+          >
+            {t('chatLobby.greet')}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

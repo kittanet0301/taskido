@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { GameSave, PetData } from '../../shared/types'
 import type { BattleCommand, BattleSession } from '../../shared/battle/types'
-import { canEnterBattle } from '../../shared/elements'
+import { BATTLE_EMOTION_MIN, BATTLE_HEALTH_MIN, battleEntryBlock } from '../../shared/elements'
 import { mapBattleSession, mapBattleTurn, mapPetRowToPetData } from '../../shared/battle/mappers'
 import { BattleContext } from './BattleContext'
 import { RoomLobby } from './RoomLobby'
@@ -240,10 +240,24 @@ export function BattleHub({ save, variant = 'desktop', onUpdated, onBack, backDi
   }
 
   const shieldCount = save.inventory.find((i) => i.type === 'battle_shield')?.quantity ?? 0
-  const canBattle =
-    !!save.pet &&
-    save.pet.stage !== 'egg' &&
-    canEnterBattle(save.pet.stats.health, save.pet.stats.emotion)
+  const battleBlock = battleEntryBlock(save.pet)
+  const canBattle = battleBlock === null
+  const blockedCopy =
+    battleBlock === 'egg'
+      ? t('pet.needRaiseBeforeBattleHp')
+      : battleBlock
+        ? t('pet.needRaiseBeforeBattleCare', {
+            minHealth: BATTLE_HEALTH_MIN,
+            minEmotion: BATTLE_EMOTION_MIN,
+            health: Math.round(save.pet?.stats.health ?? 0),
+            emotion: Math.round(save.pet?.stats.emotion ?? 0)
+          })
+        : null
+  const blockedPanel = blockedCopy ? (
+    <div className="battle-blocked-empty" role="status">
+      <p>{blockedCopy}</p>
+    </div>
+  ) : null
 
   const hubTabs: { id: HubTab; label: string }[] = [
     { id: 'bot', label: t('battle.tabs.bot') },
@@ -288,6 +302,7 @@ export function BattleHub({ save, variant = 'desktop', onUpdated, onBack, backDi
 
       <div className="battle-hub-panel">
         <div className={`battle-hub-body battle-hub-body--${hubTab}`}>
+          {hubTab === 'bot' && battleBlock && blockedPanel}
           {hubTab === 'bot' && canBattle && save.pet && (
             <BotBattle
               pet={save.pet}
@@ -298,7 +313,8 @@ export function BattleHub({ save, variant = 'desktop', onUpdated, onBack, backDi
               }}
             />
           )}
-          {hubTab === 'room' && (
+          {hubTab === 'room' && battleBlock && !ctx?.roomId && blockedPanel}
+          {hubTab === 'room' && (!battleBlock || ctx?.roomId) && (
             <>
               {ctx?.roomId ? (
                 <BattleRoom onDuelStarted={goToActiveBattle} />

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   FORCE_PURE_ELEMENTS,
+  battleEntryBlock,
   canEnterBattle,
   elementMultiplier,
   pureBonus,
@@ -38,6 +39,13 @@ describe('elements', () => {
     expect(canEnterBattle(30, 30)).toBe(true)
     expect(canEnterBattle(29, 30)).toBe(false)
     expect(canEnterBattle(30, 29)).toBe(false)
+  })
+
+  it('classifies why battle entry is blocked', () => {
+    expect(battleEntryBlock(null)).toBe('egg')
+    expect(battleEntryBlock({ stage: 'egg', stats: { health: 80, emotion: 80 } })).toBe('egg')
+    expect(battleEntryBlock({ stage: 'baby', stats: { health: 29, emotion: 80 } })).toBe('care')
+    expect(battleEntryBlock({ stage: 'baby', stats: { health: 80, emotion: 80 } })).toBe(null)
   })
 
   it('rolls pure slots while FORCE_PURE_ELEMENTS is on', () => {
